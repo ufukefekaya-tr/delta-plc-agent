@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "task_id": "TASK-ID",
+  "sequence": 0,
+  "envelope_sha256": "REPLACE_WITH_ENVELOPE_SHA256",
+  "policy_epoch_algorithm": "sha256-path-nul-bytes-nul-v1",
+  "policy_epoch": "REPLACE_WITH_POLICY_EPOCH",
+  "repo_head": "REPLACE_WITH_FULL_COMMIT_HASH",
+  "worktree_status_sha256": "REPLACE_WITH_STATUS_SHA256",
+  "completed_gate": "bootstrap",
+  "evidence": [],
+  "open_items": [],
+  "assumptions": [],
+  "next_step": "REPLACE_WITH_ONE_ATOMIC_NEXT_STEP"
+}

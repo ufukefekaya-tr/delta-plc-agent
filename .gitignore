@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.audit-local/
+.agent-state/
+.coverage
+dist/
+.venv/

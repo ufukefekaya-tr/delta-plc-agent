@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "AGENT_JOB_TEMPLATE_NOT_RUNTIME_AUTHORIZATION",
+  "job_id": "replace-with-unique-job-id",
+  "target": {"vendor":"delta","family":"DVP","model":"REPLACE_WITH_EXACT_MODEL","toolchain":"dvpserial"},
+  "approved_source": {"path":"REPLACE_WITH_ABSOLUTE_PATH","sha256":"REPLACE_WITH_SHA256","revision":"REPLACE_WITH_APPROVED_REVISION","authority_reference":"REPLACE_WITH_CURRENT_HANDOFF"},
+  "host_config": "REPLACE_WITH_ABSOLUTE_PATH_TO_CURRENT_ENROLLMENT",
+  "machine_catalog": "REPLACE_WITH_ABSOLUTE_PATH_TO_CURRENT_SIGNAL_CONTRACT",
+  "actions": {"produce":true,"compile":true,"download":false,"run_after_download":false,"watch":true},
+  "watch": {"duration_seconds":90,"interval_seconds":1,"signals":"catalog observations"},
+  "delivery_directory": "REPLACE_WITH_NEW_OUTPUT_DIRECTORY",
+  "result_fields": ["source_sha256","candidate_sha256","tool_sha256","software_tests","vendor_compile","vendor_download","program_comparison","mcp_watch","final_plc_state","evidence_paths","blockers"],
+  "result_states": ["PASS","FAIL","NOT_RUN","NOT_REQUESTED","BLOCKED","UNKNOWN_OUTCOME"]
+}

@@ -1,0 +1,131 @@
+{
+  "policy_version": "2",
+  "protocol": "AXQ-FILE/2",
+  "default_action": "deny",
+  "operations": [
+    {
+      "operation": "environment.probe",
+      "classification": "read_only",
+      "authority": "task_envelope"
+    },
+    {
+      "operation": "project.tree.read",
+      "classification": "read_only",
+      "authority": "workspace"
+    },
+    {
+      "operation": "project.inventory.read",
+      "classification": "read_only",
+      "authority": "workspace"
+    },
+    {
+      "operation": "source.read",
+      "classification": "read_only",
+      "authority": "workspace"
+    },
+    {
+      "operation": "project.export.native",
+      "classification": "read_only",
+      "authority": "workspace"
+    },
+    {
+      "operation": "workspace.create",
+      "classification": "workspace_mutation",
+      "authority": "baseline_digest"
+    },
+    {
+      "operation": "workspace.status",
+      "classification": "read_only",
+      "authority": "workspace"
+    },
+    {
+      "operation": "source.upsert.st",
+      "classification": "workspace_mutation",
+      "authority": "workspace_revision"
+    },
+    {
+      "operation": "ladder.networks.apply",
+      "classification": "workspace_mutation",
+      "authority": "workspace_revision"
+    },
+    {
+      "operation": "project.build",
+      "classification": "workspace_mutation",
+      "authority": "workspace_revision"
+    },
+    {
+      "operation": "artifact.freeze",
+      "classification": "workspace_mutation",
+      "authority": "passed_build"
+    },
+    {
+      "operation": "deployment.prepare",
+      "classification": "target_plan",
+      "authority": "artifact_target_rollback"
+    },
+    {
+      "operation": "deployment.execute",
+      "classification": "target_mutation",
+      "authority": "single_use_yukle"
+    },
+    {
+      "operation": "deployment.reconcile",
+      "classification": "target_read",
+      "authority": "unknown_outcome_job_and_target_fingerprint"
+    },
+    {
+      "operation": "target.observe.start",
+      "classification": "target_read",
+      "authority": "target_fingerprint"
+    },
+    {
+      "operation": "target.observe.read",
+      "classification": "target_read",
+      "authority": "target_fingerprint"
+    },
+    {
+      "operation": "target.observe.stop",
+      "classification": "target_read",
+      "authority": "target_fingerprint"
+    },
+    {
+      "operation": "job.status",
+      "classification": "read_only",
+      "authority": "job_id"
+    },
+    {
+      "operation": "job.cancel",
+      "classification": "queue_mutation",
+      "authority": "job_id_safe_point"
+    }
+  ],
+  "hard_denied": [
+    "eval",
+    "_eval",
+    "shell",
+    "arbitrary_filesystem",
+    "arbitrary_path",
+    "generic_import",
+    "generic_write",
+    "force",
+    "online_write",
+    "reset_origin",
+    "firmware_update",
+    "library_update",
+    "safety_bypass",
+    "production_target",
+    "raw_ipc_passthrough",
+    "MCPTOOLKIT_DEV",
+    "dev.flag"
+  ],
+  "target_requirements": {
+    "fingerprint_allowlist": true,
+    "isolated_ax_308_only": true,
+    "physical_outputs_energized": false,
+    "last_known_good_required": true,
+    "download_authority_phrase": "yükle",
+    "authority_ttl_seconds": 600,
+    "single_use": true,
+    "blind_retry_after_unknown_outcome": false
+  }
+}

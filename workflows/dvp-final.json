@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "DVP_FINAL_DELIVERY",
+  "execution": "AGENT_ORCHESTRATION; not a new workflow.run schema",
+  "instructions": "Run only each listed MCP operation through existing W1-W7. Computer Use and host provisioning are external stages with separate evidence, never fabricated adapter.invoke calls.",
+  "stages": [
+    {"id":"inventory","workflow":"W1","executor":"mcp","operations":["serial.ports","machine.profile"],"acceptance":"approved source/catalog/target and installed package hashes recorded"},
+    {"id":"provision","workflow":"W1","executor":"host_tools","operations":[],"acceptance":"DVP environment installed; exact vendor/driver prerequisites found or concrete blocker"},
+    {"id":"produce","workflow":"W2","executor":"computer_use","operations":[],"acceptance":"task copy created or edited with supported existing tools; original preserved"},
+    {"id":"compile","workflow":"W3","executor":"computer_use","operations":[],"acceptance":"real WPLSoft compile/save/reopen; candidate and executable digests recorded"},
+    {"id":"download","workflow":"W5","executor":"computer_use","operations":[],"optional":true,"acceptance":"explicit request, current physical authority, target fingerprint, backup, vendor compare/readback and final STOP; otherwise NOT_REQUESTED or BLOCKED"},
+    {"id":"watch","workflow":"W5","executor":"mcp","operations":["target.connect","target.identify","target.status","machine.observe","target.disconnect"],"acceptance":"WPLSoft handle released; exclusive MCP lease; fresh identity/status; timestamped samples, disconnect confirmed"},
+    {"id":"recover","workflow":"W6","executor":"mcp","operations":["machine.reconcile","target.status","target.disconnect"],"acceptance":"unknown writes never replay; GUI transfer uncertainty reconciled via vendor evidence before normal work"},
+    {"id":"close","workflow":"W7","executor":"agent","operations":[],"acceptance":"tests, review, delivery index, feature gaps and scoped local commit; physical outcomes separate"}
+  ],
+  "watch_defaults": {"duration_seconds":90,"interval_seconds":1,"atomic_snapshot":false,"automatic_write_retry":false},
+  "port_ownership": "MCP disconnect and confirmed handle release -> WPLSoft -> GUI disconnect -> MCP fresh target checks; no forced takeover",
+  "compile_and_download_api_added": false
+}

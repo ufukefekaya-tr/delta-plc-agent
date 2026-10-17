@@ -1,0 +1,16 @@
+{
+  "schema_version": "1",
+  "record_type": "TargetEnrollment",
+  "status": "not_enrolled",
+  "captured_at": null,
+  "model": "AX-308",
+  "device_identity": null,
+  "runtime_version": null,
+  "firmware_version": null,
+  "gateway_route_digest": null,
+  "application_identity": null,
+  "forced_values_present": null,
+  "physical_outputs_energized": false,
+  "isolation_evidence_digest": null,
+  "fingerprint": null
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "2",
+  "record_type": "LadderRecipe",
+  "project": "SyntheticProject",
+  "pou": "PulseSequence",
+  "variables": [
+    {
+      "name": "Enable",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "Pulse pulse function is explicitly enabled."
+    },
+    {
+      "name": "ZeroTransition",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "Fresh valid nonzero-to-zero transition from synthetic source service."
+    },
+    {
+      "name": "DelayTime",
+      "type": "TIME",
+      "direction": "input",
+      "comment": "Configured delay before the pulse."
+    },
+    {
+      "name": "PulseTime",
+      "type": "TIME",
+      "direction": "input",
+      "comment": "Configured bounded pulse pulse duration."
+    },
+    {
+      "name": "EdgeQ",
+      "type": "BOOL",
+      "direction": "local",
+      "comment": "One-scan edge result."
+    },
+    {
+      "name": "DelayQ",
+      "type": "BOOL",
+      "direction": "local",
+      "comment": "Delay completion result."
+    },
+    {
+      "name": "PulseQ",
+      "type": "BOOL",
+      "direction": "local",
+      "comment": "Pulse timer result."
+    },
+    {
+      "name": "PulseRequest",
+      "type": "BOOL",
+      "direction": "output",
+      "comment": "Single request consumed by the three physical pulse output networks."
+    }
+  ],
+  "networks": [
+    {
+      "id": "KNIFE-PULSE",
+      "order": 1,
+      "title": "Validated zero-speed pulse pulse",
+      "comment": "A fresh transition is edge-detected, delayed and converted to one bounded pulse.",
+      "elements": [
+        {
+          "kind": "contact",
+          "variable": "Enable",
+          "polarity": "NO"
+        },
+        {
+          "kind": "fb_call",
+          "block_type": "R_TRIG",
+          "instance": "ZeroEdge",
+          "inputs": [
+            {
+              "pin": "CLK",
+              "variable": "ZeroTransition"
+            }
+          ],
+          "outputs": [
+            {
+              "pin": "Q",
+              "variable": "EdgeQ"
+            }
+          ]
+        },
+        {
+          "kind": "fb_call",
+          "block_type": "TON",
+          "instance": "PulseDelay",
+          "inputs": [
+            {
+              "pin": "IN",
+              "variable": "EdgeQ"
+            },
+            {
+              "pin": "PT",
+              "variable": "DelayTime"
+            }
+          ],
+          "outputs": [
+            {
+              "pin": "Q",
+              "variable": "DelayQ"
+            }
+          ]
+        },
+        {
+          "kind": "fb_call",
+          "block_type": "TP",
+          "instance": "PulsePulse",
+          "inputs": [
+            {
+              "pin": "IN",
+              "variable": "DelayQ"
+            },
+            {
+              "pin": "PT",
+              "variable": "PulseTime"
+            }
+          ],
+          "outputs": [
+            {
+              "pin": "Q",
+              "variable": "PulseQ"
+            }
+          ]
+        }
+      ],
+      "coil": {
+        "variable": "PulseRequest",
+        "mode": "normal"
+      }
+    }
+  ],
+  "output_allowlist": [
+    "PulseRequest"
+  ]
+}

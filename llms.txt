@@ -1,0 +1,19 @@
+# PLCWeave
+
+> Agent-native PLC engineering: one MCP, model-aware workflows, traceable results.
+
+Owner: ufukefekaya-tr. License: MIT; retain third-party notices.
+
+- Start: AGENTS.md, SYSTEM_PROMPT.md, INDEX.md
+- First workflow: docs/QUICKSTART.md; python tools/demo.py
+- Capabilities: docs/FEATURES.md, catalog/README.md
+- API: docs/UNIVERSAL_RUNTIME.md
+- AX: backends/ax/README.md
+- DVP: docs/DVP_AGENT_RUNBOOK.md, docs/adapters/dvp-controls.md
+- File transforms: docs/adapters/delta-files.md
+- Roles: prompts/roles/; workflows: workflows/README.md
+- Contribute: CONTRIBUTING.md; evidence: docs/public/VALIDATION.md
+
+Resolve the exact target and work in hash-bound workspaces. Keep software,
+native and hardware evidence distinct. Use current external profiles for live
+authority. One model result does not prove all-model support.

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "task_id": "dvpserial-fast-20261013",
+  "started_at": "2026-10-13T10:14:19+00:00",
+  "deadline": "2026-10-13T11:14:19+00:00",
+  "mode": "FAST_UNVERIFIED",
+  "target": {
+    "vendor": "delta",
+    "family": "DVP",
+    "model": "DVP14SS211R",
+    "toolchain": "dvpserial",
+    "exact_model_verified": false
+  },
+  "route": "COM6 HMI USB CDC to PLC RS485",
+  "candidate_sha256": "3aa819953e13baa2307077b5b3126d1b4d4125fe6df9270a438d2820246e79fd",
+  "goals": [
+    {
+      "id": "G-DVP-0",
+      "workflow": "W1",
+      "status": "PASS_SOFTWARE",
+      "acceptance": "MCP tools listed; target resolved; workspace and serial.ports callable"
+    },
+    {
+      "id": "G-DVP-1",
+      "workflow": "W5",
+      "status": "PASS_LIVE_READ",
+      "online_verified": true,
+      "blocker": null,
+      "acceptance": "Valid PLC RUN/STOP and two consecutive D100-D111 reads",
+      "observed_at": "2026-10-13T10:41:57.770725+00:00",
+      "running": false,
+      "temperature_raw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "exact_model_verified": false
+    },
+    {
+      "id": "G-DVP-2",
+      "workflow": "W5",
+      "status": "PROGRAM_TRANSFER_UNAVAILABLE",
+      "program_transfer_verified": false,
+      "backup": "NOT_RUN",
+      "download": "NOT_RUN",
+      "readback_compare": "NOT_RUN",
+      "blocker": "No verified SS2 transfer protocol/API within initial10minute researchgate"
+    },
+    {
+      "id": "G-DVP-3",
+      "workflow": "W6",
+      "status": "PASS_SOFTWARE",
+      "acceptance": "Missing/busy port, expiry, wrongendpoint/read, LRC/frame, timeout/slowjunk, echo, partialwrite, transferguard tests"
+    },
+    {
+      "id": "G-DVP-4",
+      "workflow": "W7",
+      "status": "PASS_DELIVERY",
+      "acceptance": "Runnable MCPclient/docs/evidence; scopedcommit proof pending"
+    },
+    {
+      "id": "G-DVP-5",
+      "workflow": "W5",
+      "status": "SUPERSEDED_BY_ACTIVE_TRANSFER_GOAL",
+      "objective": "Latestapprovedprogram backup/deploy/readback; currentuserV7 supersedesV5",
+      "dependency": "VerifiedSS2programtransferAPI/protocolcontract",
+      "acceptance": [
+        "CurrentlatestapprovedsavedsourceSHA/payloadSHA",
+        "Fullbackup",
+        "Durableprepare/once-onlyexecute",
+        "Independentprogram/descriptor/parameterreadback",
+        "FinalSTOP andunknownoutcome notautoreplayed"
+      ],
+      "live_mutations_authorized_by_this_record": false,
+      "current_record": "goals/dvp-transfer.json"
+    }
+  ],
+  "evidence": [
+    "reports/dvpserial/com6-mcp-probe.json",
+    "reports/dvpserial/transfer-feasibility.md",
+    "reports/dvpserial/com6-cdc-mcp-probe.json",
+    "reports/dvpserial/com6-run-read-stop.json"
+  ],
+  "plc_program_changed": false,
+  "stop_command_sent": true,
+  "run_command_sent": true,
+  "run_read_stop": {
+    "status": "PASS_LIVE_CONTROL",
+    "evidence": "reports/dvpserial/com6-run-read-stop.json",
+    "observed_at": "2026-10-13T10:52:40.696323+00:00",
+    "run_verified": true,
+    "stop_verified": true,
+    "temperature_c": [
+      24.6,
+      25.2,
+      25.2,
+      24.9,
+      24.9,
+      25.1,
+      26.2,
+      24.6,
+      25.0,
+      25.6,
+      25.1,
+      24.9
+    ],
+    "program_downloaded": false
+  }
+}

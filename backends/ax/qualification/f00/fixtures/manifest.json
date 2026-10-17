@@ -1,0 +1,32 @@
+{
+  "fixture_set_version": "1",
+  "protocol": "AXQ-FILE/1",
+  "evidence_ceiling": "STATIC_CHECKED",
+  "chain": {
+    "request": {
+      "path": "request.valid.json",
+      "sha256": "sha256:5b1663e63d74ac69fd325005ec5221e9f3f5266ff3a77aa78f3be8d3f12ca9e7"
+    },
+    "result": {
+      "path": "result.valid.json",
+      "sha256": "sha256:3ec3475d3e286ce42000aad52bab2d2f5f0273dca578562990e3c0a0a7599a57"
+    },
+    "evidence": {
+      "path": "evidence.valid.json",
+      "sha256": "sha256:51b5455e65aabe0172b0ee582938b2bc8783a0b8de3866f545d96421df73f70c"
+    }
+  },
+  "fault_fixtures": [
+    "request.corrupt.json",
+    "request.duplicate-key.json",
+    "request.valid.json.partial"
+  ],
+  "not_run": [
+    "upstream_code_execution",
+    "mcp_installation",
+    "vendor_ide_open_or_import",
+    "vendor_build_or_rebuild",
+    "plc_or_real_target_contact",
+    "online_or_hil_test"
+  ]
+}

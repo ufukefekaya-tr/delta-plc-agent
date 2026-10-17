@@ -1,0 +1,14 @@
+{
+  "manifest_version": "1",
+  "classification": "SIMULATED",
+  "live_ax_verified": false,
+  "bundle_path": "backends/ax/src/axmcp_offline/data/simulated_replay_bundle.json",
+  "bundle_sha256": "d4de7238531a46a9a9faf2f7d00cf686e2e24dcb76f1d04be13793bcd1a90861",
+  "operations": [
+    "environment.probe",
+    "project.tree.read",
+    "project.inventory.read",
+    "source.read",
+    "project.export.native"
+  ]
+}

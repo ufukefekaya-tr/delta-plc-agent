@@ -1,0 +1,12 @@
+{
+  "schema_version": "1",
+  "record_type": "CapabilityResult",
+  "captured_at": "2026-08-31 12:01:00Z",
+  "operation": "environment.probe",
+  "status": "unverified",
+  "mode": "declared_not_executable",
+  "limitations": [
+    "F00 recorded fixture only"
+  ],
+  "environment_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+}

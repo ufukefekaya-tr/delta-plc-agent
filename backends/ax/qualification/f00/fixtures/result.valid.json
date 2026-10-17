@@ -1,0 +1,19 @@
+{
+  "protocol": "AXQ-FILE/1",
+  "message_type": "result",
+  "correlation_id": "123e4567-e89b-42d3-a456-426614174000",
+  "operation": "source.read",
+  "created_at": "2026-08-31T15:00:30Z",
+  "status": "unverified",
+  "environment_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "request_digest": "sha256:5b1663e63d74ac69fd325005ec5221e9f3f5266ff3a77aa78f3be8d3f12ca9e7",
+  "artifacts": [
+    {
+      "path": "outputs/source.inventory.json",
+      "sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "diagnostics": [
+    "Recorded fixture only; no runtime dispatch occurred."
+  ]
+}

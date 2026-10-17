@@ -1,0 +1,118 @@
+{
+  "schema_version": "2",
+  "record_type": "LadderRecipe",
+  "project": "SyntheticProject",
+  "pou": "MachineSupervisor",
+  "variables": [
+    {
+      "name": "CmdStart",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "Momentary operator start request."
+    },
+    {
+      "name": "CmdStop",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "Operator stop request; the NC contact opens the run-permit network."
+    },
+    {
+      "name": "SafetyPermit",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "True only while the hardwired safety feedback permits motion."
+    },
+    {
+      "name": "PhaseHealthy",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "True while the monitored power phase is healthy."
+    },
+    {
+      "name": "RestartRequired",
+      "type": "BOOL",
+      "direction": "output",
+      "comment": "Blocks automatic restart after a permit loss."
+    },
+    {
+      "name": "RunReq",
+      "type": "BOOL",
+      "direction": "output",
+      "comment": "Qualified run request produced by the second network."
+    }
+  ],
+  "networks": [
+    {
+      "id": "MSUP-RESTART",
+      "order": 1,
+      "title": "Restart latch",
+      "comment": "Require a deliberate restart unless start and both permits are present.",
+      "elements": [
+        {
+          "kind": "contact",
+          "variable": "CmdStart",
+          "polarity": "NC"
+        },
+        {
+          "kind": "branch",
+          "paths": [
+            [
+              {
+                "kind": "contact",
+                "variable": "SafetyPermit",
+                "polarity": "NC"
+              }
+            ],
+            [
+              {
+                "kind": "contact",
+                "variable": "PhaseHealthy",
+                "polarity": "NC"
+              }
+            ]
+          ]
+        }
+      ],
+      "coil": {
+        "variable": "RestartRequired",
+        "mode": "normal"
+      }
+    },
+    {
+      "id": "MSUP-RUN",
+      "order": 2,
+      "title": "Qualified run request",
+      "comment": "Start and both permits must remain true while the NC stop contact remains closed.",
+      "elements": [
+        {
+          "kind": "contact",
+          "variable": "CmdStart",
+          "polarity": "NO"
+        },
+        {
+          "kind": "contact",
+          "variable": "SafetyPermit",
+          "polarity": "NO"
+        },
+        {
+          "kind": "contact",
+          "variable": "PhaseHealthy",
+          "polarity": "NO"
+        },
+        {
+          "kind": "contact",
+          "variable": "CmdStop",
+          "polarity": "NC"
+        }
+      ],
+      "coil": {
+        "variable": "RunReq",
+        "mode": "normal"
+      }
+    }
+  ],
+  "output_allowlist": [
+    "RestartRequired",
+    "RunReq"
+  ]
+}

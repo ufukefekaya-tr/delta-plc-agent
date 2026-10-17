@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "record_type": "EvidenceRecord",
+  "created_at": "2026-08-31T15:01:00Z",
+  "correlation_id": "123e4567-e89b-42d3-a456-426614174000",
+  "producer": "agent",
+  "evidence_class": "STATIC_CHECKED",
+  "input_digest": "sha256:5b1663e63d74ac69fd325005ec5221e9f3f5266ff3a77aa78f3be8d3f12ca9e7",
+  "output_digest": "sha256:3ec3475d3e286ce42000aad52bab2d2f5f0273dca578562990e3c0a0a7599a57",
+  "environment_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "diagnostics": [
+    "Recorded fixture conformance only; no AX, IDE, PLC, online or HIL execution occurred."
+  ]
+}

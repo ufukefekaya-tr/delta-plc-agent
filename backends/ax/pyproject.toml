@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "universal-plc-axmcp"
+version = "0.2.0"
+description = "Default-deny replay-compatible AXQ-FILE/2 MCP host for Universal PLC"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "mcp==2.1.1",
+]
+[project.optional-dependencies]
+opcua = ["asyncua==2.0.1"]
+[project.scripts]
+axmcp = "axmcp_offline.cli:main"
+axmcp-offline = "axmcp_offline.cli:main"
+axmcp-stdio = "axmcp_offline.cli:serve_main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/axmcp_offline"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"adapters/ax_probe" = "axmcp_offline/ax_probe"
+"adapters/ax_worker" = "axmcp_offline/ax_worker"
+"adapters/ax_deployment_worker" = "axmcp_offline/ax_deployment_worker"
+"packaging/codex-config.example.toml" = "axmcp_offline/templates/codex-config.example.toml"
+"contracts" = "axmcp_offline/contracts"
+"protocol" = "axmcp_offline/protocol"
+"qualification" = "axmcp_offline/qualification"
+"docs" = "axmcp_offline/docs"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "src/axmcp_offline",
+  "adapters/ax_probe",
+  "adapters/ax_worker",
+  "adapters/ax_deployment_worker",
+  "contracts",
+  "protocol",
+  "qualification",
+  "docs",
+  "migration",
+  "packaging",
+  "README.md",
+  "requirements-lock.txt",
+  "requirements-dev.txt",
+  "pyproject.toml",
+]

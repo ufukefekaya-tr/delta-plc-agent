@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "evidence_kind": "FILE_TRANSFORM",
+  "python": "3.14.0",
+  "tests_run": 27,
+  "failures": 0,
+  "errors": 0,
+  "vendor_compile": false,
+  "live_execution": false,
+  "fixture_origin": "Synthetic neutral fixtures created by tests/delta_files/test_file_adapters.py; no machine project copies",
+  "source_tree_sha256": "e7f0e1101f65f0fe707ca0ec43e0b92df8ab18439a855987a3d7485813ae29c4",
+  "open_items": [
+    "No AS228 native IDE qualification",
+    "No WPLSoft .dvp writer",
+    "No native compilation/simulation/upload/download/RUN/STOP in this adapter",
+    "Historical ZIP codec 0/2 is not superseded by synthetic fixture tests",
+    "Root integration must link docs/adapters/delta-files.md from INDEX"
+  ]
+}

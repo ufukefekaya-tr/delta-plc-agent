@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "PUBLIC_LAUNCH",
+  "kind": "agent_orchestration",
+  "title": "Public launch: product story, clean source, reproducible proof",
+  "scope": "Public software release only; no vendor/PLC execution",
+  "owner": "ufukefekaya-tr",
+  "stages": [
+    {
+      "id": "L1",
+      "role": "publisher",
+      "deliverable": "Verified GitHub identity, product name, source baseline, owner license choice"
+    },
+    {
+      "id": "L2",
+      "role": "tenth_man",
+      "deliverable": "Independent history/privacy/license and claim audit; no edits"
+    },
+    {
+      "id": "L3",
+      "role": "editor_engineer",
+      "deliverable": "Positive English/Turkish README, feature map, working offline demo, MCP setup, contributor entrypoints"
+    },
+    {
+      "id": "L4",
+      "role": "release_engineer",
+      "deliverable": "Auditable clean source snapshot, synthetic fixtures, machine-free metadata, no inherited private Git history"
+    },
+    {
+      "id": "L5",
+      "role": "verifier",
+      "deliverable": "Offline regressions, isolated all-backend wheel/stdio installation, links and release scanner"
+    },
+    {
+      "id": "L6",
+      "role": "tenth_man",
+      "deliverable": "Final read-only implementation/test/docs/package review; fix substantive findings before publication"
+    },
+    {
+      "id": "L7",
+      "role": "publisher",
+      "deliverable": "Public GitHub source, topics, release, CI proof, reproducible source archive"
+    }
+  ],
+  "claims_policy": "Lead with demonstrated strengths. Link precise model/toolchain capability documentation; label roadmap as future. Never advertise a GUI recipe as an implemented MCP compiler.",
+  "publication_gate": [
+    "Confirmed account",
+    "Owner-attributed open-source license",
+    "Reviewed public tree",
+    "Passing documented software checks"
+  ],
+  "completion": "Published tree matches reviewed source; remote status and release URL recorded"
+}

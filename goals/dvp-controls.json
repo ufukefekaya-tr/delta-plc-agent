@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "G-DVP-CONTROLS",
+  "status": "SOFTWARE_COMPLETE",
+  "objective": "Universal DVP MCP generic profile-defined M commands, D parameter editing with independent readback, boundedM/D/Y read andtimestampedobservations; noPLCprogramchange",
+  "authority": "HumanlatestUniversalarchitecturecorrection,explicitDeditingandfeatureinventoryrequest",
+  "supersedes_direction": "PreviousG-DVP5programtransferremainshistoricallyNOT_RUN/BLOCKED, notachieved",
+  "scope": [
+    "machine.profile",
+    "machine.command",
+    "machine.parameter.write",
+    "machine.read",
+    "machine.status",
+    "machine.observe",
+    "machine.reconcile"
+  ],
+  "excluded": [
+    "PLCprogramupload/download",
+    "RUNSTOP",
+    "Yforce",
+    "CR28directwrite",
+    "genericrawregister/coilwriter",
+    "ComputerUse"
+  ],
+  "questions_not_goals": [
+    "Port/baud/stationautodiscovery",
+    "RS232/RS485electricalautodetection",
+    "Ethernetdiscovery"
+  ],
+  "workflows": {
+    "W1": "Profilediscoveryandsource/targetcontext",
+    "W5": "BoundedprofileM/Doperationsandindependentread",
+    "W6": "Durableunknownoutcomereconciliationnoreplay",
+    "W7": "Independentreview/tests/features/Kaizen/scopedcommit"
+  },
+  "gates": {
+    "genericM_andreads": "PASS_SOFTWARE_CURRENT",
+    "second_unrelated_profile": "PASS_SOFTWARE",
+    "D_parameter_edit": "PASS_SOFTWARE",
+    "physicalM_Doperations": "NOT_RUN_USER_PLC_AGENT_OWNS_COM6",
+    "source_program_changed": false,
+    "software_tests": 172,
+    "current_project_binding": "BLOCKED_SOURCE_DRIFT",
+    "independent_final_review": "PASS_SOFTWARE",
+    "final_review_correction": "PASS_SOFTWARE_ONE_FOCUSED_ROUND"
+  },
+  "feature_inventory": "reports/dvp-controls/FEATURES.md",
+  "open_items": [
+    "Separate current physical M/D acceptance and approved current source enrollment",
+    "Energized attended operating profile not implemented; recorded for next release scope"
+  ],
+  "app_goal_sync": "Existing blocked transfer goal cannot be renamed through status-only goal API; create_goal for new direction rejected unfinished goal. This file records authorized current scope without false completion.",
+  "acceptance_status": "LIVE_ACCEPTANCE_OPEN_SEPARATE",
+  "closure_authority": "Human requests collect peer usage and close current MCP development",
+  "usage_experience": "reports/dvp-controls/usage-experience.json"
+}

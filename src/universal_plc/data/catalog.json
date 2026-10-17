@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-17",
+  "adapters": {
+    "delta.ispsoft": {
+      "toolchain": "ispsoft",
+      "formats": [
+        ".isp",
+        ".mpu",
+        ".fbu",
+        ".fcu",
+        ".clu"
+      ],
+      "file_operations": [
+        "isp.inspect",
+        "isp.unpack",
+        "isp.pack",
+        "isp.patch_st",
+        "isp.roundtrip",
+        "isp.package_unpack",
+        "isp.package_pack",
+        "dvp.il_to_mpu",
+        "dvp.mpu_to_il",
+        "dvp.generate_isp"
+      ],
+      "native_operations": [
+        "project.create",
+        "project.build",
+        "project.simulate",
+        "project.upload",
+        "deployment.execute",
+        "target.run",
+        "target.stop",
+        "target.observe.start"
+      ],
+      "qualification": "unverified"
+    },
+    "delta.wplsoft": {
+      "toolchain": "wplsoft",
+      "formats": [
+        ".dvp"
+      ],
+      "file_operations": [],
+      "native_operations": [
+        "project.create",
+        "project.build",
+        "project.simulate",
+        "project.upload",
+        "deployment.execute",
+        "target.run",
+        "target.stop",
+        "target.observe.start"
+      ],
+      "qualification": "Agent Computer Use workflow documented; native MCP operations remain not_implemented; vendor UI acceptance blocked in 0.3.1 release",
+      "agent_workflow": {
+        "id": "DVP_FINAL",
+        "scope": "repository guidance only; not executable MCP capability",
+        "production_compile_download": "computer_use",
+        "online_adapter": "delta.dvpserial",
+        "online_model_scope": "Only exact models explicitly mapped to delta.dvpserial",
+        "current_acceptance": "software release accepted; current vendor/live stages open"
+      }
+    },
+    "delta.diadesigner": {
+      "toolchain": "diadesigner",
+      "formats": [
+        ".diade",
+        ".diabak",
+        ".diadelib"
+      ],
+      "file_operations": [],
+      "native_operations": [
+        "project.create",
+        "project.build",
+        "project.simulate",
+        "project.upload",
+        "deployment.execute",
+        "target.run",
+        "target.stop",
+        "target.observe.start"
+      ],
+      "qualification": "unverified"
+    },
+    "delta.dvpserial": {
+      "toolchain": "dvpserial",
+      "formats": [],
+      "file_operations": [],
+      "native_operations": [
+        "serial.ports",
+        "target.connect",
+        "target.status",
+        "target.read",
+        "target.disconnect",
+        "target.observe.start",
+        "target.observe.read",
+        "target.observe.stop",
+        "project.upload",
+        "deployment.prepare",
+        "deployment.execute",
+        "deployment.reconcile",
+        "target.run",
+        "target.stop",
+        "target.identify",
+        "program.contract.qualify",
+        "machine.profile",
+        "machine.command",
+        "machine.read",
+        "machine.status",
+        "machine.observe",
+        "machine.reconcile",
+        "machine.parameter.write"
+      ],
+      "qualification": "0.3.1 software-qualified serial ASCII/CDC, profile M/D and watch; historical live evidence is separate; current release physical acceptance NOT_RUN; SS2 transfer opt-in and live acceptance open",
+      "machine_control_note": "External source/context-bound profile commands and 16-bit D readback. Attended M/D alternative is implemented; it does not expand RUN/STOP or program transfer authority. No new model/address/operation scope."
+    },
+    "delta.ax": {
+      "toolchain": "diadesigner-ax",
+      "formats": [
+        ".project",
+        ".projectarchive"
+      ],
+      "file_operations": [],
+      "native_operations": [
+        "environment.probe",
+        "project.tree.read",
+        "project.inventory.read",
+        "source.read",
+        "project.export.native",
+        "workspace.create",
+        "workspace.status",
+        "source.upsert.st",
+        "ladder.networks.apply",
+        "project.build",
+        "artifact.freeze",
+        "deployment.prepare",
+        "deployment.execute",
+        "deployment.reconcile",
+        "target.observe.start",
+        "target.observe.read",
+        "target.observe.stop",
+        "job.status",
+        "job.cancel",
+        "project.create"
+      ],
+      "qualification": "per model and operation; migration must be requalified"
+    }
+  },
+  "rules": [
+    {
+      "id": "delta-ax-installed-catalog",
+      "vendor": "delta",
+      "family": "AX",
+      "model_pattern": "(?:AX\\-308EA0MA1P|AX\\-308EA0MA1T|AX\\-316EA0MA1T|AX\\-332EP0MB1P|AX\\-332EP0MB1T|AX\\-364ELA0MA1T|AX\\-3C08EB0MBL1|AX\\-3C16EB0MBL1|AX\\-516EB0MB1P|AX\\-516EB0MB1T|AX\\-532EB0MB1P|AX\\-532EB0MB1T|AX\\-564EB0MB1P|AX\\-564EB0MB1T|AX\\-564ELB0MB1P|AX\\-564ELB0MB1T|AX\\-864E30CE2T|AX\\-864E30ME2T|AX\\-864EP1ME1TP|AX\\-8DH1ECP1CE1TP|AX\\-8H1E30CD2P|AX\\-8H1E30CD2T|AX\\-C06EB0MD1P|AX\\-C06EB0MD1T|AX\\-C12EB0CD1P|AX\\-C12EB0CD1T|AX\\-C12EB0MD1P|AX\\-C12EB0MD1T|AX\\-C24EB0MD1P|AX\\-C24EB0MD1T)",
+      "adapters": [
+        "delta.ax"
+      ],
+      "evidence": "DIADesigner-AX device catalog metadata; see ax-models.json; not runtime qualification"
+    },
+    {
+      "id": "delta-as100",
+      "vendor": "delta",
+      "family": "AS",
+      "model_pattern": "AS1\\d{2}[A-Z][A-Z0-9-]*",
+      "adapters": [
+        "delta.diadesigner"
+      ],
+      "evidence": "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+      "mapping_uncertainties": [
+        "ISPSoft 3.19 contains AS100 DUT/simulator resources; native CPU selection/compile not yet qualified; old manual exclusion is not conclusive."
+      ],
+      "exact_models": [
+        "AS132T-A",
+        "AS132P-A",
+        "AS132R-A",
+        "AS148T-A",
+        "AS148P-A",
+        "AS148R-A",
+        "AS164T-A",
+        "AS164P-A",
+        "AS164R-A"
+      ],
+      "model_identity_sources": [
+        "https://filecenter.deltaww.com/Products/download/06/060301/Catalogue/DELTA_IA-PLC_DVP_TP_C_EN_20240513.pdf",
+        "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+        "https://diaselector.deltaww.com/Product/?id=1:30101"
+      ]
+    },
+    {
+      "id": "delta-as200-300",
+      "vendor": "delta",
+      "family": "AS",
+      "model_pattern": "AS[23]\\d{2}[A-Z][A-Z0-9-]*",
+      "adapters": [
+        "delta.ispsoft",
+        "delta.diadesigner"
+      ],
+      "evidence": "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+      "exact_models": [
+        "AS228T-A",
+        "AS228P-A",
+        "AS228R-A",
+        "AS218TX-A",
+        "AS218PX-A",
+        "AS218RX-A",
+        "AS332T-A",
+        "AS332P-A",
+        "AS324MT-A",
+        "AS320T-B",
+        "AS320P-B",
+        "AS300N-A"
+      ],
+      "model_identity_sources": [
+        "https://filecenter.deltaww.com/Products/download/06/060301/Catalogue/DELTA_IA-PLC_DVP_TP_C_EN_20240513.pdf",
+        "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+        "https://diaselector.deltaww.com/Product/?id=1:30101"
+      ]
+    },
+    {
+      "id": "delta-dvp-classic",
+      "vendor": "delta",
+      "family": "DVP",
+      "model_pattern": "(?!DVP14SS211R$)DVP-?\\d+(?:SS2|SE2?|SA2|SX2|SV2|ES2|EX2|EH3|EC3)[A-Z0-9-]*",
+      "adapters": [
+        "delta.ispsoft",
+        "delta.wplsoft"
+      ],
+      "evidence": "https://filecenter.deltaww.com/Products/download/06/060301/Manual/DELTA_IA-PLC_DVP-ES3-EX3-SV3-SX3_HOM_EN_20231212.pdf",
+      "exact_models": [
+        "DVP12SE11R",
+        "DVP12SE11T",
+        "DVP16ES200R",
+        "DVP16ES200T",
+        "DVP24ES200R",
+        "DVP24ES200T",
+        "DVP32ES200R",
+        "DVP32ES200T",
+        "DVP40ES200R",
+        "DVP40ES200T",
+        "DVP60ES200R",
+        "DVP60ES200T",
+        "DVP80ES200R",
+        "DVP80ES200T",
+        "DVP20ES200RE",
+        "DVP20ES200TE",
+        "DVP32ES211T",
+        "DVP20EX200R",
+        "DVP20EX200T",
+        "DVP30EX200R",
+        "DVP30EX200T"
+      ],
+      "model_identity_sources": [
+        "https://filecenter.deltaww.com/Products/download/06/060301/Catalogue/DELTA_IA-PLC_DVP_TP_C_EN_20240513.pdf",
+        "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+        "https://diaselector.deltaww.com/Product/?id=1:30101"
+      ]
+    },
+    {
+      "id": "delta-dvp-es3",
+      "vendor": "delta",
+      "family": "DVP",
+      "model_pattern": "DVP-?\\d+ES3(?!00TEC)[A-Z0-9-]*",
+      "adapters": [
+        "delta.ispsoft",
+        "delta.diadesigner"
+      ],
+      "evidence": "https://filecenter.deltaww.com/Products/download/06/060301/Manual/DELTA_IA-PLC_DVP-ES3-EX3-SV3-SX3_HOM_EN_20231212.pdf",
+      "exact_models": [
+        "DVP32ES300R",
+        "DVP32ES300T",
+        "DVP48ES300R",
+        "DVP48ES300T",
+        "DVP64ES300R",
+        "DVP64ES300T",
+        "DVP80ES300R",
+        "DVP80ES300T",
+        "DVP32ES311T"
+      ],
+      "model_identity_sources": [
+        "https://filecenter.deltaww.com/Products/download/06/060301/Catalogue/DELTA_IA-PLC_DVP_TP_C_EN_20240513.pdf",
+        "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+        "https://diaselector.deltaww.com/Product/?id=1:30101"
+      ]
+    },
+    {
+      "id": "delta-dvp-new-dia",
+      "vendor": "delta",
+      "family": "DVP",
+      "model_pattern": "(?:DVP-?\\d+(?:EX3|SV3|SX3)[A-Z0-9-]*|DVP-?\\d+ES300TEC)",
+      "adapters": [
+        "delta.diadesigner"
+      ],
+      "evidence": "https://filecenter.deltaww.com/Products/download/06/060301/Manual/DELTA_IA-PLC_DVP-ES3-EX3-SV3-SX3_HOM_EN_20231212.pdf; regional page differs; native operation remains unverified",
+      "mapping_uncertainties": [
+        "Installed ISPSoft resources and regional product page conflict with old manual; native qualification required for alternative ISPSoft lane."
+      ],
+      "exact_models": [
+        "DVP32ES300TEC",
+        "DVP22EX300T",
+        "DVP22EX300R",
+        "DVP28EX300MT",
+        "DVP36EX300T",
+        "DVP36EX300R"
+      ],
+      "model_identity_sources": [
+        "https://filecenter.deltaww.com/Products/download/06/060301/Catalogue/DELTA_IA-PLC_DVP_TP_C_EN_20240513.pdf",
+        "https://www.deltaww.com/IA/downloadcenter/catalogue/3.Control/AS/DELTA_IA-PLC_AS_C_EN_20230116.pdf",
+        "https://diaselector.deltaww.com/Product/?id=1:30101"
+      ]
+    },
+    {
+      "id": "delta-dvp-ss2-serial",
+      "vendor": "delta",
+      "family": "DVP",
+      "model_pattern": "DVP14SS211R",
+      "adapters": [
+        "delta.ispsoft",
+        "delta.wplsoft",
+        "delta.dvpserial"
+      ],
+      "exact_models": [
+        "DVP14SS211R"
+      ],
+      "evidence": "Delta SS2 family programming manual chapter4 M/D Modbus mapping; vendor WPLSoft static CDC read continuation; hardware endpoint requires verification",
+      "mapping_uncertainties": [
+        "DVP14SS211R is human-declared model; USB HMI and firmware/capacity readings do not prove exact CPU identity.",
+        "SS2 native contract is statically pinned; exact private ACK and program transfer require current live qualification. Prior online/read proof does not prove a program transfer."
+      ]
+    }
+  ]
+}

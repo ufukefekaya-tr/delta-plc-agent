@@ -1,0 +1,10 @@
+{
+  "schema_version": "2",
+  "record_type": "LadderRecipe",
+  "project": "SyntheticProject",
+  "pou": "GenericLadderEditor",
+  "variables": [],
+  "networks": [],
+  "silent_st_fallback": true,
+  "output_allowlist": []
+}

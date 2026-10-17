@@ -1,0 +1,1572 @@
+{
+  "schema_version": 1,
+  "contract_id": "THERMAL_REGRESSION_FIXTURE",
+  "revision": "SOFTWARE_R1",
+  "reference_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "reference_payload_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "qualification": "NEUTRALIZED_INTERNAL_SOFTWARE_FIXTURE; NOT A DEPLOYMENT PROFILE",
+  "commands": {
+    "temperature.channel.start": {
+      "selector": "channel",
+      "coils": [
+        "M100",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M105",
+        "M106",
+        "M107",
+        "M108",
+        "M109",
+        "M110",
+        "M111"
+      ],
+      "ack_devices": [
+        "M140",
+        "M141",
+        "M142",
+        "M143",
+        "M144",
+        "M145",
+        "M146",
+        "M147",
+        "M148",
+        "M149",
+        "M150",
+        "M151"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M21",
+          "M120",
+          "M60"
+        ],
+        [
+          "M21",
+          "M121",
+          "M60"
+        ],
+        [
+          "M21",
+          "M122",
+          "M61"
+        ],
+        [
+          "M21",
+          "M123",
+          "M61"
+        ],
+        [
+          "M21",
+          "M124",
+          "M62"
+        ],
+        [
+          "M21",
+          "M125",
+          "M62"
+        ],
+        [
+          "M21",
+          "M126",
+          "M63"
+        ],
+        [
+          "M21",
+          "M127",
+          "M63"
+        ],
+        [
+          "M21",
+          "M128",
+          "M64"
+        ],
+        [
+          "M21",
+          "M129",
+          "M64"
+        ],
+        [
+          "M21",
+          "M130",
+          "M65"
+        ],
+        [
+          "M21",
+          "M131",
+          "M65"
+        ]
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [
+        "M160",
+        "M161",
+        "M162",
+        "M163",
+        "M164",
+        "M165",
+        "M166",
+        "M167",
+        "M168",
+        "M169",
+        "M170",
+        "M171"
+      ],
+      "is_start": true
+    },
+    "temperature.contactor.start": {
+      "selector": "pair",
+      "coils": [
+        "M40",
+        "M41",
+        "M42",
+        "M43",
+        "M44",
+        "M45"
+      ],
+      "ack_devices": [
+        "M80",
+        "M81",
+        "M82",
+        "M83",
+        "M84",
+        "M85"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M21",
+          "M60"
+        ],
+        [
+          "M21",
+          "M61"
+        ],
+        [
+          "M21",
+          "M62"
+        ],
+        [
+          "M21",
+          "M63"
+        ],
+        [
+          "M21",
+          "M64"
+        ],
+        [
+          "M21",
+          "M65"
+        ]
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [
+        "M90",
+        "M91",
+        "M92",
+        "M93",
+        "M94",
+        "M95"
+      ],
+      "is_start": true
+    },
+    "temperature.tuning.start": {
+      "selector": "channel",
+      "coils": [
+        "M640",
+        "M641",
+        "M642",
+        "M643",
+        "M644",
+        "M645",
+        "M646",
+        "M647",
+        "M648",
+        "M649",
+        "M650",
+        "M651"
+      ],
+      "ack_devices": [
+        "M880",
+        "M881",
+        "M882",
+        "M883",
+        "M884",
+        "M885",
+        "M886",
+        "M887",
+        "M888",
+        "M889",
+        "M890",
+        "M891"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M21",
+          "M120",
+          "M60",
+          "M57",
+          "M660"
+        ],
+        [
+          "M21",
+          "M121",
+          "M60",
+          "M57",
+          "M661"
+        ],
+        [
+          "M21",
+          "M122",
+          "M61",
+          "M57",
+          "M662"
+        ],
+        [
+          "M21",
+          "M123",
+          "M61",
+          "M57",
+          "M663"
+        ],
+        [
+          "M21",
+          "M124",
+          "M62",
+          "M57",
+          "M664"
+        ],
+        [
+          "M21",
+          "M125",
+          "M62",
+          "M57",
+          "M665"
+        ],
+        [
+          "M21",
+          "M126",
+          "M63",
+          "M57",
+          "M666"
+        ],
+        [
+          "M21",
+          "M127",
+          "M63",
+          "M57",
+          "M667"
+        ],
+        [
+          "M21",
+          "M128",
+          "M64",
+          "M57",
+          "M668"
+        ],
+        [
+          "M21",
+          "M129",
+          "M64",
+          "M57",
+          "M669"
+        ],
+        [
+          "M21",
+          "M130",
+          "M65",
+          "M57",
+          "M670"
+        ],
+        [
+          "M21",
+          "M131",
+          "M65",
+          "M57",
+          "M671"
+        ]
+      ],
+      "effect": "tuning_active",
+      "release_edge_devices": [
+        "M680",
+        "M681",
+        "M682",
+        "M683",
+        "M684",
+        "M685",
+        "M686",
+        "M687",
+        "M688",
+        "M689",
+        "M690",
+        "M691"
+      ],
+      "is_start": true
+    },
+    "temperature.all_heating.start": {
+      "selector": null,
+      "coils": [
+        "M100",
+        "M101",
+        "M102",
+        "M103",
+        "M104",
+        "M105",
+        "M106",
+        "M107",
+        "M108",
+        "M109",
+        "M110",
+        "M111"
+      ],
+      "ack_devices": [
+        "M140",
+        "M141",
+        "M142",
+        "M143",
+        "M144",
+        "M145",
+        "M146",
+        "M147",
+        "M148",
+        "M149",
+        "M150",
+        "M151"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M21",
+          "M120",
+          "M60"
+        ],
+        [
+          "M21",
+          "M121",
+          "M60"
+        ],
+        [
+          "M21",
+          "M122",
+          "M61"
+        ],
+        [
+          "M21",
+          "M123",
+          "M61"
+        ],
+        [
+          "M21",
+          "M124",
+          "M62"
+        ],
+        [
+          "M21",
+          "M125",
+          "M62"
+        ],
+        [
+          "M21",
+          "M126",
+          "M63"
+        ],
+        [
+          "M21",
+          "M127",
+          "M63"
+        ],
+        [
+          "M21",
+          "M128",
+          "M64"
+        ],
+        [
+          "M21",
+          "M129",
+          "M64"
+        ],
+        [
+          "M21",
+          "M130",
+          "M65"
+        ],
+        [
+          "M21",
+          "M131",
+          "M65"
+        ]
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [
+        "M160",
+        "M161",
+        "M162",
+        "M163",
+        "M164",
+        "M165",
+        "M166",
+        "M167",
+        "M168",
+        "M169",
+        "M170",
+        "M171"
+      ],
+      "is_start": true
+    },
+    "temperature.all_contactors.start": {
+      "selector": null,
+      "coils": [
+        "M40",
+        "M41",
+        "M42",
+        "M43",
+        "M44",
+        "M45"
+      ],
+      "ack_devices": [
+        "M80",
+        "M81",
+        "M82",
+        "M83",
+        "M84",
+        "M85"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M21",
+          "M60"
+        ],
+        [
+          "M21",
+          "M61"
+        ],
+        [
+          "M21",
+          "M62"
+        ],
+        [
+          "M21",
+          "M63"
+        ],
+        [
+          "M21",
+          "M64"
+        ],
+        [
+          "M21",
+          "M65"
+        ]
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [
+        "M90",
+        "M91",
+        "M92",
+        "M93",
+        "M94",
+        "M95"
+      ],
+      "is_start": true
+    },
+    "temperature.all_tuning.start": {
+      "selector": null,
+      "coils": [
+        "M56"
+      ],
+      "ack_devices": [
+        "M880",
+        "M881",
+        "M882",
+        "M883",
+        "M884",
+        "M885",
+        "M886",
+        "M887",
+        "M888",
+        "M889",
+        "M890",
+        "M891"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M21",
+          "M57",
+          "M660",
+          "M661",
+          "M662",
+          "M663",
+          "M664",
+          "M665",
+          "M666",
+          "M667",
+          "M668",
+          "M669",
+          "M670",
+          "M671"
+        ]
+      ],
+      "effect": "eligible_channel_tuning_states",
+      "release_edge_devices": [
+        "M58"
+      ],
+      "is_start": true
+    },
+    "temperature.channel.stop": {
+      "selector": "channel",
+      "coils": [
+        "M120",
+        "M121",
+        "M122",
+        "M123",
+        "M124",
+        "M125",
+        "M126",
+        "M127",
+        "M128",
+        "M129",
+        "M130",
+        "M131"
+      ],
+      "ack_devices": [
+        "M140",
+        "M141",
+        "M142",
+        "M143",
+        "M144",
+        "M145",
+        "M146",
+        "M147",
+        "M148",
+        "M149",
+        "M150",
+        "M151"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [],
+      "is_start": false
+    },
+    "temperature.contactor.stop": {
+      "selector": "pair",
+      "coils": [
+        "M60",
+        "M61",
+        "M62",
+        "M63",
+        "M64",
+        "M65"
+      ],
+      "ack_devices": [
+        "M80",
+        "M81",
+        "M82",
+        "M83",
+        "M84",
+        "M85"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [],
+      "is_start": false
+    },
+    "temperature.tuning.stop": {
+      "selector": "channel",
+      "coils": [
+        "M660",
+        "M661",
+        "M662",
+        "M663",
+        "M664",
+        "M665",
+        "M666",
+        "M667",
+        "M668",
+        "M669",
+        "M670",
+        "M671"
+      ],
+      "ack_devices": [
+        "M880",
+        "M881",
+        "M882",
+        "M883",
+        "M884",
+        "M885",
+        "M886",
+        "M887",
+        "M888",
+        "M889",
+        "M890",
+        "M891"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "effect": "tuning_active",
+      "release_edge_devices": [],
+      "is_start": false
+    },
+    "temperature.all_heating.stop": {
+      "selector": null,
+      "coils": [
+        "M120",
+        "M121",
+        "M122",
+        "M123",
+        "M124",
+        "M125",
+        "M126",
+        "M127",
+        "M128",
+        "M129",
+        "M130",
+        "M131"
+      ],
+      "ack_devices": [
+        "M140",
+        "M141",
+        "M142",
+        "M143",
+        "M144",
+        "M145",
+        "M146",
+        "M147",
+        "M148",
+        "M149",
+        "M150",
+        "M151"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [],
+      "is_start": false
+    },
+    "temperature.all_contactors.stop": {
+      "selector": null,
+      "coils": [
+        "M60",
+        "M61",
+        "M62",
+        "M63",
+        "M64",
+        "M65"
+      ],
+      "ack_devices": [
+        "M80",
+        "M81",
+        "M82",
+        "M83",
+        "M84",
+        "M85"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "effect": "request_latch",
+      "release_edge_devices": [],
+      "is_start": false
+    },
+    "temperature.all_tuning.stop": {
+      "selector": null,
+      "coils": [
+        "M57"
+      ],
+      "ack_devices": [
+        "M880",
+        "M881",
+        "M882",
+        "M883",
+        "M884",
+        "M885",
+        "M886",
+        "M887",
+        "M888",
+        "M889",
+        "M890",
+        "M891"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        []
+      ],
+      "effect": "eligible_channel_tuning_states",
+      "release_edge_devices": [],
+      "is_start": false
+    }
+  },
+  "read_devices": [
+    "D100",
+    "D1001",
+    "D1002",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D108",
+    "D109",
+    "D110",
+    "D111",
+    "D200",
+    "D2000",
+    "D201",
+    "D2010",
+    "D202",
+    "D2020",
+    "D203",
+    "D2030",
+    "D204",
+    "D2040",
+    "D205",
+    "D2050",
+    "D206",
+    "D2060",
+    "D207",
+    "D2070",
+    "D208",
+    "D2080",
+    "D209",
+    "D2090",
+    "D210",
+    "D2100",
+    "D211",
+    "D2110",
+    "D2120",
+    "D2122",
+    "D2123",
+    "D2200",
+    "D2201",
+    "D2202",
+    "D2203",
+    "D2204",
+    "D2205",
+    "D2206",
+    "D2207",
+    "D2208",
+    "D2209",
+    "D2210",
+    "D2211",
+    "D2220",
+    "D2221",
+    "D2222",
+    "D2223",
+    "D2224",
+    "D2225",
+    "D2226",
+    "D2227",
+    "D2228",
+    "D2229",
+    "D2230",
+    "D2231",
+    "D2240",
+    "D2241",
+    "D2242",
+    "D2243",
+    "D2244",
+    "D2245",
+    "D2246",
+    "D2247",
+    "D2248",
+    "D2249",
+    "D2250",
+    "D2251",
+    "D2300",
+    "D2310",
+    "D2311",
+    "D2312",
+    "D2314",
+    "D2330",
+    "D2400",
+    "D2401",
+    "D2402",
+    "D2403",
+    "D2404",
+    "D2405",
+    "D2406",
+    "D2407",
+    "D2408",
+    "D2409",
+    "D2410",
+    "D2411",
+    "D2600",
+    "D2601",
+    "D2602",
+    "D2603",
+    "D2604",
+    "D2605",
+    "D2606",
+    "D2607",
+    "D2608",
+    "D2609",
+    "D2610",
+    "D2611",
+    "D2612",
+    "D2613",
+    "D2614",
+    "D2615",
+    "D2616",
+    "D2617",
+    "D2618",
+    "D2619",
+    "D2620",
+    "D2621",
+    "D2622",
+    "D2623",
+    "D2624",
+    "D2625",
+    "D2626",
+    "D2627",
+    "D2628",
+    "D2629",
+    "D2630",
+    "D2631",
+    "D2632",
+    "D2633",
+    "D2634",
+    "D2635",
+    "D300",
+    "D301",
+    "D302",
+    "D303",
+    "D304",
+    "D305",
+    "D306",
+    "D307",
+    "D308",
+    "D309",
+    "D310",
+    "D311",
+    "D353",
+    "D354",
+    "D363",
+    "D364",
+    "D373",
+    "D374",
+    "M10",
+    "M100",
+    "M1000",
+    "M1002",
+    "M1004",
+    "M1008",
+    "M1009",
+    "M101",
+    "M102",
+    "M103",
+    "M104",
+    "M105",
+    "M106",
+    "M107",
+    "M108",
+    "M109",
+    "M11",
+    "M110",
+    "M111",
+    "M12",
+    "M120",
+    "M121",
+    "M122",
+    "M123",
+    "M124",
+    "M125",
+    "M126",
+    "M127",
+    "M128",
+    "M129",
+    "M13",
+    "M130",
+    "M131",
+    "M14",
+    "M140",
+    "M141",
+    "M142",
+    "M143",
+    "M144",
+    "M145",
+    "M146",
+    "M147",
+    "M148",
+    "M149",
+    "M150",
+    "M151",
+    "M160",
+    "M161",
+    "M162",
+    "M163",
+    "M164",
+    "M165",
+    "M166",
+    "M167",
+    "M168",
+    "M169",
+    "M170",
+    "M171",
+    "M20",
+    "M21",
+    "M300",
+    "M301",
+    "M302",
+    "M303",
+    "M304",
+    "M305",
+    "M310",
+    "M311",
+    "M312",
+    "M313",
+    "M314",
+    "M315",
+    "M330",
+    "M331",
+    "M332",
+    "M370",
+    "M371",
+    "M372",
+    "M373",
+    "M374",
+    "M375",
+    "M376",
+    "M377",
+    "M378",
+    "M379",
+    "M380",
+    "M381",
+    "M390",
+    "M391",
+    "M392",
+    "M393",
+    "M394",
+    "M395",
+    "M396",
+    "M397",
+    "M398",
+    "M399",
+    "M40",
+    "M400",
+    "M401",
+    "M41",
+    "M410",
+    "M411",
+    "M412",
+    "M413",
+    "M414",
+    "M415",
+    "M416",
+    "M417",
+    "M418",
+    "M419",
+    "M42",
+    "M420",
+    "M421",
+    "M43",
+    "M430",
+    "M431",
+    "M432",
+    "M433",
+    "M434",
+    "M435",
+    "M436",
+    "M437",
+    "M438",
+    "M439",
+    "M44",
+    "M440",
+    "M441",
+    "M45",
+    "M56",
+    "M57",
+    "M58",
+    "M60",
+    "M61",
+    "M62",
+    "M63",
+    "M64",
+    "M640",
+    "M641",
+    "M642",
+    "M643",
+    "M644",
+    "M645",
+    "M646",
+    "M647",
+    "M648",
+    "M649",
+    "M65",
+    "M650",
+    "M651",
+    "M660",
+    "M661",
+    "M662",
+    "M663",
+    "M664",
+    "M665",
+    "M666",
+    "M667",
+    "M668",
+    "M669",
+    "M670",
+    "M671",
+    "M680",
+    "M681",
+    "M682",
+    "M683",
+    "M684",
+    "M685",
+    "M686",
+    "M687",
+    "M688",
+    "M689",
+    "M690",
+    "M691",
+    "M80",
+    "M81",
+    "M82",
+    "M83",
+    "M84",
+    "M85",
+    "M880",
+    "M881",
+    "M882",
+    "M883",
+    "M884",
+    "M885",
+    "M886",
+    "M887",
+    "M888",
+    "M889",
+    "M890",
+    "M891",
+    "M90",
+    "M91",
+    "M92",
+    "M93",
+    "M94",
+    "M95",
+    "Y0",
+    "Y1",
+    "Y2",
+    "Y20",
+    "Y21",
+    "Y22",
+    "Y23",
+    "Y24",
+    "Y25",
+    "Y26",
+    "Y27",
+    "Y3",
+    "Y30",
+    "Y31",
+    "Y32",
+    "Y33",
+    "Y4",
+    "Y5"
+  ],
+  "observations": {
+    "display_pv": {
+      "device": "D100",
+      "count": 12,
+      "scale": 0.1,
+      "signed": true,
+      "unit": "C"
+    },
+    "raw_pv": {
+      "device": "D200",
+      "count": 12,
+      "scale": 0.1,
+      "signed": true,
+      "unit": "C"
+    },
+    "power": {
+      "device": "D300",
+      "count": 12,
+      "scale": 0.1,
+      "signed": false,
+      "unit": "%"
+    },
+    "heat_request": {
+      "device": "M140",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "heat_permit": {
+      "device": "M430",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "contactor_request": {
+      "device": "M80",
+      "count": 6,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "contactor_permit": {
+      "device": "M310",
+      "count": 6,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "contactor_trip": {
+      "device": "M300",
+      "count": 6,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "contactor_output_bits": {
+      "device": "Y0",
+      "count": 6,
+      "scale": 1,
+      "signed": false,
+      "unit": "PLC_OUTPUT_BIT"
+    },
+    "ssr_output_bits": {
+      "device": "Y20",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "PLC_OUTPUT_BIT"
+    },
+    "tuning_active": {
+      "device": "M880",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "kp": {
+      "device": "D2200",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "VENDOR_RAW"
+    },
+    "ki": {
+      "device": "D2220",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "VENDOR_RAW"
+    },
+    "kd": {
+      "device": "D2240",
+      "count": 12,
+      "scale": 1,
+      "signed": false,
+      "unit": "VENDOR_RAW"
+    },
+    "state_01": {
+      "device": "D2600",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_01",
+      "precondition_value": 5
+    },
+    "elapsed_01": {
+      "device": "D2601",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_01": {
+      "device": "D2602",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_02": {
+      "device": "D2603",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_02",
+      "precondition_value": 5
+    },
+    "elapsed_02": {
+      "device": "D2604",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_02": {
+      "device": "D2605",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_03": {
+      "device": "D2606",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_03",
+      "precondition_value": 5
+    },
+    "elapsed_03": {
+      "device": "D2607",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_03": {
+      "device": "D2608",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_04": {
+      "device": "D2609",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_04",
+      "precondition_value": 5
+    },
+    "elapsed_04": {
+      "device": "D2610",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_04": {
+      "device": "D2611",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_05": {
+      "device": "D2612",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_05",
+      "precondition_value": 5
+    },
+    "elapsed_05": {
+      "device": "D2613",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_05": {
+      "device": "D2614",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_06": {
+      "device": "D2615",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_06",
+      "precondition_value": 5
+    },
+    "elapsed_06": {
+      "device": "D2616",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_06": {
+      "device": "D2617",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_07": {
+      "device": "D2618",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_07",
+      "precondition_value": 5
+    },
+    "elapsed_07": {
+      "device": "D2619",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_07": {
+      "device": "D2620",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_08": {
+      "device": "D2621",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_08",
+      "precondition_value": 5
+    },
+    "elapsed_08": {
+      "device": "D2622",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_08": {
+      "device": "D2623",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_09": {
+      "device": "D2624",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_09",
+      "precondition_value": 5
+    },
+    "elapsed_09": {
+      "device": "D2625",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_09": {
+      "device": "D2626",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_10": {
+      "device": "D2627",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_10",
+      "precondition_value": 5
+    },
+    "elapsed_10": {
+      "device": "D2628",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_10": {
+      "device": "D2629",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_11": {
+      "device": "D2630",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_11",
+      "precondition_value": 5
+    },
+    "elapsed_11": {
+      "device": "D2631",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_11": {
+      "device": "D2632",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_12": {
+      "device": "D2633",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_12",
+      "precondition_value": 5
+    },
+    "elapsed_12": {
+      "device": "D2634",
+      "count": 1,
+      "unit": "s"
+    },
+    "reason_12": {
+      "device": "D2635",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    }
+  },
+  "parameters": {}
+}

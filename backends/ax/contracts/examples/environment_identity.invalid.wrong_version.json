@@ -1,0 +1,33 @@
+{
+  "schema_version": "2",
+  "record_type": "EnvironmentIdentity",
+  "captured_at": "2026-08-31T12:00:00Z",
+  "executable": {
+    "identity": "DIADesigner-AX.exe",
+    "version": "1.9",
+    "sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "profile": {
+    "identity": "DIADesigner-AX 1.9",
+    "version": "1.9",
+    "sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "product": {
+    "identity": "DIADesigner-AX",
+    "version": "1.9",
+    "sha256": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "script_engine": {
+    "identity": "ScriptEngine",
+    "version": "4.0.0.0",
+    "sha256": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "target": {
+    "identity": "recorded-fixture-target",
+    "version": "fixture-1",
+    "sha256": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  "devices": [],
+  "libraries": [],
+  "tasks": []
+}

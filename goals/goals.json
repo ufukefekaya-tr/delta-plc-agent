@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "overall": "partial_implementation",
+  "goals": [
+    {
+      "id": "G0",
+      "depends_on": [],
+      "status": "complete",
+      "deliverable": "Kaynakları sabitle",
+      "acceptance": "Her kaynak sürüm/hash/disposition taşır",
+      "evidence": [
+        "reports/source_inventory.json",
+        "backends/ax/migration/source-manifest.json"
+      ],
+      "open_blockers": []
+    },
+    {
+      "id": "G1",
+      "depends_on": [
+        "G0"
+      ],
+      "status": "complete",
+      "deliverable": "Universal başlangıç ve yönlendirme",
+      "acceptance": "Exact model, çelişki ve bağımsız üretici testleri geçer",
+      "evidence": [
+        "tests/test_universal_runtime.py",
+        "reports/evidence/portable-install.json"
+      ],
+      "open_blockers": []
+    },
+    {
+      "id": "G2",
+      "depends_on": [
+        "G1"
+      ],
+      "status": "partial",
+      "deliverable": "AX genelleştirme",
+      "acceptance": "19 operasyon eşdeğerliği ve nötr ST/Ladder public native zinciri",
+      "evidence": [
+        "reports/evidence/ax-native.json",
+        "tests/ax",
+        "backends/ax/qualification/native-public-chain-2026-10-11.json"
+      ],
+      "open_blockers": [
+        "Native public ST/build/Ladder ön kontrolü,21 boş slot çevre uyarısı nedeniyle BLOCKED; freeze uygun derleme olmadığı için reddedildi. Uyarı/model bağımlılık doğrulaması ve yeniden native kabul gerekli; yalnız AX308 doğrudan ST derleme/oluşturma kanıtı var."
+      ]
+    },
+    {
+      "id": "G3",
+      "depends_on": [
+        "G2"
+      ],
+      "status": "partial",
+      "deliverable": "ISPSoft ve AS",
+      "acceptance": "AS native create/edit/build/save-reopen",
+      "evidence": [
+        "tests/delta_files"
+      ],
+      "open_blockers": [
+        "Gözlenebilir ISPSoft penceresi yok; belgelenmiş native CLI bulunmadı"
+      ]
+    },
+    {
+      "id": "G4",
+      "depends_on": [
+        "G2"
+      ],
+      "status": "partial",
+      "deliverable": "DVP dosya ve WPLSoft ajan iş devri; DVP 0.3.1 kurulum",
+      "acceptance": "Model bazlı native üretim/düzenleme ve kayıp raporu",
+      "evidence": [
+        "docs/adapters/delta-files.md",
+        "docs/DVP_AGENT_RUNBOOK.md",
+        "workflows/dvp-final.json",
+        "reports/dvp-final/validation.json"
+      ],
+      "open_blockers": [
+        "17 Ekim tesliminde WPLSoft vendor UI erişimi BLOCKED; native create/edit/build/save-reopen kabulü açık",
+        "DIADesigner native adaptörü ve genel semantik dönüşüm/kayıp kabulü açık"
+      ]
+    },
+    {
+      "id": "G5",
+      "depends_on": [
+        "G2",
+        "G3",
+        "G4"
+      ],
+      "status": "partial",
+      "deliverable": "Tam işlem döngüsü",
+      "acceptance": "Exact hedef/araç/işlem uçtan uca canlı kanıt",
+      "evidence": [
+        "backends/ax/qualification",
+        "docs/adapters/dvp-controls.md",
+        "reports/dvp-final/validation.json",
+        "reports/dvpserial/com6-run-read-stop.json"
+      ],
+      "open_blockers": [
+        "DVP seri ve profil bağlı M/D/watch yazılımı var; 0.3.1 fiziksel watch/M-D kabulü seri port yokluğu nedeniyle NOT_RUN",
+        "Deneysel SS2 program aktarımında güncel canlı uçtan uca kabul yok; eski saha yetkisi taşınmaz",
+        "AX canlı adapter release approval ve ISPSoft native/live açıkları sürüyor"
+      ]
+    },
+    {
+      "id": "G6",
+      "depends_on": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ],
+      "status": "partial",
+      "deliverable": "Birleşik kabul ve teslim",
+      "acceptance": "Temiz kurulum, review, test, rapor, indeks, kaizen; tüm native açıklar kapanır",
+      "evidence": [
+        "reports/REPORT_TR.md",
+        "reports/evidence/portable-install.json",
+        "reports/dvp-final/validation.json",
+        "reports/wpl-sync-20261017/verification.json"
+      ],
+      "open_blockers": [
+        "G2-G5 native/live kabulleri kapanmadı"
+      ]
+    }
+  ],
+  "current_dvp_goal": "goals/dvp-final.json",
+  "source_thread": "01a12c56-2323-7d91-b72d-2e601e234d1b"
+}

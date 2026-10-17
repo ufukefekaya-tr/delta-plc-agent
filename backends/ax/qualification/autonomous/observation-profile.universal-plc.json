@@ -1,0 +1,28 @@
+{
+  "schema_version": "1",
+  "record_type": "ObservationProfile",
+  "profile_id": "universal-plc.lab-v1",
+  "expressions": [
+    "PLC_PRG.SupervisorState",
+    "PLC_PRG.RestartRequired",
+    "PLC_PRG.MotionState",
+    "PLC_PRG.FaultCode",
+    "PLC_PRG.CycleSequence"
+  ],
+  "interval_ms": 500,
+  "duration_seconds": 60,
+  "fault_invariants": [
+    {
+      "expression": "PLC_PRG.FaultCode",
+      "operator": "eq",
+      "expected": 0,
+      "action": "stop_and_rollback"
+    },
+    {
+      "expression": "PLC_PRG.RestartRequired",
+      "operator": "eq",
+      "expected": false,
+      "action": "stop_and_rollback"
+    }
+  ]
+}

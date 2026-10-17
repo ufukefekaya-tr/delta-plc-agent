@@ -1,0 +1,68 @@
+{
+  "policy_version": "1",
+  "default_action": "deny",
+  "f00_runtime_dispatch": "declared_not_executable",
+  "allowed_operations": [
+    {
+      "operation": "environment.probe",
+      "classification": "read_only",
+      "f00_status": "declared_not_executable"
+    },
+    {
+      "operation": "project.tree.read",
+      "classification": "read_only",
+      "f00_status": "declared_not_executable"
+    },
+    {
+      "operation": "project.inventory.read",
+      "classification": "read_only",
+      "f00_status": "declared_not_executable"
+    },
+    {
+      "operation": "source.read",
+      "classification": "read_only",
+      "f00_status": "declared_not_executable"
+    },
+    {
+      "operation": "project.export.native",
+      "classification": "read_only",
+      "f00_status": "declared_not_executable"
+    }
+  ],
+  "denied_operation_classes": [
+    "eval",
+    "_eval",
+    "shell",
+    "arbitrary_filesystem",
+    "arbitrary_path",
+    "import",
+    "write",
+    "login",
+    "download",
+    "force",
+    "run",
+    "stop",
+    "reset",
+    "plc",
+    "online",
+    "communication_path_discovery",
+    "real_target_contact",
+    "raw_ipc_passthrough"
+  ],
+  "denied_dev_sentinels": [
+    "MCPTOOLKIT_DEV",
+    "dev.flag"
+  ],
+  "artifact_path_policy": {
+    "root": "assigned_scratch_root",
+    "separator": "/",
+    "must_be_relative": true,
+    "reject_absolute": true,
+    "reject_drive_qualified": true,
+    "reject_unc_or_device": true,
+    "reject_backslash": true,
+    "reject_dot_segments": true,
+    "reject_encoded_traversal": true,
+    "reject_symlink_escape": true
+  }
+}

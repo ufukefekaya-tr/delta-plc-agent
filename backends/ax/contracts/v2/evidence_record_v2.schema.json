@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://universal-plc.invalid/mcp-foundation/contracts/v2/evidence-record-v2.schema.json",
+  "title": "EvidenceRecord v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "created_at",
+    "correlation_id",
+    "job_id",
+    "operation",
+    "producer",
+    "evidence_class",
+    "input_digest",
+    "output_digest",
+    "environment_digest",
+    "target_fingerprint",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2"
+    },
+    "record_type": {
+      "const": "EvidenceRecord"
+    },
+    "created_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "correlation_id": {
+      "$ref": "#/$defs/uuid"
+    },
+    "job_id": {
+      "$ref": "#/$defs/uuid"
+    },
+    "operation": {
+      "$ref": "#/$defs/operation"
+    },
+    "producer": {
+      "enum": [
+        "agent",
+        "human"
+      ]
+    },
+    "evidence_class": {
+      "enum": [
+        "CLAIM",
+        "SOURCE_REVIEWED",
+        "STATIC_CHECKED",
+        "SIMULATED",
+        "AGENT_IDE_COMPILED",
+        "AGENT_LAB_VERIFIED",
+        "HUMAN_IDE_COMPILED",
+        "HUMAN_BENCH_VERIFIED",
+        "HUMAN_FAT_ACCEPTED"
+      ]
+    },
+    "input_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "output_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "environment_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "target_fingerprint": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/digest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "diagnostics": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "operation": {
+      "enum": [
+        "environment.probe",
+        "project.tree.read",
+        "project.inventory.read",
+        "source.read",
+        "project.export.native",
+        "workspace.create",
+        "workspace.status",
+        "source.upsert.st",
+        "ladder.networks.apply",
+        "project.build",
+        "artifact.freeze",
+        "deployment.prepare",
+        "deployment.execute",
+        "deployment.reconcile",
+        "target.observe.start",
+        "target.observe.read",
+        "target.observe.stop",
+        "job.status",
+        "job.cancel"
+      ]
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-11",
+  "suite": "python -m unittest discover -s tests/ax -t tests/ax",
+  "tests": 257,
+  "passed": 256,
+  "skipped": 1,
+  "skip_reason": "Windows symlink creation unavailable",
+  "classification": "OFFLINE_TEST_DOUBLES_AND_PACKAGE",
+  "live_target_contact": false,
+  "native_ide_acceptance": "Recorded separately by root qualification task",
+  "packaging": "Wheel built and installed to unrelated temporary cwd with dependencies present; all worker/resource paths resolved inside installed package",
+  "last_targeted_checks": [
+    "universal adapter: 5 PASS",
+    "project creation queue: 4 PASS",
+    "factory API: 4 PASS",
+    "release packaging: 1 PASS"
+  ]
+}

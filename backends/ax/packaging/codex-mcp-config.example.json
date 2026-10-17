@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "universal-plc-axmcp-offline": {
+      "command": "__ABSOLUTE_PYTHON_PATH__",
+      "args": [
+        "-m",
+        "axmcp_offline",
+        "serve"
+      ],
+      "env": {
+        "AXMCP_MODE": "recorded_replay"
+      }
+    }
+  }
+}

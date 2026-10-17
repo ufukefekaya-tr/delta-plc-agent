@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "universal-plc-agents"
+version = "0.3.1"
+description = "Portable model-aware PLC MCP with isolated vendor adapters and evidence"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = ["mcp==2.1.1", "pyserial==3.5"]
+
+[project.scripts]
+universal-plc = "universal_plc.cli:main"
+universal-plc-mcp = "universal_plc.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/universal_plc"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "backends", "tests", "tools", "catalog", "goals", "workflows", "docs", "knowledge", "kaizen", "prompts", "templates", "reports", "packaging", "examples", "AGENTS.md", "SYSTEM_PROMPT.md", "INDEX.md", "README.md", "pyproject.toml", "requirements-lock.txt", "THIRD_PARTY_NOTICES.md"]

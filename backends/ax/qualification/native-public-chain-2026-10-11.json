@@ -1,0 +1,947 @@
+{
+  "schema_version": 1,
+  "record_type": "NativePublicQualification",
+  "date": "2026-10-11",
+  "backend_baseline_commit": "95ce101a7a62d4ab2de0aff97626ba8b2daba72f",
+  "evidence_class": "actual_vendor_offline",
+  "transport": "AxAdapter.invoke Python public adapter API; this file does not claim stdio transport acceptance",
+  "result": "blocked_environment_dependency",
+  "scope": "Neutral project only; no live controller connection, target discovery, physical I/O mapping or download",
+  "identity": {
+    "baseline_sha256": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+    "device_profile": {
+      "device_id": "16f7 0319",
+      "device_type": 4102,
+      "device_version": "1.0.9.2",
+      "model": "AX-308EA0MA1P",
+      "profile_id": "ax308-sp18"
+    },
+    "ide_executable_sha256": "sha256:5e6803c943f335f046b5f2d8eaa20849d8defd3e6d67574041f7957c406a1b01",
+    "ladder_helper_sha256": "sha256:fbdcef483cf925bedabbde484d5bf618b86b6e614d625659311ec65f6cd547ba",
+    "script_engine_sha256": "sha256:54fbd647a6d007cd3117a12c06ceea86df8d3ef0e533002bcd4251dea3412389",
+    "target": {
+      "family": "AX",
+      "ide_version": "1.9.0.9194",
+      "model": "AX-308EA0MA1P",
+      "project_format": ".project",
+      "toolchain": "diadesigner-ax",
+      "vendor": "delta"
+    },
+    "worker_sha256": "sha256:dfd32093eaa5b763176681da2c5bd6c6f3fd68052adc0da3843da265327e3c22"
+  },
+  "source_read": {
+    "completed_at": "2026-10-11T16:03:53Z",
+    "correlation_id": "74a681dc-e12f-4fa1-bf59-dcf172cdd121",
+    "created_at": "2026-10-11T16:03:21Z",
+    "diagnostics": [
+      "bounded AXQ-FILE/2 operation completed"
+    ],
+    "evidence_digest": null,
+    "job_id": "70e46269-6b06-4986-b936-19450048f308",
+    "operation": "source.read",
+    "output": {
+      "declaration": "PROGRAM Neutral_PRG\nVAR\n    counter : DINT;\nEND_VAR",
+      "implementation": "counter := counter + 1;",
+      "name": "Neutral_PRG",
+      "real_target_contacted": false,
+      "source_digest": "sha256:5a8d47168d6f52ecfdcdecefee4437563e648a03f3824890ad472c6e67e8814c"
+    },
+    "record_type": "JobResult",
+    "result_digest": "sha256:acb8da5972361d0ea8720cc44df1f94f8d6c2f31f26af7ed999b7908c47efbb2",
+    "schema_version": "1",
+    "started_at": "2026-10-11T16:03:21Z",
+    "status": "succeeded",
+    "unknown_outcome": false
+  },
+  "operations": [
+    {
+      "arguments": {
+        "baseline_sha256": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+        "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9"
+      },
+      "operation": "workspace.create",
+      "result": {
+        "baseline_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+        "created_at": "2026-10-11T16:10:46Z",
+        "current_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+        "dirty": false,
+        "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9",
+        "record_type": "WorkspaceHandle",
+        "revision": 0,
+        "schema_version": "1",
+        "state": "active",
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      }
+    },
+    {
+      "arguments": {
+        "declaration": "PROGRAM Neutral_PRG\nVAR\n    counter : DINT;\nEND_VAR",
+        "expected_revision": 0,
+        "implementation": "IF counter < 1000 THEN\n counter := counter + 1;\nELSE\n counter := 0;\nEND_IF;",
+        "pou_kind": "program",
+        "pou_name": "Neutral_PRG",
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      },
+      "operation": "source.upsert.st",
+      "result": {
+        "correlation_id": "88cab636-2d5a-455f-863b-d0459446f51a",
+        "job_id": "8b1ddd13-1abf-4746-a15b-09046c4e9dbb",
+        "operation": "source.upsert.st",
+        "queue_sequence": 1,
+        "request_digest": "sha256:ac3196310035c0faafd01e255dba7c36071a552647572e3e8279206cace42115",
+        "revision": 0,
+        "state": "queued",
+        "worker": {
+          "job_id": "8b1ddd13-1abf-4746-a15b-09046c4e9dbb",
+          "launched_at": "2026-10-11T16:10:46Z",
+          "pid": 2212,
+          "status": "launched",
+          "worker_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+        },
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      }
+    },
+    {
+      "arguments": {
+        "job_id": "8b1ddd13-1abf-4746-a15b-09046c4e9dbb"
+      },
+      "operation": "job.status",
+      "result": {
+        "completed_at": "2026-10-11T16:11:25Z",
+        "correlation_id": "88cab636-2d5a-455f-863b-d0459446f51a",
+        "created_at": "2026-10-11T16:10:46Z",
+        "diagnostics": [
+          "fail-closed dependency preflight blocked source mutation"
+        ],
+        "evidence_digest": null,
+        "job_id": "8b1ddd13-1abf-4746-a15b-09046c4e9dbb",
+        "operation": "source.upsert.st",
+        "output": {
+          "preflight": {
+            "baseline_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+            "baseline_rebuild_attempted": true,
+            "blockers": [
+              "baseline rebuild emitted a warning: device description for '<empty>' is missing",
+              "unresolved <Empty> device/library dependency: device description for '<empty>' is missing"
+            ],
+            "created_at": "2026-10-11T16:11:25Z",
+            "diagnostics": [
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+                "code": "AX.BUILD.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Device description for '<Empty>' is missing",
+                "severity": "warning",
+                "source": null
+              },
+              {
+                "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+                "code": "C.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "------ Build started: Application: Controller.Application -------",
+                "severity": "info",
+                "source": null
+              },
+              {
+                "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+                "code": "C.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Typify code...",
+                "severity": "info",
+                "source": null
+              },
+              {
+                "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+                "code": "C.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Compile complete -- 0 errors, 0 warnings",
+                "severity": "info",
+                "source": null
+              },
+              {
+                "category": "220493a1-f49b-4416-9a3f-a545db707cbe",
+                "code": "SA.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Additional code checks ...",
+                "severity": "info",
+                "source": null
+              },
+              {
+                "category": "220493a1-f49b-4416-9a3f-a545db707cbe",
+                "code": "SA.MESSAGE",
+                "column": null,
+                "line": null,
+                "message": "Additional code checks complete -- 0 errors",
+                "severity": "info",
+                "source": null
+              }
+            ],
+            "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9",
+            "preflight_id": "8b1ddd13-1abf-4746-a15b-09046c4e9dbb",
+            "project_dirty": false,
+            "project_path": "workspaces/e03a3618-c9a3-44a2-961e-501f1e57605d/project.project",
+            "real_target_contacted": false,
+            "record_type": "DependencyPreflight",
+            "schema_version": "1",
+            "status": "blocked",
+            "workspace_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206"
+          },
+          "real_target_contacted": false,
+          "reason": "dependency_preflight",
+          "status": "blocked"
+        },
+        "record_type": "JobResult",
+        "result_digest": "sha256:905f0eab22e7d7793140add1deea2600b3c1e7c57abdb1548f2ce86060e6d41a",
+        "schema_version": "1",
+        "started_at": "2026-10-11T16:10:46Z",
+        "status": "blocked",
+        "unknown_outcome": false
+      }
+    },
+    {
+      "arguments": {
+        "expected_revision": 0,
+        "max_attempts": 1,
+        "mode": "rebuild",
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      },
+      "operation": "project.build",
+      "result": {
+        "correlation_id": "8dc51ccf-b2bf-4855-8e64-684019bd4172",
+        "job_id": "de692185-b5d2-4e12-99d0-f5dc0a9f1ddc",
+        "operation": "project.build",
+        "queue_sequence": 2,
+        "request_digest": "sha256:8cc867f1c14fcd8a90be2789eb7cad74cdae019028ee787523a6cbc4a9910fa3",
+        "revision": 0,
+        "state": "queued",
+        "worker": {
+          "job_id": "de692185-b5d2-4e12-99d0-f5dc0a9f1ddc",
+          "launched_at": null,
+          "pid": 2212,
+          "status": "already_running",
+          "worker_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+        },
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      }
+    },
+    {
+      "arguments": {
+        "job_id": "de692185-b5d2-4e12-99d0-f5dc0a9f1ddc"
+      },
+      "operation": "job.status",
+      "result": {
+        "completed_at": "2026-10-11T16:11:26Z",
+        "correlation_id": "8dc51ccf-b2bf-4855-8e64-684019bd4172",
+        "created_at": "2026-10-11T16:11:26Z",
+        "diagnostics": [
+          "fail-closed dependency preflight blocked project build"
+        ],
+        "evidence_digest": null,
+        "job_id": "de692185-b5d2-4e12-99d0-f5dc0a9f1ddc",
+        "operation": "project.build",
+        "output": {
+          "preflight": {
+            "baseline_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+            "blockers": [
+              "baseline rebuild emitted a warning: device description for '<empty>' is missing",
+              "unresolved <Empty> device/library dependency: device description for '<empty>' is missing"
+            ],
+            "created_at": "2026-10-11T16:11:25Z",
+            "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9",
+            "protocol": "AXQ-FILE/2",
+            "status": "blocked",
+            "workspace_identity_digest": "sha256:8431d60f153d74058a482369a883c9c39a266f7072c3c428d6aee93206b32281"
+          },
+          "real_target_contacted": false,
+          "reason": "dependency_preflight",
+          "status": "blocked"
+        },
+        "record_type": "JobResult",
+        "result_digest": "sha256:37c4b0f97c0c515cdf6a015051f0369a59d1611f2ad0250c6c12bdebf7f18022",
+        "schema_version": "1",
+        "started_at": "2026-10-11T16:11:26Z",
+        "status": "blocked",
+        "unknown_outcome": false
+      }
+    },
+    {
+      "arguments": {
+        "expected_revision": 0,
+        "recipe": {
+          "networks": [
+            {
+              "coil": {
+                "mode": "normal",
+                "variable": "Mirror"
+              },
+              "comment": "Proves LD contact and coil roundtrip without physical I/O.",
+              "elements": [
+                {
+                  "kind": "contact",
+                  "polarity": "NO",
+                  "variable": "Permit"
+                }
+              ],
+              "id": "NEUTRAL-MIRROR",
+              "order": 1,
+              "title": "Neutral Boolean mirror"
+            }
+          ],
+          "output_allowlist": [
+            "Mirror"
+          ],
+          "pou": "Neutral_LD",
+          "project": "NeutralPublic",
+          "record_type": "LadderRecipe",
+          "schema_version": "2",
+          "variables": [
+            {
+              "comment": "Synthetic Boolean input; no physical binding.",
+              "direction": "input",
+              "name": "Permit",
+              "type": "BOOL"
+            },
+            {
+              "comment": "Synthetic local output mirrors Permit; no physical binding.",
+              "direction": "output",
+              "name": "Mirror",
+              "type": "BOOL"
+            }
+          ]
+        },
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      },
+      "operation": "ladder.networks.apply",
+      "result": {
+        "correlation_id": "fcfe8776-ef0b-4043-aa14-96e435ec3651",
+        "job_id": "324408a9-fa22-4c6b-b931-c7906c962431",
+        "operation": "ladder.networks.apply",
+        "queue_sequence": 3,
+        "request_digest": "sha256:5e07bac2818b01c7f4d1fd826dde88c5036db0e6c1095c471755fe5f78a0d297",
+        "revision": 0,
+        "state": "queued",
+        "worker": {
+          "job_id": "324408a9-fa22-4c6b-b931-c7906c962431",
+          "launched_at": null,
+          "pid": 2212,
+          "status": "already_running",
+          "worker_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+        },
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      }
+    },
+    {
+      "arguments": {
+        "job_id": "324408a9-fa22-4c6b-b931-c7906c962431"
+      },
+      "operation": "job.status",
+      "result": {
+        "completed_at": "2026-10-11T16:11:26Z",
+        "correlation_id": "fcfe8776-ef0b-4043-aa14-96e435ec3651",
+        "created_at": "2026-10-11T16:11:26Z",
+        "diagnostics": [
+          "fail-closed dependency preflight blocked Ladder mutation"
+        ],
+        "evidence_digest": null,
+        "job_id": "324408a9-fa22-4c6b-b931-c7906c962431",
+        "operation": "ladder.networks.apply",
+        "output": {
+          "preflight": {
+            "baseline_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+            "blockers": [
+              "baseline rebuild emitted a warning: device description for '<empty>' is missing",
+              "unresolved <Empty> device/library dependency: device description for '<empty>' is missing"
+            ],
+            "created_at": "2026-10-11T16:11:25Z",
+            "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9",
+            "protocol": "AXQ-FILE/2",
+            "status": "blocked",
+            "workspace_identity_digest": "sha256:8431d60f153d74058a482369a883c9c39a266f7072c3c428d6aee93206b32281"
+          },
+          "real_target_contacted": false,
+          "reason": "dependency_preflight",
+          "status": "blocked"
+        },
+        "record_type": "JobResult",
+        "result_digest": "sha256:04ac27df0298e28d30de07a99af4111ad68648ea22e540aebbfbf4a15a7ac0c0",
+        "schema_version": "1",
+        "started_at": "2026-10-11T16:11:26Z",
+        "status": "blocked",
+        "unknown_outcome": false
+      }
+    },
+    {
+      "arguments": {
+        "expected_revision": 0,
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      },
+      "error": "workspace has no qualifying zero-error/zero-warning build",
+      "expected_block": true,
+      "operation": "artifact.freeze"
+    },
+    {
+      "arguments": {
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      },
+      "operation": "workspace.status",
+      "result": {
+        "baseline_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+        "created_at": "2026-10-11T16:10:46Z",
+        "current_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+        "dirty": false,
+        "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9",
+        "record_type": "WorkspaceHandle",
+        "revision": 0,
+        "schema_version": "1",
+        "state": "active",
+        "workspace_id": "e03a3618-c9a3-44a2-961e-501f1e57605d"
+      }
+    }
+  ],
+  "native_identity_readback": {
+    "ident": {
+      "id": "16f7 0319",
+      "type": "4102",
+      "version": "1.0.9.2"
+    },
+    "is_device": true,
+    "name": "Controller",
+    "type": "225bfe47-7336-4dbc-9419-4105a7c831fa"
+  },
+  "dependency_preflight": {
+    "baseline_project_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+    "baseline_rebuild_attempted": true,
+    "blockers": [
+      "baseline rebuild emitted a warning: device description for '<empty>' is missing",
+      "unresolved <Empty> device/library dependency: device description for '<empty>' is missing"
+    ],
+    "created_at": "2026-10-11T16:11:25Z",
+    "diagnostics": [
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+        "code": "AX.BUILD.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Device description for '<Empty>' is missing",
+        "severity": "warning",
+        "source": null
+      },
+      {
+        "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+        "code": "C.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "------ Build started: Application: Controller.Application -------",
+        "severity": "info",
+        "source": null
+      },
+      {
+        "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+        "code": "C.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Typify code...",
+        "severity": "info",
+        "source": null
+      },
+      {
+        "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+        "code": "C.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Compile complete -- 0 errors, 0 warnings",
+        "severity": "info",
+        "source": null
+      },
+      {
+        "category": "220493a1-f49b-4416-9a3f-a545db707cbe",
+        "code": "SA.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Additional code checks ...",
+        "severity": "info",
+        "source": null
+      },
+      {
+        "category": "220493a1-f49b-4416-9a3f-a545db707cbe",
+        "code": "SA.MESSAGE",
+        "column": null,
+        "line": null,
+        "message": "Additional code checks complete -- 0 errors",
+        "severity": "info",
+        "source": null
+      }
+    ],
+    "environment_digest": "sha256:4cd43c61c8dc124539c1c22199ae74560811d3b3abb1751ba8b6c782d17035c9",
+    "preflight_id": "8b1ddd13-1abf-4746-a15b-09046c4e9dbb",
+    "project_dirty": false,
+    "project_path": "workspaces/e03a3618-c9a3-44a2-961e-501f1e57605d/project.project",
+    "real_target_contacted": false,
+    "record_type": "DependencyPreflight",
+    "schema_version": "1",
+    "status": "blocked",
+    "workspace_digest": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206"
+  },
+  "compiler_summary": {
+    "category": "97f48d64-a2a3-4856-b640-75c046e37ea9",
+    "error_count": 0,
+    "warning_count": 0,
+    "text": "Compile complete -- 0 errors, 0 warnings"
+  },
+  "environment_diagnostics": {
+    "category": "40f0865b-0ef6-4fd7-a75c-f44c58bd9f5e",
+    "warning_count": 21,
+    "severity_retained": "warning",
+    "text": "Device description for '<Empty>' is missing",
+    "independently_qualified_as_ignorable": false
+  },
+  "native_placeholder_observation": {
+    "count": 21,
+    "device_object_type": "085766fd-043e-4545-8e8d-d651d56d5d3b",
+    "device_identity": {
+      "type": "0",
+      "id": "0000 0000",
+      "version": "3.0.0.0"
+    },
+    "observation_only_not_a_warning_exemption": true
+  },
+  "guard": {
+    "checked_at": "2026-10-11T16:11:32Z",
+    "error": null,
+    "pid": 2212,
+    "record_type": "AxWindowGuard",
+    "schema_version": "1",
+    "started_at": "2026-10-11T16:10:48Z",
+    "status": "stopped",
+    "windows_hidden": 33
+  },
+  "source_input_unchanged": true,
+  "workspace_revision": 0,
+  "workspace_dirty": false,
+  "st_edit_applied": false,
+  "ladder_import_applied": false,
+  "artifact_frozen": false,
+  "live_target_contacted": false,
+  "release_approval_changed": false,
+  "focused_tests": {
+    "run": 56,
+    "passed": 56,
+    "failed": 0
+  },
+  "remaining_gap": "Native AX308 optional-slot/device dependencies must be independently resolved or explicitly qualified in a reviewed profile before the unchanged zero-warning dependency/freeze gate can pass. No blanket warning waiver was added.",
+  "raw_evidence_hashes": [
+    {
+      "relative_path": "g2-native/raw-diagnostics.json",
+      "sha256": "32225c34f693605c76d596a75773bc1b1926e6b6f326b4930b57bb94bc3c89f2",
+      "bundled": false
+    },
+    {
+      "relative_path": "g2-native/public-operations.json",
+      "sha256": "c6777dcd8b18ba40a358f594892f26faf1077ac2f59d91baddcf2254eea0ea78",
+      "bundled": false
+    },
+    {
+      "relative_path": "g2-native/fixed/public-operations.json",
+      "sha256": "9682d3b4a564ac12c5c2fadb2c1a871be829685bdde42658d71f3da0388e407f",
+      "bundled": false
+    }
+  ],
+  "full_ax_regression": {
+    "run": 262,
+    "passed": 261,
+    "skipped": 1,
+    "failed": 0,
+    "skip_reason": "Windows symlink privilege unavailable",
+    "duration_seconds": 72.034
+  },
+  "source_read_provenance": {
+    "phase": "pre-fix auxiliary observation; separate worker pin, not fixed-worker source-read qualification",
+    "identity": {
+      "baseline_sha256": "sha256:d4a411598bce02dcc6d1d1d29e37080211b351df4fd7d1ce6ffed66f0ab41206",
+      "device_profile": {
+        "device_id": "16f7 0319",
+        "device_type": 4102,
+        "device_version": "1.0.9.2",
+        "model": "AX-308EA0MA1P",
+        "profile_id": "ax308-sp18"
+      },
+      "ide_executable_sha256": "sha256:5e6803c943f335f046b5f2d8eaa20849d8defd3e6d67574041f7957c406a1b01",
+      "ladder_helper_sha256": "sha256:fbdcef483cf925bedabbde484d5bf618b86b6e614d625659311ec65f6cd547ba",
+      "script_engine_sha256": "sha256:54fbd647a6d007cd3117a12c06ceea86df8d3ef0e533002bcd4251dea3412389",
+      "target": {
+        "family": "AX",
+        "ide_version": "1.9.0.9194",
+        "model": "AX-308EA0MA1P",
+        "project_format": ".project",
+        "toolchain": "diadesigner-ax",
+        "vendor": "delta"
+      },
+      "worker_sha256": "sha256:cd299008828f6e5d453f6e7d2f1a2fffc623b44af8cdf41906e27ef4333cc219"
+    }
+  }
+}

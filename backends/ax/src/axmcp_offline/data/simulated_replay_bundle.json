@@ -1,0 +1,168 @@
+{
+  "bundle_version": "1",
+  "evidence_class": "SIMULATED",
+  "live_ax_verified": false,
+  "environment": {
+    "schema_version": "1",
+    "record_type": "EnvironmentIdentity",
+    "captured_at": "2026-09-01T00:00:00Z",
+    "executable": {
+      "identity": "DIADesigner-AX.exe",
+      "version": "SIMULATED",
+      "sha256": "sha256:f5c6d93b534c689590f2484b170e8293ef16e0ad28337f859e43100737715c9d"
+    },
+    "profile": {
+      "identity": "DIADesigner-AX 1.9",
+      "version": "SIMULATED",
+      "sha256": "sha256:5f53eb436ffa54b56083c5f397ad06f937b3af66a6feeea2657ae97af7f5b422"
+    },
+    "product": {
+      "identity": "DIADesigner-AX",
+      "version": "SIMULATED",
+      "sha256": "sha256:b69bdc279f2d0f98c59cafd9790fc9fb8167464acf43268a62df9b6a75e8110e"
+    },
+    "script_engine": {
+      "identity": "ScriptEngine",
+      "version": "SIMULATED",
+      "sha256": "sha256:3708d7164842fc74792c561f22ac29e20c1de9822d94a433bb2fab060ec44493"
+    },
+    "target": {
+      "identity": "SyntheticProject_SIMULATED_TARGET",
+      "version": "SIMULATED",
+      "sha256": "sha256:507b1de93490b5fa10425768bf95c08a9be08e40396a776c2e0f44e9fdd5b9fd"
+    },
+    "devices": [
+      {
+        "identity": "SIM_DEVICE",
+        "version": "SIMULATED",
+        "sha256": "sha256:803130495afab5b9f4fc871fc11672cb1c22382b4a1fa717d5a42091f4c5f111"
+      }
+    ],
+    "libraries": [
+      {
+        "identity": "SIM_LIBRARY",
+        "version": "SIMULATED",
+        "sha256": "sha256:cd298f64a517591337ddeed2882286be48f06ce25dfaf4374897801486681401"
+      }
+    ],
+    "tasks": [
+      {
+        "identity": "SIM_TASK",
+        "version": "SIMULATED",
+        "sha256": "sha256:819542312177965fff7bd12a91269a75046f08a6469fc06530a738d76fcf870c"
+      }
+    ]
+  },
+  "environment_digest": "sha256:b960c21134e282d534d6b5f7181bd4e7c4e774ad72e860e19408da2428a6cb4a",
+  "operations": {
+    "environment.probe": {
+      "capability": {
+        "schema_version": "1",
+        "record_type": "CapabilityResult",
+        "captured_at": "2026-09-01T00:00:00Z",
+        "operation": "environment.probe",
+        "status": "unverified",
+        "mode": "recorded_replay",
+        "limitations": [
+          "SIMULATED fixture; not live AX evidence."
+        ],
+        "environment_digest": "sha256:b960c21134e282d534d6b5f7181bd4e7c4e774ad72e860e19408da2428a6cb4a"
+      },
+      "payload": {
+        "environment": "SIMULATED_DIADesigner_AX_1_9",
+        "script_engine": "SIMULATED_4_0_0_0"
+      }
+    },
+    "project.tree.read": {
+      "capability": {
+        "schema_version": "1",
+        "record_type": "CapabilityResult",
+        "captured_at": "2026-09-01T00:00:00Z",
+        "operation": "project.tree.read",
+        "status": "unverified",
+        "mode": "recorded_replay",
+        "limitations": [
+          "SIMULATED fixture; not live AX evidence."
+        ],
+        "environment_digest": "sha256:b960c21134e282d534d6b5f7181bd4e7c4e774ad72e860e19408da2428a6cb4a"
+      },
+      "payload": {
+        "tree": [
+          {
+            "name": "Application",
+            "type": "SIMULATED_FOLDER",
+            "is_folder": true
+          },
+          {
+            "name": "PLC_PRG",
+            "type": "SIMULATED_ST_POU",
+            "is_folder": false
+          }
+        ]
+      }
+    },
+    "project.inventory.read": {
+      "capability": {
+        "schema_version": "1",
+        "record_type": "CapabilityResult",
+        "captured_at": "2026-09-01T00:00:00Z",
+        "operation": "project.inventory.read",
+        "status": "unverified",
+        "mode": "recorded_replay",
+        "limitations": [
+          "SIMULATED fixture; not live AX evidence."
+        ],
+        "environment_digest": "sha256:b960c21134e282d534d6b5f7181bd4e7c4e774ad72e860e19408da2428a6cb4a"
+      },
+      "payload": {
+        "devices": [
+          "SIM_DEVICE"
+        ],
+        "libraries": [
+          "SIM_LIBRARY"
+        ],
+        "tasks": [
+          "SIM_TASK"
+        ]
+      }
+    },
+    "source.read": {
+      "capability": {
+        "schema_version": "1",
+        "record_type": "CapabilityResult",
+        "captured_at": "2026-09-01T00:00:00Z",
+        "operation": "source.read",
+        "status": "unverified",
+        "mode": "recorded_replay",
+        "limitations": [
+          "SIMULATED fixture; not live AX evidence."
+        ],
+        "environment_digest": "sha256:b960c21134e282d534d6b5f7181bd4e7c4e774ad72e860e19408da2428a6cb4a"
+      },
+      "payload": {
+        "target": "PLC_PRG",
+        "declaration": "PROGRAM PLC_PRG",
+        "implementation": "(* SIMULATED READ-ONLY FIXTURE *)"
+      }
+    },
+    "project.export.native": {
+      "capability": {
+        "schema_version": "1",
+        "record_type": "CapabilityResult",
+        "captured_at": "2026-09-01T00:00:00Z",
+        "operation": "project.export.native",
+        "status": "unverified",
+        "mode": "recorded_replay",
+        "limitations": [
+          "SIMULATED fixture; not live AX evidence."
+        ],
+        "environment_digest": "sha256:b960c21134e282d534d6b5f7181bd4e7c4e774ad72e860e19408da2428a6cb4a"
+      },
+      "payload": {
+        "path": "outputs/project.export",
+        "sha256": "sha256:d2882d448147d5115e35b7c2349e3f1ce815bf8a0ec870252f578b986ddfb6d5",
+        "generated": false
+      }
+    }
+  }
+}

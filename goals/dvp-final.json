@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "G-DVP-FINAL",
+  "status": "SOFTWARE_RELEASE_ACCEPTED_EXTERNAL_ACCEPTANCE_OPEN",
+  "objective": "Universal DVP 0.3.1 existing capabilities, portable DVP install, attended M/D gate, WPLSoft GUI delivery and MCP-only watch",
+  "baseline": "f5f43bd69a5c43fb2ec47a205319f1ca87764a1f",
+  "workflow": "../workflows/dvp-final.json",
+  "goals": [
+    {
+      "id": "G1",
+      "name": "Current baseline and peer integration",
+      "status": "PASS"
+    },
+    {
+      "id": "G2",
+      "name": "DVP installation",
+      "status": "PASS_EXISTING_PYTHON_VENDOR_INSTALL_LIMITS_RECORDED"
+    },
+    {
+      "id": "G3",
+      "name": "M/D software integration",
+      "status": "PASS_SOFTWARE"
+    },
+    {
+      "id": "G4",
+      "name": "Vendor production compile save reopen",
+      "status": "BLOCKED_VENDOR_UI"
+    },
+    {
+      "id": "G5",
+      "name": "Optional physical download",
+      "status": "NOT_REQUESTED"
+    },
+    {
+      "id": "G6",
+      "name": "MCP watch software and physical acceptance",
+      "status": "PASS_SOFTWARE_LIVE_BLOCKED_NO_PORT"
+    },
+    {
+      "id": "G7",
+      "name": "Review package and local commit",
+      "status": "PASS_SOFTWARE_REVIEW_PACKAGE_SCOPED_COMMIT"
+    }
+  ],
+  "blockers": [
+    "Windows serial inventory returned no ports on 2026-10-17",
+    "Computer Use launch WPLSoft returned no targetable window; refreshed window list also absent",
+    "Vendor and driver silent installer contracts not qualified; existing host installation preserved"
+  ],
+  "excluded": [
+    "new compiler/transfer MCP API",
+    "scan/autodetect",
+    "Ethernet/RTU",
+    "32-bit float",
+    "unattended energized authorization",
+    "physical FAT"
+  ],
+  "acceptance": "Software release and physical job outcomes are separate; no live PASS from fixtures"
+}

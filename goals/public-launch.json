@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "G-PUBLIC-LAUNCH",
+  "date": "2026-10-17",
+  "status": "software_validated_pending_publication",
+  "workflow": "workflows/public-launch.json",
+  "objective": "Make the portable Universal PLC toolkit discoverable and usable by engineers and AI agents as an attributed open-source GitHub project",
+  "baseline": "e440fefd45ba14cd351c9bea79d64b62295c4d1b",
+  "acceptance": [
+    "Owner account confirmed",
+    "Attractive accurate English/Turkish presentation",
+    "All Universal AX ISPSoft DVP runtime components retained",
+    "Machine/private history excluded from public snapshot",
+    "Working offline demo and CI",
+    "Independent final review",
+    "Public repository and release verified"
+  ],
+  "milestones": {
+    "L1": "complete",
+    "L2": "complete",
+    "L3": "complete",
+    "L4": "complete",
+    "L5": "complete",
+    "L6": "pending",
+    "L7": "pending"
+  },
+  "product": "PLCWeave",
+  "repository": "https://github.com/ufukefekaya-tr/plcweave",
+  "license": "MIT",
+  "software_validation": {
+    "tests_run": 517,
+    "passed": 516,
+    "skipped": 1,
+    "failed": 0,
+    "scope": "Windows Python3.14 offline source suites; neutralized public fixture",
+    "portable_all_backends": "PASS",
+    "hardware_contacted": false
+  }
+}

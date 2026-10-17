@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "G-DVP-5",
+  "mode": "NORMAL",
+  "status": "BLOCKED",
+  "objective": "Current approved Delta SS2 program backup, deployment and independent readback through Universal MCP",
+  "revision_policy": "Re-check producer approved-program manifest and original source SHA before prepare and execute; a newer draft is not an approved candidate",
+  "current_user_revision": "V7",
+  "supersedes_candidate": "V5",
+  "current_approved_source": "SOURCE_PINNED_LIVE_BINARY_UNVERIFIED",
+  "route": "COM6 HMI CDC to PLC RS485; shared with YALDIZ_PLC_YAZILIM",
+  "peer_thread_id": "01a13488-8e73-7110-96f8-febde22df2d9",
+  "no_computer_use": true,
+  "workflows": {
+    "W1": "Resolve, exact USB route and native SS2 identity",
+    "W5": "STOP observation, full raw backup, immutable prepare, once-only execute, independent program/descriptor/parameter readback and final STOP",
+    "W6": "Unknown-outcome journal and independent reconciliation; never replay an uncertain segment",
+    "W7": "Negative tests, independent review, evidence, Kaizen and scoped local commit"
+  },
+  "gates": {
+    "vendor_program_contract": "STATIC_PROVED",
+    "native_dvp_codec": "PASS_SOFTWARE",
+    "private64_ack_live_qualification": "NOT_RUN",
+    "current_source_approval": "NOT_APPROVED_FOR_DEPLOYMENT",
+    "live_backup": "NOT_RUN",
+    "live_download": "NOT_RUN",
+    "live_readback_compare": "NOT_RUN",
+    "power_cycle_retention": "NOT_RUN",
+    "independent_final_review": "SOFTWARE_PASS_LIVE_OPEN",
+    "native_identity": "PASS_LIVE_FAMILY_SS2",
+    "online_read": "PASS_LIVE_READ"
+  },
+  "physical_state": {
+    "user_present": false,
+    "heaters_isolated": "UNVERIFIED_CURRENT",
+    "program_mutation_enrolled": false,
+    "authority_source": "Latest direct user said leaving; earlier isolated/attended control test does not establish current conditions"
+  },
+  "acceptance": [
+    "Current approved saved source and separately identified program payload hashes",
+    "Current target identity, current typed session, cooperative port ownership and STOP",
+    "Full7920-word lossless backup and bounded parameter/initial-value descriptor snapshot",
+    "No protected target or unsupported initial-value blob mutation",
+    "Durable exclusive admission and segment intent before any possibly mutating request",
+    "Independent active payload, unchanged tail, descriptor, parameters and final STOP verification",
+    "Software fixtures reported separately from live program transfer",
+    "Independent NORMAL review and scoped local commit"
+  ],
+  "evidence": [
+    "docs/adapters/dvp-transfer.md",
+    "src/universal_plc/dvp_native.py",
+    "tools/dvp_transfer_e2e.py",
+    "reports/dvp-transfer/",
+    "reports/dvp-transfer/com6-native-identity-read.json"
+  ],
+  "plc_program_changed_by_this_goal": false,
+  "current_source_record": "EXTERNAL_JOB_PROFILE_REQUIRED",
+  "software_tests": {
+    "status": "PASS_SOFTWARE_ONLY",
+    "dvp": 92,
+    "universal_runtime": 25,
+    "total": 117,
+    "proof": "reports/dvp-transfer/software-tests.json"
+  },
+  "independent_final_review": {
+    "status": "SOFTWARE_PASS",
+    "live_acceptance": "OPEN",
+    "evidence": "reports/dvp-transfer/independent-review.json"
+  },
+  "local_commit": "SCOPED_MANDATORY_CLOSURE_SEE_GIT_HISTORY",
+  "blocked_at": "2026-10-13T13:38:22.739487+00:00",
+  "blocked_reason": "Current V7 source is not approved for deployment, download explicitly forbidden and native checksum stale; current attended isolated STOP conditions not established",
+  "blocked_audit": {
+    "consecutive_goal_turns": 3,
+    "software_action_remaining": false,
+    "same_external_condition_revalidated": true
+  },
+  "unblock_requirements": [
+    "Latest vendor-saved checksum-valid approved native source with pinned source/payload SHA and current download authority",
+    "Current attended isolated STOP enrollment",
+    "Fresh cooperative COM6 ownership before real qualification and transfer"
+  ]
+}

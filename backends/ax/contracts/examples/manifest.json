@@ -1,0 +1,131 @@
+{
+  "manifest_version": "1",
+  "fixtures": [
+    {
+      "fixture": "environment_identity.valid.json",
+      "schema": "../environment_identity.schema.json",
+      "expected": "accept",
+      "reason": "Complete EnvironmentIdentity v1 record"
+    },
+    {
+      "fixture": "environment_identity.invalid.missing_required.json",
+      "schema": "../environment_identity.schema.json",
+      "expected": "reject",
+      "reason": "Required executable identity is absent"
+    },
+    {
+      "fixture": "environment_identity.invalid.unknown_field.json",
+      "schema": "../environment_identity.schema.json",
+      "expected": "reject",
+      "reason": "Nested executable identity has an unknown path field"
+    },
+    {
+      "fixture": "environment_identity.invalid.wrong_version.json",
+      "schema": "../environment_identity.schema.json",
+      "expected": "reject",
+      "reason": "schema_version is not exact 1"
+    },
+    {
+      "fixture": "environment_identity.invalid.bad_digest.json",
+      "schema": "../environment_identity.schema.json",
+      "expected": "reject",
+      "reason": "Digest prefix and hexadecimal characters are not lowercase"
+    },
+    {
+      "fixture": "environment_identity.invalid.bad_timestamp.json",
+      "schema": "../environment_identity.schema.json",
+      "expected": "reject",
+      "reason": "Timestamp uses fractional seconds"
+    },
+    {
+      "fixture": "capability_result.valid.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "accept",
+      "reason": "Complete CapabilityResult v1 record"
+    },
+    {
+      "fixture": "capability_result.invalid.missing_required.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "reject",
+      "reason": "Required environment_digest is absent"
+    },
+    {
+      "fixture": "capability_result.invalid.unknown_field.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "reject",
+      "reason": "Unknown runtime_dispatch field is present"
+    },
+    {
+      "fixture": "capability_result.invalid.wrong_version.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "reject",
+      "reason": "schema_version is not exact 1"
+    },
+    {
+      "fixture": "capability_result.invalid.bad_digest.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "reject",
+      "reason": "Environment digest is too short"
+    },
+    {
+      "fixture": "capability_result.invalid.bad_timestamp.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "reject",
+      "reason": "Timestamp is not UTC RFC3339 seconds form"
+    },
+    {
+      "fixture": "capability_result.invalid.operation.json",
+      "schema": "../capability_result.schema.json",
+      "expected": "reject",
+      "reason": "Operation is outside the exact five-operation enum"
+    },
+    {
+      "fixture": "evidence_record.valid.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "accept",
+      "reason": "Complete EvidenceRecord v1 record"
+    },
+    {
+      "fixture": "evidence_record.invalid.missing_required.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "Required diagnostics list is absent"
+    },
+    {
+      "fixture": "evidence_record.invalid.unknown_field.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "Unknown approved field is present"
+    },
+    {
+      "fixture": "evidence_record.invalid.wrong_version.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "schema_version is not exact 1"
+    },
+    {
+      "fixture": "evidence_record.invalid.bad_digest.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "Input digest contains non-hexadecimal uppercase characters"
+    },
+    {
+      "fixture": "evidence_record.invalid.bad_timestamp.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "Timestamp uses an offset instead of exact Z"
+    },
+    {
+      "fixture": "evidence_record.invalid.uuid.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "Correlation UUID is uppercase and non-canonical"
+    },
+    {
+      "fixture": "evidence_record.invalid.evidence_class.json",
+      "schema": "../evidence_record.schema.json",
+      "expected": "reject",
+      "reason": "Evidence class is outside the exact repository evidence levels"
+    }
+  ]
+}

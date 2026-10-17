@@ -1,0 +1,214 @@
+{
+  "manifest_version": "1",
+  "fixtures": [
+    {
+      "schema": "../axq_request.schema.json",
+      "instance": {
+        "protocol": "AXQ-FILE/2",
+        "message_type": "request",
+        "correlation_id": "123e4567-e89b-42d3-a456-426614174000",
+        "job_id": "223e4567-e89b-42d3-a456-426614174000",
+        "operation": "workspace.create",
+        "created_at": "2026-09-01T12:00:00Z",
+        "deadline_at": "2026-09-01T12:01:00Z",
+        "environment_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "workspace_digest": null,
+        "expected_revision": null,
+        "authorization_digest": null,
+        "artifacts": [
+          {
+            "role": "project",
+            "path": "inputs/baseline.project",
+            "sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        ]
+      }
+    },
+    {
+      "schema": "../axq_result.schema.json",
+      "instance": {
+        "protocol": "AXQ-FILE/2",
+        "message_type": "result",
+        "correlation_id": "123e4567-e89b-42d3-a456-426614174000",
+        "job_id": "223e4567-e89b-42d3-a456-426614174000",
+        "operation": "project.build",
+        "created_at": "2026-09-01T12:00:10Z",
+        "status": "succeeded",
+        "environment_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "workspace_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "request_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "before_project_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "after_project_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "revision": 2,
+        "artifacts": [],
+        "diagnostics": []
+      }
+    },
+    {
+      "schema": "../workspace_handle.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "WorkspaceHandle",
+        "workspace_id": "323e4567-e89b-42d3-a456-426614174000",
+        "created_at": "2026-09-01T12:00:00Z",
+        "baseline_project_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "current_project_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "environment_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "revision": 0,
+        "dirty": false,
+        "state": "active"
+      }
+    },
+    {
+      "schema": "../build_result.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "BuildResult",
+        "build_id": "423e4567-e89b-42d3-a456-426614174000",
+        "created_at": "2026-09-01T12:00:30Z",
+        "workspace_id": "323e4567-e89b-42d3-a456-426614174000",
+        "revision": 2,
+        "kind": "rebuild",
+        "status": "passed",
+        "error_count": 0,
+        "warning_count": 0,
+        "diagnostics": [],
+        "project_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "artifact_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+        "runtime_release_digest": "sha256:1212121212121212121212121212121212121212121212121212121212121212",
+        "environment_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "schema": "../deployment_plan.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "DeploymentPlan",
+        "plan_id": "523e4567-e89b-42d3-a456-426614174000",
+        "created_at": "2026-09-01T12:00:00Z",
+        "expires_at": "2026-09-01T12:10:00Z",
+        "valid_for_seconds": 600,
+        "artifact_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+        "build_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+        "runtime_release_digest": "sha256:1212121212121212121212121212121212121212121212121212121212121212",
+        "target_fingerprint": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+        "rollback_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+        "rollback_runtime_release_digest": "sha256:3434343434343434343434343434343434343434343434343434343434343434",
+        "observation_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "challenge_nonce": "623e4567-e89b-42d3-a456-426614174000",
+        "authority_digest": null,
+        "one_shot": true,
+        "state": "prepared",
+        "reconciliation_required": false
+      }
+    },
+    {
+      "schema": "../observation_profile.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "ObservationProfile",
+        "profile_id": "universal-plc.lab-v1",
+        "expressions": [
+          "PLC_PRG.SupervisorState",
+          "PLC_PRG.FaultCode"
+        ],
+        "interval_ms": 500,
+        "duration_seconds": 60,
+        "fault_invariants": [
+          {
+            "expression": "PLC_PRG.FaultCode",
+            "operator": "eq",
+            "expected": 0,
+            "action": "stop_and_rollback"
+          }
+        ]
+      }
+    },
+    {
+      "schema": "../job_result.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "JobResult",
+        "job_id": "223e4567-e89b-42d3-a456-426614174000",
+        "correlation_id": "123e4567-e89b-42d3-a456-426614174000",
+        "operation": "project.build",
+        "status": "succeeded",
+        "created_at": "2026-09-01T12:00:00Z",
+        "started_at": "2026-09-01T12:00:01Z",
+        "completed_at": "2026-09-01T12:00:30Z",
+        "result_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "evidence_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "unknown_outcome": false,
+        "diagnostics": []
+      }
+    },
+    {
+      "schema": "../evidence_record_v2.schema.json",
+      "instance": {
+        "schema_version": "2",
+        "record_type": "EvidenceRecord",
+        "created_at": "2026-09-01T12:00:30Z",
+        "correlation_id": "123e4567-e89b-42d3-a456-426614174000",
+        "job_id": "223e4567-e89b-42d3-a456-426614174000",
+        "operation": "project.build",
+        "producer": "agent",
+        "evidence_class": "AGENT_IDE_COMPILED",
+        "input_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "output_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "environment_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "target_fingerprint": null,
+        "diagnostics": []
+      }
+    },
+    {
+      "schema": "../deployment_authority.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "DeploymentAuthority",
+        "status": "issued",
+        "plan_id": "523e4567-e89b-42d3-a456-426614174000",
+        "artifact_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+        "runtime_release_digest": "sha256:1212121212121212121212121212121212121212121212121212121212121212",
+        "target_fingerprint": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+        "rollback_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+        "rollback_runtime_release_digest": "sha256:3434343434343434343434343434343434343434343434343434343434343434",
+        "observation_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "challenge_nonce": "623e4567-e89b-42d3-a456-426614174000",
+        "phrase_digest": "sha256:d254948f417a488968d144e12a6b87dfdeafb5582dbe86fa807dac952341088c",
+        "issued_at": "2026-09-01T12:00:00Z",
+        "expires_at": "2026-09-01T12:10:00Z",
+        "single_use": true,
+        "consumed_at": null,
+        "authority_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    },
+    {
+      "schema": "../deployment_reconciliation.schema.json",
+      "instance": {
+        "schema_version": "1",
+        "record_type": "DeploymentReconciliation",
+        "original_job_id": "723e4567-e89b-42d3-a456-426614174000",
+        "reconciliation_job_id": "823e4567-e89b-42d3-a456-426614174000",
+        "created_at": "2026-09-01T12:11:00Z",
+        "target_fingerprint": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+        "artifact_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+        "rollback_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+        "runtime_release_digest": "sha256:1212121212121212121212121212121212121212121212121212121212121212",
+        "rollback_runtime_release_digest": "sha256:3434343434343434343434343434343434343434343434343434343434343434",
+        "original_result_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "side_effect_marker_digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "journal_head_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "provenance_head_kind": "journal",
+        "outcome": "succeeded",
+        "reconciliation_required": false,
+        "observed": {
+          "target_fingerprint": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+          "runtime_release_digest": "sha256:1212121212121212121212121212121212121212121212121212121212121212",
+          "application_state": "run",
+          "forced_values_present": false,
+          "physical_outputs_energized": false
+        }
+      }
+    }
+  ]
+}

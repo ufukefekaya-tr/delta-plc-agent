@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "retrieved": "2026-10-11",
+  "files": [
+    {
+      "repository": "https://github.com/ahmetdumlupinarr/delta-ispsoft-codec",
+      "commit": "fd0679cca86624ace379a4c5f462ced3c93f4211",
+      "source_path": "tools/ispsoft_codec.py",
+      "url": "https://raw.githubusercontent.com/ahmetdumlupinarr/delta-ispsoft-codec/fd0679cca86624ace379a4c5f462ced3c93f4211/tools/ispsoft_codec.py",
+      "source_sha256": "de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f",
+      "local_path": "src/universal_plc/delta_files/_vendor/ispsoft_codec.py",
+      "local_sha256": "de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f",
+      "license": "MIT",
+      "modifications": []
+    },
+    {
+      "repository": "https://github.com/ahmetdumlupinarr/delta-ispsoft-codec",
+      "commit": "fd0679cca86624ace379a4c5f462ced3c93f4211",
+      "source_path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/ahmetdumlupinarr/delta-ispsoft-codec/fd0679cca86624ace379a4c5f462ced3c93f4211/LICENSE",
+      "source_sha256": "cab4e17d96d9edbb4e314eb74283bcadac2ef8ff359bc2f57e551284b3dd31de",
+      "local_path": "src/universal_plc/delta_files/_vendor/LICENSE-ispsoft-codec.txt",
+      "local_sha256": "cab4e17d96d9edbb4e314eb74283bcadac2ef8ff359bc2f57e551284b3dd31de",
+      "license": "MIT",
+      "modifications": []
+    },
+    {
+      "repository": "https://github.com/liangruiben/delta-dvp-ispsoft",
+      "commit": "2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e",
+      "source_path": "scripts/mpu_codec.py",
+      "url": "https://raw.githubusercontent.com/liangruiben/delta-dvp-ispsoft/2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e/scripts/mpu_codec.py",
+      "source_sha256": "bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+      "local_path": "src/universal_plc/delta_files/_vendor/mpu_codec.py",
+      "local_sha256": "bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+      "license": "MIT",
+      "modifications": []
+    },
+    {
+      "repository": "https://github.com/liangruiben/delta-dvp-ispsoft",
+      "commit": "2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e",
+      "source_path": "scripts/il2mpu.py",
+      "url": "https://raw.githubusercontent.com/liangruiben/delta-dvp-ispsoft/2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e/scripts/il2mpu.py",
+      "source_sha256": "c0548d3bae878a7e87cf4f9a46272400fc1fa668b17ada62689808bc41930eb9",
+      "local_path": "src/universal_plc/delta_files/_vendor/il2mpu.py",
+      "local_sha256": "ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+      "license": "MIT",
+      "modifications": [
+        "Package-relative import; no sys.path mutation"
+      ]
+    },
+    {
+      "repository": "https://github.com/liangruiben/delta-dvp-ispsoft",
+      "commit": "2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e",
+      "source_path": "scripts/mpu2il.py",
+      "url": "https://raw.githubusercontent.com/liangruiben/delta-dvp-ispsoft/2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e/scripts/mpu2il.py",
+      "source_sha256": "53590db059b050d517d186f4805da580cf12c2495c97d9fd4031d0af7d4b4600",
+      "local_path": "src/universal_plc/delta_files/_vendor/mpu2il.py",
+      "local_sha256": "0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+      "license": "MIT",
+      "modifications": [
+        "Package-relative import; no sys.path mutation"
+      ]
+    },
+    {
+      "repository": "https://github.com/liangruiben/delta-dvp-ispsoft",
+      "commit": "2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e",
+      "source_path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/liangruiben/delta-dvp-ispsoft/2dcd3bfce09d8df37333c4ab0b8b7cb6a9a6676e/LICENSE",
+      "source_sha256": "c62008fff0c35996374c686ded5fdfafd32945663ee272766e9472e393038a66",
+      "local_path": "src/universal_plc/delta_files/_vendor/LICENSE-dvp-ispsoft.txt",
+      "local_sha256": "c62008fff0c35996374c686ded5fdfafd32945663ee272766e9472e393038a66",
+      "license": "MIT",
+      "modifications": []
+    },
+    {
+      "repository": "https://github.com/elmasacom/DELTA-PLC",
+      "commit": "b692eee5fb9240ec37e64d0350e6b2896910c248",
+      "source_path": "src/ispsoft_generator.py",
+      "url": "https://raw.githubusercontent.com/elmasacom/DELTA-PLC/b692eee5fb9240ec37e64d0350e6b2896910c248/src/ispsoft_generator.py",
+      "source_sha256": "75c0f6c3edd4805a011e26240be875d44772cb53a4128f1468c4c445b36626b1",
+      "local_path": "src/universal_plc/delta_files/_vendor/ispsoft_generator.py",
+      "local_sha256": "dd8bcbb83372977bb0d5ecedc632222aaf9b76ad6a3ee4f05f1aef521b57b895",
+      "license": "MIT",
+      "modifications": [
+        "Replaced arbitrary-offset unbounded container load/rebuild with bounded CRC/length checked 0xAA/0xAC container implementation; transformation serializers unchanged"
+      ]
+    },
+    {
+      "repository": "https://github.com/elmasacom/DELTA-PLC",
+      "commit": "b692eee5fb9240ec37e64d0350e6b2896910c248",
+      "source_path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/elmasacom/DELTA-PLC/b692eee5fb9240ec37e64d0350e6b2896910c248/LICENSE",
+      "source_sha256": "3640de05f6ecce81998006d960e268ebb19f45d3781c0844cff78b8145e53971",
+      "local_path": "src/universal_plc/delta_files/_vendor/LICENSE-delta-plc.txt",
+      "local_sha256": "3640de05f6ecce81998006d960e268ebb19f45d3781c0844cff78b8145e53971",
+      "license": "MIT",
+      "modifications": []
+    }
+  ],
+  "excluded": [
+    "All real machine projects, templates and examples",
+    "Bundled 7zip executables/DLL",
+    "Upstream smoke_test.py with unresolved merge markers"
+  ],
+  "qualification": "FILE_TRANSFORM only; no vendor compile/live qualification"
+}

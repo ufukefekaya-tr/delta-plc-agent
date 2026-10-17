@@ -1,0 +1,34 @@
+{
+  "registry_version": "1",
+  "default_action": "deny",
+  "runtime_modes": [
+    "recorded_replay",
+    "file_bridge"
+  ],
+  "operations": [
+    {
+      "operation": "environment.probe",
+      "read_only": true
+    },
+    {
+      "operation": "project.tree.read",
+      "read_only": true
+    },
+    {
+      "operation": "project.inventory.read",
+      "read_only": true
+    },
+    {
+      "operation": "source.read",
+      "read_only": true
+    },
+    {
+      "operation": "project.export.native",
+      "read_only": true
+    }
+  ],
+  "generic_dispatch": false,
+  "shell": false,
+  "arbitrary_filesystem": false,
+  "online_or_plc": false
+}

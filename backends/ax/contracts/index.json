@@ -1,0 +1,35 @@
+{
+  "index_version": "1",
+  "protocol": "AXQ-FILE/1",
+  "digest_format": "sha256:<64 lowercase hex>",
+  "timestamp_format": "UTC RFC3339 seconds, YYYY-MM-DDTHH:MM:SSZ",
+  "correlation_format": "lowercase UUID",
+  "runtime_dispatch": "declared_not_executable",
+  "schemas": [
+    {
+      "name": "EnvironmentIdentity",
+      "version": "1",
+      "path": "environment_identity.schema.json",
+      "schema_id": "https://universal-plc.invalid/mcp-foundation/contracts/environment-identity-v1.schema.json"
+    },
+    {
+      "name": "CapabilityResult",
+      "version": "1",
+      "path": "capability_result.schema.json",
+      "schema_id": "https://universal-plc.invalid/mcp-foundation/contracts/capability-result-v1.schema.json"
+    },
+    {
+      "name": "EvidenceRecord",
+      "version": "1",
+      "path": "evidence_record.schema.json",
+      "schema_id": "https://universal-plc.invalid/mcp-foundation/contracts/evidence-record-v1.schema.json"
+    }
+  ],
+  "operation_ids": [
+    "environment.probe",
+    "project.tree.read",
+    "project.inventory.read",
+    "source.read",
+    "project.export.native"
+  ]
+}

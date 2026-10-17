@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://universal-plc.invalid/mcp-foundation/contracts/v2/deployment-authority.schema.json",
+  "title": "DeploymentAuthority v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "status",
+    "plan_id",
+    "artifact_digest",
+    "target_fingerprint",
+    "rollback_digest",
+    "runtime_release_digest",
+    "rollback_runtime_release_digest",
+    "observation_digest",
+    "challenge_nonce",
+    "phrase_digest",
+    "issued_at",
+    "expires_at",
+    "single_use",
+    "consumed_at",
+    "authority_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "record_type": {
+      "const": "DeploymentAuthority"
+    },
+    "status": {
+      "enum": [
+        "issued",
+        "consumed",
+        "expired"
+      ]
+    },
+    "plan_id": {
+      "$ref": "#/$defs/uuid"
+    },
+    "artifact_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "target_fingerprint": {
+      "$ref": "#/$defs/digest"
+    },
+    "rollback_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "runtime_release_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "rollback_runtime_release_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "observation_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "challenge_nonce": {
+      "$ref": "#/$defs/uuid"
+    },
+    "phrase_digest": {
+      "const": "sha256:d254948f417a488968d144e12a6b87dfdeafb5582dbe86fa807dac952341088c"
+    },
+    "issued_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "single_use": {
+      "const": true
+    },
+    "consumed_at": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "authority_digest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "consumed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "consumed_at": {
+            "$ref": "#/$defs/timestamp"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "issued",
+              "expired"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "consumed_at": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "x-invariants": [
+    "expires_at must be later than issued_at and no more than 600 seconds later",
+    "authority_digest binds plan_id, artifact_digest, target_fingerprint, rollback_digest, both runtime release digests, observation_digest, challenge_nonce, expires_at and the exact authority phrase digest; it is consumed atomically before any target side effect"
+  ],
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$"
+    }
+  }
+}

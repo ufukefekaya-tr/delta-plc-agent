@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://universal-plc.invalid/mcp-foundation/contracts/v2/deployment-reconciliation.schema.json",
+  "title": "DeploymentReconciliation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "original_job_id",
+    "reconciliation_job_id",
+    "created_at",
+    "target_fingerprint",
+    "artifact_digest",
+    "rollback_digest",
+    "runtime_release_digest",
+    "rollback_runtime_release_digest",
+    "original_result_digest",
+    "side_effect_marker_digest",
+    "journal_head_digest",
+    "provenance_head_kind",
+    "outcome",
+    "reconciliation_required",
+    "observed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "record_type": {
+      "const": "DeploymentReconciliation"
+    },
+    "original_job_id": {
+      "$ref": "#/$defs/uuid"
+    },
+    "reconciliation_job_id": {
+      "$ref": "#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "target_fingerprint": {
+      "$ref": "#/$defs/digest"
+    },
+    "artifact_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "rollback_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "runtime_release_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "rollback_runtime_release_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "original_result_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "side_effect_marker_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "journal_head_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "provenance_head_kind": {
+      "enum": [
+        "journal",
+        "launch_uncertainty",
+        "pre_intent_journal"
+      ]
+    },
+    "outcome": {
+      "enum": [
+        "succeeded",
+        "rolled_back",
+        "unknown_outcome"
+      ]
+    },
+    "reconciliation_required": {
+      "type": "boolean"
+    },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_fingerprint",
+        "runtime_release_digest",
+        "application_state",
+        "forced_values_present",
+        "physical_outputs_energized"
+      ],
+      "properties": {
+        "target_fingerprint": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runtime_release_digest": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "application_state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "forced_values_present": {
+          "type": "boolean"
+        },
+        "physical_outputs_energized": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "enum": [
+              "succeeded",
+              "rolled_back"
+            ]
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reconciliation_required": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "unknown_outcome"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reconciliation_required": {
+            "const": true
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$"
+    }
+  }
+}

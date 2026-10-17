@@ -1,0 +1,721 @@
+{
+  "evidence_kind": "CATALOG_METADATA",
+  "runtime_verified": false,
+  "models": {
+    "AX-308EA0MA1T": [
+      {
+        "device_id": "16f7 0313",
+        "device_version": "0.40.2.0",
+        "descriptor_sha256": "4f67a03449af4bd996868ca2e5a399697b9df5914486a7c025bfbac92788ec1e"
+      },
+      {
+        "device_id": "16f7 0313",
+        "device_version": "0.40.3.0",
+        "descriptor_sha256": "83bad4faa68e0a89ed5f416cc485f92412cf3f01cdd86e0816e38c9617df9a66"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "4ebf305e673c7c404f2d9df785883cf64ddd0452ebea2f6fe109410cbfd8c595"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "48badcf1dcf7fc33747627cfd2dcbed9a191caa8e274726508df74d91943c4de"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.2.0",
+        "descriptor_sha256": "a26bfb19140b631b149aad4fc81ce9ced44f809bf6d2cb4a4ff0867418d2d348"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.3.0",
+        "descriptor_sha256": "caa65aee7ac266016277dd58bb30d879db7b053ff24446fea515548575a7b2ec"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.4.0",
+        "descriptor_sha256": "724ea42802d9058439deeae58ab6f4a06d3085be50f164799a248ae6ce1db73f"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.5.8",
+        "descriptor_sha256": "c748810b1a65ab8aaada602af362add2f2a8ba803f1c427bb3af496cd2ae804f"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.6.4",
+        "descriptor_sha256": "fd7b650ece666b6cbccd0816da701a7dbbbe4150403fc98b235dc3d918b98c47"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.7.4",
+        "descriptor_sha256": "26f65f738c104e7bbb4f0724caa4cf9b537290d41d6174e461004b5da1993c91"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.8.1",
+        "descriptor_sha256": "5b426e70012f34c322128597886db14f36284c4dd589ce3c484217636868df76"
+      },
+      {
+        "device_id": "16f7 0314",
+        "device_version": "1.0.9.2",
+        "descriptor_sha256": "6bbf88da537f8586bd517495e357f402d25a9938b0c1e3770ad84ec130fb5f34"
+      }
+    ],
+    "AX-308EA0MA1P": [
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "994f4aaa11ccf9241494f6cfb02e9662ff911f4ceaf6d07dcd5e3e037d165586"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.2.0",
+        "descriptor_sha256": "145d7f4337273594f11ba516042305a3600b437b72d4acb55f7d608b1b08f2ae"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.3.0",
+        "descriptor_sha256": "4a0d07ff14d3aaba031de23da6b8285f24cbb69c670eaa1c8ac72ffcc4a96b11"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.4.0",
+        "descriptor_sha256": "1e54e8cb79841ba633908ec2c32fdb52271dd4ec3031febdb018e6fff9eb8a45"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.5.8",
+        "descriptor_sha256": "16e93c93edee94a78d6b595daa84a6124c91258932612ce7cbc2af2c4d12c1f7"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.6.4",
+        "descriptor_sha256": "fb4b6b3dca284877aadfb0ca453788750a1f481137b210ce565ff52781e47b9c"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.7.4",
+        "descriptor_sha256": "97cc3c58d7a81fb40080366eda819e6f438191c1e4e14f5dfecbf766fe307400"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.8.1",
+        "descriptor_sha256": "07585fb22413ff1c833ba9753381d1d772e7693cd824bd7c30b4fc74c6b542b5"
+      },
+      {
+        "device_id": "16f7 0319",
+        "device_version": "1.0.9.2",
+        "descriptor_sha256": "f4d0fe8422d57dd9e71356fe12c89e1d9cbc6a72ae6b4c7d076877ecd5b98312"
+      }
+    ],
+    "AX-364ELA0MA1T": [
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "b8c948405a7dc65f0994bb62f717ee63388f77c39c6f3d6882e82b576db37c07"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.1.3",
+        "descriptor_sha256": "ddfe08e7bd30bf723f47b7e37c3894fca0e9345707ce72159a76d2d0978f73a3"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.3.0",
+        "descriptor_sha256": "c5e25bb7cbdb2382b3ee13a3c2d07a85d7277c060c14c52a3a053b468a0e6a1e"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.4.0",
+        "descriptor_sha256": "0172c106575a037dbd593c5b6ef61f2c293aa22b10d3064848dd1414be080519"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.5.8",
+        "descriptor_sha256": "5c50e4ceb73c1dc5372e534683cd4b62bd137cfc6bd44869270151e37a05388d"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.6.4",
+        "descriptor_sha256": "b871e912708d4cbfbc56b9c334794e2a7f3a15c9de62727f359a3454984df72d"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.7.4",
+        "descriptor_sha256": "60cb15fa5938ad3fe34bc58642a76e40f006d4c6fe6c91c1b01b642873fc803e"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.8.1",
+        "descriptor_sha256": "b5a496a1872e93d21afa59e0d1e7c83548ef9305d1fe80a44ea340187ec67ad7"
+      },
+      {
+        "device_id": "16f7 0322",
+        "device_version": "1.0.9.2",
+        "descriptor_sha256": "3673689d1a7c37cc3a83552a54485e229555271186a43e65070efd7f7a7c8714"
+      }
+    ],
+    "AX-316EA0MA1T": [
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.2.0",
+        "descriptor_sha256": "157a574b875bad363e64d044ad592cf2c87efc99cd7d7fc9581bffc1d9bd6c75"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.3.0",
+        "descriptor_sha256": "5625a09581a363a8a156ffbc82dc859ebf16b1df6700ea6c657a8aff6514f89b"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.4.0",
+        "descriptor_sha256": "1d2b78e08f8cc03a208359a56727312d421c3dc4ffdf0f56f9f119d478408d27"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.5.8",
+        "descriptor_sha256": "3cd2ece3be8169cb38382b16885de312f5896bc01784f7b1941b3830bbe26a1a"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.6.4",
+        "descriptor_sha256": "7b1017b26cd33efee146191d4397384062912939229a7029010d41b110f4107c"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.7.4",
+        "descriptor_sha256": "156be5b2c688e267be8012bb9e06d91d641c1ebef8c8fedb6e89560b285f65e9"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.8.1",
+        "descriptor_sha256": "8362f3c4d40332e41e92a8ff228a4a8b2b32a2369f92ffc71a613fd9b3e0800d"
+      },
+      {
+        "device_id": "16f7 0328",
+        "device_version": "1.0.9.2",
+        "descriptor_sha256": "8ea6163baeace3c3fe9395c2a5006ecdec565d6a411a9a7a2bd661463d19e0c6"
+      }
+    ],
+    "AX-564ELB0MB1T": [
+      {
+        "device_id": "16f7 0331",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "3c0d9068896779c9c1e6839edd7c4d141487d8b063ee739b960511171e6c65ba"
+      },
+      {
+        "device_id": "16f7 0331",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "35193b3d3b3515284035b871af9a89d0461a0d4b755e72c2989839067c121607"
+      },
+      {
+        "device_id": "16f7 0331",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "c571498c2da0d323a36d2abc2a1ea2c0774ff9e87a9f2b1481964e0f06d530bc"
+      },
+      {
+        "device_id": "16f7 0331",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "7022eef686a243adb4d5180456314f4045402eae9f91d35d261f192f70265732"
+      }
+    ],
+    "AX-564ELB0MB1P": [
+      {
+        "device_id": "16f7 0332",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "d81551cecd82b60b1f60fcf8d7b00424366ca4a2dbc3392a5bb790c1da2304ee"
+      },
+      {
+        "device_id": "16f7 0332",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "f582a6f501020d890cfbe5f9c6a48a5d930119bc3db092769e80b34a1a208f84"
+      },
+      {
+        "device_id": "16f7 0332",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "5822be96b582f0998d1819edd0cd420f464be58d3867c23d80f347935978d264"
+      },
+      {
+        "device_id": "16f7 0332",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "e10844dd19ddd1bc383ff094ae1a0302443c4e5a8d7f08e3e7cdfefe3c4007a3"
+      }
+    ],
+    "AX-516EB0MB1T": [
+      {
+        "device_id": "16f7 0333",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "401b960d394a1166a234dad7db532a3ab8d2bb8c6b307da0e6b982a43e0cef93"
+      },
+      {
+        "device_id": "16f7 0333",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "5b76d215874d07784e812c6cd54c9653edf2ae8ae2e65949c893beed725d107d"
+      },
+      {
+        "device_id": "16f7 0333",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "45fb86b2dca6456ba13d9beb88cf596480121906676d43e58d059ced4f1979dc"
+      },
+      {
+        "device_id": "16f7 0333",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "3145833b30251d4325577b26cd84216b44a5535805a44b473a385f5fb51d088f"
+      },
+      {
+        "device_id": "16f7 0333",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "f6372baa042e10061753afdae78edc4c4d6966922a03ef8bd312cf951023572c"
+      }
+    ],
+    "AX-516EB0MB1P": [
+      {
+        "device_id": "16f7 0334",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "4d70d76abf038a7f9add57d11f1eecf033f677c215506be0e00a2a1c6c865456"
+      },
+      {
+        "device_id": "16f7 0334",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "10a64d2734dc57fbea82b28d4bb7f73331b2e6fad2f314fb835cf64fdd6c2fcc"
+      },
+      {
+        "device_id": "16f7 0334",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "ffbb2c8095b6132be24c4451efa04174db35a98c2e1b7181de19678d5906ee0a"
+      },
+      {
+        "device_id": "16f7 0334",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "4a0d6f69a5eb24c1bce3ed8923b727845ab89dd25b2aa6798df46ee3c0828cc7"
+      },
+      {
+        "device_id": "16f7 0334",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "88499c37fafbb9f3e80a2d42d0d863e765ccf4aed445fa1836f064f69ab11a2d"
+      }
+    ],
+    "AX-532EB0MB1P": [
+      {
+        "device_id": "16f7 0340",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "1a55ce4e41dbc2a8feac631e518c4112abfb39333d18cc501eda85e63465de1b"
+      },
+      {
+        "device_id": "16f7 0340",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "66819af78edeef42dd72d2a7ae8dc4651a63fc9e9fcee1ec402c06a59539dedd"
+      },
+      {
+        "device_id": "16f7 0340",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "0b03169abf2c83df893ee223166dd31a21522d917c3caa3c7e2cb939a89fc516"
+      },
+      {
+        "device_id": "16f7 0340",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "24378edaa7f6dc87a9d967684a218ae8faf7815ce37554f042bf854e46dcae9b"
+      },
+      {
+        "device_id": "16f7 0340",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "9f48f0f77782fc037664ef7a12f3aedc90718924da5db8d6fcbf642d3a28b1e8"
+      }
+    ],
+    "AX-532EB0MB1T": [
+      {
+        "device_id": "16f7 0341",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "d9fbbbc307532d14349499490a208ad9fbe865601ee75c936383b4c39d7ff501"
+      },
+      {
+        "device_id": "16f7 0341",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "d4768080d8c3c4b1761804bc2b02dc70cfad7c637c4873518c6702b7fe4678f3"
+      },
+      {
+        "device_id": "16f7 0341",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "0bb1bd8bf34b94cdb8adb08e860a63e566fe6129d8bca2555befa0782aa5d3f2"
+      },
+      {
+        "device_id": "16f7 0341",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "3fa1a4012ee4c9ca5ca048eee38b1f3c79b48461b210c7e32cb62314b340e6b0"
+      },
+      {
+        "device_id": "16f7 0341",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "c18dd24d5503130bbb8275dacbd8dab756c4182a8e1cf91cfdc7ce40aee31b48"
+      }
+    ],
+    "AX-564EB0MB1T": [
+      {
+        "device_id": "16f7 0342",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "f7247c3839a438244e3671f4f3289f44dc1c8c7eb0782e86b9e16b102464b5d8"
+      },
+      {
+        "device_id": "16f7 0342",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "9a6150d7dbf7a2a000b024a1e9721ad2fe382536c73dfaf4d8dea1c3b8f21c34"
+      },
+      {
+        "device_id": "16f7 0342",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "d79fb5d1940f390235a0c469def2fd088195b4dd8037badf3d34875f6a979299"
+      },
+      {
+        "device_id": "16f7 0342",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "47398c17ffae5ca1de29fdba3986150021317c194f2541557ffb3b9b0457f19a"
+      },
+      {
+        "device_id": "16f7 0342",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "953eb5967c7c16055136ae38fc1c9a741a813afb667972a51f48c6c1fb2e64f3"
+      }
+    ],
+    "AX-564EB0MB1P": [
+      {
+        "device_id": "16f7 0343",
+        "device_version": "1.0.0.11",
+        "descriptor_sha256": "a4316a63914523e28194537465f99dc6671384a104d16009a92fa13f9abcc69e"
+      },
+      {
+        "device_id": "16f7 0343",
+        "device_version": "1.0.0.14",
+        "descriptor_sha256": "cd9c986054fcb1ab7553ea775376effe5316f43b403adb20fb75d64265f52e3d"
+      },
+      {
+        "device_id": "16f7 0343",
+        "device_version": "1.0.0.2",
+        "descriptor_sha256": "99873bc5617277ea40dc7e56bf5ec47213ed4378fd80f4d8e4c2a3f68bf5dd66"
+      },
+      {
+        "device_id": "16f7 0343",
+        "device_version": "1.0.1.0",
+        "descriptor_sha256": "77444208cbb673cc2cfc0efde14d6322c4053bccbe851043973b59256f1aa10d"
+      },
+      {
+        "device_id": "16f7 0343",
+        "device_version": "1.0.1.2",
+        "descriptor_sha256": "c08d0ae4c023159c028b381af364ea37b31ee84e9e56ec5416680b9256babf6f"
+      }
+    ],
+    "AX-864E30CE2T": [
+      {
+        "device_id": "16f7 0414",
+        "device_version": "1.0.1.11",
+        "descriptor_sha256": "2b783b24279defc90fd37a3592d90c9248e8aba4970cac93a752ca89dd583859"
+      },
+      {
+        "device_id": "16f7 0414",
+        "device_version": "1.0.1.9",
+        "descriptor_sha256": "22d9f68bed425bde488a29a5bdab644eb26dfad4c876d1cb725e25d3b83f2d1e"
+      },
+      {
+        "device_id": "16f7 0414",
+        "device_version": "1.0.4.2",
+        "descriptor_sha256": "2ad65e3838047a04e049fcb655aa7c6bc17ea847faae721b41fef9222bf9047d"
+      }
+    ],
+    "AX-864E30ME2T": [
+      {
+        "device_id": "16f7 0415",
+        "device_version": "1.0.1.11",
+        "descriptor_sha256": "e6c3f8ddbd7f3e342ad1ed8aa8feb65cce6642554c8aec94739c9074d8ce954e"
+      },
+      {
+        "device_id": "16f7 0415",
+        "device_version": "1.0.1.9",
+        "descriptor_sha256": "9e59e20232686b5e878e75a517d023f44d64b07fb01df993bd775d98641a20a8"
+      },
+      {
+        "device_id": "16f7 0415",
+        "device_version": "1.0.4.2",
+        "descriptor_sha256": "e988b1775686564767d05086aea427e53adaf451f6550ea074aac0731ae516a5"
+      }
+    ],
+    "AX-332EP0MB1T": [
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.4.0",
+        "descriptor_sha256": "f005a4613fa5cfcf5b10e7246d3b2447f07dac04c110c4c4b8c09e3b0afe09de"
+      },
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.5.8",
+        "descriptor_sha256": "e659995fcdf3223d3b1fb52eb9243413991ab40fc5773e46139d4e031ff3af08"
+      },
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.6.1",
+        "descriptor_sha256": "f6305a9f4fcaf68b4421cd6c4dbfab0c32f05b7521ddbc22884aa447cd76c146"
+      },
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.6.6",
+        "descriptor_sha256": "c64b492252b564b315cde5a5bd860e2b85e7205eeb6981fb4c52b2f1f5cf9249"
+      },
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.6.8",
+        "descriptor_sha256": "290a32d0c51ea4eaa45d8e541a3ac013aedac63cba98c982207dec66e071d7d2"
+      },
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.7.1",
+        "descriptor_sha256": "9dc67e9128e29562c554bd4f2e1b070d523cb647984c805475e190e299f525ea"
+      },
+      {
+        "device_id": "16f7 0418",
+        "device_version": "1.0.7.5",
+        "descriptor_sha256": "dd62efb495e6017f26ea8a1da46156cbdab9d3caab91cc193271d45d6e25d902"
+      }
+    ],
+    "AX-8H1E30CD2T": [
+      {
+        "device_id": "16f7 0422",
+        "device_version": "1.0.1.15",
+        "descriptor_sha256": "dc196c13b1e52339f1be4d0fb89de4b2a1b145db86877ea062b473d0c7c8301e"
+      },
+      {
+        "device_id": "16f7 0422",
+        "device_version": "1.0.1.18",
+        "descriptor_sha256": "d867100f84e93b134708842a4f4c700151febf46f2d7b6db2fd9112c0c955d16"
+      },
+      {
+        "device_id": "16f7 0422",
+        "device_version": "1.0.4.2",
+        "descriptor_sha256": "e04acd657c645d8592c1b8e0e9aab0140ae5309ce3a4b516bacfcc7c339afabc"
+      },
+      {
+        "device_id": "16f7 0422",
+        "device_version": "1.1.0.3",
+        "descriptor_sha256": "a660b5381615d555df0265a4ab0338e7f045f5ca714066e43f739b2566a7c3b1"
+      }
+    ],
+    "AX-8H1E30CD2P": [
+      {
+        "device_id": "16f7 0426",
+        "device_version": "1.0.1.15",
+        "descriptor_sha256": "ab944f5b639bebae72d7ebbc95e33af6e6cdc9c571d3bcb269696f9dd0bbf1e8"
+      },
+      {
+        "device_id": "16f7 0426",
+        "device_version": "1.0.1.18",
+        "descriptor_sha256": "eb8284ca24947dd7732cb4f17f13da1057c7b28fe113567582b3326f1f95cda7"
+      },
+      {
+        "device_id": "16f7 0426",
+        "device_version": "1.0.4.2",
+        "descriptor_sha256": "8860f4e0a03db94721b3614b7218318cd7a0b8ab91de855c8b03d41ddb1796f2"
+      }
+    ],
+    "AX-332EP0MB1P": [
+      {
+        "device_id": "16f7 0428",
+        "device_version": "1.0.6.6",
+        "descriptor_sha256": "ac6ae5234bca4a0e28cf7d0c38feac1cde44f0a92879fde6ab36da03d8181627"
+      },
+      {
+        "device_id": "16f7 0428",
+        "device_version": "1.0.6.8",
+        "descriptor_sha256": "15748523a62dd5383ea364d9d66e8519187fb0f52dd902c29f56da04e56c1513"
+      },
+      {
+        "device_id": "16f7 0428",
+        "device_version": "1.0.7.1",
+        "descriptor_sha256": "2f0d9eb0d7c95c07ccc783fb3e11a2602833f7cb4cffcaca07001a40a565b95a"
+      },
+      {
+        "device_id": "16f7 0428",
+        "device_version": "1.0.7.5",
+        "descriptor_sha256": "af919f1dfc4c2eb573f09296a52a3f9e92368aab3cd8656a973e750c56fc2b8c"
+      }
+    ],
+    "AX-864EP1ME1TP": [
+      {
+        "device_id": "16f7 0430",
+        "device_version": "1.0.0.18",
+        "descriptor_sha256": "2d73b8209d490eeeb3cb6f5a1224fa43d9b7692bd11c6a2f322148f563170810"
+      },
+      {
+        "device_id": "16f7 0430",
+        "device_version": "1.0.1.3",
+        "descriptor_sha256": "c968b103bfeb0dcc64228e7b1b60c406f53e4ecfc5ea86d3f8af52bdbe52b54b"
+      }
+    ],
+    "AX-8DH1ECP1CE1TP": [
+      {
+        "device_id": "16f7 0431",
+        "device_version": "1.0.0.34",
+        "descriptor_sha256": "337fa47632f7a45e28d27b36265915458a060824737ff1b4381bb46f0518935e"
+      }
+    ],
+    "AX-C12EB0MD1T": [
+      {
+        "device_id": "16f7 0550",
+        "device_version": "1.0.2.31",
+        "descriptor_sha256": "bbbca8a7a4513ab1881d2bbc7f3452afed8b646329470935628506fcf64c2ca0"
+      },
+      {
+        "device_id": "16f7 0550",
+        "device_version": "1.0.2.33",
+        "descriptor_sha256": "9abbbb3eede39d57c8dab17262422407fb2628e9754f4b38257b66571045b35e"
+      },
+      {
+        "device_id": "16f7 0550",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "374d20e9f7b70473b00207198c153b16d5c63e9155eeab8f8a395ca01d82b7f8"
+      },
+      {
+        "device_id": "16f7 0550",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "5eed0242140f4797b83b404243fb7918e0a39070f511909a58cee66dd7bb6308"
+      }
+    ],
+    "AX-C12EB0MD1P": [
+      {
+        "device_id": "16f7 0558",
+        "device_version": "1.0.2.31",
+        "descriptor_sha256": "90827a9d85830345c80fb60fb96c0720366605290f98a44ba5d64fc9f537f639"
+      },
+      {
+        "device_id": "16f7 0558",
+        "device_version": "1.0.2.33",
+        "descriptor_sha256": "1c4f4b5512d6633c07f3b0069c8f8ef5885a165d10a209936369ae15b082540f"
+      },
+      {
+        "device_id": "16f7 0558",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "88b6d43eaffabfbc15371dd811be81a6140fe22b34c7afc2e54fc1e0c112cd90"
+      },
+      {
+        "device_id": "16f7 0558",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "6c683e42cc4a10e183ae64dce6d8717af1d53165d7c107afd736cf8253ec92d0"
+      }
+    ],
+    "AX-C06EB0MD1T": [
+      {
+        "device_id": "16f7 0559",
+        "device_version": "1.0.2.31",
+        "descriptor_sha256": "f9ca3c5d76fd635632ab88ec2ac4551a7c50f7a2caccd1ba6c689208bd868fa2"
+      },
+      {
+        "device_id": "16f7 0559",
+        "device_version": "1.0.2.33",
+        "descriptor_sha256": "8f2f0c6cdb4f9bf4af25da4f7453444efd6303e0cd3bad43376a45d2da9e1121"
+      },
+      {
+        "device_id": "16f7 0559",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "cf6e232de12c26edb7dbcc6e6691a46db68878071c3f28a575d6ecacdc31563f"
+      },
+      {
+        "device_id": "16f7 0559",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "6ac2f78a2fcacd877a5006aec125ba2cc34256932e1c4296cb67244fc0b3aacd"
+      }
+    ],
+    "AX-C06EB0MD1P": [
+      {
+        "device_id": "16f7 0560",
+        "device_version": "1.0.2.31",
+        "descriptor_sha256": "b9e51df9a0e7cfade126c29a0d0e002861ac3dbc379d532b2caac816ef1db3a1"
+      },
+      {
+        "device_id": "16f7 0560",
+        "device_version": "1.0.2.33",
+        "descriptor_sha256": "f8caac1f8715c82bca2a8eaca73fa12377a204170e953df4c863da66d0f197e7"
+      },
+      {
+        "device_id": "16f7 0560",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "1394a580151ee03d4496539296d757a0f1e36ab2b732b98a09840e70a36ce07d"
+      },
+      {
+        "device_id": "16f7 0560",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "919c5b96ee6f21cf155cdee225dfcabc18a1695f8e310689ebe5ab7db6988b4e"
+      }
+    ],
+    "AX-C12EB0CD1T": [
+      {
+        "device_id": "16f7 0561",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "604be93a153579daf270d02a7b3eb548d8f520dfab9335dc3e4aec68878bfd7c"
+      },
+      {
+        "device_id": "16f7 0561",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "98600dcbf32f2e12e13b7259dfcb969464c5fd99116f786cc4387b4cd17d5409"
+      }
+    ],
+    "AX-C12EB0CD1P": [
+      {
+        "device_id": "16f7 0562",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "79f9f4ad72b43d5beecd7eb9cf4eea6cbf55452ca1b5a3a486cf65c542787534"
+      },
+      {
+        "device_id": "16f7 0562",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "f6ca1b3b678e9f3c22d140dd1d59c557185a01d835dcd06d4879c8621c437ee6"
+      }
+    ],
+    "AX-C24EB0MD1T": [
+      {
+        "device_id": "16f7 0565",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "98027f62147174b9440638e149f932e9286a03a4a08b95a602bfc605e974e7b0"
+      },
+      {
+        "device_id": "16f7 0565",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "50c9eb0c5708020bb29d4e7ccee8f43c9989c0a91f1a6689e881a40f96fffaaf"
+      }
+    ],
+    "AX-C24EB0MD1P": [
+      {
+        "device_id": "16f7 0566",
+        "device_version": "1.0.2.38",
+        "descriptor_sha256": "fb1384e861337d74ca853f337a8af387c3aa6077e29d7ddf0ce9702a5793fae6"
+      },
+      {
+        "device_id": "16f7 0566",
+        "device_version": "1.0.2.43",
+        "descriptor_sha256": "36997388bebbaf7965d07bbfd445c69d444ae5a49b18fa064104c8a4b01a4039"
+      }
+    ],
+    "AX-3C08EB0MBL1": [
+      {
+        "device_id": "16f7 0600",
+        "device_version": "1.0.0.15",
+        "descriptor_sha256": "40cef22d844785274bf65c8b6e6434614e26a67af81d2deda4f40caedb8bb448"
+      },
+      {
+        "device_id": "16f7 0600",
+        "device_version": "1.0.0.17",
+        "descriptor_sha256": "0e4c7feaf9a0c6537f1bb29096219bbb939f2df37c5052cf3df1bf9d89753497"
+      }
+    ],
+    "AX-3C16EB0MBL1": [
+      {
+        "device_id": "16f7 0603",
+        "device_version": "1.0.0.10",
+        "descriptor_sha256": "c3a3504a3767f66bc199b38ac38a0480f57b67f838333496c0711c1e1ee3844d"
+      },
+      {
+        "device_id": "16f7 0603",
+        "device_version": "1.0.0.8",
+        "descriptor_sha256": "b324d35bfeaa41977575a5d2a9a919d28c4bc6354def3493720d664ebfa01c05"
+      }
+    ]
+  }
+}

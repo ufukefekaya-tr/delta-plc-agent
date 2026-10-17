@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-17",
+  "python": {
+    "minimum": "3.11",
+    "bootstrap_version": "3.14.8",
+    "url": "https://www.python.org/ftp/python/3.14.8/python-3.14.8-amd64.exe",
+    "publisher": "Python Software Foundation",
+    "reference": "https://www.python.org/downloads/release/python-3148/",
+    "silent_arguments": ["/quiet", "InstallAllUsers=0", "PrependPath=0", "Include_launcher=0", "Include_test=0", "Include_pip=1"],
+    "qualification": "DOCUMENTED_SILENT_RECIPE; fresh no-Python host NOT_RUN"
+  },
+  "wplsoft": {
+    "reference": "https://downloadcenter.deltaww.com/",
+    "tested_installation": "WPLSoft 2.52 directory; executable version must be inventoried separately",
+    "executable_sha256": "f0c002d6dc7fab80ea942498eac9ceec19aaef037c4d3e7e418a7f64df5f42c1",
+    "installer_sha256": null,
+    "silent_arguments": null,
+    "qualification": "EXISTING_INSTALLATION_ONLY; official installer silent contract unqualified"
+  },
+  "drivers": {
+    "ch340": {
+      "reference": "https://www.wch-ic.com/downloads/CH341SER.EXE.html?type=en",
+      "vid": "1A86",
+      "qualification": "INSTALL_ONLY_IF_SELECTED_HARDWARE_NEEDS_IT; no verified silent executable recipe"
+    },
+    "delta_cdc": {
+      "reference": "https://destek.deltaturkiye.com/viewtopic.php?t=205",
+      "vid_pid": "05DD:0100",
+      "qualification": "Exact HMI driver and DirectLink configuration required; hardware availability is separate"
+    }
+  },
+  "rules": [
+    "Preserve installed suitable versions; install only dependencies required for the selected route.",
+    "Verify official origin and publisher signature or approved installer SHA before execution.",
+    "No guessed silent switches, unsigned-driver bypass, security changes, forced reboot or PLC packets during provisioning.",
+    "For an unqualified vendor installer the agent researches its exact official package and silent contract before installation; report a concrete blocker if unavailable.",
+    "Hardware cannot be downloaded; report the missing PLC/cable/gateway and required topology separately.",
+    "GUI installation must follow the active Computer Use confirmation policy; never claim unconditional zero intervention."
+  ]
+}

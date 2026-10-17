@@ -1,0 +1,15 @@
+# Copy into ~/.codex/config.toml or a trusted project's .codex/config.toml.
+[mcp_servers.universal-plc-axmcp]
+command = '__ABSOLUTE_VENV_PYTHON_PATH__'
+args = ["-m", "axmcp_offline", "serve"]
+startup_timeout_sec = 20
+tool_timeout_sec = 330
+enabled = true
+required = true
+default_tools_approval_mode = "writes"
+
+[mcp_servers.universal-plc-axmcp.env]
+AXMCP_MODE = "autonomous_file_bridge"
+AXMCP_SCRATCH_ROOT = '__ABSOLUTE_PRIVATE_SCRATCH_PATH__'
+AXMCP_TIMEOUT_SECONDS = "3"
+AXMCP_AUTOSTART_WORKER = "1"

@@ -1,0 +1,122 @@
+"""Known ISPSoft raw-DEFLATE containers with bounded integrity checks."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+import re
+import struct
+import zlib
+
+from .limits import FileTransformError, MAX_SOURCE_BYTES, inflate, read_bytes
+from ._vendor.ispsoft_codec import normalize_for_editor
+
+
+@dataclass(frozen=True)
+class Container:
+    data: bytes
+    offset: int
+    source: bytes
+    encoding: str
+    newline: str
+
+    def rebuild(self, source: bytes) -> bytes:
+        if len(source) > MAX_SOURCE_BYTES:
+            raise FileTransformError('Source exceeds size limit')
+        source.decode(self.encoding)
+        compressor = zlib.compressobj(level=9, wbits=-15)
+        payload = compressor.compress(source) + compressor.flush()
+        header = bytearray(self.data[:self.offset])
+        struct.pack_into('<I', header, self.offset - 4, zlib.crc32(source) & 0xffffffff)
+        struct.pack_into('<I', header, 0x7c, len(source))
+        struct.pack_into('<I', header, 0x94, len(payload) + 6)
+        if self.offset == 0xac:
+            struct.pack_into('<I', header, 0x58, self.offset + len(payload))
+        result = bytes(header) + payload
+        if decode(result).source != source:
+            raise FileTransformError('Container round-trip check failed')
+        return result
+
+
+def decode(data: bytes) -> Container:
+    if len(data) <= 0xaa:
+        raise FileTransformError('Truncated ISP container')
+    offset = next((o for o in (0xaa, 0xac) if len(data) > o and
+                   struct.unpack_from('<H', data, o-6)[0] == 8), None)
+    if offset is None:
+        raise FileTransformError('Unsupported ISP variant; recognized stream offsets: 0xAA/0xAC')
+    payload_size = struct.unpack_from('<I', data, 0x94)[0]
+    if payload_size != len(data) - (offset - 6):
+        raise FileTransformError('Container payload length mismatch')
+    source, consumed = inflate(data[offset:])
+    if consumed != len(data) - offset:
+        raise FileTransformError('Unexpected data after compressed stream')
+    if struct.unpack_from('<I', data, offset-4)[0] != zlib.crc32(source) & 0xffffffff:
+        raise FileTransformError('Source CRC mismatch')
+    if struct.unpack_from('<I', data, 0x7c)[0] not in (0, len(source)):
+        raise FileTransformError('Source length mismatch')
+    if not source.startswith(b'<PROJECT>'):
+        raise FileTransformError('Not an unprotected ISP project source')
+    for position in (0x0c, 0x10):
+        if not 1 <= struct.unpack_from('<I', data, position)[0] <= 100_000:
+            raise FileTransformError('Header is locked or unsupported; use an explicitly selected clean backup')
+    probe = source[:4096].decode('ascii', errors='ignore')
+    codepage = re.search(r'(?m)^Active_CodePage=(\d+)\r*$', probe)
+    encoding = 'cp' + (codepage.group(1) if codepage else '1252')
+    try:
+        text = source.decode(encoding)
+    except (UnicodeError, LookupError) as exc:
+        raise FileTransformError(f'Invalid source encoding: {encoding}') from exc
+    # Native protection is not treated as an invitation to decode/modify it.
+    if re.search(r'(?mi)^Prj_C_SourceCodeLocked=TRUE\r*$', text):
+        raise FileTransformError('Protected source is unsupported')
+    newline = '\r\r\n' if b'\r\r\n' in source else ('\r\n' if b'\r\n' in source else '\n')
+    return Container(data, offset, source, encoding, newline)
+
+
+def read_container(path: str | Path) -> Container:
+    return decode(read_bytes(path))
+
+
+def normalized(text: str) -> str:
+    return normalize_for_editor(text.replace('\r\r\n', '\n'))
+
+
+def sections(text: str, tag: str):
+    return list(re.finditer(rf'<{re.escape(tag)}>\r*\n(.*?)</{re.escape(tag)}>', text, re.S))
+
+
+def property_value(body: str, key: str) -> str | None:
+    match = re.search(rf'(?m)^{re.escape(key)}=([^\r\n]*)', body)
+    return match.group(1) if match else None
+
+
+def inspect(container: Container) -> dict:
+    text = container.source.decode(container.encoding)
+    return dict(stream_offset=container.offset, source_bytes=len(container.source),
+                encoding=container.encoding, project_model=property_value(text, 'Prj_DT'),
+                pous=[dict(name=property_value(m.group(1), 'P_Name'),
+                           language=property_value(m.group(1), 'P_Lang'),
+                           pou_type=property_value(m.group(1), 'P_type')) for m in sections(text, 'POU')])
+
+
+def patch_st(container: Container, pou_name: str, code: str | None, variables: str | None) -> bytes:
+    if code is None and variables is None:
+        raise FileTransformError('Provide code_path and/or variables_path')
+    text = container.source.decode(container.encoding)
+    matches = [m for m in sections(text, 'POU') if property_value(m.group(1), 'P_Name') == pou_name]
+    if len(matches) != 1:
+        raise FileTransformError(f'Expected one POU named {pou_name!r}; found {len(matches)}')
+    match = matches[0]
+    body = match.group(1)
+    for tag, content in [('IL_ST_CODE', code), ('LOCAL_VAR', variables)]:
+        if content is None:
+            continue
+        inner = sections(body, tag)
+        if len(inner) != 1:
+            raise FileTransformError(f'Expected exactly one {tag}; this POU layout is unsupported')
+        if re.search(r'</?(?:POU|IL_ST_CODE|LOCAL_VAR)(?:>|\s)', content, re.I):
+            raise FileTransformError('Replacement contains structural container delimiters')
+        replacement = normalized(content).replace('\n', container.newline)
+        body = body[:inner[0].start(1)] + replacement + body[inner[0].end(1):]
+    result = text[:match.start(1)] + body + text[match.end(1):]
+    return container.rebuild(result.encode(container.encoding))

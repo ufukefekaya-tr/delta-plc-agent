@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "task_id": "TASK-ID",
+  "baseline_commit": "REPLACE_WITH_FULL_COMMIT_HASH",
+  "policy_epoch_algorithm": "sha256-path-nul-bytes-nul-v1",
+  "policy_epoch": "REPLACE_WITH_POLICY_EPOCH",
+  "mode": "NORMAL",
+  "role": "PROGRAMMER",
+  "owner": "orchestrator",
+  "authority_source": "REPLACE_WITH_USER_OR_ORCHESTRATOR_AUTHORITY",
+  "allowed_read_paths": [
+    "AGENTS.md",
+    "SYSTEM_PROMPT.md",
+    "INDEX.md"
+  ],
+  "allowed_write_paths": [],
+  "protected_paths": [
+    "PLC/"
+  ],
+  "preexisting_dirty_paths": [],
+  "commit_policy": "SCOPED_MANDATORY",
+  "push_authorized": false,
+  "acceptance_checks": [
+    "python tools/check_repo.py"
+  ]
+}

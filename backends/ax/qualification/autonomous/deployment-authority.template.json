@@ -1,0 +1,19 @@
+{
+  "schema_version": "1",
+  "record_type": "DeploymentAuthority",
+  "status": "not_issued",
+  "plan_id": null,
+  "artifact_digest": null,
+  "target_fingerprint": null,
+  "rollback_digest": null,
+  "runtime_release_digest": null,
+  "rollback_runtime_release_digest": null,
+  "observation_digest": null,
+  "challenge_nonce": null,
+  "authority_phrase": "yükle",
+  "issued_at": null,
+  "expires_at": null,
+  "single_use": true,
+  "consumed_at": null,
+  "authority_digest": null
+}
