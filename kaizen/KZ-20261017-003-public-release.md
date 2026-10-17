@@ -24,6 +24,8 @@ Yerel mühendislik kanıtı ile halka açık dağıtımın sınırları farklıd
 
 Temiz Linux CI ilk çalışmada geliştirme bağımlılığının eksik olduğunu ve Windows pencere testlerinin host varsayımını gösterdi. Test kurulumu sabit sürümlü geliştirme bağımlılıklarını yükler; Windows davranış testleri yalnız hedef modülün platform bağını taklit eder. Global `os.name` değiştirilmez, assertion veya test kapsamı azaltılmaz. Runtime değişmeden odaklı 19 test geçti; tam Windows/Linux kabulü GitHub CI kaydına bağlanır. Kaynak ZIP, host satır sonu ayarlarından bağımsız LF ile üretilip her girdisi Git blobuyla karşılaştırılır.
 
+Windows kısa/uzun geçici yol adları test fixture'larında kanonikleştirilir. Heartbeat testi sabit 50 ms uyku yerine üç gerçek kaydın sınırlı sürede oluşmasını gözler; kayıt sayısı ve fingerprint assertion'ları korunur. CI ortamının zamanlama farkı ürünün liveness sözleşmesiyle karıştırılmaz.
+
 ## Rollback
 
 Yerel geçmiş korunur; hazırlık ayrı revert commit’iyle geri alınabilir. Lisansı değiştirmek önceki açık kaynak kopyalarının izinlerini ortadan kaldırmaz.

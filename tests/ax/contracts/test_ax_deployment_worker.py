@@ -1834,10 +1834,18 @@ class AxDeploymentWorkerContractTests(unittest.TestCase):
                 process_alive=lambda _pid: False,
             )
             runtime.acquire_lease()
-            runtime._start_heartbeat_pump()
-            time.sleep(0.05)
-            runtime._stop_heartbeat_pump()
-            runtime.release_lease()
+            try:
+                runtime._start_heartbeat_pump()
+                # Observe independent progress without assuming a 50 ms disk/scheduler budget.
+                deadline = time.monotonic() + 3.0
+                heartbeat_dir = root / "state" / "deployment-heartbeats" / worker_id
+                while len(list(heartbeat_dir.glob("*.json"))) < 3 and time.monotonic() < deadline:
+                    time.sleep(0.01)
+            finally:
+                try:
+                    runtime._stop_heartbeat_pump()
+                finally:
+                    runtime.release_lease()
             heartbeats = list(
                 (root / "state" / "deployment-heartbeats" / worker_id).glob("*.json")
             )

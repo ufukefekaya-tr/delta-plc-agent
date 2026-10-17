@@ -56,7 +56,7 @@ class TemperatureStdio(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.s = Scenario(self.temp.name)
+        self.s = Scenario(Path(self.temp.name).resolve())
         self.config_path = self.s.root/"host-profile.json"
         self.audit_path = self.s.root/"software-wire-audit.json"
         self.save_config()
