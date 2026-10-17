@@ -50,7 +50,7 @@ class CheckerFailureTests(unittest.TestCase):
 
     def test_unreachable_markdown_is_reported(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             (root / "INDEX.md").write_text("# İndeks\n\nBaşlangıç.\n", encoding="utf-8")
             (root / "orphan.md").write_text("# Yetim\n\nİçerik.\n", encoding="utf-8")
             errors = check_repo.check_index_reachability(root)

@@ -21,6 +21,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python tools/install.py
+      - run: python -m pip install -c requirements-lock.txt -r backends/ax/requirements-dev.txt
       - run: python -m unittest discover -s tests -t . -v
       - run: python -m unittest discover -s tests/dvpserial -v
       - run: python tools/demo.py

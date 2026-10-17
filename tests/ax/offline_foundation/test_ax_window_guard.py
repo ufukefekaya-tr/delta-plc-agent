@@ -5,12 +5,20 @@ import tempfile
 import unittest
 from unittest import mock
 from pathlib import Path
+from types import SimpleNamespace
 
 from axmcp_offline import window_guard
 from axmcp_offline.window_guard import run_guard
 
 
 class AxWindowGuardTests(unittest.TestCase):
+    def setUp(self) -> None:
+        # These tests inject native calls; keep the host filesystem unchanged.
+        windows_os = SimpleNamespace(**(vars(window_guard.os) | {"name": "nt"}))
+        platform = mock.patch.object(window_guard, "os", windows_os)
+        platform.start()
+        self.addCleanup(platform.stop)
+
     def test_native_handle_is_retained_and_wait_failure_is_not_clean_shutdown(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             status = Path(temporary) / "guard.json"
@@ -37,9 +45,9 @@ class AxWindowGuardTests(unittest.TestCase):
                     self.CloseHandle = NativeCall((1,))
 
             native = Kernel32()
-            with mock.patch.object(window_guard.os, "name", "nt"), mock.patch.object(
-                window_guard.ctypes, "WinDLL", return_value=native
-            ), mock.patch.object(window_guard.ctypes, "get_last_error", return_value=5):
+            with mock.patch.object(
+                window_guard.ctypes, "WinDLL", return_value=native, create=True
+            ), mock.patch.object(window_guard.ctypes, "get_last_error", return_value=5, create=True):
                 result = run_guard(
                     4242,
                     30,

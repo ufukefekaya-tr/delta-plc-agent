@@ -20,6 +20,10 @@ Yerel mühendislik kanıtı ile halka açık dağıtımın sınırları farklıd
 
 [Workflow](../workflows/public-launch.json), [hedef](../goals/public-launch.json), [doğrulama](../docs/public/VALIDATION.md) ve [kaynak ayrımı](../docs/public/PROVENANCE.md). Yayın ağacı test, temiz kurulum ve bağımsız son incelemeyle değerlendirilir.
 
+## Temiz ortamdan öğrenilen ders
+
+Temiz Linux CI ilk çalışmada geliştirme bağımlılığının eksik olduğunu ve Windows pencere testlerinin host varsayımını gösterdi. Test kurulumu sabit sürümlü geliştirme bağımlılıklarını yükler; Windows davranış testleri yalnız hedef modülün platform bağını taklit eder. Global `os.name` değiştirilmez, assertion veya test kapsamı azaltılmaz. Runtime değişmeden odaklı 19 test geçti; tam Windows/Linux kabulü GitHub CI kaydına bağlanır. Kaynak ZIP, host satır sonu ayarlarından bağımsız LF ile üretilip her girdisi Git blobuyla karşılaştırılır.
+
 ## Rollback
 
 Yerel geçmiş korunur; hazırlık ayrı revert commit’iyle geri alınabilir. Lisansı değiştirmek önceki açık kaynak kopyalarının izinlerini ortadan kaldırmaz.

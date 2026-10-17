@@ -6,9 +6,12 @@ import subprocess
 import tempfile
 import unittest
 import uuid
+from contextlib import contextmanager
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
+from axmcp_offline import ax_supervisor
 from axmcp_offline.autonomous import AutonomousHost, initialize_autonomous_root
 from axmcp_offline.ax_supervisor import AxWorkerSupervisor, write_launcher_config
 from axmcp_offline.security import (
@@ -20,6 +23,21 @@ from axmcp_offline.security import (
 
 
 ENVIRONMENT_DIGEST = "sha256:" + ("1" * 64)
+
+
+@contextmanager
+def _windows_guard_platform():
+    # Replace module bindings only: changing global os.name breaks POSIX Path.
+    windows_os = SimpleNamespace(**(vars(os) | {"name": "nt"}))
+    windows_subprocess = SimpleNamespace(**(vars(subprocess) | {
+        "STARTUPINFO": lambda: SimpleNamespace(dwFlags=0, wShowWindow=0),
+        "STARTF_USESHOWWINDOW": 1,
+        "SW_HIDE": 0,
+    }))
+    with patch.object(ax_supervisor, "os", windows_os), patch.object(
+        ax_supervisor, "subprocess", windows_subprocess
+    ):
+        yield
 
 
 class _Process:
@@ -85,7 +103,7 @@ def _configure(root: Path, executable: Path, engine: Path, worker: Path) -> None
 
 class AxWorkerSupervisorTests(unittest.TestCase):
     def test_artifact_handoff_waits_for_guard_stopped_record(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with _windows_guard_platform(), tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             host = _host(root)
             baseline = host.v2 / "baselines" / "minimal.project"
@@ -142,7 +160,7 @@ class AxWorkerSupervisorTests(unittest.TestCase):
             self.assertEqual(alive_calls, 1)
 
     def test_window_guard_start_failure_terminates_untracked_ax_process(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with _windows_guard_platform(), tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             host = _host(root)
             baseline = host.v2 / "baselines" / "minimal.project"
@@ -187,7 +205,7 @@ class AxWorkerSupervisorTests(unittest.TestCase):
             self.assertIn("guard initialization", launch["failure"])
 
     def test_guard_and_termination_failure_leave_unknown_durable_handoff(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with _windows_guard_platform(), tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             host = _host(root)
             baseline = host.v2 / "baselines" / "minimal.project"

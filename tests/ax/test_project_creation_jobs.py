@@ -27,7 +27,7 @@ class ProjectCreationJobTests(unittest.TestCase):
 
     def test_queue_is_confined_and_result_bound_to_request_and_project_bytes(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp); config, args = self.setup_config(root)
+            root = Path(tmp).resolve(); config, args = self.setup_config(root)
             with patch.object(jobs.subprocess, "Popen") as launch:
                 queued = jobs.submit(config, args)
             self.assertEqual(launch.call_count, 1)
@@ -46,7 +46,7 @@ class ProjectCreationJobTests(unittest.TestCase):
 
     def test_no_arbitrary_path_model_or_executable_drift(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp); config, args = self.setup_config(root)
+            root = Path(tmp).resolve(); config, args = self.setup_config(root)
             with patch.object(jobs.subprocess, "Popen") as launch:
                 for mutation in ({"output_path": "elsewhere.project"}, {"project_id": "../escape"}, {"interval_ms": True}):
                     with self.assertRaises(ProtocolViolation): jobs.submit(config, dict(args, **mutation))
@@ -56,7 +56,7 @@ class ProjectCreationJobTests(unittest.TestCase):
 
     def test_cancel_is_a_durable_owned_job_marker(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp); config, args = self.setup_config(root)
+            root = Path(tmp).resolve(); config, args = self.setup_config(root)
             with patch.object(jobs.subprocess, "Popen"):
                 queued = jobs.submit(config, args)
             self.assertEqual(jobs.cancel(config, queued["job_id"])["status"], "cancel_requested")
@@ -65,7 +65,7 @@ class ProjectCreationJobTests(unittest.TestCase):
 
     def test_supervisor_revalidates_pins_before_any_ide_start(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp); config, args = self.setup_config(root)
+            root = Path(tmp).resolve(); config, args = self.setup_config(root)
             with patch.object(jobs.subprocess, "Popen"):
                 queued = jobs.submit(config, args)
             job = root / "scratch" / queued["job_id"]

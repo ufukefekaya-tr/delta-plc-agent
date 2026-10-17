@@ -52,7 +52,7 @@ class SecurityTests(unittest.TestCase):
 
     def test_symlink_escape_is_rejected_without_platform_privilege(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
+            root = Path(tmp).resolve()
             link = root / "link"
             link.mkdir()
             original_is_symlink = Path.is_symlink

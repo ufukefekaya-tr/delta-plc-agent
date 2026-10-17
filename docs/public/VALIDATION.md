@@ -4,6 +4,7 @@ Use CI results for the **exact commit** you install. The workflow runs offline s
 
 ```text
 python tools/install.py
+python -m pip install -c requirements-lock.txt -r backends/ax/requirements-dev.txt
 python -m unittest discover -s tests -t . -v
 python -m unittest discover -s tests/dvpserial -v
 python tools/demo.py
