@@ -33,3 +33,7 @@ Yerel geçmiş korunur; hazırlık ayrı revert commit’iyle geri alınabilir. 
 ## Sonuç
 
 Kullanıcı demo ile deneyebilir; ajan doğru yeteneklere yönlenir. Yayın geçmişi makine oturumlarından ayrılır. Kabul yayımlanan commit ve CI ile izlenir.
+
+## Kullanıcı tarafından seçilen ürün adı
+
+Ürün adı yayın öncesinde kullanıcıya somut olarak sunulur. 17 Ekim 2026 tarihli kullanıcı onayıyla ad **Delta PLC Agent**, GitHub adı **delta-plc-agent** olarak güncellendi. Tanıtım, bağlantılar ve kaynak manifesti birlikte doğrulanır; teknik paket/komut kimlikleri uyumluluğu korur.

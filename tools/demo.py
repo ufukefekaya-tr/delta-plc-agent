@@ -10,7 +10,7 @@ from universal_plc.storage import digest
 
 
 def run_demo() -> dict:
-    with tempfile.TemporaryDirectory(prefix="plcweave-demo-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="delta-plc-agent-demo-") as temporary:
         root = Path(temporary)
         source = root / "hello.il"
         source.write_text("LD,M0\nOUT,M1\n", encoding="utf-8")

@@ -1,4 +1,4 @@
-# PLCWeave
+# Delta PLC Agent
 
 > Agent-native PLC engineering: one MCP, model-aware workflows, traceable results.
 

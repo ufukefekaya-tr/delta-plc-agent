@@ -1,8 +1,8 @@
 cff-version: 1.2.0
-message: "If PLCWeave helps your work, cite this repository and retain its license notices."
-title: "PLCWeave: Agent-native PLC engineering"
+message: "If Delta PLC Agent helps your work, cite this repository and retain its license notices."
+title: "Delta PLC Agent: Agent-native PLC engineering"
 type: software
 authors:
   - name: "ufukefekaya-tr"
-repository-code: "https://github.com/ufukefekaya-tr/plcweave"
+repository-code: "https://github.com/ufukefekaya-tr/delta-plc-agent"
 license: MIT

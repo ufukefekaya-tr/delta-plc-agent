@@ -1,4 +1,4 @@
-# Your first PLCWeave workflow
+# Your first Delta PLC Agent workflow
 
 ## Install
 
@@ -13,7 +13,7 @@ Replace `python` with the absolute path to **your installed environment's interp
 ```json
 {
   "mcpServers": {
-    "plcweave": {
+    "delta-plc-agent": {
       "command": "python",
       "args": ["-m", "universal_plc", "--root", "./plc-agent-data", "serve"]
     }

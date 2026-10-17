@@ -1,14 +1,14 @@
-# PLCWeave
+# Delta PLC Agent
 
-**The agent-native PLC engineering toolkit.**
+**AI-powered engineering for Delta PLCs — AX, ISPSoft and WPLSoft workflows through one MCP.**
 One MCP. Model-aware workflows. Traceable results.
 
-[![Software CI](https://github.com/ufukefekaya-tr/plcweave/actions/workflows/ci.yml/badge.svg)](https://github.com/ufukefekaya-tr/plcweave/actions/workflows/ci.yml)
+[![Software CI](https://github.com/ufukefekaya-tr/delta-plc-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/ufukefekaya-tr/delta-plc-agent/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-38bdf8)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)](docs/QUICKSTART.md)
 [English](README.md) · [Türkçe](README.tr.md)
 
-Bring AI agents into PLC engineering: select the right tools for an exact target, work in isolated project copies, and keep a verifiable record of every operation. PLCWeave connects a vendor-neutral MCP core with AX engineering tools, ISPSoft transformations, DVP monitoring, and reusable agent workflows.
+Bring AI agents into PLC engineering: select the right tools for an exact target, work in isolated project copies, and keep a verifiable record of every operation. Delta PLC Agent connects a vendor-neutral MCP core with AX engineering tools, ISPSoft transformations, DVP monitoring, and reusable agent workflows.
 
 **[Run the demo](#try-it) · [Connect your agent](docs/QUICKSTART.md) · [Explore every feature](docs/FEATURES.md)**
 
@@ -23,7 +23,7 @@ flowchart LR
     D & E & F & G --> H[Workspace + evidence + recovery]
 ```
 
-## Why PLCWeave
+## Why Delta PLC Agent
 
 - **One entry point for your agent.** Eleven MCP tools cover target selection, capabilities, workspaces, adapter operations, evidence, and workflows.
 - **Engineering with context.** Bind changes to the exact model, source hash, task, and revision. Resume from durable records after an interruption.
@@ -36,8 +36,8 @@ flowchart LR
 With Python 3.11+ and Git:
 
 ```bash
-git clone https://github.com/ufukefekaya-tr/plcweave.git
-cd plcweave
+git clone https://github.com/ufukefekaya-tr/delta-plc-agent.git
+cd delta-plc-agent
 python -m venv .venv
 ```
 
@@ -65,7 +65,7 @@ The demo routes a DVP target, creates an isolated workspace, converts a tiny ins
 
 ## Connect your agent
 
-Start a stdio server with the Python environment where you installed PLCWeave:
+Start a stdio server with the Python environment where you installed Delta PLC Agent:
 
 ```bash
 python -m universal_plc --root ./plc-agent-data serve

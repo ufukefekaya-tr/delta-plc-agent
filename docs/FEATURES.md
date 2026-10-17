@@ -1,6 +1,6 @@
 # Feature map
 
-PLCWeave separates the reusable engineering interface from each model's tools and evidence. Extend coverage without changing the core workflow.
+Delta PLC Agent separates the reusable engineering interface from each model's tools and evidence. Extend coverage without changing the core workflow.
 
 ## Eleven common MCP tools
 

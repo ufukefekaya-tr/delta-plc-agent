@@ -1,11 +1,11 @@
-# PLCWeave
+# Delta PLC Agent
 
 **PLC mühendisliğini ajanlarla birlikte yürütün.**
 Tek MCP. Modele göre araç seçimi. İzlenebilir sonuçlar.
 
 [English](README.md) · Türkçe
 
-PLCWeave; marka bağımsız MCP çekirdeğini, AX mühendislik araçlarını, ISPSoft dosya işlemlerini, DVP izlemeyi ve yeniden kullanılabilir ajan iş akışlarını bir araya getirir. Ajan tam hedefi tanır, uygun adaptörü seçer, çalışma kopyasında ilerler ve işlem kanıtını kaydeder.
+Delta PLC Agent; marka bağımsız MCP çekirdeğini, AX mühendislik araçlarını, ISPSoft dosya işlemlerini, DVP izlemeyi ve yeniden kullanılabilir ajan iş akışlarını bir araya getirir. Ajan tam hedefi tanır, uygun adaptörü seçer, çalışma kopyasında ilerler ve işlem kanıtını kaydeder.
 
 ## İlk deneme
 

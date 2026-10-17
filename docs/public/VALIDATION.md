@@ -23,4 +23,4 @@ These classes stay separate. Private session reports are not republished as new 
 
 AX native implementation and neutral historical records are in [AX qualification](../../backends/ax/qualification). Public build/freeze and live acceptance remain profile/operation-specific. ISPSoft files have software acceptance; AS native acceptance remains open. WPLSoft has the Computer Use recipe; source-session UI acceptance was blocked. Current-release DVP physical watch/M-D acceptance remains open; SS2 transfer is experimental.
 
-[Feature map](../FEATURES.md) · [Provenance](PROVENANCE.md) · [Exact CI runs](https://github.com/ufukefekaya-tr/plcweave/actions). CI is software evidence, not commissioning or FAT/SAT.
+[Feature map](../FEATURES.md) · [Provenance](PROVENANCE.md) · [Exact CI runs](https://github.com/ufukefekaya-tr/delta-plc-agent/actions). CI is software evidence, not commissioning or FAT/SAT.

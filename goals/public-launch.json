@@ -24,8 +24,8 @@
     "L6": "complete",
     "L7": "complete"
   },
-  "product": "PLCWeave",
-  "repository": "https://github.com/ufukefekaya-tr/plcweave",
+  "product": "Delta PLC Agent",
+  "repository": "https://github.com/ufukefekaya-tr/delta-plc-agent",
   "license": "MIT",
   "software_validation": {
     "tests_run": 517,
@@ -38,15 +38,22 @@
     "hosted_ci": "PASS: Ubuntu and Windows on Python 3.11/3.13, plus clean all-backend packaging"
   },
   "publication": {
-    "repository": "https://github.com/ufukefekaya-tr/plcweave",
-    "release": "https://github.com/ufukefekaya-tr/plcweave/releases/tag/v0.3.1",
+    "repository": "https://github.com/ufukefekaya-tr/delta-plc-agent",
+    "release": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/tag/v0.3.1",
     "tag": "v0.3.1",
     "tested_release_commit": "7af020fbe93abaee2070ce4fb5198fe88ebf0166",
-    "ci_url": "https://github.com/ufukefekaya-tr/plcweave/actions/runs/39033420955",
+    "ci_url": "https://github.com/ufukefekaya-tr/delta-plc-agent/actions/runs/39033420955",
     "ci_jobs_passed": 5,
     "source_archive_files": 283,
     "source_archive_sha256": "sha256:0f82b70ed9a2449054441fc6e889bed6a3d69296b5b6ecc60354e20a2a50b401",
     "independent_review": "KORU; no important or critical findings",
     "private_history_published": false
+  },
+  "branding": {
+    "name": "Delta PLC Agent",
+    "repository_slug": "delta-plc-agent",
+    "approved_by": "repository owner",
+    "date": "2026-10-17",
+    "scope": "Presentation, URLs and source distribution; runtime and Python package identities retained"
   }
 }
