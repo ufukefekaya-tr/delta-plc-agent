@@ -271,7 +271,7 @@
     "tests/ax/offline_foundation/test_host_worker_integration.py": "1eb3b409861896a49dbefe9ae9f6e158333286f1de8a80f7a26bde6145d857f0",
     "tests/ax/offline_foundation/test_ladder_recipe.py": "ec4f2c3d08d9faf98c26cba0de6510df2b10eb6ff794b25ce9ff09e48a9448cc",
     "tests/ax/offline_foundation/test_mcp_server.py": "9af658831545949c8512a9ae7b0edda1583fcbb07e1c3e4440f00b5821ce574f",
-    "tests/ax/offline_foundation/test_release_packaging.py": "27150877b28ce4faddef1569e1d3b9fbf72a39cef10a3ea426715b3366f09f61",
+    "tests/ax/offline_foundation/test_release_packaging.py": "d7a75529fab80f9f3a8f85ddd95c00847990b2d7d003c702713fd0f3a950e4d3",
     "tests/ax/offline_foundation/test_replay_service.py": "771ce59c0b03428d4bb2ceb8f411e7a7f1b58bce5b4ee3fb8e40d5af2eaa757d",
     "tests/ax/offline_foundation/test_security.py": "2b1a39f6a7421b14342551caadeedd69f51c993f70374e9d7fe1bf612b6ef2a1",
     "tests/ax/test_project_creation_jobs.py": "dc91d3da180403f658e222e433ce8cc4c8d41b91d720f8144b7e22e8794da45d",

@@ -14,7 +14,7 @@ from . import PACKAGE_ROOT
 class ReleasePackagingTests(unittest.TestCase):
     def test_wheel_contains_every_runtime_worker_and_codex_template(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            output = Path(tmp)
+            output = Path(tmp).resolve()
             built = subprocess.run(
                 [
                     sys.executable,
@@ -61,7 +61,7 @@ from pathlib import Path
 from importlib.resources import files
 from axmcp_offline.cli import _packaged_ax_worker, _packaged_ax_deployment_worker
 from axmcp_offline.universal_adapter import AxAdapter
-root = Path(str(files('axmcp_offline')))
+root = Path(str(files('axmcp_offline'))).resolve()
 for item in (*_packaged_ax_worker(), _packaged_ax_deployment_worker()):
     assert item.is_relative_to(root), item
 assert root.joinpath('ax_worker/project_factory.py').is_file()
