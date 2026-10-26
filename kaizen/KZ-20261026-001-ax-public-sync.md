@@ -39,3 +39,7 @@ or changing a PLC. No live system is involved in this publication.
 
 The reusable AX changes and public-specific regression sentinels are delivered
 together. Software acceptance and live acceptance remain separate.
+
+Hosted Windows CI additionally exposed short/long TEMP aliases. A path spelling
+comparison is not a file identity check; the candidate assertion now verifies
+both canonical path and same-file identity without weakening digest checks.

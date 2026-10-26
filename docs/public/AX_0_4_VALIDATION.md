@@ -34,6 +34,11 @@ Source provenance and exclusions are described in [PROVENANCE](PROVENANCE.md).
 Runtime behavior and acceptance limits are in the [AX release record](../../backends/ax/docs/RELEASE_0_4.md).
 CI results should always be checked against the exact installed commit.
 
+The first GitHub run passed Linux and portable packaging but exposed a test-only
+Windows path comparison: TEMP used a short path while the verified result used
+its canonical long path. The assertion now checks canonical path and file identity;
+runtime behavior and the AX wheel are unchanged. This correction is rechecked by CI.
+
 Independent read-only review: **ACCEPT for offline publication**, with no open
 critical or major finding. Public-specific behavior, transfer protection, new
 dispatch paths, privacy boundaries and negative tests were reviewed. Installation

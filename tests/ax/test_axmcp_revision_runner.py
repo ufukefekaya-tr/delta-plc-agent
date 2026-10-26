@@ -109,7 +109,9 @@ class RevisionRunnerTests(unittest.IsolatedAsyncioTestCase):
              patch.object(runner, "terminal", AsyncMock(return_value={"status": "succeeded"})), \
              patch.object(runner, "emit"):
             result = await runner.revision(object(), self.root, self.request())
-        self.assertEqual(Path(result["native_path"]), native)
+        # Windows TEMP may use RUNNER~1 while the verified result is canonical.
+        self.assertEqual(Path(result["native_path"]), native.resolve())
+        self.assertTrue(Path(result["native_path"]).samefile(native))
         self.assertEqual(result["request_timing_status"], "NOT_MEASURED")
         self.assertIsNone(result["request_to_native_seconds"])
         self.assertEqual(calls, ["workspace.status", "revision.apply", "candidate.snapshot"])
