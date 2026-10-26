@@ -28,6 +28,11 @@ from .constants import (
     REPLAY_MODE,
 )
 from .mcp_server import run_stdio
+from .network_diagnostics import (
+    collect_local_windows_snapshot,
+    evaluate_network_snapshot,
+    load_json_object,
+)
 from .replay import ReplayBackend
 from .security import (
     ProtocolViolation,
@@ -44,7 +49,7 @@ def _json_print(value: object) -> None:
     print(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True))
 
 
-def _doctor() -> int:
+def _doctor(args: argparse.Namespace) -> int:
     mode = os.environ.get("AXMCP_MODE", REPLAY_MODE).strip().lower()
     checks: list[dict[str, object]] = []
     checks.append(
@@ -119,17 +124,48 @@ def _doctor() -> int:
     except (OSError, ProtocolViolation) as exc:
         checks.append({"check": "backend", "status": "fail", "diagnostic": str(exc)})
     passed = all(item["status"] == "pass" for item in checks)
-    _json_print(
-        {
-            "package": PACKAGE_NAME,
-            "version": PACKAGE_VERSION,
-            "mode": mode,
-            "ready": passed,
-            "live_ax_verified": False,
-            "checks": checks,
-        }
-    )
-    return 0 if passed else 2
+    payload: dict[str, object] = {
+        "package": PACKAGE_NAME,
+        "version": PACKAGE_VERSION,
+        "mode": mode,
+        "ready": passed,
+        "readiness_scope": "package_backend_only",
+        "live_ax_verified": False,
+        "checks": checks,
+    }
+    network_requested = any((
+        args.transport, args.target_ip, args.expected_adapter_id,
+        args.expected_tunnel_id, args.network_profile, args.network_snapshot,
+        args.network_collect,
+    ))
+    if network_requested:
+        if not args.transport or not args.target_ip:
+            raise ProtocolViolation("network diagnosis requires --transport and --target-ip")
+        if not args.network_snapshot and not args.network_collect:
+            raise ProtocolViolation("network diagnosis requires --network-snapshot or --network-collect")
+        try:
+            profile = load_json_object(args.network_profile) if args.network_profile else {}
+            if args.expected_adapter_id:
+                profile["expected_adapter_id"] = args.expected_adapter_id
+            if args.expected_tunnel_id:
+                profile["expected_tunnel_id"] = args.expected_tunnel_id
+            snapshot = (
+                collect_local_windows_snapshot(args.target_ip)
+                if args.network_collect else load_json_object(args.network_snapshot)
+            )
+            payload["network_diagnostics"] = evaluate_network_snapshot(
+                transport=args.transport,
+                target_ip=args.target_ip,
+                profile=profile,
+                snapshot=snapshot,
+                snapshot_origin="local_windows_inventory" if args.network_collect else "supplied",
+            )
+        except ValueError as exc:
+            raise ProtocolViolation(str(exc)) from exc
+    _json_print(payload)
+    network = payload.get("network_diagnostics")
+    network_consistent = network is None or network["status"] == "consistent"
+    return 0 if passed and network_consistent else 2
 
 
 def _smoke() -> int:
@@ -309,6 +345,7 @@ def _setup_autonomous(args: argparse.Namespace) -> int:
         worker_script_sha256=worker_digest,
         ladder_helper=helper,
         ladder_helper_sha256=helper_digest,
+        transport_profile=args.transport_profile,
     )
     codex_path = root / "codex-mcp.toml"
     atomic_write_exclusive(codex_path, _render_codex_toml(Path(sys.executable), root))
@@ -373,6 +410,7 @@ def _configure_deployment_worker(args: argparse.Namespace) -> int:
         target_enrollment=enrollment,
         target_enrollment_sha256=args.target_enrollment_sha256,
         replace=args.replace,
+        transport_profile=args.transport_profile,
     )
     codex_path = root / "codex-mcp.toml"
     if codex_path.is_file():
@@ -405,7 +443,15 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="axmcp-offline")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("serve", help="Run the MCP server over stdio")
-    sub.add_parser("doctor", help="Validate the installed package and selected backend")
+    doctor = sub.add_parser("doctor", help="Validate the package; optionally assess an explicit network snapshot")
+    doctor.add_argument("--transport", choices=("lan", "diacloud"))
+    doctor.add_argument("--target-ip", help="Explicit IPv4 target for selected-route analysis")
+    doctor.add_argument("--expected-adapter-id", help="Expected source adapter identity")
+    doctor.add_argument("--expected-tunnel-id", help="Expected DIACloud tunnel identity")
+    doctor.add_argument("--network-profile", type=Path, help="Read-only JSON expected identities and subnet profile")
+    network_input = doctor.add_mutually_exclusive_group()
+    network_input.add_argument("--network-snapshot", type=Path, help="Evaluate a supplied UTF-8 JSON observation")
+    network_input.add_argument("--network-collect", action="store_true", help="Explicitly read bounded local Windows route/process metadata; no target probes")
     sub.add_parser("smoke", help="Run all five allowlisted operations headlessly")
     sub.add_parser("print-config", help="Print a ready-to-paste stdio host configuration")
     sub.add_parser("autonomous-smoke", help="Validate AXQ-FILE/2 host state without IDE/target contact")
@@ -425,6 +471,7 @@ def _parser() -> argparse.ArgumentParser:
     configure.add_argument("--worker-script", type=Path, required=True)
     configure.add_argument("--worker-script-sha256", required=True)
     configure.add_argument("--profile", default="DIADesigner-AX 1.9")
+    configure.add_argument("--transport-profile", choices=("lan", "diacloud"), default="lan")
     setup = sub.add_parser(
         "setup-autonomous",
         help="Initialize, identity-pin and baseline-enroll one private AX MCP root",
@@ -436,6 +483,7 @@ def _parser() -> argparse.ArgumentParser:
     setup.add_argument("--ide-executable", type=Path, required=True)
     setup.add_argument("--script-engine", type=Path, required=True)
     setup.add_argument("--profile", default="DIADesigner-AX 1.9")
+    setup.add_argument("--transport-profile", choices=("lan", "diacloud"), default="lan")
     deployment = sub.add_parser(
         "configure-ax-deployment-worker",
         help="Pin exact target enrollment and vendor adapter without launching the IDE",
@@ -446,6 +494,7 @@ def _parser() -> argparse.ArgumentParser:
     deployment.add_argument("--target-enrollment", type=Path, required=True)
     deployment.add_argument("--target-enrollment-sha256", required=True)
     deployment.add_argument("--replace", action="store_true")
+    deployment.add_argument("--transport-profile", choices=("lan", "diacloud"), default="lan")
     return parser
 
 
@@ -456,7 +505,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             run_stdio()
             return 0
         if args.command == "doctor":
-            return _doctor()
+            return _doctor(args)
         if args.command == "smoke":
             return _smoke()
         if args.command == "print-config":
@@ -481,6 +530,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 ide_profile=args.profile,
                 worker_script=args.worker_script,
                 worker_script_sha256=args.worker_script_sha256,
+                transport_profile=args.transport_profile,
             )
             _json_print({"status": "configured", "config": str(config), "ide_launched": False})
             return 0

@@ -188,7 +188,12 @@ def run_guard(
     }
 
     def publish() -> None:
-        atomic_write_replace(status_path, canonical_json_bytes(status))
+        # A Windows reader can briefly deny replacement of the status file.
+        # Retry only that bounded sharing/access failure, never reset the
+        # runtime deadline or claim a fresh heartbeat without publication.
+        atomic_write_replace(
+            status_path, canonical_json_bytes(status), replace_retry_seconds=1.0,
+        )
 
     try:
         if os.name != "nt":

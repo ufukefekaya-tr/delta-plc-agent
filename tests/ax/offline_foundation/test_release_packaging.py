@@ -8,6 +8,8 @@ import unittest
 import zipfile
 from pathlib import Path
 
+from axmcp_offline.constants import PACKAGE_VERSION
+
 from . import PACKAGE_ROOT
 
 
@@ -33,7 +35,7 @@ class ReleasePackagingTests(unittest.TestCase):
                 check=False,
             )
             self.assertEqual(built.returncode, 0, built.stderr)
-            wheels = tuple(output.glob("universal_plc_axmcp-0.2.0-*.whl"))
+            wheels = tuple(output.glob(f"universal_plc_axmcp-{PACKAGE_VERSION}-*.whl"))
             self.assertEqual(len(wheels), 1)
             with zipfile.ZipFile(wheels[0]) as archive:
                 names = set(archive.namelist())
@@ -44,6 +46,8 @@ class ReleasePackagingTests(unittest.TestCase):
                 "axmcp_offline/ax_deployment_worker/worker.py",
                 "axmcp_offline/ax_deployment_worker/ax308_sp18_target.py",
                 "axmcp_offline/contracts/v2/deployment_reconciliation.schema.json",
+                "axmcp_offline/contracts/v2/job_progress.schema.json",
+                "axmcp_offline/job_progress.py",
                 "axmcp_offline/templates/codex-config.example.toml",
             }
             self.assertEqual(required - names, set())

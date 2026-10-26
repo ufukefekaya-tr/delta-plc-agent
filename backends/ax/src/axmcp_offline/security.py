@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import os
+import time
 import re
 import tempfile
 import uuid
@@ -268,7 +269,8 @@ def atomic_write_exclusive(final_path: Path, data: bytes) -> None:
         raise
 
 
-def atomic_write_replace(final_path: Path, data: bytes) -> None:
+def atomic_write_replace(final_path: Path, data: bytes, *,
+                         replace_retry_seconds: float = 0.0) -> None:
     """Durably replace task-local state through a same-directory partial file."""
 
     final_path.parent.mkdir(parents=True, exist_ok=True)
@@ -280,7 +282,16 @@ def atomic_write_replace(final_path: Path, data: bytes) -> None:
             handle.write(data)
             handle.flush()
             os.fsync(handle.fileno())
-        os.replace(partial_path, final_path)
+        deadline = time.monotonic() + replace_retry_seconds
+        while True:
+            try:
+                os.replace(partial_path, final_path)
+                break
+            except OSError as exc:
+                if (os.name != "nt" or getattr(exc, "winerror", None) not in (5, 32)
+                        or time.monotonic() >= deadline):
+                    raise
+                time.sleep(min(0.025, max(0.0, deadline - time.monotonic())))
     except Exception:
         try:
             partial_path.unlink()
@@ -293,3 +304,14 @@ def atomic_write_replace(final_path: Path, data: bytes) -> None:
 
 def private_temp_root(prefix: str = "axmcp-") -> Path:
     return Path(tempfile.mkdtemp(prefix=prefix)).resolve()
+
+
+def require_single_workspace(v2: Path, workspace_id: str) -> None:
+    """Legacy worker ledgers are root-scoped: never mix workspace histories."""
+    entries = list((v2 / "workspaces").iterdir())
+    if (len(entries) != 1 or entries[0].name != workspace_id
+            or not entries[0].is_dir() or entries[0].is_symlink()):
+        raise ProtocolViolation(
+            "AX root supports one workspace only; preserve this root for diagnosis "
+            "and use a fresh isolated root for another workspace"
+        )
