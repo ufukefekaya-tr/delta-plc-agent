@@ -80,3 +80,7 @@ Bring an adapter, a reproducible model qualification, an example, or a documenta
 [Workflows](workflows/README.md) · [Goals](goals/README.md) · [Agent-readable index](llms.txt) · [Validation](docs/public/VALIDATION.md) · [Security](SECURITY.md) · [Launch kit](docs/public/LAUNCH.md)
 
 Created and maintained by **[ufukefekaya-tr](https://github.com/ufukefekaya-tr)**. Core and AX backend: [MIT](LICENSE). [Third-party authors and licenses](THIRD_PARTY_NOTICES.md) remain credited. Cite the project with [CITATION.cff](CITATION.cff).
+
+## ISPSoft update — 2026-10-26
+
+[AS v3010 codec, current Windows source layer and qualification limits](docs/adapters/ispsoft-lab.md). The public core retains eleven MCP tools; the separate source layer has its own project profile and acceptance evidence.

@@ -40,10 +40,24 @@ class Container:
 def decode(data: bytes) -> Container:
     if len(data) <= 0xaa:
         raise FileTransformError('Truncated ISP container')
-    offset = next((o for o in (0xaa, 0xac) if len(data) > o and
-                   struct.unpack_from('<H', data, o-6)[0] == 8), None)
-    if offset is None:
-        raise FileTransformError('Unsupported ISP variant; recognized stream offsets: 0xAA/0xAC')
+    versions = struct.unpack_from('<II', data, 0x0c)
+    compiled_size = struct.unpack_from('<I', data, 0x9c)[0]
+    if versions == (1020, 3010) and compiled_size:
+        # AS ISPSoft 3.19 (file 1020 / format 3010) stores a compiled prefix
+        # before the source payload. Resolve only the explicit header pointer;
+        # never scan for arbitrary decompressible data.
+        payload_start = struct.unpack_from('<I', data, 0x98)[0]
+        if (versions != (1020, 3010) or compiled_size == 0 or
+                payload_start != 0xa4 + compiled_size or
+                not 0xa4 < payload_start <= len(data) - 7 or
+                struct.unpack_from('<H', data, payload_start)[0] != 8):
+            raise FileTransformError('Unsupported ISP variant; expected 0xAA/0xAC or explicit AS v3010 source pointer')
+        offset = payload_start + 6
+    else:
+        offset = next((o for o in (0xaa, 0xac) if len(data) > o and
+                       struct.unpack_from('<H', data, o-6)[0] == 8), None)
+        if offset is None:
+            raise FileTransformError('Unsupported ISP variant; recognized stream offsets: 0xAA/0xAC')
     payload_size = struct.unpack_from('<I', data, 0x94)[0]
     if payload_size != len(data) - (offset - 6):
         raise FileTransformError('Container payload length mismatch')
@@ -69,6 +83,10 @@ def decode(data: bytes) -> Container:
     # Native protection is not treated as an invitation to decode/modify it.
     if re.search(r'(?mi)^Prj_C_SourceCodeLocked=TRUE\r*$', text):
         raise FileTransformError('Protected source is unsupported')
+    if offset not in (0xaa, 0xac):
+        model = property_value(text, 'Prj_DT')
+        if model not in ('AS228T', 'AS228P', 'AS228R'):
+            raise FileTransformError('AS v3010 pointer layout is qualified only for AS228T/P/R source metadata')
     newline = '\r\r\n' if b'\r\r\n' in source else ('\r\n' if b'\r\n' in source else '\n')
     return Container(data, offset, source, encoding, newline)
 

@@ -81,6 +81,13 @@ def _target_match(container: containers.Container | None, target: dict | None) -
     elif re.fullmatch(r'AS\d{3}', hint):
         if family != 'AS' or not model.startswith(hint):
             raise FileTransformError(f'Project series {metadata!r} conflicts with universal target {model}')
+    elif hint in ('AS228T', 'AS228P', 'AS228R'):
+        # ISPSoft's Prj_DT omits the physical -A suffix. Preserve that limit
+        # in evidence; accept only the same explicit AS228 output variant.
+        if family != 'AS' or model != hint + 'A':
+            raise FileTransformError(f'Project variant {metadata!r} conflicts with universal target {model}')
+        return dict(status='metadata_variant_match', project_model=metadata,
+                    reason='ISPSoft CPU variant matches; physical -A suffix and native/hardware compatibility remain unverified')
     elif hint.startswith(('DVP', 'AS', 'AX')):
         if hint != model:
             raise FileTransformError(f'Project model {metadata!r} conflicts with universal target {model}')

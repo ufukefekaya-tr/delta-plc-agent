@@ -23,3 +23,5 @@ Her gerçek davranış veya çalışma protokolü değişikliği ayrı bir `KZ-Y
 - [KZ-20261013-003 — Genel DVP profil komutları](KZ-20261013-003-dvp-profile-commands.md)
 
 - [KZ-20261017-002 — Genel indeks ve adaptör durumunu uzlaştırma](KZ-20261017-002-universal-status-sync.md)
+
+- [KZ-20261026-001 — ISPSoft pointer codec and evidence limits](KZ-20261026-001-ispsoft-boundaries.md)
