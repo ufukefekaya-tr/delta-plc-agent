@@ -32,3 +32,6 @@ Bounded file compatibility is delivered without upgrading its evidence class. So
 ## Genellenebilir ders
 
 Use exact container metadata and negative fixtures rather than scanning. Identical source text or zero compiler diagnostics do not prove identical execution bytes, full retained layout or physical behavior. The observed AS228 pointer layout is not evidence for every series or protected format.
+
+- 10. Adam karşı görüşü: Prefix bytes can resemble legacy stream markers; explicit version-bound pointers must take precedence, with both marker collisions covered by neutral regressions.
+- Yanlış genelleme sınırı: AS228 source-container compatibility is file evidence only; it does not qualify every model, protected input, SDK semantics, native IDE or physical device.
