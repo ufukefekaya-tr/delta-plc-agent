@@ -7,6 +7,7 @@ from typing import Any
 from .constants import PUBLIC_OPERATIONS, ALLOWED_OPERATIONS, REPLAY_MODE, FILE_BRIDGE_MODE, AUTONOMOUS_MODE
 from .security import ProtocolViolation, strict_json_loads_v2, validate_digest
 from .service import OfflineService
+from .operator_evidence import profile, check_evidence
 
 
 class AxAdapter:
@@ -137,6 +138,11 @@ class AxAdapter:
             "target.observe.read": host.target_observe_read,
             "target.observe.stop": host.target_observe_stop,
             "job.status": host.job_status,
+            "job.progress": host.job_progress,
+            "revision.apply": host.revision_apply,
+            "candidate.snapshot": host.candidate_snapshot,
+            "operator.profile": profile,
+            "operator.evidence.check": check_evidence,
             "job.cancel": host.job_cancel,
         }
         if operation == "workspace.create":

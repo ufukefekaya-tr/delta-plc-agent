@@ -39,6 +39,7 @@ NUMBER_TYPES = INTEGER_TYPES + (float,)
 
 
 PROTOCOL = "AXQ-FILE/2"
+WORKFLOW_DEADLINE_CAPABILITY = 1
 PHRASE_DIGEST = "sha256:d254948f417a488968d144e12a6b87dfdeafb5582dbe86fa807dac952341088c"
 ROLLBACK_RESERVE_SECONDS = 20
 SUPPORTED_OPERATIONS = (
@@ -378,10 +379,22 @@ def _reject_constant(value):
 
 
 def _json_bytes(value):
-    text = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
+    text = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")) + "\n"
     if not isinstance(text, bytes):
         text = text.encode("utf-8")
     return text
+
+
+def _safe_diagnostic(error):
+    try:
+        try:
+            value = unicode(error)
+        except NameError:  # pragma: no cover - CPython 3
+            value = str(error)
+        escaped = value.encode("unicode_escape")
+        return escaped.decode("ascii") if isinstance(escaped, bytes) else escaped
+    except BaseException:
+        return "exception text unavailable"
 
 
 def _load_json_bytes(raw):
@@ -930,8 +943,14 @@ def _load_deployment_config(root, config_path):
     if os.path.normcase(config_path) != os.path.normcase(expected_config):
         raise WorkerError("deployment config is not the fixed scratch-root sibling")
     config, config_raw = _load_json_file(config_path)
-    if set(config) != DEPLOYMENT_CONFIG_KEYS or config["schema_version"] != "1":
+    version = config.get("schema_version") if isinstance(config, dict) else None
+    expected = DEPLOYMENT_CONFIG_KEYS | (
+        set(("runtime_capabilities",)) if version == "2" else set()
+    )
+    if set(config) != expected or version not in ("1", "2"):
         raise WorkerError("deployment config shape or version mismatch")
+    if version == "2" and config["runtime_capabilities"] != ["workflow_deadline_v1", "transfer_retention_v1"]:
+        raise WorkerError("deployment runtime capabilities are invalid")
     _validate_uuid(config["worker_id"], "worker_id")
     _validate_digest(config["environment_digest"], "environment_digest")
     _validate_digest(config["target_fingerprint"], "target_fingerprint")
@@ -1005,7 +1024,7 @@ def _load_deployment_config(root, config_path):
     )
     if heartbeat >= lease_timeout:
         raise WorkerError("heartbeat must be shorter than lease timeout")
-    _bounded_int(config["max_runtime_seconds"], "max_runtime_seconds", 30, 600)
+    _bounded_int(config["max_runtime_seconds"], "max_runtime_seconds", 30, 660 if version == "2" else 600)
     _bounded_int(config["max_requests"], "max_requests", 1, 100)
     _bounded_int(config["idle_exit_seconds"], "idle_exit_seconds", 1, 60)
     _bounded_int(config["startup_timeout_seconds"], "startup_timeout_seconds", 1, 60)
@@ -1096,6 +1115,8 @@ class AxDeploymentWorker(object):
         side_effect_callback=None,
         now=None,
         sleeper=None,
+        operating_states_api=None,
+        workflow_deadline_capability=False,
     ):
         self.root = os.path.abspath(root)
         if not os.path.isdir(self.root):
@@ -1122,6 +1143,11 @@ class AxDeploymentWorker(object):
         self.application_states = application_states_api
         self.version_update_flags = version_update_flags_api
         self.credential_sources = credential_source_kind_api
+        self.operating_states = operating_states_api
+        self.workflow_deadline_capability = workflow_deadline_capability is True
+        # A native transfer call retains its IDE until completion is proven.
+        self._transfer_held = False
+        self._held_transfer = None
         if worker_id is not None:
             _validate_uuid(worker_id, "worker_id")
         if side_effect_callback is not None and not callable(side_effect_callback):
@@ -1150,8 +1176,14 @@ class AxDeploymentWorker(object):
             raise GateBlocked("observation profile contains a non-allowlisted expression")
 
     def _validate_request(self, request, raw, allow_expired=False):
-        if not isinstance(request, dict) or set(request) != REQUEST_KEYS:
+        profile = request.get("transport_profile", "lan") if isinstance(request, dict) else None
+        expected_keys = REQUEST_KEYS | (set(("transport_profile",)) if profile == "diacloud" else set())
+        if not isinstance(request, dict) or set(request) != expected_keys:
             raise WorkerError("AXQ-FILE/2 request shape mismatch")
+        if profile not in ("lan", "diacloud"):
+            raise WorkerError("unsupported deployment transport profile")
+        if profile == "diacloud" and not self.workflow_deadline_capability:
+            raise WorkerError("legacy deployment worker cannot accept DIACloud deadline")
         if request["protocol"] != PROTOCOL or request["message_type"] != "request":
             raise WorkerError("unsupported protocol or message type")
         _validate_uuid(request["correlation_id"], "correlation_id")
@@ -1164,7 +1196,10 @@ class AxDeploymentWorker(object):
             raise WorkerError("target operations cannot carry workspace state")
         created = _timestamp(request["created_at"])
         deadline = _timestamp(request["deadline_at"])
-        maximum = 330 if request["operation"] == "deployment.execute" else 300
+        maximum = (
+            600 if profile == "diacloud" and request["operation"] == "deployment.execute"
+            else 330 if request["operation"] == "deployment.execute" else 300
+        )
         if deadline <= created or deadline - created > maximum:
             raise WorkerError("request deadline window is invalid")
         if not allow_expired and self._now() > deadline:
@@ -1414,10 +1449,12 @@ class AxDeploymentWorker(object):
         return expires
 
     def _validate_authority(self, authority, plan, request, execution):
-        if not isinstance(authority, dict) or set(authority) != AUTHORITY_KEYS:
+        version = authority.get("schema_version") if isinstance(authority, dict) else None
+        workflow_keys = set(("transport_profile", "workflow_deadline_at")) if version == "2" else set()
+        if not isinstance(authority, dict) or set(authority) != AUTHORITY_KEYS | workflow_keys:
             raise GateBlocked("DeploymentAuthority shape mismatch")
         if (
-            authority["schema_version"] != "1"
+            version not in ("1", "2")
             or authority["record_type"] != "DeploymentAuthority"
             or authority["status"] != "consumed"
             or authority["single_use"] is not True
@@ -1444,6 +1481,21 @@ class AxDeploymentWorker(object):
             raise GateBlocked("deployment authority is expired or invalid")
         if issued > _timestamp(request["created_at"]):
             raise GateBlocked("deployment request predates consumed authority")
+        if version == "2":
+            profile = authority["transport_profile"]
+            maximum = 600 if profile == "diacloud" else 330
+            if (
+                profile not in ("lan", "diacloud")
+                or request.get("transport_profile", "lan") != profile
+                or execution["transport_profile"] != profile
+                or request["deadline_at"] != authority["workflow_deadline_at"]
+                or execution["workflow_deadline_at"] != authority["workflow_deadline_at"]
+                or execution["schema_version"] != version
+                or not issued < _timestamp(authority["workflow_deadline_at"]) <= issued + maximum
+            ):
+                raise GateBlocked("deployment workflow deadline binding mismatch")
+        elif request.get("transport_profile", "lan") != "lan":
+            raise GateBlocked("legacy authority cannot bind DIACloud deadline")
         binding = {
             "plan_id": authority["plan_id"],
             "artifact_digest": authority["artifact_digest"],
@@ -1458,6 +1510,13 @@ class AxDeploymentWorker(object):
             "expires_at": authority["expires_at"],
             "single_use": authority["single_use"],
         }
+        if version == "2":
+            binding.update(
+                {
+                    "transport_profile": authority["transport_profile"],
+                    "workflow_deadline_at": authority["workflow_deadline_at"],
+                }
+            )
         expected = _sha256_bytes(_json_bytes(binding))
         if authority["authority_digest"] != expected:
             raise GateBlocked("deployment authority digest invariant failed")
@@ -1492,9 +1551,11 @@ class AxDeploymentWorker(object):
         profile, profile_raw = observations[0]
         authority, unused_authority_raw = authorities[0]
         del unused_execution_raw, unused_authority_raw
-        if not isinstance(execution, dict) or set(execution) != EXECUTION_INPUT_KEYS:
+        version = execution.get("schema_version") if isinstance(execution, dict) else None
+        workflow_keys = set(("transport_profile", "workflow_deadline_at")) if version == "2" else set()
+        if not isinstance(execution, dict) or set(execution) != EXECUTION_INPUT_KEYS | workflow_keys:
             raise GateBlocked("DeploymentExecuteInput shape mismatch")
-        if execution["schema_version"] != "1" or execution["record_type"] != "DeploymentExecuteInput":
+        if version not in ("1", "2") or execution["record_type"] != "DeploymentExecuteInput":
             raise GateBlocked("unsupported DeploymentExecuteInput")
         _validate_uuid(execution["plan_id"], "execution plan_id")
         _validate_uuid(execution["challenge_nonce"], "execution challenge_nonce")
@@ -1520,7 +1581,10 @@ class AxDeploymentWorker(object):
             raise GateBlocked("DeploymentPlan observation binding mismatch")
         if self._now() > plan_expiry:
             raise GateBlocked("DeploymentPlan has expired")
-        if deadline - self._now() <= profile["duration_seconds"] + 5:
+        if (
+            request.get("transport_profile", "lan") == "lan"
+            and deadline - self._now() <= profile["duration_seconds"] + 5
+        ):
             raise GateBlocked("request deadline cannot contain the bounded observation")
         authority_digest = self._validate_authority(authority, plan, request, execution)
         candidate_path, candidate_record = self._require_registered_artifact(
@@ -1711,10 +1775,19 @@ class AxDeploymentWorker(object):
             _dispose_online(online_application)
             raise
 
-    def _full_download_start(self, request, application, label, deadline, context):
+    def _full_download_start(self, request, application, label, deadline, context, project):
+        states = self.operating_states
+        if states is None or any(
+            not hasattr(states, name)
+            for name in ("download", "run_after_download", "program_loaded")
+        ):
+            raise GateBlocked("installed ScriptEngine lacks verified transfer state flags")
         online_application = self._new_online_application(
             application, self._remaining_time(deadline, label + " online creation")
         )
+        if not hasattr(online_application, "operation_state"):
+            _dispose_online(online_application)
+            raise GateBlocked("installed ScriptEngine lacks operation_state")
         try:
             # Persist an intent before the host marker.  If the process dies
             # after the marker but before the next journal publish, recovery
@@ -1736,7 +1809,7 @@ class AxDeploymentWorker(object):
                 marker = None
             self._journal(
                 request,
-                label + "-full-download-started",
+                label + "-full-download-api-intent",
                 {
                     "authority_digest": context["authority_digest"],
                     "artifact_digest": context[label + "_digest"],
@@ -1750,7 +1823,44 @@ class AxDeploymentWorker(object):
                 1,
                 min(60, int(self._remaining_time(deadline, label + " download login"))),
             )
+            self._transfer_held = True
+            self._held_transfer = {
+                "request": request,
+                "label": label,
+                "online": online_application,
+                "project": project,
+                "last_state": None,
+                "observed_active": False,
+                "terminal_observed": False,
+                "online_released": False,
+                "project_closed": False,
+            }
             online_application.login(self.change_options.Never, False)
+            # A returned login does not prove that target initialization ended.
+            state = online_application.operation_state
+            try:
+                observed = int(state)
+                download = int(states.download)
+                initializing = int(states.run_after_download)
+                loaded = int(states.program_loaded)
+            except (TypeError, ValueError):
+                raise RuntimeError(label + " transfer state cannot be interpreted")
+            self._journal(
+                request,
+                label + "-transfer-state-observed",
+                {"operation_state": observed, "reconciliation_required": True},
+            )
+            self._held_transfer["last_state"] = observed
+            if observed & (download | initializing) or not observed & loaded:
+                self._held_transfer["observed_active"] = bool(observed & (download | initializing))
+                raise RuntimeError(label + " download or initialization is incomplete")
+            self._transfer_held = False
+            self._held_transfer = None
+            self._journal(
+                request,
+                label + "-download-initialization-complete",
+                {"operation_state": observed, "reconciliation_required": False},
+            )
             self._remaining_time(deadline, label + " download login")
             if not bool(getattr(online_application, "is_logged_in", False)):
                 raise RuntimeError(label + " full-download login did not complete")
@@ -1790,8 +1900,65 @@ class AxDeploymentWorker(object):
             )
             return online_application
         except BaseException:
-            _dispose_online(online_application)
+            if not self._transfer_held:
+                _dispose_online(online_application)
             raise
+
+    def observe_held_transfer(self):
+        """Append only changed late state; never infer a safe retry or start."""
+        held = self._held_transfer
+        if not self._transfer_held or held is None:
+            return False
+        if held["terminal_observed"]:
+            return self._release_held_transfer()
+        try:
+            observed = int(held["online"].operation_state)
+        except (TypeError, ValueError):
+            return False
+        if observed == held["last_state"]:
+            return False
+        states = self.operating_states
+        active = bool(observed & (int(states.download) | int(states.run_after_download)))
+        loaded = bool(observed & int(states.program_loaded))
+        terminal = held["observed_active"] and not active and loaded
+        self._journal(
+            held["request"], held["label"] + "-late-transfer-state-observed",
+            {
+                "operation_state": observed,
+                "transfer_busy_observed": held["observed_active"] or active,
+                "terminal_transfer_observed": terminal,
+                "reconciliation_required": True,
+            },
+        )
+        held["last_state"] = observed
+        held["observed_active"] = held["observed_active"] or active
+        if terminal:
+            held["terminal_observed"] = True
+            return self._release_held_transfer()
+        return True
+
+    def _release_held_transfer(self):
+        held = self._held_transfer
+        if held is None or not held["terminal_observed"]:
+            return False
+        online_application = held["online"]
+        if not held["online_released"]:
+            if bool(getattr(online_application, "is_logged_in", False)):
+                online_application.logout()
+            disposer = getattr(online_application, "Dispose", None)
+            if callable(disposer):
+                disposer()
+            held["online_released"] = True
+        if not held["project_closed"]:
+            held["project"].close()
+            held["project_closed"] = True
+        self._journal(
+            held["request"], held["label"] + "-transfer-owner-released",
+            {"terminal_transfer_observed": True, "reconciliation_required": True},
+        )
+        self._transfer_held = False
+        self._held_transfer = None
+        return True
 
     def _sample(self, observation_id, target_fingerprint, profile, online_application):
         raw_values = list(online_application.read_values(tuple(profile["expressions"])))
@@ -1878,6 +2045,7 @@ class AxDeploymentWorker(object):
 
     def _execute_deployment(self, request, request_digest, deadline, context):
         bundle = self._load_deployment_bundle(request, deadline)
+        diacloud = request.get("transport_profile") == "diacloud"
         execution = bundle["execution"]
         context.update(
             {
@@ -1922,7 +2090,7 @@ class AxDeploymentWorker(object):
             )
             _dispose_online(preflight)
             self._journal(request, "target-preflight-passed", {"forced_values_present": False})
-            if (
+            if not diacloud and (
                 deadline - self._now()
                 <= bundle["profile"]["duration_seconds"] + ROLLBACK_RESERVE_SECONDS
             ):
@@ -1935,13 +2103,27 @@ class AxDeploymentWorker(object):
                 "candidate",
                 deadline,
                 context,
+                candidate_project,
             )
             self._remaining_time(
-                deadline, "candidate deployment", ROLLBACK_RESERVE_SECONDS
+                deadline, "candidate deployment", 0 if diacloud else ROLLBACK_RESERVE_SECONDS
             )
             self._verify_live_target(candidate_application, execution["target_fingerprint"])
+            observation_deadline = (
+                self._now() + bundle["profile"]["duration_seconds"] + ROLLBACK_RESERVE_SECONDS
+                if diacloud else deadline
+            )
+            self._journal(
+                request,
+                "candidate-watch-started",
+                {
+                    "deadline_at": _utc_at(observation_deadline),
+                    "duration_seconds": bundle["profile"]["duration_seconds"],
+                    "reconciliation_required": False,
+                },
+            )
             samples, rollback_required = self._observe_deployment(
-                request, bundle, candidate_online, deadline
+                request, bundle, candidate_online, observation_deadline
             )
             if not rollback_required:
                 self._journal(
@@ -1960,10 +2142,11 @@ class AxDeploymentWorker(object):
                 "fault-invariant-triggered",
                 {"sample_count": len(samples), "reconciliation_required": True},
             )
-            stop_budget = self._remaining_time(deadline, "candidate stop before rollback")
+            stop_deadline = self._now() + 5 if diacloud else deadline
+            stop_budget = self._remaining_time(stop_deadline, "candidate stop before rollback")
             candidate_online.timeout = max(1, min(5, int(stop_budget)))
             candidate_online.stop()
-            self._remaining_time(deadline, "candidate stop before rollback")
+            self._remaining_time(stop_deadline, "candidate stop before rollback")
             if not _state_is(
                 candidate_online.application_state,
                 self.application_states.stop,
@@ -1977,15 +2160,21 @@ class AxDeploymentWorker(object):
 
             rollback_project, rollback_application = self._open_project(rollback_copy)
             rollback_online = None
+            rollback_deadline = self._now() + 600 if diacloud else deadline
+            self._journal(
+                request,
+                "rollback-budget-started",
+                {"deadline_at": _utc_at(rollback_deadline), "reconciliation_required": True},
+            )
             try:
-                self._remaining_time(deadline, "rollback target verification")
+                self._remaining_time(rollback_deadline, "rollback target verification")
                 self._verify_live_target(rollback_application, execution["target_fingerprint"])
                 rollback_preflight = self._read_only_login(
                     rollback_application,
-                    self._remaining_time(deadline, "rollback preflight"),
+                    self._remaining_time(rollback_deadline, "rollback preflight"),
                 )
                 _dispose_online(rollback_preflight)
-                self._remaining_time(deadline, "rollback download")
+                self._remaining_time(rollback_deadline, "rollback download")
                 self._journal(
                     request,
                     "rollback-preflight-passed",
@@ -1998,10 +2187,11 @@ class AxDeploymentWorker(object):
                     request,
                     rollback_application,
                     "rollback",
-                    deadline,
+                    rollback_deadline,
                     context,
+                    rollback_project,
                 )
-                self._remaining_time(deadline, "rollback verification")
+                self._remaining_time(rollback_deadline, "rollback verification")
                 self._verify_live_target(rollback_application, execution["target_fingerprint"])
                 self._journal(
                     request,
@@ -2011,7 +2201,7 @@ class AxDeploymentWorker(object):
                         "reconciliation_required": False,
                     },
                 )
-                self._remaining_time(deadline, "rollback completion")
+                self._remaining_time(rollback_deadline, "rollback completion")
                 return {
                     "outcome": "rolled_back",
                     "reconciliation_required": False,
@@ -2019,11 +2209,13 @@ class AxDeploymentWorker(object):
                     "diagnostics": ["fault invariant triggered verified rollback"],
                 }
             finally:
-                _dispose_online(rollback_online)
-                _close_project(rollback_project)
+                if not self._transfer_held:
+                    _dispose_online(rollback_online)
+                    _close_project(rollback_project)
         finally:
-            _dispose_online(candidate_online)
-            _close_project(candidate_project)
+            if not self._transfer_held:
+                _dispose_online(candidate_online)
+                _close_project(candidate_project)
 
     def _load_observation_input(self, request, expected_keys):
         values = self._artifact_values(request)
@@ -2435,14 +2627,14 @@ class AxDeploymentWorker(object):
                     "outcome": "unknown_outcome",
                     "reconciliation_required": True,
                     "samples": [],
-                    "diagnostics": [str(exc)],
+                    "diagnostics": [_safe_diagnostic(exc)],
                 }
                 try:
                     self._journal(
                         request,
                         "unknown-outcome",
                         {
-                            "reason": str(exc),
+                            "reason": _safe_diagnostic(exc),
                             "reconciliation_required": True,
                             "blind_retry_allowed": False,
                         },
@@ -2456,7 +2648,7 @@ class AxDeploymentWorker(object):
                 "outcome": "blocked",
                 "reconciliation_required": False,
                 "samples": [],
-                "diagnostics": [str(exc)],
+                "diagnostics": [_safe_diagnostic(exc)],
             }
             return self._publish_result(
                 request, request_digest, "blocked", context, outcome
@@ -2471,7 +2663,7 @@ class AxDeploymentWorker(object):
                         request,
                         "unknown-outcome",
                         {
-                            "reason": str(exc),
+                            "reason": _safe_diagnostic(exc),
                             "reconciliation_required": True,
                             "blind_retry_allowed": False,
                         },
@@ -2486,7 +2678,7 @@ class AxDeploymentWorker(object):
                 "outcome": outcome_name,
                 "reconciliation_required": reconciliation,
                 "samples": [],
-                "diagnostics": [str(exc)],
+                "diagnostics": [_safe_diagnostic(exc)],
             }
             return self._publish_result(
                 request, request_digest, status, context, outcome
@@ -2956,6 +3148,8 @@ class AxDeploymentRuntime(object):
         )
         self.started = self._now()
         self.last_activity = self.started
+        self._next_held_observation_at = self.started
+        self._next_held_heartbeat_at = self.started
         self.processed = 0
         self.heartbeat_counter = 0
         self.heartbeat_nonce = uuid.uuid4().hex
@@ -3428,7 +3622,18 @@ class AxDeploymentRuntime(object):
             raise WorkerError("deployment request archive target already exists")
         os.rename(running, target)
 
+    def _poll_held_transfer(self):
+        if self.worker is None or not self.worker._transfer_held:
+            return False
+        now = self._now()
+        if now < self._next_held_observation_at:
+            return False
+        self._next_held_observation_at = now + 30
+        return self.worker.observe_held_transfer() and not self.worker._transfer_held
+
     def process_next(self):
+        if self.worker is not None and self.worker._transfer_held:
+            return False
         candidates = self._candidate_requests()
         if not candidates:
             return False
@@ -3528,25 +3733,47 @@ class AxDeploymentRuntime(object):
             self.worker.recover_orphaned_observations()
             while True:
                 now = self._now()
+                released = self._poll_held_transfer()
                 active = self._active_observations()
-                if now - self.started >= self.config["max_runtime_seconds"]:
+                held = self.worker._transfer_held
+                if now - self.started >= self.config["max_runtime_seconds"] and not held and not released:
                     reason = "max_runtime"
                     break
-                if self.processed >= self.config["max_requests"] and not active:
+                if self.processed >= self.config["max_requests"] and not active and not held and not released:
                     reason = "max_requests"
                     break
-                if now - self.last_activity >= self.config["idle_exit_seconds"] and not active:
+                if now - self.last_activity >= self.config["idle_exit_seconds"] and not active and not held and not released:
                     reason = "idle_exit"
                     break
-                self.worker.poll_observations()
-                processed = self.process_next()
-                if self._heartbeat_error is not None:
+                if not held:
+                    self.worker.poll_observations()
+                try:
+                    processed = self.process_next()
+                except BaseException:
+                    if not self.worker._transfer_held:
+                        raise
+                    processed = False
+                if self.worker._transfer_held:
+                    # The exact PID remains leased even if a status/heartbeat
+                    # write fails.  A stale live PID then blocks a second launch.
+                    if now >= self._next_held_heartbeat_at:
+                        self._next_held_heartbeat_at = now + 1
+                        try:
+                            self.write_heartbeat("transfer-held")
+                        except Exception:
+                            pass
+                elif self._heartbeat_error is not None:
                     raise WorkerError("deployment heartbeat writer stopped unexpectedly")
                 if not processed:
-                    if self.system is not None and hasattr(self.system, "delay"):
-                        self.system.delay(100)
-                    else:
-                        self._sleep(0.1)
+                    try:
+                        if self.system is not None and hasattr(self.system, "delay"):
+                            self.system.delay(1000 if self.worker._transfer_held else 100)
+                        else:
+                            self._sleep(1 if self.worker._transfer_held else 0.1)
+                    except BaseException:
+                        if not self.worker._transfer_held:
+                            raise
+                        time.sleep(1)
             self.write_heartbeat(reason)
             return {
                 "status": "stopped",
@@ -3555,6 +3782,28 @@ class AxDeploymentRuntime(object):
                 "processed": self.processed,
                 "target_fingerprint": self.config["target_fingerprint"],
             }
+        except BaseException:
+            if self.worker is None or not self.worker._transfer_held:
+                raise
+            # No exception path may unwind into main() and call system.exit
+            # while an AX transfer remains owned by this process.
+            while self.worker._transfer_held:
+                try:
+                    self._poll_held_transfer()
+                except BaseException:
+                    pass
+                now = self._now()
+                if now >= self._next_held_heartbeat_at:
+                    self._next_held_heartbeat_at = now + 1
+                    try:
+                        self.write_heartbeat("transfer-held")
+                    except BaseException:
+                        pass
+                try:
+                    self._sleep(1)
+                except BaseException:
+                    time.sleep(1)
+            raise
         finally:
             primary_error_active = sys.exc_info()[0] is not None
             heartbeat_error = None
@@ -3563,12 +3812,12 @@ class AxDeploymentRuntime(object):
                 self._stop_heartbeat_pump()
             except Exception as exc:
                 heartbeat_error = exc
-            if self.worker is not None:
+            if self.worker is not None and not self.worker._transfer_held:
                 try:
                     self.worker.close_active_observations()
                 except Exception as exc:
                     observation_error = exc
-            if lease_acquired:
+            if lease_acquired and not (self.worker is not None and self.worker._transfer_held):
                 self.release_lease()
             if observation_error is not None and not primary_error_active:
                 raise observation_error
@@ -3601,6 +3850,7 @@ def main():
             "ApplicationState": globals().get("ApplicationState"),
             "VersionUpdateFlags": globals().get("VersionUpdateFlags"),
             "CredentialSourceKind": globals().get("CredentialSourceKind"),
+            "OperatingState": globals().get("OperatingState"),
         }
         def approved_worker_factory():
             target = _load_target_adapter(
@@ -3620,6 +3870,8 @@ def main():
                 context["CredentialSourceKind"],
                 worker_id=config["worker_id"],
                 side_effect_callback=None,
+                operating_states_api=context["OperatingState"],
+                workflow_deadline_capability=config["schema_version"] == "2",
             )
 
         runtime = AxDeploymentRuntime(

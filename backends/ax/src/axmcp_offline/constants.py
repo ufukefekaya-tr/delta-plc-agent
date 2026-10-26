@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 PACKAGE_NAME = "universal-plc-axmcp"
-PACKAGE_VERSION = "0.2.0"
+PACKAGE_VERSION = "0.4.0"
 PROTOCOL_V1 = "AXQ-FILE/1"
 PROTOCOL_V2 = "AXQ-FILE/2"
 # Compatibility alias used by the qualified read-only bridge.
@@ -23,6 +23,8 @@ AUTONOMOUS_OPERATIONS = (
     "workspace.status",
     "source.upsert.st",
     "ladder.networks.apply",
+    "revision.apply",
+    "candidate.snapshot",
     "project.build",
     "artifact.freeze",
     "deployment.prepare",
@@ -33,13 +35,18 @@ AUTONOMOUS_OPERATIONS = (
     "target.observe.stop",
     "job.status",
     "job.cancel",
+    "job.progress",
+    "operator.profile",
+    "operator.evidence.check",
 )
 
 PUBLIC_OPERATIONS = ALLOWED_OPERATIONS + AUTONOMOUS_OPERATIONS
+AXQ_OPERATIONS = tuple(operation for operation in PUBLIC_OPERATIONS if operation not in {"job.progress", "operator.profile", "operator.evidence.check"})
 
 WORKER_OPERATIONS = (
     "source.upsert.st",
     "ladder.networks.apply",
+    "revision.apply",
     "project.build",
     "deployment.execute",
     "deployment.reconcile",

@@ -2,7 +2,7 @@
 
 Standalone Python backend migrated from the user's AX implementation. Package
 identity is `universal-plc-axmcp`; Python imports remain `axmcp_offline`. The
-`axmcp`, `axmcp-offline`, and `axmcp-stdio` commands and all 19 existing operation
+`axmcp`, `axmcp-offline`, and `axmcp-stdio` commands and all 19 legacy operation
 names are preserved. This code is MIT licensed; see [LICENSE](LICENSE).
 
 ## Install and run
@@ -113,3 +113,8 @@ misrepresented as original live evidence.
 - [AX runbook and transferable lessons](docs/AX_RUNBOOK.md)
 - [Every source kaizen candidate](docs/AX_LESSONS.md)
 - [Compatibility protocol](protocol/AXQ-FILE-2.md)
+
+## Current release
+
+[AX 0.4.0: native revisions, transfer protection and evidence](docs/RELEASE_0_4.md)
+adds five operations while preserving public project creation and generic bindings.

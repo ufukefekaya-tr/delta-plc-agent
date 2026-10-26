@@ -22,6 +22,8 @@ EXACT_OPERATIONS = (
     "workspace.status",
     "source.upsert.st",
     "ladder.networks.apply",
+    "revision.apply",
+    "candidate.snapshot",
     "project.build",
     "artifact.freeze",
     "deployment.prepare",
@@ -32,6 +34,9 @@ EXACT_OPERATIONS = (
     "target.observe.stop",
     "job.status",
     "job.cancel",
+    "job.progress",
+    "operator.profile",
+    "operator.evidence.check",
 )
 
 
@@ -83,7 +88,10 @@ class AutonomousContractTests(unittest.TestCase):
             "job_result.schema.json",
         ):
             schema = json.loads((V2_ROOT / schema_name).read_text(encoding="utf-8"))
-            self.assertEqual(tuple(schema["$defs"]["operation"]["enum"]), operations)
+            self.assertEqual(
+                tuple(schema["$defs"]["operation"]["enum"]),
+                tuple(operation for operation in operations if operation not in {"job.progress", "operator.profile", "operator.evidence.check"}),
+            )
 
     def test_deployment_is_fail_closed_before_target_enrollment(self) -> None:
         target = json.loads(

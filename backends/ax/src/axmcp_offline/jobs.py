@@ -626,11 +626,19 @@ class FileJobQueue:
                 "deployment recovery requires one exact execution input"
             )
         execution = execution_inputs[0]
-        if (
-            set(execution) != _DEPLOYMENT_EXECUTE_INPUT_KEYS
-            or execution["schema_version"] != "1"
-            or execution["record_type"] != "DeploymentExecuteInput"
-        ):
+        legacy = (
+            execution.get("schema_version") == "1"
+            and set(execution) == _DEPLOYMENT_EXECUTE_INPUT_KEYS
+            and request.get("transport_profile", "lan") == "lan"
+        )
+        bounded = (
+            execution.get("schema_version") == "2"
+            and set(execution) == _DEPLOYMENT_EXECUTE_INPUT_KEYS | {"transport_profile", "workflow_deadline_at"}
+            and execution.get("transport_profile") in {"lan", "diacloud"}
+            and execution["transport_profile"] == request.get("transport_profile", "lan")
+            and execution.get("workflow_deadline_at") == request.get("deadline_at")
+        )
+        if (not (legacy or bounded) or execution["record_type"] != "DeploymentExecuteInput"):
             raise ProtocolViolation("deployment recovery execution input shape mismatch")
         validate_correlation_id(execution["plan_id"])
         validate_correlation_id(execution["challenge_nonce"])
@@ -778,8 +786,11 @@ class WorkerLease:
 
     @staticmethod
     def _default_pid_alive(pid: int) -> bool:
-        if pid <= 0:
+        if isinstance(pid, bool) or not isinstance(pid, int) or pid <= 0:
             return False
+        if os.name == "nt":
+            from .window_guard import _pid_alive
+            return _pid_alive(pid)
         try:
             os.kill(pid, 0)
         except OSError:

@@ -1530,6 +1530,7 @@ class AxWorkerTests(unittest.TestCase):
                 message.source = None
                 message.line = 0
                 message.column = 0
+                message.prefix = message.number = None
             # Exact installed-project evidence reports these known optional
             # placeholders outside the compiler warning total.
             system = System(messages, summary_warnings=0)
@@ -1590,6 +1591,7 @@ class AxWorkerTests(unittest.TestCase):
                 message.source = None
                 message.line = 0
                 message.column = 0
+                message.prefix = message.number = None
             worker, _projects = self._make_worker(root, fixture, system=System(messages, summary_warnings=0))
             worker.config["initial_project_sha256"] = self.module.OPTIONAL_EMPTY_SLOT_SECOND_BASELINE_SHA256
             diagnostics = worker._messages(strict=True)
@@ -1612,6 +1614,7 @@ class AxWorkerTests(unittest.TestCase):
                     message.source = None
                     message.line = 0
                     message.column = 0
+                    message.prefix = message.number = None
                 if label != "other-baseline":
                     self.module.OPTIONAL_EMPTY_SLOT_BASELINE_SHA256 = fixture.config[
                         "initial_project_sha256"
