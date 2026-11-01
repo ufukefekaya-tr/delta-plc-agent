@@ -3,6 +3,10 @@
 Date: 2026-10-26. Public baseline: `87ed7b565cabddff0394e2cee5546579e7998e08`.
 Scope: offline software publication; no IDE, PLC or HMI operation.
 
+The measurements below qualify the original AX publication through `7fcf209`.
+The 2026-11-01 integration retains current ISPSoft main as a second parent; its
+combined validation is recorded separately at the end of this document.
+
 | Check | Result |
 |---|---|
 | Unified repository suite, Windows/Python 3.14 | 477 tests, 476 passed, 1 skipped, 0 failures/errors; 109.400 s |
@@ -43,3 +47,32 @@ Independent read-only review: **ACCEPT for offline publication**, with no open
 critical or major finding. Public-specific behavior, transfer protection, new
 dispatch paths, privacy boundaries and negative tests were reviewed. Installation
 wording was clarified during review. This is not native or live acceptance.
+
+## 2026-11-01 combined AX and ISPSoft integration
+
+Parents: AX `7fcf209f16b1aad1d5bcf9ee66f3b3b50347dd3c` and current ISPSoft main
+`f4f041ab4212aca9afa4c66d745f551bfe431a10`. The shared publication manifest and
+Kaizen index were reconciled. The AX lesson was renumbered to KZ-20261026-002
+because main already used KZ-20261026-001 for ISPSoft; its history is preserved.
+
+| Check | Result |
+|---|---|
+| Combined suite, Windows/Python 3.14 | 484 tests, 483 passed, 1 Windows symlink skip; 117.145 s |
+| DVP serial suite | 153 passed; 68.293 s |
+| Fresh Universal/AX wheel install and Universal stdio roundtrip | PASS |
+| Installed AX stdio list/call | PASS: 24 autonomous tools, 5 replay tools |
+| AX runtime, adapters, contracts and qualification files versus AX parent | Byte-identical |
+| Universal runtime and ISPSoft/DVP tests versus current main parent | Byte-identical |
+| Policy, skill and live target operations | Policy/skill files unchanged; live operations NOT_RUN |
+| Public source/privacy manifest and repository/bootstrap checks | PASS; 301 manifest files |
+
+Fresh wheel SHA-256 values for this integrated tree:
+
+- `universal_plc_agents-0.3.1-py3-none-any.whl`: `d081c8bbf0046c3248c5331e3f6de2d009f87d549bce8bc40a7866348d459aad`.
+- `universal_plc_axmcp-0.4.0-py3-none-any.whl`: `d2393464361b8de35b7273e76180a2f37064e276329b878479e62e67ce0167ec`.
+
+The AX wheel differs from the historical wheel above because its bundled lesson
+link now points to the unique current Kaizen record. Runtime behavior is unchanged.
+Independent integration review and exact GitHub CI/merge identity accompany the
+merge handoff. The [integration lesson](../../kaizen/KZ-20261101-001-ax-ispsoft-integration.md)
+records the cause, resolution and rollback boundary.

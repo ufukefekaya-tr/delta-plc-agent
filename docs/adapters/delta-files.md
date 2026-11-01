@@ -4,6 +4,8 @@
 
 11 Ekim temelinden gelen `DeltaFileAdapter` gerçek dosya dönüşümleri sunar. Sonuçlar **FILE_TRANSFORM** kanıtıdır. Vendor derleme, simülatör, donanıma bağlanma veya canlı kabul anlamına gelmez.
 
+26 Ekim 2026: AS v3010 explicit source-pointer codec ve nötr testler upstream çekirdeğe alındı. [Güncel ISPSoft çalışma sınırı ve ayrı Windows kaynak katmanı](ispsoft-lab.md).
+
 ## Giriş ve taşınabilirlik
 
 ```python

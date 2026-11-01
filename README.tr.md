@@ -31,3 +31,7 @@ Demo; küçük bir komut listesini MPU biçimine ve geri dönüştürür, hedef 
 [Kurulum](docs/QUICKSTART.md) · [Özellikler ve doğrulama kapsamları](docs/FEATURES.md) · [İndeks](INDEX.md) · [Katkı rehberi](CONTRIBUTING.md)
 
 Kurucu ve bakım sorumlusu: **[ufukefekaya-tr](https://github.com/ufukefekaya-tr)**. [MIT lisansı](LICENSE); üçüncü taraf katkıları [atıflarıyla](THIRD_PARTY_NOTICES.md) korunur.
+
+## ISPSoft update — 2026-10-26
+
+[AS v3010 codec, current Windows source layer and qualification limits](docs/adapters/ispsoft-lab.md). The public core retains eleven MCP tools; the separate source layer has its own project profile and acceptance evidence.

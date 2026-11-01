@@ -1,4 +1,4 @@
-# KZ-20261026-001 — Preserve public behavior when importing AX improvements
+# KZ-20261026-002 — Preserve public behavior when importing AX improvements
 
 - Baseline/hash: `87ed7b565cabddff0394e2cee5546579e7998e08`
 - 10. Adam karşı görüşü: A newer private package may erase public generalization; compare behavior, not version alone.
@@ -43,3 +43,5 @@ together. Software acceptance and live acceptance remain separate.
 Hosted Windows CI additionally exposed short/long TEMP aliases. A path spelling
 comparison is not a file identity check; the candidate assertion now verifies
 both canonical path and same-file identity without weakening digest checks.
+
+Identity note: renumbered during integration because main already used KZ-20261026-001 for ISPSoft. The original AX record remains available in commit7fcf209 history; its lesson is preserved here.

@@ -61,4 +61,4 @@ Run the repository [validation commands](../../../docs/public/VALIDATION.md).
 The release includes negative transfer, deadline, revision, evidence and routing
 tests. A software PASS is separate from native compiler and live PLC acceptance.
 See [public source provenance](../../../docs/public/PROVENANCE.md) and the
-[publication lesson](../../../kaizen/KZ-20261026-001-ax-public-sync.md).
+[publication lesson](../../../kaizen/KZ-20261026-002-ax-public-sync.md).
