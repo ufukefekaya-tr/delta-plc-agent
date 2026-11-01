@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "name": "Neutral bounded permit and counter",
+  "inputs": "internal Boolean state only; no mapped input/output",
+  "behavior": [
+    "Permit = Enable AND NOT Inhibit",
+    "Counter increments only when Permit is TRUE and Counter < Limit",
+    "Limit is fixed at100; no accumulated offset; Counter never exceeds100"
+  ],
+  "negative_test": "Insert syntax error in the task-called Demo_PRG, require real compiler failure, restore valid code and require success if dependency gates pass",
+  "scope": "IDE_ONLY_LAB; no discovery/online/physical target",
+  "acceptance": [
+    "public nativeproject.create",
+    "STapplication readback aftersave/reopen",
+    "controlled STrevision",
+    "real vendorpositive/negativecompile",
+    "freeze onlyafterpassedbuild"
+  ],
+  "stop_on": "first unrecoverable public capability or environment gate; no runtime patch or warning waiver",
+  "not_claimed": "PLC execution, simulated cycle behavior, physical validation"
+}

@@ -1,5 +1,7 @@
 # Your first Delta PLC Agent workflow
 
+Choose your first task: [native AX engineering and its actual run evidence](showcase/AX_DEMO.md), or the no-IDE file example below. AX preparation needs a configured Windows vendor host; the small file example works independently.
+
 For an optional skills-compatible engineering entrypoint, install the complete
 [Delta PLC skill folder](../skills/delta-plc-engineering/SKILL.md) in your agent's
 supported skill location. It includes its own references and MIT license.
@@ -28,7 +30,13 @@ Replace `python` with the absolute path to **your installed environment's interp
 
 For project import, add `--allow-read` followed by the chosen source directory **before** `serve`. The server copies hash-checked files into its workspace. Existing `universal-plc`, `universal-plc-mcp`, and AX compatibility commands remain stable.
 
-## A first agent prompt
+## First native AX prompt
+
+> Use the Delta PLC engineering skill and the configured AX adapter. Resolve the exact model/IDE/profile. Plan a new neutral offline project without physical I/O, create it, revise its called ST program, save/reopen/read back and request a real vendor build. Inspect all diagnostics and stop at a failed acceptance gate. Do not contact a PLC.
+
+The [showcase](showcase/AX_DEMO.md) records one real attempt and its environment blocker. Do not silently switch the default recorded replay into a native run; configure the host bridge explicitly. [AX setup](../backends/ax/README.md).
+
+## First no-IDE agent prompt
 
 > Read AGENTS.md and INDEX.md. Resolve Delta DVP14SS211R using ISPSoft for a file transformation. Inspect capabilities, create an isolated workspace, and produce a supported IL/MPU roundtrip with evidence. Keep this task offline.
 

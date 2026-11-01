@@ -1,0 +1,53 @@
+{
+  "schema_version": "2",
+  "record_type": "LadderRecipe",
+  "project": "NeutralPermitDemo",
+  "pou": "DemoLadder",
+  "output_allowlist": [
+    "LocalPermit"
+  ],
+  "variables": [
+    {
+      "name": "Enable",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "Internal synthetic enable; no hardware mapping."
+    },
+    {
+      "name": "Inhibit",
+      "type": "BOOL",
+      "direction": "input",
+      "comment": "Internal synthetic inhibit; no hardware mapping."
+    },
+    {
+      "name": "LocalPermit",
+      "type": "BOOL",
+      "direction": "output",
+      "comment": "Local Boolean only; no physical output."
+    }
+  ],
+  "networks": [
+    {
+      "id": "DEMO-PERMIT",
+      "order": 1,
+      "title": "Internal permit",
+      "comment": "Planned input only; native import and build NOT_RUN.",
+      "elements": [
+        {
+          "kind": "contact",
+          "variable": "Enable",
+          "polarity": "NO"
+        },
+        {
+          "kind": "contact",
+          "variable": "Inhibit",
+          "polarity": "NC"
+        }
+      ],
+      "coil": {
+        "variable": "LocalPermit",
+        "mode": "normal"
+      }
+    }
+  ]
+}

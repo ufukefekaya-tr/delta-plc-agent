@@ -1,0 +1,242 @@
+repository,stars,forks,category,inspection,source_sha,url,queries
+Serial-Studio/Serial-Studio,7282,1100,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Serial-Studio/Serial-Studio,topic:plc topic:mcp
+frangoteam/FUXA,5241,1419,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/frangoteam/FUXA,topic:plc topic:mcp
+GavinYellow/SharpSCADA,3048,1391,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/GavinYellow/SharpSCADA,topic:plc topic:mcp
+zhaopeiym/IoTClient,1689,490,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/zhaopeiym/IoTClient,topic:plc topic:mcp
+ThingsGateway/ThingsGateway,1493,74,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/ThingsGateway/ThingsGateway,topic:plc topic:mcp
+dathlin/ClientServerProject,1458,611,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/dathlin/ClientServerProject,topic:plc topic:mcp
+emqx/neuron,1421,314,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/emqx/neuron,topic:plc topic:mcp
+pnoker/iot-dc3,1268,236,ADJACENT_PLATFORM_NOT_DIRECT_PEER,README/tree/releases,929761d13279c5db2a8fd2d2ceaf2e497e1eb54c,https://github.com/pnoker/iot-dc3,topic:plc topic:mcp
+rossmann-engineering/EasyModbusTCP.NET,1130,452,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/rossmann-engineering/EasyModbusTCP.NET,topic:plc topic:mcp
+dark-lbp/isf,1108,300,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/dark-lbp/isf,topic:plc topic:mcp
+w3h/icsmaster,967,338,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/w3h/icsmaster,topic:plc topic:mcp
+libplctag/libplctag,904,282,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/libplctag/libplctag,topic:plc topic:mcp
+god-jason/iot-master,870,204,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/god-jason/iot-master,topic:plc topic:mcp
+gijzelaerr/python-snap7,865,284,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/gijzelaerr/python-snap7,topic:plc topic:mcp
+alejoseb/Modbus-STM32-HAL-FreeRTOS,848,238,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/alejoseb/Modbus-STM32-HAL-FreeRTOS,topic:plc topic:mcp
+dmroeder/pylogix,736,204,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/dmroeder/pylogix,topic:plc topic:mcp
+ottowayi/pycomm3,521,115,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/ottowayi/pycomm3,topic:plc topic:mcp
+beremiz/beremiz,454,160,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/beremiz/beremiz,topic:plc topic:mcp
+tcunit/TcUnit,424,88,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/tcunit/TcUnit,topic:plc topic:mcp
+bulaofen0036-coder/TIA_Portal_Openness_MCP,378,99,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,2627ee0731a109049be7fea41d1cbc76e20e3471,https://github.com/bulaofen0036-coder/TIA_Portal_Openness_MCP,explicit_seed | topic:plc topic:mcp
+TcOpenGroup/TcOpen,352,64,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/TcOpenGroup/TcOpen,topic:plc topic:mcp
+xingshuangs/iot-communication,303,93,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/xingshuangs/iot-communication,topic:plc topic:mcp
+libplctag/libplctag.NET,302,79,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/libplctag/libplctag.NET,topic:plc topic:mcp
+cmseaton42/node-ethernet-ip,296,112,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/cmseaton42/node-ethernet-ip,topic:plc topic:mcp
+Fortiphyd/GRFICSv3,279,50,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Fortiphyd/GRFICSv3,topic:plc topic:mcp
+sapphirexai/bufferpad,272,15,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/sapphirexai/bufferpad,topic:plc topic:mcp
+konimarti/opc,265,96,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/konimarti/opc,topic:plc topic:mcp
+fbarresi/Sharp7,259,80,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/fbarresi/Sharp7,topic:plc topic:mcp
+dathlin/RemoteMonitor,249,153,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/dathlin/RemoteMonitor,topic:plc topic:mcp
+loneicewolf/Stuxnet-Source,240,64,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/loneicewolf/Stuxnet-Source,topic:plc topic:mcp
+roboplc/roboplc,232,9,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/roboplc/roboplc,topic:plc topic:mcp
+thomas-v2/S7CommPlusDriver,230,88,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/thomas-v2/S7CommPlusDriver,topic:plc topic:mcp
+johannesPettersson80/trust-platform,229,26,ADJACENT_PLATFORM_NOT_DIRECT_PEER,README/tree/releases,60ec892e2e92f125f2896578878a663e8e07c5a4,https://github.com/johannesPettersson80/trust-platform,topic:plc topic:mcp
+xeden3/LECPServer,220,52,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/xeden3/LECPServer,topic:plc topic:mcp
+Serhioromano/vscode-st,206,40,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Serhioromano/vscode-st,topic:plc topic:mcp
+siemens/simatic-s7-webserver-api,190,33,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/siemens/simatic-s7-webserver-api,topic:plc topic:mcp
+mathiask88/node-snap7,180,67,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/mathiask88/node-snap7,topic:plc topic:mcp
+miguelob/ICS-Hacking,176,26,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/miguelob/ICS-Hacking,topic:plc topic:mcp
+fatasia/DeepMonkey-Studio,173,1,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/fatasia/DeepMonkey-Studio,topic:plc topic:mcp
+mking2203/CodeGeneratorOpenness,172,53,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/mking2203/CodeGeneratorOpenness,topic:plc topic:mcp
+heilingbrunner/tiaportal-mcp,127,51,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,98669c5d6b0ec124fedbdd3df131bdf1c3fc8742,https://github.com/heilingbrunner/tiaportal-mcp,TIA MCP
+johannesPettersson80/codesys-mcp-toolkit,127,38,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,1195a6724017b831b4f2e24d15541dbdc57429b7,https://github.com/johannesPettersson80/codesys-mcp-toolkit,CODESYS MCP
+midea-ai/SemaPLC,110,25,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,fea1b87a112bf947197f501168ee35771fdc6377,https://github.com/midea-ai/SemaPLC,primary_web_directory_seed
+Czarnak/tia-portal-mcp,108,28,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,10c5de2eb44c0362792cd141370b3f42f92f6ecd,https://github.com/Czarnak/tia-portal-mcp,TIA Portal MCP
+luke-harriman/Codesys-MCP,93,21,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,9a965c7e16cb49996de8d45596d6e15a27a39450,https://github.com/luke-harriman/Codesys-MCP,CODESYS MCP
+Czarnak/totally-integrated-claude,77,16,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,7b805e1d10b0fdeb794bf4e9ed8ea112f7d92703,https://github.com/Czarnak/totally-integrated-claude,primary_web_directory_seed
+heilingbrunner/vscode-tiaportal-mcp,64,13,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,408f90db00ce0ef3c052987e45a7b65817ff9ee6,https://github.com/heilingbrunner/vscode-tiaportal-mcp,TIA MCP
+a4webdev/tiacommander-mcp,53,9,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,3016289f601bf4fae0876eb0747f8fc677444317,https://github.com/a4webdev/tiacommander-mcp,TIA MCP
+JadeHuang/RealPLC-Agent,41,6,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,106a9056313c29e8306b004d343ee2b844b28032,https://github.com/JadeHuang/RealPLC-Agent,PLC agent
+eponce00/twincat-mcp,35,8,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,379a10800b5e5bfdf05ae443e75de4ff819ee496,https://github.com/eponce00/twincat-mcp,TwinCAT MCP
+MIGO-OvO/plc-skill,28,7,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,82e541946e8f92f688b94d476b1b5fc09f531947,https://github.com/MIGO-OvO/plc-skill,PLC skill
+rickgaiser/TiaMcp,26,7,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,8e9de1ccb7f29347f16b4146f91cdc3f88bfad9f,https://github.com/rickgaiser/TiaMcp,TIA MCP
+DaMccRee/tiaportal-mcp,21,5,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,22ac572ae82c37c532506a1ac5f8ef8c2abb522c,https://github.com/DaMccRee/tiaportal-mcp,TIA MCP
+Arienax/gxworks-agent,19,4,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,c3a0f0b1acab12964ccb6004841c8de4b26ad1d2,https://github.com/Arienax/gxworks-agent,explicit_seed | gxworks
+zbest1000/mcptoolkit-for-codesys,19,4,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,0fcadf89395fe312099a32e23bb32c1f2cb7edd8,https://github.com/zbest1000/mcptoolkit-for-codesys,primary_web_directory_seed
+eponce00/tiaopen-mcp,15,5,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,e2b26de46306669ba87e6b7c246def981b76ca72,https://github.com/eponce00/tiaopen-mcp,TIA MCP
+mrwan84/ThinkPLC-MCP,13,3,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,fb698663281cac5453b82919e58c2190fe79c0cb,https://github.com/mrwan84/ThinkPLC-MCP,PLC MCP
+BlackUppsss/Cx-Proggrammer-MCP,12,2,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,145049acc6c6443d8c04b72b98200b8950f04187,https://github.com/BlackUppsss/Cx-Proggrammer-MCP,explicit_seed
+lanlan0811/tianshu-mcp,12,3,ADJACENT_PLATFORM_NOT_DIRECT_PEER,README/tree/releases,2cc65e6197d2d873ee996a642e778f6b6a90355a,https://github.com/lanlan0811/tianshu-mcp,TIA MCP
+hadefuwa/tia-portal-mcp,11,10,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,1fc2f1ba0477f8203baf78c1b2a8d1742d94ec3d,https://github.com/hadefuwa/tia-portal-mcp,TIA Portal MCP
+renanlido/tia-harness,11,0,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,7751b156a86be906913176e8dbc986db8e873b95,https://github.com/renanlido/tia-harness,TIA MCP
+gangsterke/Tia-Portal-MCP-server,10,1,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,c75168664d5dde7c2d6e3fc0d572222a9c3aa4f5,https://github.com/gangsterke/Tia-Portal-MCP-server,TIA Portal MCP
+georgeturneruk/tckit,10,4,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,e71b434dfa87d933bc3941eb7c7f0bfcc6a40413,https://github.com/georgeturneruk/tckit,TwinCAT MCP
+rjboer/OMRON-MCP,9,1,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,840cd3380f9c05229ce4b0f4c87c4ab4dba2704d,https://github.com/rjboer/OMRON-MCP,Omron MCP | PLC AI
+agentthink/tia-portal-mcp,8,5,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,feb291beed337fd2388eafa5d579b3ede47145aa,https://github.com/agentthink/tia-portal-mcp,TIA Portal MCP
+renanlido/tia-openness,8,0,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,a99e9281005c8d99a1186a5793838fb89fbccc1e,https://github.com/renanlido/tia-openness,TIA MCP
+SHU996/eigen-plc-mcp,6,0,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,4acb2096039885b00a1224e8c3fb80f3bfd3f366,https://github.com/SHU996/eigen-plc-mcp,PLC MCP
+Wayan123/multi-plc-agent,6,3,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,eb472a50ccf74adcf1dffb161abe8f9c287d2b91,https://github.com/Wayan123/multi-plc-agent,PLC agent
+caoyixian06/TiaMcpServer,6,1,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,44cc125bcd0d3f9611bfe4a1a2e6668932b137e5,https://github.com/caoyixian06/TiaMcpServer,TIA MCP
+coder007rahul/gxworks3-mcp-bridge,6,2,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,d10998d40dddfff86059067e42128dd65487efd1,https://github.com/coder007rahul/gxworks3-mcp-bridge,gxworks
+paulinholt/TIA-MCP,6,2,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,f7d1c93cea4f474b62bec2ee678acc63f114fc51,https://github.com/paulinholt/TIA-MCP,TIA MCP
+ura-ch/PLC_AI_Studio,6,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/ura-ch/PLC_AI_Studio,PLC AI
+BoykaHe/plc-agent-notes,5,0,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,57db3e062f38a02ba042eef3b7849b79f6ac4747,https://github.com/BoykaHe/plc-agent-notes,PLC agent
+junjiewang66/-PLC-AI-,5,5,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/junjiewang66/-PLC-AI-,PLC AI
+minecraty/TIA-portal-MCP-for-AI-agent,5,0,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,ed719e02ac6bbc2248c03529615c00c2bae7f2fd,https://github.com/minecraty/TIA-portal-MCP-for-AI-agent,TIA Portal MCP
+spyshow/TiaMCP-v2,5,1,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,e3f570cfc2d0ae0b8e7ab6e82f796e383f4a81c4,https://github.com/spyshow/TiaMCP-v2,TIA MCP
+tekinaDev/codesys-mcp,5,1,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,f050ba499847c41ef7036e9e00469eb11f1c4f81,https://github.com/tekinaDev/codesys-mcp,CODESYS MCP
+MountainClimberJiwen/plc-mcp,4,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/MountainClimberJiwen/plc-mcp,PLC MCP
+WagoAlex/wago-plc-mcp-server,4,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/WagoAlex/wago-plc-mcp-server,PLC MCP
+Zhangmingjun-Huarui/Codesys-MCP,4,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Zhangmingjun-Huarui/Codesys-MCP,CODESYS MCP
+dodup/TIA-MCP-Server,4,3,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/dodup/TIA-MCP-Server,TIA MCP
+lingtongxinyv/PLC-AI-Agent,4,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/lingtongxinyv/PLC-AI-Agent,PLC AI agent | PLC AI
+newcovid/TiaMcp,4,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/newcovid/TiaMcp,TIA MCP
+tia-forge/awesome-plc-ai,4,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/tia-forge/awesome-plc-ai,PLC AI
+3022969246-code/industrial-plc-agent,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/3022969246-code/industrial-plc-agent,PLC agent
+Auda29/twincat-mcp-mono,3,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Auda29/twincat-mcp-mono,TwinCAT MCP
+Links2008/gxworks2-mcp,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Links2008/gxworks2-mcp,gxworks
+NPavii/codesys-mcp-server,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/NPavii/codesys-mcp-server,CODESYS MCP
+Nodeblue-AI/plc-llm-benchmark,3,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Nodeblue-AI/plc-llm-benchmark,PLC LLM
+OHOClauger/TiaMcpServerV21,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/OHOClauger/TiaMcpServerV21,TIA MCP
+afprayogi/bengkel-masalah-elektrikal,3,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/afprayogi/bengkel-masalah-elektrikal,PLC AI
+phobicdotno/Codesys-MCP-Master,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/phobicdotno/Codesys-MCP-Master,CODESYS MCP
+puran-water/tia-portal-mcp,3,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/puran-water/tia-portal-mcp,TIA Portal MCP
+tia-forge/tialink,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/tia-forge/tialink,TIA Portal MCP
+turnipings/XinJe_PLC_Skill,3,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/turnipings/XinJe_PLC_Skill,PLC skill
+BartK1990/CodesysMcpNet,2,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/BartK1990/CodesysMcpNet,CODESYS MCP
+Joshua1909/PLC-SkillTester,2,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Joshua1909/PLC-SkillTester,PLC skill
+Macsion/tia-portal-mcp-v17,2,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Macsion/tia-portal-mcp-v17,TIA Portal MCP
+Naraku00/plc-ai-write-program,2,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Naraku00/plc-ai-write-program,PLC AI
+Osamaiqji89/SmartPLC_AI_Agent,2,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Osamaiqji89/SmartPLC_AI_Agent,PLC AI agent | PLC AI
+gugu-2/Industry-PLC-LLM,2,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/gugu-2/Industry-PLC-LLM,PLC LLM
+junchen-general/PLCC-agent,2,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/junchen-general/PLCC-agent,PLC agent
+x2124824695-stack/inoproshop-mcp,2,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/x2124824695-stack/inoproshop-mcp,CODESYS MCP
+1039319331wh-design/TIA_MCP,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/1039319331wh-design/TIA_MCP,TIA MCP
+ALERA0/tia-mcp-v2,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/ALERA0/tia-mcp-v2,TIA MCP
+Arienax/dsh-gxworks,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Arienax/dsh-gxworks,gxworks
+CuiEnQiao/industrial-plc-skills,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/CuiEnQiao/industrial-plc-skills,PLC skill
+L261173157/Ai-PLC-coding,1,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/L261173157/Ai-PLC-coding,PLC MCP
+MvpCry/PLC-AI,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/MvpCry/PLC-AI,PLC AI
+NDKNIMA/PLC_AI,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/NDKNIMA/PLC_AI,PLC AI
+PenumbraMemories/tianta-mcp-market,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/PenumbraMemories/tianta-mcp-market,TIA MCP
+Shamekh21/SASS-Smart-Automated-Sorting-System,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Shamekh21/SASS-Smart-Automated-Sorting-System,PLC AI
+Sparkz400/TIA_MCP,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Sparkz400/TIA_MCP,TIA MCP
+adriahermoso/plc_ai,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/adriahermoso/plc_ai,PLC AI
+ayusefi/PLC_Mcprotocol_Mysql_comm_Python,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/ayusefi/PLC_Mcprotocol_Mysql_comm_Python,PLC MCP
+cadugrillo/tia_mcp_server,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/cadugrillo/tia_mcp_server,TIA MCP
+eLSeR17/plc-ai-agent,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/eLSeR17/plc-ai-agent,PLC AI agent | PLC AI
+fanbingqian/tianzheng-mcp,1,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/fanbingqian/tianzheng-mcp,TIA MCP
+frankNumfor/symbiotic-cell-digital-twin,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/frankNumfor/symbiotic-cell-digital-twin,PLC AI
+instantgoing/plc-agent,1,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/instantgoing/plc-agent,PLC agent
+junjiewang66/plc-ai-assistant,1,1,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/junjiewang66/plc-ai-assistant,PLC AI
+mehmeteray27zx/quantora-plc-skill,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/mehmeteray27zx/quantora-plc-skill,PLC skill
+mlwei1/liu-ai-gxworks3,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/mlwei1/liu-ai-gxworks3,gxworks
+muris11/PLCForge-AI-STUDIO-V2,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/muris11/PLCForge-AI-STUDIO-V2,PLC AI
+qubernetic/TwinCat-MCP-Docs,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/qubernetic/TwinCat-MCP-Docs,TwinCAT MCP
+seniorhwan/gxworks2-mcp,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/seniorhwan/gxworks2-mcp,gxworks
+uiff/Codesys-MCP-Server,1,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/uiff/Codesys-MCP-Server,CODESYS MCP
+yh01010/dsh-mcp-tia,1,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/yh01010/dsh-mcp-tia,TIA Portal MCP
+yifanzhang369/PLCRA-AIoT,1,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/yifanzhang369/PLCRA-AIoT,PLC AI
+0-robinson-1/plc-portfolio,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/0-robinson-1/plc-portfolio,PLC skill
+147qaz258-ead/plc-ai-agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/147qaz258-ead/plc-ai-agent,PLC AI agent | PLC AI
+2893468613wxr/PLC-AI-Model,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/2893468613wxr/PLC-AI-Model,PLC AI
+2phenix/tia-mcp-v16,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/2phenix/tia-mcp-v16,TIA MCP
+ALERA0/tia-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/ALERA0/tia-mcp,TIA MCP
+ATOM1358/factoryio-gxworks3,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/ATOM1358/factoryio-gxworks3,gxworks
+AccruedInnovation/codesys-mcp-scriptengine-runner,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/AccruedInnovation/codesys-mcp-scriptengine-runner,CODESYS MCP
+Alex0-KoTe/PLC_AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Alex0-KoTe/PLC_AI,PLC AI
+Bibin-VR/TIA-Portal-MCP,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Bibin-VR/TIA-Portal-MCP,TIA Portal MCP
+Birger90/Siemens-TIA-Portal-MCP,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Birger90/Siemens-TIA-Portal-MCP,TIA Portal MCP
+CH1806/CodesysAgent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/CH1806/CodesysAgent,CODESYS agent
+CH1806/CodesysAgentTest,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/CH1806/CodesysAgentTest,CODESYS agent
+CortexPrism/cortex-plugin-industrial-iot,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/CortexPrism/cortex-plugin-industrial-iot,PLC agent
+DHARNAEES/PLC-Agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/DHARNAEES/PLC-Agent,PLC agent
+Denisijcu/plc-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Denisijcu/plc-mcp,PLC MCP
+FranciscoOsuna/weryfikacja-kodu-plc-llm,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/FranciscoOsuna/weryfikacja-kodu-plc-llm,PLC LLM
+GaGa-Yin/rung-mcp-references,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/GaGa-Yin/rung-mcp-references,CODESYS MCP
+GabrielSRR/tia-mcp-v20-patch,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/GabrielSRR/tia-mcp-v20-patch,TIA MCP
+Gizcan/Mitsubishi_GXworks3,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Gizcan/Mitsubishi_GXworks3,gxworks
+GreatFooliao111/Plagent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/GreatFooliao111/Plagent,PLC AI agent
+Hamed2025bnd/plc-AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Hamed2025bnd/plc-AI,PLC AI
+Harshithajain7452/PLCVERSE-AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Harshithajain7452/PLCVERSE-AI,PLC AI
+HeHirisw/PLC_AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/HeHirisw/PLC_AI,PLC AI
+HenryFerOZ-2000/voz-llm-plc-agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/HenryFerOZ-2000/voz-llm-plc-agent,PLC agent
+INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks2---Sample-Poroject,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks2---Sample-Poroject,gxworks
+INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks3---Sample-Poroject-,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks3---Sample-Poroject-,gxworks
+JasonHe/TM753-Codesys-MCP,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/JasonHe/TM753-Codesys-MCP,CODESYS MCP
+JasonJJQ/tiaportal-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/JasonJJQ/tiaportal-mcp,TIA MCP
+Jenislee/gxworks3-ci-test1,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Jenislee/gxworks3-ci-test1,gxworks
+JonasCai/PLCMaster-Skill,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/JonasCai/PLCMaster-Skill,PLC skill
+JreeyL/AutoPLC-Agent,0,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/JreeyL/AutoPLC-Agent,PLC agent
+KeysBills/twincat-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/KeysBills/twincat-mcp,TwinCAT MCP
+KishoreRaam/plc-ai-studio,0,1,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/KishoreRaam/plc-ai-studio,PLC AI
+KooJiiKoo/tia-portal-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/KooJiiKoo/tia-portal-mcp,TIA Portal MCP
+Marsel204/cv-landing-page,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Marsel204/cv-landing-page,PLC agent
+NimsaraPeiris/Xinje-PLC-AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/NimsaraPeiris/Xinje-PLC-AI,PLC AI
+Nishwanth03/AI-PLC-AGENT,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Nishwanth03/AI-PLC-AGENT,PLC agent
+OlubunmiAde/plc-mcp-server,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/OlubunmiAde/plc-mcp-server,PLC MCP
+Petlja/PLCT-AI-Ctx,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/Petlja/PLCT-AI-Ctx,PLC AI
+RD191295/Auto-plc-backend,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/RD191295/Auto-plc-backend,PLC agent
+Radee/PlcAgent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Radee/PlcAgent,PLC agent
+Rasirn/PLC-Agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Rasirn/PLC-Agent,PLC agent
+Threewintersandfoursummers/tia-portal-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Threewintersandfoursummers/tia-portal-mcp,TIA Portal MCP
+TuanNgoNo1/Digital-Twin-BaiTH2,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/TuanNgoNo1/Digital-Twin-BaiTH2,gxworks
+WELCOME-FENG/plc-agent-coder,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/WELCOME-FENG/plc-agent-coder,PLC agent
+Wayan123/gxworks-agent,0,0,PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED,README/tree/releases,1c3bce8b32441263b109ba61ae8d0d1b1fdb40d0,https://github.com/Wayan123/gxworks-agent,explicit_seed
+YGSSNB/My_Tool_CodesysMcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/YGSSNB/My_Tool_CodesysMcp,CODESYS MCP
+Ymir506/codesys-agent-bundle,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Ymir506/codesys-agent-bundle,CODESYS agent
+Zhangmingjun-Huarui/Codesys-MCP-Test,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Zhangmingjun-Huarui/Codesys-MCP-Test,CODESYS MCP
+Zhgong/codesys-mcp-plugin,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/Zhgong/codesys-mcp-plugin,CODESYS MCP
+ZixiSu/tiancheng-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/ZixiSu/tiancheng-mcp,TIA MCP
+akkexd/PLC_GXworks,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/akkexd/PLC_GXworks,gxworks
+andyc212/plc-aistudio,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/andyc212/plc-aistudio,PLC AI
+arhunn/s7-plc-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/arhunn/s7-plc-mcp,PLC MCP
+asjnk/plc-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/asjnk/plc-mcp,PLC MCP
+atakangudulluogluhv/elevator-plc-agents,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/atakangudulluogluhv/elevator-plc-agents,PLC agent
+cepdnaclk/e19-co227-Remote-Controlled-PLC-Training-Kit,0,4,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/cepdnaclk/e19-co227-Remote-Controlled-PLC-Training-Kit,PLC skill
+changgeng1009/tianzhengMCP,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/changgeng1009/tianzhengMCP,TIA MCP
+cj1106620946/fuduji_plc_ai,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/cj1106620946/fuduji_plc_ai,PLC AI
+cmz269/-plc-gxworks2-,0,1,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/cmz269/-plc-gxworks2-,gxworks
+cyheng/tia-portal-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/cyheng/tia-portal-mcp,TIA Portal MCP
+drougstar/PLC_AI_Integration,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/drougstar/PLC_AI_Integration,PLC AI
+ejajmahmud/industrial-plc-telemetry-agent-zig-industrial-plc-agent-v2026-b70,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/ejajmahmud/industrial-plc-telemetry-agent-zig-industrial-plc-agent-v2026-b70,PLC agent
+faceniffN/tia-portal-mcp-v18,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/faceniffN/tia-portal-mcp-v18,TIA Portal MCP
+gugu-2/PLC-LLM-OS,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/gugu-2/PLC-LLM-OS,PLC LLM
+hamiltonskie-cpu/tiaportal-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/hamiltonskie-cpu/tiaportal-mcp,TIA MCP
+hendrikelektrik/gx-plc-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/hendrikelektrik/gx-plc-mcp,PLC MCP
+hexagontechinc/vPLC_AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/hexagontechinc/vPLC_AI,PLC AI
+hugo-palafox/PLC_MCP,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/hugo-palafox/PLC_MCP,PLC MCP
+idomp/twincat-skills,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/idomp/twincat-skills,TwinCAT MCP
+imhuangsir/PLC-AI-Tutor,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/imhuangsir/PLC-AI-Tutor,PLC AI
+intgyl/tianqi-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/intgyl/tianqi-mcp,TIA MCP
+jclavier44/VS-TwincatMCPServer,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/jclavier44/VS-TwincatMCPServer,TwinCAT MCP
+kcylp/laoyin-plc-ai,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/kcylp/laoyin-plc-ai,PLC AI
+kgpgit/genius-automation-community,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/kgpgit/genius-automation-community,TIA Portal MCP
+long-safe-accont-4567-uvwxyz-9876/plc-agent-cli,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/long-safe-accont-4567-uvwxyz-9876/plc-agent-cli,PLC agent
+lucasavilanoriega-ux/plc-agentics,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/lucasavilanoriega-ux/plc-agentics,PLC agent
+lzyricardo/codesys-mcp-inoproshop,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/lzyricardo/codesys-mcp-inoproshop,CODESYS MCP
+miigwech-potato/tia-dual-gate,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/miigwech-potato/tia-dual-gate,TIA MCP
+mohammedabid92/plc-ai-generator,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/mohammedabid92/plc-ai-generator,PLC AI
+my0366/plc-simulator-web,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/my0366/plc-simulator-web,gxworks
+nachiket0987/PLC-AgentOS,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/nachiket0987/PLC-AgentOS,PLC agent
+neeilgupta/PLC_AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/neeilgupta/PLC_AI,PLC AI
+nineman-YU/ls-plc-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/nineman-YU/ls-plc-mcp,PLC MCP
+paodanchacon/plc-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/paodanchacon/plc-mcp,PLC MCP
+papakuma213/plc_agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/papakuma213/plc_agent,PLC agent
+pathakashu/tia-portal-mcp-server,0,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/pathakashu/tia-portal-mcp-server,TIA Portal MCP
+paurieravila-ship-it/tia-portal-mcp-server,0,1,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/paurieravila-ship-it/tia-portal-mcp-server,TIA Portal MCP
+pcyamzguy12138/twincat-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/pcyamzguy12138/twincat-mcp,TwinCAT MCP
+pjy4617/plc-skill,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/pjy4617/plc-skill,PLC skill
+quintonknox380-hub/housearrest-4-AI,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/quintonknox380-hub/housearrest-4-AI,PLC agent
+rduffy190/CtrlxPlcSkill,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/rduffy190/CtrlxPlcSkill,PLC skill
+risan/omron-mcp,0,0,NON_PLC_HEALTH_DEVICE,repository search metadata only,,https://github.com/risan/omron-mcp,Omron MCP
+rjsxo943-gif/gxworks2-plc-practice,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/rjsxo943-gif/gxworks2-plc-practice,gxworks
+sahilxai/PLCForge-AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/sahilxai/PLCForge-AI,PLC AI
+sebastianc01/plc-airpt,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/sebastianc01/plc-airpt,PLC AI
+shw98-jp/gxworks2-io-list-lab,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/shw98-jp/gxworks2-io-list-lab,gxworks
+sim910502-hue/plc-agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/sim910502-hue/plc-agent,PLC agent
+sismo93/OpenPLC_AI_Agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/sismo93/OpenPLC_AI_Agent,PLC AI agent
+steikould/plc-agent-foundaton,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/steikould/plc-agent-foundaton,PLC agent
+straes-venture/PLC-Agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/straes-venture/PLC-Agent,PLC agent
+taotao1988/plc-ai-proxy,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/taotao1988/plc-ai-proxy,PLC AI
+tomaszurbanski/plc-ai-assistant,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/tomaszurbanski/plc-ai-assistant,PLC AI
+trics107-lab/my-plc-agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/trics107-lab/my-plc-agent,PLC agent
+ucupryd/PLC-AI,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/ucupryd/PLC-AI,PLC AI
+ufukefekaya-tr/delta-plc-agent,0,0,OWN_BASELINE,README/tree/releases,9b209e1e559a726bdce12450c48af56b60ed6cc8,https://github.com/ufukefekaya-tr/delta-plc-agent,PLC agent
+wuwonder1005/tia-portal-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/wuwonder1005/tia-portal-mcp,TIA Portal MCP
+xiaodouya9693/gxHomework,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/xiaodouya9693/gxHomework,gxworks
+xu-zi-ang/tianditu-mcp,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/xu-zi-ang/tianditu-mcp,TIA MCP
+yan703741-creator/plc-ai-assistant,0,0,ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH,repository search metadata only,,https://github.com/yan703741-creator/plc-ai-assistant,PLC AI
+zrwsmd/plc-agent,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/zrwsmd/plc-agent,PLC agent
+zrwsmd/test-plc-agent-commit,0,0,METADATA_RELEVANT_CANDIDATE,repository search metadata only,,https://github.com/zrwsmd/test-plc-agent-commit,PLC agent

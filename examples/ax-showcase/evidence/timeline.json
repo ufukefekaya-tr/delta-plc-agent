@@ -1,0 +1,76 @@
+[
+  {
+    "timestamp": "2026-11-01T15:08:32.044013+00:00",
+    "event": "automatic_run_started",
+    "source_commit": "9b209e1e559a726bdce12450c48af56b60ed6cc8"
+  },
+  {
+    "timestamp": "2026-11-01T15:08:33.457751+00:00",
+    "event": "step",
+    "step": "public_context",
+    "status": "PASS"
+  },
+  {
+    "timestamp": "2026-11-01T15:09:34.124934+00:00",
+    "event": "step",
+    "step": "project.create",
+    "status": "PASS"
+  },
+  {
+    "timestamp": "2026-11-01T15:10:03.020607+00:00",
+    "event": "step",
+    "step": "source.read",
+    "status": "PASS"
+  },
+  {
+    "timestamp": "2026-11-01T15:10:23.316395+00:00",
+    "event": "step",
+    "step": "revision.apply",
+    "status": "PASS"
+  },
+  {
+    "timestamp": "2026-11-01T15:10:23.526860+00:00",
+    "event": "step",
+    "step": "candidate.snapshot",
+    "status": "PASS"
+  },
+  {
+    "timestamp": "2026-11-01T15:10:59.510899+00:00",
+    "event": "step",
+    "step": "project.build",
+    "status": "BLOCKED"
+  },
+  {
+    "timestamp": "2026-11-01T15:10:59.673838+00:00",
+    "event": "blocked",
+    "source_commit": "9b209e1e559a726bdce12450c48af56b60ed6cc8"
+  },
+  {
+    "timestamp": "2026-11-01T15:10:59.744017+00:00",
+    "event": "automatic_run_finished",
+    "status": "BLOCKED"
+  },
+  {
+    "timestamp": "2026-11-01T15:14:07.011244+00:00",
+    "event": "agent_input_correction_started",
+    "reason": "LIMIT is reserved; use CountLimit",
+    "changed_scope": "neutral_demo_ST_only"
+  },
+  {
+    "timestamp": "2026-11-01T15:14:57.296696+00:00",
+    "event": "step",
+    "step": "input_correction_revision",
+    "status": "PASS"
+  },
+  {
+    "timestamp": "2026-11-01T15:15:29.042955+00:00",
+    "event": "step",
+    "step": "corrected_project.build",
+    "status": "BLOCKED"
+  },
+  {
+    "timestamp": "2026-11-01T15:15:29.233890+00:00",
+    "event": "input_correction_run_finished",
+    "status": "BLOCKED"
+  }
+]

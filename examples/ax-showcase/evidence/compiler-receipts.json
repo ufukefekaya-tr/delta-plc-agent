@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "record_type": "SanitizedActualCompilerReceipts",
+  "public_source_commit": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+  "source_sha256_definition": "SHA-256 of retained private full JobResult JSON; bytes omitted from public package",
+  "receipts": [
+    {
+      "attempt": "initial_agent_input",
+      "operation": "project.build",
+      "job_id": "7d5908de-6a22-4c63-8704-6ca6366c0c17",
+      "correlation_id": "6441bef6-f621-4178-a8f0-bec5f0953391",
+      "started_at": "2026-11-01T15:10:23Z",
+      "completed_at": "2026-11-01T15:10:58Z",
+      "job_status": "failed",
+      "workspace_revision": 1,
+      "project_digest": "sha256:16f174e65a0795a7de6dfa147770862b68424e7e4ca3dbd1c8668e0637602f89",
+      "source_digest": "sha256:7755be920f96f1ded4970a303ac0c450c1c8b0cdb3dd8cfa3df93e20b7a74b98",
+      "input_file_digests": {
+        "declaration.st": "sha256:ee4734011242142fec313da970dc81592c8b47d12cbd0ae2f9c8b44045d29ee5",
+        "implementation-corrected.st": "sha256:3854965e5ecd7bfe0113942b780c774ffc24569628f84a550e5a767ca66498eb"
+      },
+      "source_sha256": "sha256:d1b96a38d2d167177ed8a480bd91d66cf77f53ffb867da994b8b04545a735d8c",
+      "stored_protocol_result_digest": "sha256:48722026bafa8726ad76a7b7dfa713eea5829d8974563575b74ae087181c546c",
+      "compiler_error_count": 2,
+      "compiler_warning_count": 0,
+      "aggregate_error_count": 2,
+      "aggregate_warning_count": 21,
+      "environment_warning_count": 21,
+      "environment_warning_message": "Device description for '<Empty>' is missing",
+      "compiler_diagnostics": [
+        {
+          "severity": "info",
+          "code": "C.MESSAGE",
+          "message": "------ Build started: Application: DemoController.Application -------",
+          "source": null,
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        },
+        {
+          "severity": "info",
+          "code": "C.MESSAGE",
+          "message": "Typify code...",
+          "source": null,
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        },
+        {
+          "severity": "error",
+          "code": "C.6",
+          "message": "'(' expected instead of ')'",
+          "source": "Demo_PRG",
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        },
+        {
+          "severity": "error",
+          "code": "C.22",
+          "message": "'LIMIT' needs exactly '3' operands",
+          "source": "Demo_PRG",
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        },
+        {
+          "severity": "info",
+          "code": "C.MESSAGE",
+          "message": "Compile complete -- 2 errors, 0 warnings",
+          "source": null,
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        }
+      ]
+    },
+    {
+      "attempt": "agent_corrected_input",
+      "operation": "project.build",
+      "job_id": "e89f4e0a-10bf-4d05-b7c9-57c2afa7cab2",
+      "correlation_id": "7781da4c-ada9-450c-8b79-506f6007f2ed",
+      "started_at": "2026-11-01T15:14:57Z",
+      "completed_at": "2026-11-01T15:15:28Z",
+      "job_status": "failed",
+      "workspace_revision": 2,
+      "project_digest": "sha256:a9724e5fbb5798eada53fe706d39b060a61a27a3ded3bc34cfe2224d91f3530f",
+      "source_digest": "sha256:7f136c786454e6f205d47c9b66f85b1ce75c00d49aeaf46f672e173f2b902dda",
+      "input_file_digests": {
+        "declaration-fixed.st": "sha256:0846f08af8c0f7f102191edcf0ee533dafdad4371744cbac8a5e9e4868f31739",
+        "implementation-fixed.st": "sha256:ac514082969db9fa3734f23b65e54e4f768d0019e351de798f1649ea3b7b8ee1"
+      },
+      "source_sha256": "sha256:05c77a5848db0bd84136fec41066a48d04b1a525793a36234f718f63da6430a3",
+      "stored_protocol_result_digest": "sha256:b09bee1d09e2a45f0eae3afaf7861d0b89ab4a5859de4dfdb37e927fbfd3664f",
+      "compiler_error_count": 0,
+      "compiler_warning_count": 0,
+      "aggregate_error_count": 0,
+      "aggregate_warning_count": 21,
+      "environment_warning_count": 21,
+      "environment_warning_message": "Device description for '<Empty>' is missing",
+      "compiler_diagnostics": [
+        {
+          "severity": "info",
+          "code": "C.MESSAGE",
+          "message": "------ Build started: Application: DemoController.Application -------",
+          "source": null,
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        },
+        {
+          "severity": "info",
+          "code": "C.MESSAGE",
+          "message": "Typify code...",
+          "source": null,
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        },
+        {
+          "severity": "info",
+          "code": "C.MESSAGE",
+          "message": "Compile complete -- 0 errors, 0 warnings",
+          "source": null,
+          "line": null,
+          "column": null,
+          "category": "97f48d64-a2a3-4856-b640-75c046e37ea9"
+        }
+      ]
+    }
+  ]
+}

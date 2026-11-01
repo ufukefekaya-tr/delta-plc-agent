@@ -1,0 +1,53 @@
+{
+  "source_commit": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+  "runtime_files_verified": 54,
+  "actual_call_count": 116,
+  "result": "PARTIAL_BLOCKED",
+  "elapsed_automatic_attempts_and_agent_correction_seconds": 417.189495,
+  "user_request_utc": "2026-11-01T14:59:23+00:00",
+  "request_to_recorded_blocker_seconds": 966.233491,
+  "first_accepted_compiled_candidate": "NOT_PRODUCED",
+  "presentation_seconds": 75,
+  "presentation_kind": "Edited event visualization from actual run; not screen recording; not simulator",
+  "media": {
+    "ax-engineering.png": {
+      "sha256": "12e30d453d167af165ec95e06614800db6523359e6a0a9923ebd694a52527cce",
+      "bytes": 52829
+    },
+    "ax-run-result.png": {
+      "sha256": "be0c4f6be49d8cd6766ecea0ffcac90c419ce5f7b16bb5e6f89f507babc41dd6",
+      "bytes": 41095
+    },
+    "ax-run-summary.gif": {
+      "sha256": "99849387f643789bc0f10f6af26fa217764047e83080ff7565a49efb5f5c7872",
+      "bytes": 241190
+    },
+    "ax-run-summary.mp4": {
+      "sha256": "dbc18b67ff5dcbaeda01f1da11be69ef7d85876da28cb087eae7d71c6281ab9c",
+      "bytes": 285262
+    }
+  },
+  "evidence_byte_preservation": "Evidence .gitattributes disables newline conversion; original neutral input and receipt hashes remain exact.",
+  "checks": {
+    "protected_runtime_worker_skill_policy_bytes": "UNCHANGED",
+    "public_runtime_pins": 54,
+    "actual_call_index_entries": 116,
+    "compiler_receipts_match_retained_private_job_results": "PASS",
+    "staged_evidence_and_input_manifest_byte_hashes": "PASS",
+    "gif_frames": 10,
+    "gif_duration_seconds": 75,
+    "mp4_duration_seconds": 75,
+    "local_document_and_bootstrap_checks": "PASS",
+    "targeted_skill_package_and_runtime_regressions": {
+      "run": 14,
+      "passed": 14
+    },
+    "research_candidates": 241,
+    "detailed_presentation_reviews": 40,
+    "native_final_acceptance": "BLOCKED",
+    "native_planned_negative_ladder_freeze_recovery_physical": "NOT_RUN",
+    "independent_final_review": "ACCEPT",
+    "hosted_CI_for_showcase": "NOT_RUN_AT_LOCAL_REVIEW; current status is linked from README Software CI"
+  },
+  "independent_reviewed_tree": "d3ec99b3cbdd476c1a59d25edf48956887712e99"
+}
