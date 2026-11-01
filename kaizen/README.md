@@ -28,3 +28,5 @@ Her gerçek davranış veya çalışma protokolü değişikliği ayrı bir `KZ-Y
 
 - [KZ-20261026-001 - ISPSoft pointer codec and evidence limits](KZ-20261026-001-ispsoft-boundaries.md)
 - [KZ-20261101-001 - AX and ISPSoft integration](KZ-20261101-001-ax-ispsoft-integration.md)
+
+- [KZ-20261101-001 companion identity and synthetic fixtures](KZ-20261101-001-companion-identity-and-fixtures.md)

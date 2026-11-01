@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "S0-G2",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "CHANGED",
+  "title": "Replace inherited fixture",
+  "dependencies": [
+    "S0-G1"
+  ],
+  "workflow": "workflows/plc-skill/S0-G2.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "tests/dvpserial/fixtures/PROVENANCE.md": "541821edfbe30d59f7d60577fbf179400a625de717730b8ecb60740ade74b269",
+    "tests/dvpserial/fixtures/digital-bench.json": "832d956e3e2d1563f829d8343c532a0b331f95c0f9647d644cbec93690b1bcd5",
+    "tests/dvpserial/synthetic_bench.py": "ac8b8bb9b404bffb09a3b9f4f67c1185b873987bf58613ae61fe04e5e6ff7dba",
+    "tests/dvpserial/test_attended.py": "5ba884d4e6ac312c6cd25ed8f645063d72752c686745625f5f4fe41aed2b839f",
+    "tests/dvpserial/test_controls.py": "a9ef6b326a6a40ac6ed3f7a466db21d5e0a5078e2ec05f9b692d7edc4167c039",
+    "tests/dvpserial/test_controls_mcp.py": "95c1efa42156bc74cf83de0ff314d44a1c29cff2af14960b30588acacbef6393",
+    "tools/check_public_manifest.py": "1c360c8c549225ae832a6d8dee3be43f9227021a7e7564d9858d1a726024a93b",
+    "workflows/plc-skill/S0-G2.json": "246d122aefd6a318254a0d0b6ce18b40b89b6542d00c99c7c09a3790a1010c0b"
+  },
+  "output_hashes": {
+    "tests/dvpserial/fixtures/PROVENANCE.md": "541821edfbe30d59f7d60577fbf179400a625de717730b8ecb60740ade74b269",
+    "tests/dvpserial/fixtures/digital-bench.json": "832d956e3e2d1563f829d8343c532a0b331f95c0f9647d644cbec93690b1bcd5"
+  },
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T08",
+    "T09",
+    "T12"
+  ],
+  "evidence": [
+    "docs/plans/plc-skill/SOURCE_AUDIT.json",
+    "tests/skills/test_runtime_invariants.py",
+    "tests/dvpserial/fixtures/PROVENANCE.md"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Accepted for its stated scope; downstream tests remain separately recorded",
+  "history": [
+    {
+      "decision": "Source audit/fixture and metadata acceptance; no native or physical acceptance"
+    }
+  ],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

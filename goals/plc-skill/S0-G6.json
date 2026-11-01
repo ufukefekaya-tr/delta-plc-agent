@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "S0-G6",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "CHANGED",
+  "title": "Verify candidate behavior",
+  "dependencies": [
+    "S0-G5"
+  ],
+  "workflow": "workflows/plc-skill/S0-G6.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "docs/plans/plc-skill/BEHAVIOR_REVIEW.json": "ed300fd7f22c278aa81bafedab0283c7e50685274da41dd8fb32322a5b4e5d41",
+    "docs/public/SKILL_0_4_VALIDATION.json": "8e2dd2cc5f6001be1b6803496563ccc0cc937d9f34ee71bfdc1bf458b1282e01",
+    "tests/skills/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/skills/test_runtime_invariants.py": "de557ef4e40263f53b01577d0a69284b5534e23d35a267350503b107820f3b91",
+    "tests/skills/test_skill_package.py": "e76d6fc3962606c8adc7f5b40a48bbf408cf7c49be2f80a5d320b98d8ab628e0",
+    "tests/skills/test_skill_stdio.py": "6c2cc622a11abab8276d6b3497bd22fb758370c7d5300abb6bc50a682431eb54",
+    "tools/skill_goals.py": "f46c13d696ccdf745920c6fecaa1f4cd6e20d6ea5f88b3f078f84d1c6c1d7185",
+    "workflows/plc-skill/S0-G6.json": "32bd2b843d57b25bc48fb7db72be0f16dd239783c7c5fd0f2856bffbaa61ae81"
+  },
+  "output_hashes": {
+    "docs/plans/plc-skill/BEHAVIOR_REVIEW.json": "ed300fd7f22c278aa81bafedab0283c7e50685274da41dd8fb32322a5b4e5d41",
+    "docs/public/SKILL_0_4_VALIDATION.json": "8e2dd2cc5f6001be1b6803496563ccc0cc937d9f34ee71bfdc1bf458b1282e01"
+  },
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T12",
+    "T13"
+  ],
+  "evidence": [
+    "docs/public/SKILL_0_4_VALIDATION.json",
+    "docs/plans/plc-skill/BEHAVIOR_REVIEW.json"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Independent final code/report/package review",
+  "history": [],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

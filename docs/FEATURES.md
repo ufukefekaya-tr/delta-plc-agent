@@ -22,7 +22,7 @@ Delta PLC Agent separates the reusable engineering interface from each model's t
 
 | Path | Included implementation | Qualification |
 |---|---|---|
-| AX | Project factory, ST/Ladder workers, build/readback, jobs, artifact and deployment infrastructure; 19 established operations plus `project.create` | Model, IDE/device profile and operation are qualified individually. Public-chain and live deployment acceptance are separate. |
+| AX | Project factory, ST/Ladder workers, build/readback, jobs, artifact and deployment infrastructure; 24 standalone MCP operations, 5 replay tools and additional Universal `project.create` | Model, IDE/device profile and operation are qualified individually. Public-chain and live deployment acceptance are separate. |
 | ISPSoft files | Container roundtrip, existing ST/local-variable patch, POU/library import/export | Software-tested transforms; AS native IDE creation/build acceptance is a separate step. |
 | DVP file tools | Supported CSV IL↔MPU; explicit DVP-SE template-based JSON generation | Command subset and exact target checks. File generation is not vendor compilation or general DVP→AS conversion. |
 | DVP serial | ASCII/DirectLink CDC, inventory, identity/status/reads, profile commands and 16-bit D writes with readback, watch and reconciliation | Current serial model: `DVP14SS211R`. Live operations require current source/target enrollment. Hardware acceptance is separate from software tests. |

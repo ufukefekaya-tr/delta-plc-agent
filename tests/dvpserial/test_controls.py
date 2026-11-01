@@ -1,4 +1,4 @@
-"""Neutralized software pulse/fault/observation tests; SOFTWARE_ONLY, never a PLC.
+"""Fresh synthetic software pulse/fault/observation tests; SOFTWARE_ONLY, never a PLC.
 
 The wire fixture parses production bytes independently and models documented
 request edges. No OS serial enumeration, physical USB, native program or vendor
@@ -18,7 +18,7 @@ from universal_plc.service import Service
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = dict(vendor="delta", family="DVP", model="DVP14SS211R", toolchain="dvpserial")
-REVISION = "SOFTWARE_R1"
+REVISION = "SYNTHETIC_R1"
 IDENTITY = bytes.fromhex("000400000001000e0000")
 
 
@@ -38,7 +38,7 @@ class SoftwarePort:
     device = "COM6"
     vid = 0x05DD
     pid = 0x0100
-    hwid = "SOFTWARE_ONLY USB V10 FIXTURE"
+    hwid = "SOFTWARE_ONLY DIGITAL BENCH FIXTURE"
     description = "Synthetic CDC; no physical PLC"
 
 
@@ -46,16 +46,16 @@ class SoftwarePLC:
     """Wire-level truth kept separate from production's signal lookup logic."""
     def __init__(self):
         self.m = {1000: 1, 1002: 0}
-        self.d = {1001: 0x8840, 1002: 7920,2120:4000}
+        self.d = {1001: 0x8840, 1002: 7920,2400:4000}
         self.y = {}
-        for i in range(12):
-            self.m.update({140+i: 0, 390+i: 1, 430+i: 1, 880+i: 0})
-            self.d.update({100+i: 230+i, 200+i: 2300+i, 300+i: i,
-                           2000+10*i: 1500+i, 2400+i: 15000+i,
-                           2200+i: 0, 2220+i: 10+i, 2240+i: 20+i,
-                           2600+3*i: 0, 2601+3*i: 12+i, 2602+3*i: 0})
-        for p in range(6):
-            self.m.update({80+p: 0, 310+p: 1, 300+p: 0})
+        for i in range(8):
+            self.m.update({288+i: 0, 464+i: 1, 480+i: 1, 704+i: 0})
+            self.d.update({256+i: 230+i, 600+i: 2300+i, 640+i: i,
+                           2300+10*i: 1500+i, 2500+i: 15000+i,
+                           2600+i: 0, 2620+i: 10+i, 2640+i: 20+i,
+                           2800+3*i: 0, 2801+3*i: 12+i, 2802+3*i: 0})
+        for p in range(4):
+            self.m.update({352+p: 0, 656+p: 1, 640+p: 0})
         self.frames = []
         self.mutations = []
         self.parameter_mutations = []
@@ -79,9 +79,9 @@ class SoftwarePLC:
         self.m[number] = value
         if not self.m[1000]:
             return
-        edges = {**{100+i: 160+i for i in range(12)},
-                 **{40+p: 90+p for p in range(6)},
-                 **{640+i: 680+i for i in range(12)}, 56: 58,500:710,520:730}
+        edges = {**{256+i: 304+i for i in range(8)},
+                 **{320+p: 368+p for p in range(4)},
+                 **{384+i: 432+i for i in range(8)}, 448: 450,500:710,520:730}
         if number in edges:
             if value:
                 self.m[edges[number]] = 1
@@ -95,26 +95,26 @@ class SoftwarePLC:
             if edge is not None:
                 self.m[edge] = value
             return
-        if 100 <= number <= 111:
-            self.m[140+number-100] = 1
-        elif 120 <= number <= 131:
-            self.m[140+number-120] = 0
-        elif 40 <= number <= 45:
-            self.m[80+number-40] = 1
-        elif 60 <= number <= 65:
-            self.m[80+number-60] = 0
-        elif 640 <= number <= 651:
-            i = number-640
-            self.m[880+i] = 1
-            self.d[2600+3*i] = 1
-        elif 660 <= number <= 671:
-            i = number-660
-            self.m[880+i] = 0
-            self.d[2600+3*i] = 3
-        elif number in (56, 57):
-            for i in range(12):
-                self.m[880+i] = int(number == 56)
-                self.d[2600+3*i] = 1 if number == 56 else 3
+        if 256 <= number <= 263:
+            self.m[288+number-256] = 1
+        elif 272 <= number <= 279:
+            self.m[288+number-272] = 0
+        elif 320 <= number <= 323:
+            self.m[352+number-320] = 1
+        elif 336 <= number <= 339:
+            self.m[352+number-336] = 0
+        elif 384 <= number <= 391:
+            i = number-384
+            self.m[704+i] = 1
+            self.d[2800+3*i] = 1
+        elif 400 <= number <= 407:
+            i = number-400
+            self.m[704+i] = 0
+            self.d[2800+3*i] = 3
+        elif number in (448, 449):
+            for i in range(8):
+                self.m[704+i] = int(number == 448)
+                self.d[2800+3*i] = 1 if number == 448 else 3
 
     def add_independent_machine(self):
         self.extra_effects={500:(700,1,710),501:(700,0,None),520:(720,1,730)}
@@ -210,17 +210,17 @@ class Scenario:
         self.root = Path(directory)
         self.root.mkdir(parents=True, exist_ok=True)
         self.state = state or SoftwarePLC()
-        self.source = self.root/"software-only-v10.dvp"
+        self.source = self.root/"synthetic-digital-bench.dvp"
         self.source.write_bytes(b"SOFTWARE_ONLY NEUTRAL BASELINE; NOT A COMPILED PLC PROJECT\n")
         self.source_sha256 = sha(self.source.read_bytes())
         self.catalog = self.root/"software-only-catalog.json"
-        self.catalog_data = json.loads((ROOT/"tests/dvpserial/fixtures/thermal-regression.json").read_text("utf-8"))
+        self.catalog_data = json.loads((ROOT/"tests/dvpserial/fixtures/digital-bench.json").read_text("utf-8"))
         self.catalog_data.update(reference_source_sha256=self.source_sha256,
                                  reference_payload_sha256=sha(b"SOFTWARE_ONLY PAYLOAD"))
         save(self.catalog, self.catalog_data)
         self.service = Service(self.root/"runtime", read_roots=[self.root])
         self.workspace = self.service.workspace_create(TARGET, str(self.source), self.source_sha256,
-                                                       task_id="temperature-software-only", revision=REVISION)
+                                                       task_id="digital-bench-software-only", revision=REVISION)
         self.workspace_root, _ = self.service.workspace(self.workspace["workspace_id"])
         self.context = dict(workspace_id=self.workspace["workspace_id"], task_id=self.workspace["task_id"],
                             revision=REVISION, context_digest=self.workspace["context_digest"],
@@ -292,11 +292,11 @@ class Scenario:
         self.adapter=self.new_adapter()
 
     def call(self, op, **args):
-        op = {"temperature.read":"machine.read", "temperature.status":"machine.status",
-              "temperature.observe":"machine.observe", "temperature.reconcile":"machine.reconcile"}.get(op,op)
+        op = {"bench.read":"machine.read", "bench.status":"machine.status",
+              "bench.observe":"machine.observe", "bench.reconcile":"machine.reconcile"}.get(op,op)
         return self.adapter.invoke(op, dict(universal_target=TARGET, _execution_context=self.context, **args))
 
-    def command(self, op="temperature.channel.start", command_id="software-command-1", **args):
+    def command(self, op="bench.lane.start", command_id="software-command-1", **args):
         if "channel" in args:
             args["selector"] = args.pop("channel")
         if "pair" in args:
@@ -304,13 +304,13 @@ class Scenario:
         return self.call("machine.command", command=op, command_id=command_id, **args)
 
     def install_test_parameters(self,only=False):
-        self.state.d[2120]=4000
+        self.state.d[2400]=4000
         self.catalog_data["parameters"]={
-          "setpoint":{"device":"D2000","min":0,"max":4000,"signed":False,"unit":"0.1 C",
-             "write_guards":[{"device":"M880","count":12,"equals":0}],
-             "relations":[{"left":"value","op":"lt","right":"D2120","offset":-4}]},
-          "gain":{"device":"D2200","min":0,"max":30000,"signed":False,
-             "write_guards":[{"device":"M880","equals":0}],"relations":[]}}
+          "setpoint":{"device":'D2300',"min":0,"max":4000,"signed":False,"unit":"0.1 C",
+             "write_guards":[{"device":'M704',"count":8,"equals":0}],
+             "relations":[{"left":"value","op":"lt","right":'D2400',"offset":-4}]},
+          "gain":{"device":'D2600',"min":0,"max":30000,"signed":False,
+             "write_guards":[{"device":'M704',"equals":0}],"relations":[]}}
         if only:
             self.catalog_data["commands"]={}
             self.config.pop("pulse_ms",None)
@@ -318,11 +318,11 @@ class Scenario:
         self.config.update(machine_catalog_sha256=sha(self.catalog.read_bytes()),allow_machine_parameters=True)
         self.adapter=self.new_adapter()
 
-    def parameter(self,key="setpoint",value=2000,command_id="software-parameter-1",**extra):
+    def parameter(self,key="setpoint",value=2300,command_id="software-parameter-1",**extra):
         return self.call("machine.parameter.write",parameter=key,value=value,command_id=command_id,**extra)
 
 
-class TemperatureTests(unittest.TestCase):
+class SyntheticBenchTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -338,47 +338,47 @@ class TemperatureTests(unittest.TestCase):
 
     def test_channel_and_pair_boundaries_write_only_exact_request_then_release(self):
         for operation, selection, n, coil in (
-            ("temperature.channel.start", "channel", 1, 100),
-            ("temperature.channel.start", "channel", 12, 111),
-            ("temperature.channel.stop", "channel", 12, 131),
-            ("temperature.contactor.start", "pair", 1, 40),
-            ("temperature.contactor.start", "pair", 6, 45),
-            ("temperature.contactor.stop", "pair", 6, 65)):
+            ("bench.lane.start", "channel", 1, 256),
+            ("bench.lane.start", "channel", 8, 263),
+            ("bench.lane.stop", "channel", 8, 279),
+            ("bench.bank.start", "pair", 1, 320),
+            ("bench.bank.start", "pair", 4, 323),
+            ("bench.bank.stop", "pair", 4, 339)):
             with self.subTest(operation=operation, selection=n):
                 before = len(self.s.state.mutations)
                 self.success(self.s.command(operation, command_id=f"{selection}-{coil}", **{selection:n}))
                 self.assertEqual(self.s.state.mutations[before:], [(coil,1),(coil,0)])
 
     def test_separate_all_heating_batch_and_all_contactors_never_use_global_coupling(self):
-        self.success(self.s.command("temperature.all_heating.start", command_id="all-heat"))
-        self.assertEqual(self.s.state.mutations, [(n,v) for n in range(100,112) for v in (1,0)])
-        self.success(self.s.command("temperature.all_contactors.start", command_id="all-pairs"))
-        self.assertEqual(self.s.state.mutations[24:], [(n,v) for n in range(40,46) for v in (1,0)])
-        self.assertFalse({20,21} & {n for n,_ in self.s.state.mutations})
+        self.success(self.s.command("bench.all_lane.start", command_id="all-heat"))
+        self.assertEqual(self.s.state.mutations, [(n,v) for n in range(256,264) for v in (1,0)])
+        self.success(self.s.command("bench.all_bank.start", command_id="all-pairs"))
+        self.assertEqual(self.s.state.mutations[16:], [(n,v) for n in range(320,324) for v in (1,0)])
+        self.assertFalse({20,451} & {n for n,_ in self.s.state.mutations})
 
     def test_independent_tuning_preserves_other_active_channel_and_all_gains(self):
-        self.s.state.m[881] = 1
-        original_gains = {n:v for n,v in self.s.state.d.items() if 2200 <= n <= 2251}
-        self.success(self.s.command("temperature.tuning.start", channel=1))
-        self.success(self.s.command("temperature.tuning.stop", command_id="tune-stop", channel=1))
-        self.assertEqual(self.s.state.mutations, [(640,1),(640,0),(660,1),(660,0)])
-        self.assertEqual(self.s.state.m[881], 1)
-        self.assertEqual({n:v for n,v in self.s.state.d.items() if 2200 <= n <= 2251}, original_gains)
+        self.s.state.m[705] = 1
+        original_gains = {n:v for n,v in self.s.state.d.items() if 2600 <= n <= 2647}
+        self.success(self.s.command("bench.calibration.start", channel=1))
+        self.success(self.s.command("bench.calibration.stop", command_id="tune-stop", channel=1))
+        self.assertEqual(self.s.state.mutations, [(384,1),(384,0),(400,1),(400,0)])
+        self.assertEqual(self.s.state.m[705], 1)
+        self.assertEqual({n:v for n,v in self.s.state.d.items() if 2600 <= n <= 2647}, original_gains)
 
     def test_all_tuning_exact_single_frozen_request_no_old_at_or_cr28_writes(self):
-        self.success(self.s.command("temperature.all_tuning.start", command_id="at-all-start"))
-        self.success(self.s.command("temperature.all_tuning.stop", command_id="at-all-stop"))
-        self.assertEqual(self.s.state.mutations, [(56,1),(56,0),(57,1),(57,0)])
+        self.success(self.s.command("bench.all_calibration.start", command_id="at-all-start"))
+        self.success(self.s.command("bench.all_calibration.stop", command_id="at-all-stop"))
+        self.assertEqual(self.s.state.mutations, [(448,1),(448,0),(449,1),(449,0)])
 
     def test_separate_group_stops_pulse_every_member_without_global_stop(self):
-        for i in range(12):self.s.state.m[140+i]=1
-        for p in range(6):self.s.state.m[80+p]=1
-        self.success(self.s.command("temperature.all_heating.stop",command_id="all-heat-stop"))
-        self.success(self.s.command("temperature.all_contactors.stop",command_id="all-contactor-stop"))
-        expected=[(n,v) for n in (*range(120,132),*range(60,66)) for v in (1,0)]
+        for i in range(8):self.s.state.m[288+i]=1
+        for p in range(4):self.s.state.m[352+p]=1
+        self.success(self.s.command("bench.all_lane.stop",command_id="all-heat-stop"))
+        self.success(self.s.command("bench.all_bank.stop",command_id="all-contactor-stop"))
+        expected=[(n,v) for n in (*range(272,280),*range(336,340)) for v in (1,0)]
         self.assertEqual(self.s.state.mutations,expected)
-        self.assertFalse(any(self.s.state.m[140+i] for i in range(12)))
-        self.assertFalse(any(self.s.state.m[80+p] for p in range(6)))
+        self.assertFalse(any(self.s.state.m[288+i] for i in range(8)))
+        self.assertFalse(any(self.s.state.m[352+p] for p in range(4)))
 
     def test_profile_inspection_is_zero_wire_without_port_ownership_or_attendance(self):
         self.s.config["user_present"]=False
@@ -391,7 +391,7 @@ class TemperatureTests(unittest.TestCase):
         self.assertEqual(result["contract_id"],self.s.catalog_data["contract_id"])
         self.assertEqual(result["revision"],REVISION)
         self.assertFalse(result["live_revision_verified"])
-        self.assertIn("temperature.channel.start",result["commands"])
+        self.assertIn("bench.lane.start",result["commands"])
         self.assertEqual(self.s.state.frames,[])
         self.s.catalog.write_bytes(self.s.catalog.read_bytes()+b" ")
         result=self.s.call("machine.profile")
@@ -400,22 +400,22 @@ class TemperatureTests(unittest.TestCase):
 
     def test_read_y_octal_alias_uses_documented_pdu_and_forbids_crossing_catalog(self):
         self.s.state.y[24] = 1
-        result = self.s.call("temperature.read", device="Y30", count=4)
+        result = self.s.call("bench.read", device="Y30", count=4)
         self.success(result)
         self.assertEqual(result["values"], [1,0,0,0])
         query = bytes.fromhex(self.s.state.frames[-1][1:-2].decode())
         self.assertEqual(query[1:6], bytes.fromhex("0105180004"))
-        for device,count in (("Y27",6),("Y6",1),("Y28",1),("D2000",2),("D999",2),("M1535",2), ("D100",65)):
+        for device,count in (("Y27",6),("Y6",1),("Y28",1),('D2300',2),("D999",2),("M1535",2), ('D256',65)):
             with self.subTest(device=device,count=count):
                 before = len(self.s.state.frames)
-                self.blocked(self.s.call("temperature.read",device=device,count=count))
+                self.blocked(self.s.call("bench.read",device=device,count=count))
                 self.assertTrue(all(bytes.fromhex(f[1:-2].decode())[1] == 0x67
                                     for f in self.s.state.frames[before:]), "Invalid read must not query outside catalog")
 
     def test_m_and_d_reads_bounded_in_whitelist_without_setting_write(self):
-        for device,count,expected in (("D100",12,list(range(230,242))),
-                                     ("M880",12,[0]*12),("D2200",12,[0]*12)):
-            result = self.s.call("temperature.read", device=device,count=count)
+        for device,count,expected in (('D256',8,list(range(230,238))),
+                                     ('M704',8,[0]*8),('D2600',8,[0]*8)):
+            result = self.s.call("bench.read", device=device,count=count)
             self.success(result)
             self.assertEqual(result["values"],expected)
         self.assertEqual(self.s.state.mutations, [])
@@ -430,14 +430,14 @@ class TemperatureTests(unittest.TestCase):
         self.blocked(self.s.command(channel=1))
 
     def test_status5_suppresses_stale_reason_and_snapshot_is_not_atomic(self):
-        self.s.state.d[2600], self.s.state.d[2602] = 5,7
+        self.s.state.d[2800], self.s.state.d[2802] = 5,7
         result = self.s.call("machine.status")
         self.success(result)
         encoded = json.dumps(result)
         self.assertIn("PRECONDITION_MISSING",encoded)
         self.assertNotIn("READ_ERROR",encoded)
         status_field=next(name for name,spec in self.s.catalog_data["observations"].items()
-                          if spec["device"]=="D2600")
+                          if spec["device"]=='D2800')
         reason_field=self.s.catalog_data["observations"][status_field]["reason_field"]
         self.assertEqual(result["data"][reason_field]["raw"],[7])
         self.assertEqual(result["data"][reason_field]["labels"],["PRECONDITION_MISSING"])
@@ -446,31 +446,31 @@ class TemperatureTests(unittest.TestCase):
             self.assertIsNotNone(datetime.fromisoformat(result[field].replace("Z","+00:00")).tzinfo)
 
     def test_stop_or_boot_or_high_command_or_stale_edge_rejects_new_on(self):
-        for number in (1000,1002,100,160):
+        for number in (1000,1002,256,304):
             with self.subTest(number=number):
                 self.s.state.m[number] = 0 if number == 1000 else 1
                 self.blocked(self.s.command(command_id=f"negative-{number}",channel=1))
                 self.s.state.m[number] = 1 if number == 1000 else 0
 
     def test_existing_terminal_tuning_state_is_not_new_completion_and_kp_zero_allowed(self):
-        self.s.state.d[2600]=2
-        self.s.state.d[2200]=0
+        self.s.state.d[2800]=2
+        self.s.state.d[2600]=0
         snapshot=self.s.call("machine.status")
         self.success(snapshot)
         self.assertNotIn('"completion_newly_proven": true',json.dumps(snapshot))
-        self.success(self.s.command("temperature.tuning.start",channel=1))
-        self.assertEqual(self.s.state.d[2600],1)
+        self.success(self.s.command("bench.calibration.start",channel=1))
+        self.assertEqual(self.s.state.d[2800],1)
 
     def test_opposing_stop_levels_are_checked_before_on(self):
-        for number in (21,120,60,57,660):
+        for number in (451,272,336,449,400):
             with self.subTest(number=number):
                 self.s.state.m[number]=1
-                op="temperature.tuning.start" if number in (57,660) else "temperature.channel.start"
+                op="bench.calibration.start" if number in (449,400) else "bench.lane.start"
                 self.blocked(self.s.command(op,command_id=f"opposing-{number}",channel=1))
                 self.s.state.m[number]=0
 
     def test_invalid_selector_and_caller_raw_fields_are_zero_wire(self):
-        for args in (dict(channel=0),dict(channel=13),dict(channel=True),dict(channel=1,pulse_ms=1),
+        for args in (dict(channel=0),dict(channel=9),dict(channel=True),dict(channel=1,pulse_ms=1),
                      dict(channel=1,device="M1072"),dict(channel=1,value=True),dict(channel=1,profile_path="untrusted")):
             with self.subTest(args=args):
                 before=len(self.s.state.frames)
@@ -500,17 +500,17 @@ class TemperatureTests(unittest.TestCase):
         self.blocked(self.s.command(command_id="human-owns-com6",channel=1))
 
     def test_lost_on_ack_still_attempts_one_permitted_release_and_never_replays(self):
-        self.s.state.drop_ack.add((100,1))
+        self.s.state.drop_ack.add((256,1))
         result=self.s.command(channel=1)
         self.assertFalse(result["ok"],result)
         self.assertEqual(result["status"],"unknown_outcome",result)
-        self.assertEqual(self.s.state.mutations,[(100,1),(100,0)])
+        self.assertEqual(self.s.state.mutations,[(256,1),(256,0)])
         self.assertFalse(result["retry_allowed"],result)
         self.assertFalse(self.s.command(channel=1)["ok"])
-        self.assertEqual(self.s.state.mutations,[(100,1),(100,0)])
+        self.assertEqual(self.s.state.mutations,[(256,1),(256,0)])
 
     def test_unproved_release_fence_survives_adapter_restart_and_new_workspace(self):
-        self.s.state.drop_ack.add((100,0));self.s.state.drop_write.add((100,0))
+        self.s.state.drop_ack.add((256,0));self.s.state.drop_write.add((256,0))
         result=self.s.command(channel=1)
         self.assertEqual(result["status"],"unknown_outcome",result)
         before=list(self.s.state.mutations)
@@ -533,13 +533,13 @@ class TemperatureTests(unittest.TestCase):
         self.assertEqual(self.s.state.mutations,before)
 
     def test_reconcile_rejects_tampered_mapping_instead_of_clearing_live_fence(self):
-        self.s.state.drop_ack.add((100,0));self.s.state.drop_write.add((100,0))
+        self.s.state.drop_ack.add((256,0));self.s.state.drop_write.add((256,0))
         failed=self.s.command(channel=1)
         before=list(self.s.state.mutations)
         path=Path(failed["journal_path"])
         data=json.loads(path.read_text("utf-8"))
-        data["members"][0]["coil"]="M101"
-        data["members"][0]["edge_devices"]=["M161"]
+        data["members"][0]["coil"]='M257'
+        data["members"][0]["edge_devices"]=['M305']
         save(path,data)
         rejected=self.s.call("machine.reconcile",journal_path=str(path))
         self.assertFalse(rejected["ok"],rejected)
@@ -550,37 +550,37 @@ class TemperatureTests(unittest.TestCase):
     def test_release_edge_high_preserves_fence_even_if_command_low(self):
         self.s.state.keep_edge_on_release=True
         result=self.s.command(channel=1)
-        self.assertEqual(self.s.state.m.get(100),0)
-        self.assertEqual(self.s.state.m.get(160),1)
+        self.assertEqual(self.s.state.m.get(256),0)
+        self.assertEqual(self.s.state.m.get(304),1)
         self.assertFalse(result["ok"],result)
         before=list(self.s.state.mutations)
-        reconciled=self.s.call("temperature.reconcile",journal_path=result["journal_path"])
+        reconciled=self.s.call("bench.reconcile",journal_path=result["journal_path"])
         self.assertFalse(reconciled["ok"],reconciled)
         self.assertFalse(self.s.command(command_id="different-while-edge-high",channel=2)["ok"])
         self.assertEqual(self.s.state.mutations,before)
 
     def test_read_only_reconcile_proves_lows_then_new_id_allowed_without_replaying(self):
-        self.s.state.drop_ack.add((100,0));self.s.state.drop_write.add((100,0))
+        self.s.state.drop_ack.add((256,0));self.s.state.drop_write.add((256,0))
         failed=self.s.command(channel=1)
         before=list(self.s.state.mutations)
-        self.s.state.m[100]=self.s.state.m[160]=0
-        reconciled=self.s.call("temperature.reconcile",journal_path=failed["journal_path"])
+        self.s.state.m[256]=self.s.state.m[304]=0
+        reconciled=self.s.call("bench.reconcile",journal_path=failed["journal_path"])
         self.success(reconciled)
         self.assertEqual(self.s.state.mutations,before)
         self.s.state.drop_ack.clear();self.s.state.drop_write.clear()
         self.success(self.s.command(command_id="after-proven-release",channel=2))
-        self.assertEqual(self.s.state.mutations[2:],[(101,1),(101,0)])
+        self.assertEqual(self.s.state.mutations[2:],[(257,1),(257,0)])
         self.assertFalse(self.s.command(channel=1)["ok"])
 
     def test_partial_batch_fourth_failure_stops_before_fifth_and_records_members(self):
-        self.s.state.drop_ack.add((103,1))
-        failed=self.s.command("temperature.all_heating.start")
+        self.s.state.drop_ack.add((259,1))
+        failed=self.s.command("bench.all_lane.start")
         self.assertFalse(failed["ok"],failed)
-        self.assertEqual(self.s.state.mutations,[(n,v) for n in range(100,104) for v in (1,0)])
+        self.assertEqual(self.s.state.mutations,[(n,v) for n in range(256,260) for v in (1,0)])
         data=json.loads(Path(failed["journal_path"]).read_text("utf-8"))
         encoded=json.dumps(data)
-        self.assertIn("M103",encoded)
-        self.assertIn("M104",encoded,"Unattempted members must be explicitly recoverable")
+        self.assertIn('M259',encoded)
+        self.assertIn('M260',encoded,"Unattempted members must be explicitly recoverable")
 
     def test_unrelated_pump_valve_profile_uses_same_core_new_names_addresses_units(self):
         self.s.install_unrelated_profile()
@@ -606,7 +606,7 @@ class TemperatureTests(unittest.TestCase):
         for device in ("M1000","M1072","M1073"):
             with self.subTest(device=device):
                 self.s.catalog_data["commands"]["fake_named_action"]=dict(selector=None,coils=[device],
-                    ack_devices=["M140"],ack_expected=1,release_edge_devices=[],stop_guards=[[]],is_start=True)
+                    ack_devices=['M288'],ack_expected=1,release_edge_devices=[],stop_guards=[[]],is_start=True)
                 if device not in self.s.catalog_data["read_devices"]:
                     self.s.catalog_data["read_devices"].append(device)
                 save(self.s.catalog,self.s.catalog_data)
@@ -618,15 +618,15 @@ class TemperatureTests(unittest.TestCase):
         other=self.s.new_adapter()
         outcomes=[]
         def compete(state,number,value):
-            if (number,value)==(100,1):
+            if (number,value)==(256,1):
                 outcomes.append(other.invoke("machine.command",dict(universal_target=TARGET,
-                  _execution_context=self.s.context,command="temperature.channel.start",selector=2,
+                  _execution_context=self.s.context,command="bench.lane.start",selector=2,
                   command_id="concurrent-same-owner")))
         self.s.state.on_write=compete
         self.success(self.s.command(channel=1))
         self.assertEqual(len(outcomes),1)
         self.assertEqual(outcomes[0]["code"],"MACHINE_TARGET_BUSY",outcomes)
-        self.assertEqual(self.s.state.mutations,[(100,1),(100,0)])
+        self.assertEqual(self.s.state.mutations,[(256,1),(256,0)])
 
     def test_late_authority_lease_source_or_revision_changes_after_intent_block_write(self):
         changes=("attendance","lease","source","context","route")
@@ -666,16 +666,16 @@ class TemperatureTests(unittest.TestCase):
 
     def test_late_revocation_after_on_retains_uncertainty_without_unpermitted_off(self):
         def revoke_after_on(state,number,value):
-            if (number,value)==(100,1):self.s.config["user_present"]=False
+            if (number,value)==(256,1):self.s.config["user_present"]=False
         self.s.state.on_write=revoke_after_on
         failed=self.s.command(channel=1)
         self.assertFalse(failed["ok"],failed)
         self.assertEqual(failed["status"],"unknown_outcome",failed)
-        self.assertEqual(self.s.state.mutations,[(100,1)])
+        self.assertEqual(self.s.state.mutations,[(256,1)])
         self.s.config["user_present"]=True
         self.s.adapter=self.s.new_adapter()
         self.assertFalse(self.s.command(command_id="fresh-authority-uncertain-target",channel=2)["ok"])
-        self.assertEqual(self.s.state.mutations,[(100,1)])
+        self.assertEqual(self.s.state.mutations,[(256,1)])
 
     def test_late_external_request_is_not_cleared_when_own_on_never_sent(self):
         def human_command_after_intent(state):
@@ -684,15 +684,15 @@ class TemperatureTests(unittest.TestCase):
                                for j in journals for m in json.loads(j.read_text("utf-8"))["members"]):
                 return
             state.on_reset=None
-            state.m[100]=1  # Another operator owns this already asserted request.
+            state.m[256]=1  # Another operator owns this already asserted request.
         self.s.state.on_reset=human_command_after_intent
         result=self.s.command(channel=1)
         self.assertFalse(result["ok"],result)
         self.assertEqual(self.s.state.mutations,[],"Blocked unsent ON must not clear another operator's request")
-        self.assertEqual(self.s.state.m[100],1)
+        self.assertEqual(self.s.state.m[256],1)
 
     def test_expired_then_renewed_lease_does_not_clear_existing_uncertainty(self):
-        self.s.state.drop_ack.add((100,0));self.s.state.drop_write.add((100,0))
+        self.s.state.drop_ack.add((256,0));self.s.state.drop_write.add((256,0))
         failed=self.s.command(channel=1)
         self.assertEqual(failed["status"],"unknown_outcome",failed)
         before=list(self.s.state.mutations)
@@ -709,21 +709,21 @@ class TemperatureTests(unittest.TestCase):
         for loss in ("lease-released","expiry"):
             with self.subTest(loss=loss),tempfile.TemporaryDirectory() as directory:
                 s=Scenario(directory)
-                self.success(s.call("machine.read",device="D100"))
+                self.success(s.call("machine.read",device='D256'))
                 owned=s.state.connections[-1]
                 self.assertFalse(owned.closed)
                 before=len(s.state.frames)
                 if loss=="lease-released":
                     s.lease_data["status"]="RELEASED";save(s.lease,s.lease_data)
                 else:s.config["expires_at"]=(datetime.now(timezone.utc)-timedelta(seconds=1)).isoformat()
-                rejected=s.call("machine.read",device="D100")
+                rejected=s.call("machine.read",device='D256')
                 self.assertFalse(rejected["ok"],rejected)
                 self.assertTrue(owned.closed,"Failed lease/expiry must release the port already owned by this adapter")
                 self.assertIsNone(s.adapter.connection)
                 self.assertEqual(len(s.state.frames),before,"Failure cleanup must issue no additional packets")
 
     def test_offline_profile_reports_existing_connection_without_open_or_packets(self):
-        self.success(self.s.call("machine.read",device="D100"))
+        self.success(self.s.call("machine.read",device='D256'))
         before=len(self.s.state.frames)
         connections=len(self.s.state.connections)
         profile=self.s.call("machine.profile")
@@ -733,7 +733,7 @@ class TemperatureTests(unittest.TestCase):
         self.assertEqual(len(self.s.state.frames),before)
         self.assertEqual(len(self.s.state.connections),connections)
         self.s.lease_data["status"]="RELEASED";save(self.s.lease,self.s.lease_data)
-        self.assertFalse(self.s.call("machine.read",device="D100")["ok"])
+        self.assertFalse(self.s.call("machine.read",device='D256')["ok"])
         after=self.s.call("machine.profile")
         self.success(after)
         self.assertFalse(after["connected"],after)
@@ -742,7 +742,7 @@ class TemperatureTests(unittest.TestCase):
         self.assertEqual(len(self.s.state.connections),connections)
 
     def test_unknown_m_failure_closes_port_and_keeps_target_fence_without_replay(self):
-        self.s.state.drop_ack.add((100,0));self.s.state.drop_write.add((100,0))
+        self.s.state.drop_ack.add((256,0));self.s.state.drop_write.add((256,0))
         failed=self.s.command(channel=1)
         self.assertEqual(failed["status"],"unknown_outcome",failed)
         self.assertTrue(self.s.state.connections[-1].closed)
@@ -770,14 +770,14 @@ class ParameterTests(unittest.TestCase):
         self.s.state.m[1000]=0
         result=self.s.parameter()
         self.success(result)
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
-        self.assertEqual(self.s.state.d[2000],2000)
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
+        self.assertEqual(self.s.state.d[2300],2300)
         self.assertEqual(self.s.state.mutations,[])
         functions=[bytes.fromhex(f[1:-2].decode())[1] for f in self.s.state.frames]
         write_index=functions.index(6)
         self.assertIn(3,functions[write_index+1:])
         frame=self.s.state.frames[write_index]
-        self.assertEqual(frame,packet(bytes.fromhex("010617D007D0")))
+        self.assertEqual(frame,packet(bytes.fromhex("010618FC08FC")))
         self.assertTrue(result["ack_verified"],result)
 
     def test_signed_unrelated_parameter_only_profile_needs_neither_mflag_nor_pulse(self):
@@ -804,14 +804,14 @@ class ParameterTests(unittest.TestCase):
     def test_value_type_bounds_missing_profile_key_and_raw_overrides_block(self):
         for value in (-1,4001,True,2.0,"2000"):
             with self.subTest(value=value):self.blocked(self.s.parameter(value=value,command_id="bounds-"+str(value)))
-        self.blocked(self.s.parameter(key="D2000",command_id="raw-address-alias"))
-        self.blocked(self.s.parameter(command_id="raw-field",device="D2000"))
-        self.blocked(self.s.parameter(command_id="raw-value-field",write_value=2000))
+        self.blocked(self.s.parameter(key='D2300',command_id="raw-address-alias"))
+        self.blocked(self.s.parameter(command_id="raw-field",device='D2300'))
+        self.blocked(self.s.parameter(command_id="raw-value-field",write_value=2300))
 
     def test_source_guard_checks_every_tuning_bit_and_comparison_margin(self):
-        self.s.state.m[891]=1
+        self.s.state.m[711]=1
         self.blocked(self.s.parameter(command_id="last-tuning-channel-active"))
-        self.s.state.m[891]=0
+        self.s.state.m[711]=0
         self.blocked(self.s.parameter(value=3996,command_id="equal-margin-must-fail-lt"))
         self.success(self.s.parameter(value=3995,command_id="inside-source-margin"))
 
@@ -825,7 +825,7 @@ class ParameterTests(unittest.TestCase):
         self.blocked(self.s.parameter(command_id="source-sha-drift"))
 
     def test_profile_named_action_never_writes_d_system_region_or_non_d(self):
-        for device in ("D1000","D1999","M100","Y0"):
+        for device in ("D1000","D1999",'M256',"Y0"):
             with self.subTest(device=device):
                 self.s.catalog_data["parameters"]["platform_override"]={"device":device,"min":0,"max":1,
                          "signed":False,"write_guards":[],"relations":[]}
@@ -835,27 +835,27 @@ class ParameterTests(unittest.TestCase):
                 self.blocked(self.s.parameter("platform_override",1,command_id="platform-"+device))
 
     def test_lost_ack_can_be_proven_by_independent_value_without_rewriting(self):
-        self.s.state.drop_parameter_ack.add((2000,2000))
+        self.s.state.drop_parameter_ack.add((2300,2300))
         result=self.s.parameter()
         self.success(result)
         self.assertFalse(result["ack_verified"],result)
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
         self.assertFalse(self.s.parameter()["ok"])
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
 
     def test_ack_echo_without_effect_is_unknown_then_read_only_baseline_reconcile(self):
-        self.s.state.drop_parameter_write.add((2000,2000))
+        self.s.state.drop_parameter_write.add((2300,2300))
         failed=self.s.parameter()
         self.assertFalse(failed["ok"],failed)
         self.assertEqual(failed["status"],"unknown_outcome",failed)
-        self.assertEqual(self.s.state.d[2000],1500)
+        self.assertEqual(self.s.state.d[2300],1500)
         self.assertFalse(self.s.parameter(command_id="different-id-while-unproved")["ok"])
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
         self.s.state.m[1000]=0
         reconciled=self.s.call("machine.reconcile",journal_path=failed["journal_path"])
         self.assertTrue(reconciled["ok"],reconciled)
         self.assertEqual(reconciled["classification"],"baseline",reconciled)
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
 
     def test_readback_loss_keeps_shared_fence_and_reconcile_classifies_other_then_candidate(self):
         self.s.state.fail_parameter_readback=True
@@ -864,12 +864,12 @@ class ParameterTests(unittest.TestCase):
         before=list(self.s.state.parameter_mutations)
         self.s.adapter=self.s.new_adapter()
         self.assertFalse(self.s.command(command_id="m-after-unknown-d",channel=1)["ok"])
-        self.s.state.fail_parameter_readback=False;self.s.state.d[2000]=1777
+        self.s.state.fail_parameter_readback=False;self.s.state.d[2300]=1777
         other=self.s.call("machine.reconcile",journal_path=failed["journal_path"])
         self.assertFalse(other["ok"],other)
         self.assertEqual(other.get("classification",other.get("parameter_outcome")),"other",other)
         self.assertFalse(self.s.parameter(command_id="new-d-id-other-value")["ok"])
-        self.s.state.d[2000]=2000;self.s.state.m[1000]=0
+        self.s.state.d[2300]=2300;self.s.state.m[1000]=0
         candidate=self.s.call("machine.reconcile",journal_path=failed["journal_path"])
         self.assertTrue(candidate["ok"],candidate)
         self.assertEqual(candidate["classification"],"candidate",candidate)
@@ -877,7 +877,7 @@ class ParameterTests(unittest.TestCase):
         self.assertEqual(self.s.state.mutations,[])
 
     def test_unresolved_m_fence_also_blocks_d_write(self):
-        self.s.state.drop_ack.add((100,0));self.s.state.drop_write.add((100,0))
+        self.s.state.drop_ack.add((256,0));self.s.state.drop_write.add((256,0))
         failed=self.s.command(channel=1)
         self.assertEqual(failed["status"],"unknown_outcome",failed)
         self.blocked_parameter_only(self.s.parameter())
@@ -888,13 +888,13 @@ class ParameterTests(unittest.TestCase):
 
     def test_parameter_partial_write_never_retries_even_if_ack_missing(self):
         self.s.state.partial_parameter_write=True
-        self.s.state.drop_parameter_write.add((2000,2000))
+        self.s.state.drop_parameter_write.add((2300,2300))
         failed=self.s.parameter()
         self.assertFalse(failed["ok"],failed)
         self.assertFalse(failed["retry_allowed"],failed)
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
         self.assertFalse(self.s.parameter(command_id="new-id-after-partial")["ok"])
-        self.assertEqual(self.s.state.parameter_mutations,[(2000,2000)])
+        self.assertEqual(self.s.state.parameter_mutations,[(2300,2300)])
 
     def test_late_d_write_guard_or_port_revocation_blocks_before_fc06(self):
         for mode in ("tuning","lease","authority"):
@@ -905,7 +905,7 @@ class ParameterTests(unittest.TestCase):
                     if not journals or not any("write_intent" in json.dumps(json.loads(j.read_text("utf-8"))) for j in journals):
                         return
                     state.on_reset=None
-                    if mode=="tuning":state.m[891]=1
+                    if mode=="tuning":state.m[711]=1
                     elif mode=="lease":s.lease_data["owner"]="human";save(s.lease,s.lease_data)
                     else:s.config["allow_machine_parameters"]=False
                 s.state.on_reset=late

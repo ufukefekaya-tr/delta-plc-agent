@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "id": "S0-G0",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "NO_CHANGE",
+  "title": "Freeze invariants",
+  "dependencies": [],
+  "workflow": "workflows/plc-skill/S0-G0.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "AGENTS.md": "3b2b9ca6855e4db985b77f7e8cb6922419db7e61980c2a06699717d66a5776ac",
+    "INDEX.md": "0fe88cfd5018fe305cfa8f6112834f72ae0270da25953be34eb8ecc4ad1278b6",
+    "SYSTEM_PROMPT.md": "10cfad5fa5a5a64a81efc15d541ed1b70b948939f0b851cc77aed6e89db001b9",
+    "backends/ax/adapters/ax_deployment_worker/ax308_sp18_target.py": "50128d99b65629ccc914fbc1a4959301b585bec34a44d4c4965b4a52414dd3cb",
+    "backends/ax/adapters/ax_deployment_worker/worker.py": "1aa379d98b10185e0888d5f16bb9201feb55adfd0705f7a3cd43199c2c176006",
+    "backends/ax/adapters/ax_probe/bounded_probe.py": "c7c3cae184c5a4baf0802cca5252120b5e0f88c3a7fef0967d7cf0acbe3a080b",
+    "backends/ax/adapters/ax_worker/ladder_import.py": "7c0beb53404129bf0a5f549bf36ae681ae821a928a25cf7295f767317862c730",
+    "backends/ax/adapters/ax_worker/project_factory.py": "92305014cec1168480cd34c6413d82c09100dd10101a53f53a2a713fa33f1c14",
+    "backends/ax/adapters/ax_worker/project_factory_runner.py": "4b4d850053ab6dc936e25f9dfcae8b13bd04cd73b235aaa457ee0c92b6753ca8",
+    "backends/ax/adapters/ax_worker/worker.py": "fd17aab249a7819394703765d7ad0c32781298f77524b21710d6d86845bccad9",
+    "backends/ax/src/axmcp_offline/__init__.py": "fae8b9707dca370bcce2cfd766fdaf692faf2e9ac80d0f7a9c4d380a59100c5a",
+    "backends/ax/src/axmcp_offline/__main__.py": "3d2438ae92f4746e9ffaa1f837b1fe803f6281091d1f31f8c95643716f257d9a",
+    "backends/ax/src/axmcp_offline/autonomous.py": "60a8ec0524236d26633ebed2868c2cf57314abe72e7c48daed1ab223e3d0482a",
+    "backends/ax/src/axmcp_offline/ax_deployment_supervisor.py": "9dcb2e4428eaf59aac1667653af4a024d299abbb041ac85f8ea7c30d4abb796b",
+    "backends/ax/src/axmcp_offline/ax_supervisor.py": "134b7088d299019bd20d8de6d29a74227b80f8d218fd65a82a3a3c9283a206c5",
+    "backends/ax/src/axmcp_offline/bench_opcua.py": "0b19e0906327923c000d3e99ea92ae08f6511ef781fc9d94b7e65a70f2e75188",
+    "backends/ax/src/axmcp_offline/bridge.py": "5b1872cfee11ce5411d643712176a0402e775ca790c04885456a70adc565eb79",
+    "backends/ax/src/axmcp_offline/cli.py": "2e1d9016b973bdd6228ade5aa711da30af319bb6f587e44599997f1adb6ecaf2",
+    "backends/ax/src/axmcp_offline/constants.py": "a068bcb41b5d4ccd0ccf1b08f5d17542fd0238c28243d28b405b7cf6a93f08ba",
+    "backends/ax/src/axmcp_offline/job_progress.py": "d3b4bc9e2326f410f21b1a5c6e7add63c19898eb45dde74dcff97386bbb76f33",
+    "backends/ax/src/axmcp_offline/jobs.py": "ba17adc14d2829ea0452b52801db73bbdce6786ff5c432dfa50d103f1e040eff",
+    "backends/ax/src/axmcp_offline/ladder.py": "268f907d6bde8524ece39423caa8cb204693392e881c3636f665d775105128b3",
+    "backends/ax/src/axmcp_offline/mcp_server.py": "a591acff520236ba65ee9e6b40cb13c992331665238a98f5699190f7e662c2fd",
+    "backends/ax/src/axmcp_offline/network_diagnostics.py": "b67a2124fed734db0662cf7d20a9ec5229209585f2537049f8e55376d87120b8",
+    "backends/ax/src/axmcp_offline/operator_evidence.py": "958d2d1a425139af304f616dbde4b16da395d89a5d10a8a0a8e6d32af7979873",
+    "backends/ax/src/axmcp_offline/project_creation.py": "664191a1808b4b2e11f8eede9cc4e6cb168d6e1e73ae97db75b56e41ec775603",
+    "backends/ax/src/axmcp_offline/protocol_v2.py": "04385371109892843d974ae45b9727e690b7f0d2b87ae4f7be3d4f4a7c145778",
+    "backends/ax/src/axmcp_offline/records.py": "a66891d42d1b8b0292199d7b3b447fe84cb5b155f94c64eb28dd0d4a85cba09e",
+    "backends/ax/src/axmcp_offline/replay.py": "810891545f015ebfcecaaaa84b5712f02c6521d13674beeb05542c634ae1d07a",
+    "backends/ax/src/axmcp_offline/revision_runner.py": "74eae58c9ee8bfcd839ff7847ddfb892937de49a1c1feda2d25991277056f7fb",
+    "backends/ax/src/axmcp_offline/security.py": "ca8e4316ac865ef5a1b63c106621012de6b782b9a9bb68e29b58246c5ab6cb1a",
+    "backends/ax/src/axmcp_offline/service.py": "e7b1765a118bad8cbd3977c3007eba0be4f8ee708bd2cdc5f949c0289f3c23c1",
+    "backends/ax/src/axmcp_offline/universal_adapter.py": "caf6ba2f223cbca186bd95b6805218fb3d3f554c460bee497d140865dd47b9e0",
+    "backends/ax/src/axmcp_offline/window_guard.py": "2c4986d02a4e94a9a6332bd2db6c03f037000b29b7542ae263105527759a3518",
+    "docs/plans/plc-skill/PLAN.md": "1ee16d2a3493dd02e05ad4123b28f9ca264ac3638ed211c44d535a8ffbf4308b",
+    "docs/plans/plc-skill/RUNTIME_BASELINE.json": "addc4e796ebaf332a902289b92ced71505d2f89674b24512f5d4f4f750bf555e",
+    "src/universal_plc/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/universal_plc/adapters.py": "91432154e48e9c8c26a9724f29bd57aaf69916df01270ae5aa32e10b77bb5823",
+    "src/universal_plc/cli.py": "2d7218a0385c08a777a6b864890f12d7ca48b94a3c21460146d997aa2e4066e8",
+    "src/universal_plc/delta_files/__init__.py": "5d040d4c3bc77a7a06eb6aae23276068e4d64a142bf6b54af4ea5bb04886904b",
+    "src/universal_plc/delta_files/_vendor/__init__.py": "248ad5f735941951105f5e38725c2b29593eaf8573ed945d230e1d9588f2481e",
+    "src/universal_plc/delta_files/_vendor/il2mpu.py": "ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+    "src/universal_plc/delta_files/_vendor/ispsoft_codec.py": "de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f",
+    "src/universal_plc/delta_files/_vendor/ispsoft_generator.py": "dd8bcbb83372977bb0d5ecedc632222aaf9b76ad6a3ee4f05f1aef521b57b895",
+    "src/universal_plc/delta_files/_vendor/mpu2il.py": "0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+    "src/universal_plc/delta_files/_vendor/mpu_codec.py": "bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+    "src/universal_plc/delta_files/adapter.py": "550d942d53f6c0402958f7592060757a24bbe236ac019f6329dbe1fc29268380",
+    "src/universal_plc/delta_files/containers.py": "875bc9323ad3b99d3d68c5106f295006fea0b09a53b3ad103a7a5a6bcc4ee350",
+    "src/universal_plc/delta_files/dvp.py": "a4c2b840666f5fb9a53e21df0e36c1e7277673a4ae9e19f9e3cc7a154339959c",
+    "src/universal_plc/delta_files/limits.py": "30f4e14cb57f123b8088c6732da8812d376f76196e7a0a36238001f6deb0b265",
+    "src/universal_plc/delta_files/packages.py": "09e39f69408f3b89e3067fac3c570708688979321ebf64cce4bebfa01457e78e",
+    "src/universal_plc/dvp_controls.py": "ab12131202ae5ffa70c0508218548f2ff6e1639f51f9ba4619c3ef705eb030a9",
+    "src/universal_plc/dvp_native.py": "ced3364a67210d1c6702eb75f9c8301b0158e4ae91d92d221fda5153141f4bf6",
+    "src/universal_plc/dvp_serial.py": "f6977ace8f3700b9ba74264f14e280a9fddc7a61012719fc7300bb04d754686c",
+    "src/universal_plc/dvp_transfer.py": "49ab0b9886abbf51364a734c84b330b6578ff7369999f459089a174fc36c8abd",
+    "src/universal_plc/environment.py": "02c49be814de240436c50ff133eb4c27c13ef7c7a31c737ad7f5c4de60721a4a",
+    "src/universal_plc/mcp_server.py": "2f05b6b0702b1538180380c056387d2fe2267bfb5f37dcb8e175feac20766ce4",
+    "src/universal_plc/models.py": "c8213fafcf0bfdb4bc811b6ff72ce33c5403830931469ad661eeb80259f5c231",
+    "src/universal_plc/registry.py": "0f000323e5f5f1609f59f0016707a387d3399038bcfef34d59add24b704becc4",
+    "src/universal_plc/service.py": "34f03ae485b3b842b694a94fb400f5d1037fa800d2a2c28950637efb2b05902b",
+    "src/universal_plc/storage.py": "6d1829dd486795b422b71764f3dbed79fc04cedfe22666da1a37439d7903faaf",
+    "tests/skills/test_runtime_invariants.py": "de557ef4e40263f53b01577d0a69284b5534e23d35a267350503b107820f3b91",
+    "workflows/plc-skill/S0-G0.json": "825922a20674dd253a3a6cbbe38933497ff21111590816ede4fbffe97265689f"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T01",
+    "T09",
+    "T12"
+  ],
+  "evidence": [
+    "docs/plans/plc-skill/SOURCE_AUDIT.json",
+    "tests/skills/test_runtime_invariants.py",
+    "tests/dvpserial/fixtures/PROVENANCE.md"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Accepted for its stated scope; downstream tests remain separately recorded",
+  "history": [
+    {
+      "decision": "Source audit/fixture and metadata acceptance; no native or physical acceptance"
+    }
+  ],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

@@ -16,7 +16,7 @@ Universal MCP'nin DVP adaptörü genel bir yürütücü kullanır. PLC programı
 | `machine.observe` | `{}` | Zaman damgalı tek durum örneği; uzun gözlem istemcide yürür |
 | `machine.reconcile` | `journal_path` | Belirsiz komutu salt okumayla inceler; komutu yeniden göndermez |
 
-Komut argümanında adres, byte, değer, süre veya keyfi profil gönderilmez. Komut isimleri çekirdekte sabit değildir. `temperature.channel.start` yalnız [nötr yazılım regresyon fixture’ında](../../tests/dvpserial/fixtures/thermal-regression.json) bir anahtardır; farklı projede `pump.enable` veya `valve.close` aynı yürütücüyü kullanabilir. Ayrı ısıtma ve kontaktör grup komutları, profilin ayrı listelerini uygular; birleşik bir global bitin anlamını tahmin etmez.
+Komut argümanında adres, byte, değer, süre veya keyfi profil gönderilmez. Komut isimleri çekirdekte sabit değildir. `temperature.channel.start` yalnız [nötr yazılım regresyon fixture’ında](../../tests/dvpserial/fixtures/digital-bench.json) bir anahtardır; farklı projede `pump.enable` veya `valve.close` aynı yürütücüyü kullanabilir. Ayrı ısıtma ve kontaktör grup komutları, profilin ayrı listelerini uygular; birleşik bir global bitin anlamını tahmin etmez.
 
 `machine_catalog_path` ve `machine_catalog_sha256` host profilinde seçilir. Proje kataloğu; `contract_id`, `revision`, kaynak/payload referans SHA'ları, komutlar, exact `read_devices` ve genel `observations` tanımlarını içerir. `selector` katalogdaki listeyi seçer; `is_start` açık bir profil özelliğidir. Her gözlem `device`, `count`, `scale`, `signed`, `unit` ve isteğe bağlı `enum` tanımlar. Bağlı neden alanının bastırılması da profil verisidir. Etiketler yalnız live revizyon doğrulanmışsa yorumlanır; ham değerler korunur. Çok paketli snapshot atomik değildir.
 

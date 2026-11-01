@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "S1-G3",
+  "slice": "S1",
+  "revision": 1,
+  "status": "PLANNED",
+  "outcome": null,
+  "title": "Qualify new AS recipes",
+  "dependencies": [
+    "S1-G2",
+    "S0-G8"
+  ],
+  "workflow": "workflows/plc-skill/S1-G3.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "workflows/plc-skill/S1-G3.json": "6753b80b53088c42194f5211d8c2f5631699feba05bcc076a442675994614e63"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T06",
+    "T07",
+    "T11",
+    "T12",
+    "T13"
+  ],
+  "evidence": [],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Regenerate affected references",
+  "history": [],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "S0-G1",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "NO_CHANGE",
+  "title": "Classify donor differences",
+  "dependencies": [
+    "S0-G0"
+  ],
+  "workflow": "workflows/plc-skill/S0-G1.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "docs/plans/plc-skill/AS_TRANSFER_MATRIX.json": "ef9a1c1024da7119c878ee5e647551520aec2188f0d8b02ac089dc247e121f6d",
+    "docs/plans/plc-skill/SOURCE_AUDIT.json": "8599d120fc05c7181e8c68814841df6afd30dd0e100f593470345f2e473f7675",
+    "workflows/plc-skill/S0-G1.json": "53b01eb978476f84a26092acb64619543429cda17950005348295f8670a2fd47"
+  },
+  "output_hashes": {
+    "docs/plans/plc-skill/AS_TRANSFER_MATRIX.json": "ef9a1c1024da7119c878ee5e647551520aec2188f0d8b02ac089dc247e121f6d",
+    "docs/plans/plc-skill/SOURCE_AUDIT.json": "8599d120fc05c7181e8c68814841df6afd30dd0e100f593470345f2e473f7675"
+  },
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T01",
+    "T05",
+    "T12"
+  ],
+  "evidence": [
+    "docs/plans/plc-skill/SOURCE_AUDIT.json",
+    "tests/skills/test_runtime_invariants.py",
+    "tests/dvpserial/fixtures/PROVENANCE.md"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Accepted for its stated scope; downstream tests remain separately recorded",
+  "history": [
+    {
+      "decision": "Source audit/fixture and metadata acceptance; no native or physical acceptance"
+    }
+  ],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

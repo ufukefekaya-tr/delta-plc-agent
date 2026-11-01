@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "S0-G3",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "CHANGED",
+  "title": "Align candidate versions",
+  "dependencies": [
+    "S0-G2"
+  ],
+  "workflow": "workflows/plc-skill/S0-G3.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "LICENSE": "d5cc351a99435261b6efa200f4329ffc1405292dcd5c032fd194d2a82afe6655",
+    "pyproject.toml": "293a42d022e43d075c7c28cf781a162a3bea07cec454dd554eb29d8e49bf5658",
+    "skills/delta-plc-engineering/references/compatibility.json": "362b2a76accdc6f3f1f95092fa586229ceac8e14fc50c9d59c5bcc349f8718c6",
+    "src/universal_plc/__init__.py": "b02f1be5c8edccebf68b35642a0dfea8714de95ae321d9180a9e0ccf933389fb",
+    "workflows/plc-skill/S0-G3.json": "220eeeeb8a438ece9b7106ad9fab3c7be458b41e660d4d6362ec3b64eec4b27b"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T01",
+    "T06"
+  ],
+  "evidence": [
+    "docs/plans/plc-skill/SOURCE_AUDIT.json",
+    "tests/skills/test_runtime_invariants.py",
+    "tests/dvpserial/fixtures/PROVENANCE.md"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Accepted for its stated scope; downstream tests remain separately recorded",
+  "history": [
+    {
+      "decision": "Source audit/fixture and metadata acceptance; no native or physical acceptance"
+    }
+  ],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

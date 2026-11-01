@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "S1-G1",
+  "slice": "S1",
+  "revision": 1,
+  "status": "PLANNED",
+  "outcome": null,
+  "title": "Generalize reusable AS source",
+  "dependencies": [
+    "S1-G0"
+  ],
+  "workflow": "workflows/plc-skill/S1-G1.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "workflows/plc-skill/S1-G1.json": "d4fa27036b0e8e61d07b52442e55ef97893df99bf87f71641de80b54bdc58676"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T04",
+    "T09",
+    "T11",
+    "T12"
+  ],
+  "evidence": [],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Define independent contracts",
+  "history": [],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

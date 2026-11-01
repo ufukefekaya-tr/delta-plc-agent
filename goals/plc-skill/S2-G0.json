@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "S2-G0",
+  "slice": "S2",
+  "revision": 1,
+  "status": "BLOCKED",
+  "outcome": null,
+  "title": "Resolve native prerequisites",
+  "dependencies": [
+    "S1-G0"
+  ],
+  "workflow": "workflows/plc-skill/S2-G0.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "workflows/plc-skill/S2-G0.json": "0e0a6faedbeffe442133aa1b1bac540a2a56fc16ed4b6f38e8d7440932ce2e40"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T02",
+    "T05",
+    "T12"
+  ],
+  "evidence": [],
+  "gaps": [
+    "Native vendor API/license review unresolved in donor record",
+    "No project-agnostic native qualification or physical acceptance inherited"
+  ],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Review API/license prerequisites",
+  "history": [],
+  "hash_algorithm": "sha256-text-lf-v1"
+}
