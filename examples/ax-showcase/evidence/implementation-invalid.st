@@ -1,0 +1,1 @@
+Counter := ; (* Deliberate syntax error in called POU. *)

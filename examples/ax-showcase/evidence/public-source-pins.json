@@ -1,0 +1,330 @@
+{
+  "source_commit": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+  "all_match_public_commit": true,
+  "runtime_files": [
+    {
+      "path": "src/universal_plc/adapters.py",
+      "git_blob_sha256": "sha256:91432154e48e9c8c26a9724f29bd57aaf69916df01270ae5aa32e10b77bb5823",
+      "execution_file_sha256": "sha256:91432154e48e9c8c26a9724f29bd57aaf69916df01270ae5aa32e10b77bb5823",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/cli.py",
+      "git_blob_sha256": "sha256:2d7218a0385c08a777a6b864890f12d7ca48b94a3c21460146d997aa2e4066e8",
+      "execution_file_sha256": "sha256:2d7218a0385c08a777a6b864890f12d7ca48b94a3c21460146d997aa2e4066e8",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/dvp_controls.py",
+      "git_blob_sha256": "sha256:ab12131202ae5ffa70c0508218548f2ff6e1639f51f9ba4619c3ef705eb030a9",
+      "execution_file_sha256": "sha256:ab12131202ae5ffa70c0508218548f2ff6e1639f51f9ba4619c3ef705eb030a9",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/dvp_native.py",
+      "git_blob_sha256": "sha256:ced3364a67210d1c6702eb75f9c8301b0158e4ae91d92d221fda5153141f4bf6",
+      "execution_file_sha256": "sha256:ced3364a67210d1c6702eb75f9c8301b0158e4ae91d92d221fda5153141f4bf6",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/dvp_serial.py",
+      "git_blob_sha256": "sha256:f6977ace8f3700b9ba74264f14e280a9fddc7a61012719fc7300bb04d754686c",
+      "execution_file_sha256": "sha256:f6977ace8f3700b9ba74264f14e280a9fddc7a61012719fc7300bb04d754686c",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/dvp_transfer.py",
+      "git_blob_sha256": "sha256:49ab0b9886abbf51364a734c84b330b6578ff7369999f459089a174fc36c8abd",
+      "execution_file_sha256": "sha256:49ab0b9886abbf51364a734c84b330b6578ff7369999f459089a174fc36c8abd",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/environment.py",
+      "git_blob_sha256": "sha256:02c49be814de240436c50ff133eb4c27c13ef7c7a31c737ad7f5c4de60721a4a",
+      "execution_file_sha256": "sha256:02c49be814de240436c50ff133eb4c27c13ef7c7a31c737ad7f5c4de60721a4a",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/mcp_server.py",
+      "git_blob_sha256": "sha256:2f05b6b0702b1538180380c056387d2fe2267bfb5f37dcb8e175feac20766ce4",
+      "execution_file_sha256": "sha256:2f05b6b0702b1538180380c056387d2fe2267bfb5f37dcb8e175feac20766ce4",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/models.py",
+      "git_blob_sha256": "sha256:c8213fafcf0bfdb4bc811b6ff72ce33c5403830931469ad661eeb80259f5c231",
+      "execution_file_sha256": "sha256:c8213fafcf0bfdb4bc811b6ff72ce33c5403830931469ad661eeb80259f5c231",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/registry.py",
+      "git_blob_sha256": "sha256:0f000323e5f5f1609f59f0016707a387d3399038bcfef34d59add24b704becc4",
+      "execution_file_sha256": "sha256:0f000323e5f5f1609f59f0016707a387d3399038bcfef34d59add24b704becc4",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/service.py",
+      "git_blob_sha256": "sha256:34f03ae485b3b842b694a94fb400f5d1037fa800d2a2c28950637efb2b05902b",
+      "execution_file_sha256": "sha256:34f03ae485b3b842b694a94fb400f5d1037fa800d2a2c28950637efb2b05902b",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/storage.py",
+      "git_blob_sha256": "sha256:6d1829dd486795b422b71764f3dbed79fc04cedfe22666da1a37439d7903faaf",
+      "execution_file_sha256": "sha256:6d1829dd486795b422b71764f3dbed79fc04cedfe22666da1a37439d7903faaf",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/__init__.py",
+      "git_blob_sha256": "sha256:b02f1be5c8edccebf68b35642a0dfea8714de95ae321d9180a9e0ccf933389fb",
+      "execution_file_sha256": "sha256:b02f1be5c8edccebf68b35642a0dfea8714de95ae321d9180a9e0ccf933389fb",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/__main__.py",
+      "git_blob_sha256": "sha256:935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "execution_file_sha256": "sha256:935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/adapter.py",
+      "git_blob_sha256": "sha256:550d942d53f6c0402958f7592060757a24bbe236ac019f6329dbe1fc29268380",
+      "execution_file_sha256": "sha256:550d942d53f6c0402958f7592060757a24bbe236ac019f6329dbe1fc29268380",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/containers.py",
+      "git_blob_sha256": "sha256:875bc9323ad3b99d3d68c5106f295006fea0b09a53b3ad103a7a5a6bcc4ee350",
+      "execution_file_sha256": "sha256:875bc9323ad3b99d3d68c5106f295006fea0b09a53b3ad103a7a5a6bcc4ee350",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/dvp.py",
+      "git_blob_sha256": "sha256:a4c2b840666f5fb9a53e21df0e36c1e7277673a4ae9e19f9e3cc7a154339959c",
+      "execution_file_sha256": "sha256:a4c2b840666f5fb9a53e21df0e36c1e7277673a4ae9e19f9e3cc7a154339959c",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/limits.py",
+      "git_blob_sha256": "sha256:30f4e14cb57f123b8088c6732da8812d376f76196e7a0a36238001f6deb0b265",
+      "execution_file_sha256": "sha256:30f4e14cb57f123b8088c6732da8812d376f76196e7a0a36238001f6deb0b265",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/packages.py",
+      "git_blob_sha256": "sha256:09e39f69408f3b89e3067fac3c570708688979321ebf64cce4bebfa01457e78e",
+      "execution_file_sha256": "sha256:09e39f69408f3b89e3067fac3c570708688979321ebf64cce4bebfa01457e78e",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/__init__.py",
+      "git_blob_sha256": "sha256:5d040d4c3bc77a7a06eb6aae23276068e4d64a142bf6b54af4ea5bb04886904b",
+      "execution_file_sha256": "sha256:5d040d4c3bc77a7a06eb6aae23276068e4d64a142bf6b54af4ea5bb04886904b",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/_vendor/il2mpu.py",
+      "git_blob_sha256": "sha256:ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+      "execution_file_sha256": "sha256:ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/_vendor/ispsoft_codec.py",
+      "git_blob_sha256": "sha256:de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f",
+      "execution_file_sha256": "sha256:de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/_vendor/ispsoft_generator.py",
+      "git_blob_sha256": "sha256:dd8bcbb83372977bb0d5ecedc632222aaf9b76ad6a3ee4f05f1aef521b57b895",
+      "execution_file_sha256": "sha256:dd8bcbb83372977bb0d5ecedc632222aaf9b76ad6a3ee4f05f1aef521b57b895",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/_vendor/mpu2il.py",
+      "git_blob_sha256": "sha256:0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+      "execution_file_sha256": "sha256:0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/_vendor/mpu_codec.py",
+      "git_blob_sha256": "sha256:bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+      "execution_file_sha256": "sha256:bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+      "matches": true
+    },
+    {
+      "path": "src/universal_plc/delta_files/_vendor/__init__.py",
+      "git_blob_sha256": "sha256:248ad5f735941951105f5e38725c2b29593eaf8573ed945d230e1d9588f2481e",
+      "execution_file_sha256": "sha256:248ad5f735941951105f5e38725c2b29593eaf8573ed945d230e1d9588f2481e",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/autonomous.py",
+      "git_blob_sha256": "sha256:60a8ec0524236d26633ebed2868c2cf57314abe72e7c48daed1ab223e3d0482a",
+      "execution_file_sha256": "sha256:60a8ec0524236d26633ebed2868c2cf57314abe72e7c48daed1ab223e3d0482a",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/ax_deployment_supervisor.py",
+      "git_blob_sha256": "sha256:9dcb2e4428eaf59aac1667653af4a024d299abbb041ac85f8ea7c30d4abb796b",
+      "execution_file_sha256": "sha256:9dcb2e4428eaf59aac1667653af4a024d299abbb041ac85f8ea7c30d4abb796b",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/ax_supervisor.py",
+      "git_blob_sha256": "sha256:134b7088d299019bd20d8de6d29a74227b80f8d218fd65a82a3a3c9283a206c5",
+      "execution_file_sha256": "sha256:134b7088d299019bd20d8de6d29a74227b80f8d218fd65a82a3a3c9283a206c5",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/bench_opcua.py",
+      "git_blob_sha256": "sha256:0b19e0906327923c000d3e99ea92ae08f6511ef781fc9d94b7e65a70f2e75188",
+      "execution_file_sha256": "sha256:0b19e0906327923c000d3e99ea92ae08f6511ef781fc9d94b7e65a70f2e75188",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/bridge.py",
+      "git_blob_sha256": "sha256:5b1872cfee11ce5411d643712176a0402e775ca790c04885456a70adc565eb79",
+      "execution_file_sha256": "sha256:5b1872cfee11ce5411d643712176a0402e775ca790c04885456a70adc565eb79",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/cli.py",
+      "git_blob_sha256": "sha256:2e1d9016b973bdd6228ade5aa711da30af319bb6f587e44599997f1adb6ecaf2",
+      "execution_file_sha256": "sha256:2e1d9016b973bdd6228ade5aa711da30af319bb6f587e44599997f1adb6ecaf2",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/constants.py",
+      "git_blob_sha256": "sha256:a068bcb41b5d4ccd0ccf1b08f5d17542fd0238c28243d28b405b7cf6a93f08ba",
+      "execution_file_sha256": "sha256:a068bcb41b5d4ccd0ccf1b08f5d17542fd0238c28243d28b405b7cf6a93f08ba",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/jobs.py",
+      "git_blob_sha256": "sha256:ba17adc14d2829ea0452b52801db73bbdce6786ff5c432dfa50d103f1e040eff",
+      "execution_file_sha256": "sha256:ba17adc14d2829ea0452b52801db73bbdce6786ff5c432dfa50d103f1e040eff",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/job_progress.py",
+      "git_blob_sha256": "sha256:d3b4bc9e2326f410f21b1a5c6e7add63c19898eb45dde74dcff97386bbb76f33",
+      "execution_file_sha256": "sha256:d3b4bc9e2326f410f21b1a5c6e7add63c19898eb45dde74dcff97386bbb76f33",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/ladder.py",
+      "git_blob_sha256": "sha256:268f907d6bde8524ece39423caa8cb204693392e881c3636f665d775105128b3",
+      "execution_file_sha256": "sha256:268f907d6bde8524ece39423caa8cb204693392e881c3636f665d775105128b3",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/mcp_server.py",
+      "git_blob_sha256": "sha256:a591acff520236ba65ee9e6b40cb13c992331665238a98f5699190f7e662c2fd",
+      "execution_file_sha256": "sha256:a591acff520236ba65ee9e6b40cb13c992331665238a98f5699190f7e662c2fd",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/network_diagnostics.py",
+      "git_blob_sha256": "sha256:b67a2124fed734db0662cf7d20a9ec5229209585f2537049f8e55376d87120b8",
+      "execution_file_sha256": "sha256:b67a2124fed734db0662cf7d20a9ec5229209585f2537049f8e55376d87120b8",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/operator_evidence.py",
+      "git_blob_sha256": "sha256:958d2d1a425139af304f616dbde4b16da395d89a5d10a8a0a8e6d32af7979873",
+      "execution_file_sha256": "sha256:958d2d1a425139af304f616dbde4b16da395d89a5d10a8a0a8e6d32af7979873",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/project_creation.py",
+      "git_blob_sha256": "sha256:664191a1808b4b2e11f8eede9cc4e6cb168d6e1e73ae97db75b56e41ec775603",
+      "execution_file_sha256": "sha256:664191a1808b4b2e11f8eede9cc4e6cb168d6e1e73ae97db75b56e41ec775603",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/protocol_v2.py",
+      "git_blob_sha256": "sha256:04385371109892843d974ae45b9727e690b7f0d2b87ae4f7be3d4f4a7c145778",
+      "execution_file_sha256": "sha256:04385371109892843d974ae45b9727e690b7f0d2b87ae4f7be3d4f4a7c145778",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/records.py",
+      "git_blob_sha256": "sha256:a66891d42d1b8b0292199d7b3b447fe84cb5b155f94c64eb28dd0d4a85cba09e",
+      "execution_file_sha256": "sha256:a66891d42d1b8b0292199d7b3b447fe84cb5b155f94c64eb28dd0d4a85cba09e",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/replay.py",
+      "git_blob_sha256": "sha256:810891545f015ebfcecaaaa84b5712f02c6521d13674beeb05542c634ae1d07a",
+      "execution_file_sha256": "sha256:810891545f015ebfcecaaaa84b5712f02c6521d13674beeb05542c634ae1d07a",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/revision_runner.py",
+      "git_blob_sha256": "sha256:74eae58c9ee8bfcd839ff7847ddfb892937de49a1c1feda2d25991277056f7fb",
+      "execution_file_sha256": "sha256:74eae58c9ee8bfcd839ff7847ddfb892937de49a1c1feda2d25991277056f7fb",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/security.py",
+      "git_blob_sha256": "sha256:ca8e4316ac865ef5a1b63c106621012de6b782b9a9bb68e29b58246c5ab6cb1a",
+      "execution_file_sha256": "sha256:ca8e4316ac865ef5a1b63c106621012de6b782b9a9bb68e29b58246c5ab6cb1a",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/service.py",
+      "git_blob_sha256": "sha256:e7b1765a118bad8cbd3977c3007eba0be4f8ee708bd2cdc5f949c0289f3c23c1",
+      "execution_file_sha256": "sha256:e7b1765a118bad8cbd3977c3007eba0be4f8ee708bd2cdc5f949c0289f3c23c1",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/universal_adapter.py",
+      "git_blob_sha256": "sha256:caf6ba2f223cbca186bd95b6805218fb3d3f554c460bee497d140865dd47b9e0",
+      "execution_file_sha256": "sha256:caf6ba2f223cbca186bd95b6805218fb3d3f554c460bee497d140865dd47b9e0",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/window_guard.py",
+      "git_blob_sha256": "sha256:2c4986d02a4e94a9a6332bd2db6c03f037000b29b7542ae263105527759a3518",
+      "execution_file_sha256": "sha256:2c4986d02a4e94a9a6332bd2db6c03f037000b29b7542ae263105527759a3518",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/__init__.py",
+      "git_blob_sha256": "sha256:fae8b9707dca370bcce2cfd766fdaf692faf2e9ac80d0f7a9c4d380a59100c5a",
+      "execution_file_sha256": "sha256:fae8b9707dca370bcce2cfd766fdaf692faf2e9ac80d0f7a9c4d380a59100c5a",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/src/axmcp_offline/__main__.py",
+      "git_blob_sha256": "sha256:3d2438ae92f4746e9ffaa1f837b1fe803f6281091d1f31f8c95643716f257d9a",
+      "execution_file_sha256": "sha256:3d2438ae92f4746e9ffaa1f837b1fe803f6281091d1f31f8c95643716f257d9a",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/adapters/ax_worker/ladder_import.py",
+      "git_blob_sha256": "sha256:7c0beb53404129bf0a5f549bf36ae681ae821a928a25cf7295f767317862c730",
+      "execution_file_sha256": "sha256:7c0beb53404129bf0a5f549bf36ae681ae821a928a25cf7295f767317862c730",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/adapters/ax_worker/project_factory.py",
+      "git_blob_sha256": "sha256:92305014cec1168480cd34c6413d82c09100dd10101a53f53a2a713fa33f1c14",
+      "execution_file_sha256": "sha256:92305014cec1168480cd34c6413d82c09100dd10101a53f53a2a713fa33f1c14",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/adapters/ax_worker/project_factory_runner.py",
+      "git_blob_sha256": "sha256:4b4d850053ab6dc936e25f9dfcae8b13bd04cd73b235aaa457ee0c92b6753ca8",
+      "execution_file_sha256": "sha256:4b4d850053ab6dc936e25f9dfcae8b13bd04cd73b235aaa457ee0c92b6753ca8",
+      "matches": true
+    },
+    {
+      "path": "backends/ax/adapters/ax_worker/worker.py",
+      "git_blob_sha256": "sha256:fd17aab249a7819394703765d7ad0c32781298f77524b21710d6d86845bccad9",
+      "execution_file_sha256": "sha256:fd17aab249a7819394703765d7ad0c32781298f77524b21710d6d86845bccad9",
+      "matches": true
+    }
+  ]
+}

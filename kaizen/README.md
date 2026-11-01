@@ -30,3 +30,5 @@ Her gerçek davranış veya çalışma protokolü değişikliği ayrı bir `KZ-Y
 - [KZ-20261101-001 - AX and ISPSoft integration](KZ-20261101-001-ax-ispsoft-integration.md)
 
 - [KZ-20261101-001 companion identity and synthetic fixtures](KZ-20261101-001-companion-identity-and-fixtures.md)
+
+- [KZ-20261101-002 — Evidence-led AX showcase](KZ-20261101-002-evidence-led-showcase.md)

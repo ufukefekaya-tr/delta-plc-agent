@@ -1,0 +1,3749 @@
+{
+  "observed_utc": "2026-11-01T15:07:38.751724+00:00",
+  "method": "15 GitHub repository searches, stars descending, at most40 results per query; explicit user and primary-source/directory seeds added. Deduplicated bounded discovery, not an exhaustive census.",
+  "queries": [
+    {
+      "query": "PLC MCP",
+      "returned": 14,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "PLC agent",
+      "returned": 30,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "CODESYS MCP",
+      "returned": 16,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "TIA Portal MCP",
+      "returned": 19,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "Mitsubishi GX Works agent",
+      "returned": 0,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "Omron MCP",
+      "returned": 2,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "TwinCAT MCP",
+      "returned": 8,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "PLC AI agent",
+      "returned": 6,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "PLC skill",
+      "returned": 10,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "gxworks",
+      "returned": 18,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "PLC LLM",
+      "returned": 4,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "PLC AI",
+      "returned": 40,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "TIA MCP",
+      "returned": 31,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "topic:plc topic:mcp",
+      "returned": 40,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "CODESYS agent",
+      "returned": 3,
+      "limit": 40,
+      "status": "OK"
+    },
+    {
+      "query": "primary/web/directory-seed:midea-ai/SemaPLC",
+      "status": "OK",
+      "limit": 1,
+      "returned": 1
+    },
+    {
+      "query": "primary/web/directory-seed:Czarnak/totally-integrated-claude",
+      "status": "OK",
+      "limit": 1,
+      "returned": 1
+    },
+    {
+      "query": "primary/web/directory-seed:zbest1000/mcptoolkit-for-codesys",
+      "status": "OK",
+      "limit": 1,
+      "returned": 1
+    }
+  ],
+  "candidate_count": 241,
+  "detailed_count": 40,
+  "inspection_scope": "Repository search metadata plus pinned README, recursive tree media paths and up to3 releases for selected candidates. All high-star relevant candidates found by this bounded discovery are retained; adjacent matches are classified separately. No competitor native tools run. No private competitor traffic available.",
+  "candidates": [
+    {
+      "repository": "Serial-Studio/Serial-Studio",
+      "stars": 7282,
+      "forks": 1100,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Serial-Studio/Serial-Studio",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "frangoteam/FUXA",
+      "stars": 5241,
+      "forks": 1419,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/frangoteam/FUXA",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "GavinYellow/SharpSCADA",
+      "stars": 3048,
+      "forks": 1391,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/GavinYellow/SharpSCADA",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "zhaopeiym/IoTClient",
+      "stars": 1689,
+      "forks": 490,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/zhaopeiym/IoTClient",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "ThingsGateway/ThingsGateway",
+      "stars": 1493,
+      "forks": 74,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ThingsGateway/ThingsGateway",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "dathlin/ClientServerProject",
+      "stars": 1458,
+      "forks": 611,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/dathlin/ClientServerProject",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "emqx/neuron",
+      "stars": 1421,
+      "forks": 314,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/emqx/neuron",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "pnoker/iot-dc3",
+      "stars": 1268,
+      "forks": 236,
+      "category": "ADJACENT_PLATFORM_NOT_DIRECT_PEER",
+      "inspection": "README/tree/releases",
+      "source_sha": "929761d13279c5db2a8fd2d2ceaf2e497e1eb54c",
+      "url": "https://github.com/pnoker/iot-dc3",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "rossmann-engineering/EasyModbusTCP.NET",
+      "stars": 1130,
+      "forks": 452,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/rossmann-engineering/EasyModbusTCP.NET",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "dark-lbp/isf",
+      "stars": 1108,
+      "forks": 300,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/dark-lbp/isf",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "w3h/icsmaster",
+      "stars": 967,
+      "forks": 338,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/w3h/icsmaster",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "libplctag/libplctag",
+      "stars": 904,
+      "forks": 282,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/libplctag/libplctag",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "god-jason/iot-master",
+      "stars": 870,
+      "forks": 204,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/god-jason/iot-master",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "gijzelaerr/python-snap7",
+      "stars": 865,
+      "forks": 284,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/gijzelaerr/python-snap7",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "alejoseb/Modbus-STM32-HAL-FreeRTOS",
+      "stars": 848,
+      "forks": 238,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/alejoseb/Modbus-STM32-HAL-FreeRTOS",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "dmroeder/pylogix",
+      "stars": 736,
+      "forks": 204,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/dmroeder/pylogix",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "ottowayi/pycomm3",
+      "stars": 521,
+      "forks": 115,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ottowayi/pycomm3",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "beremiz/beremiz",
+      "stars": 454,
+      "forks": 160,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/beremiz/beremiz",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "tcunit/TcUnit",
+      "stars": 424,
+      "forks": 88,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/tcunit/TcUnit",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "bulaofen0036-coder/TIA_Portal_Openness_MCP",
+      "stars": 378,
+      "forks": 99,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "2627ee0731a109049be7fea41d1cbc76e20e3471",
+      "url": "https://github.com/bulaofen0036-coder/TIA_Portal_Openness_MCP",
+      "queries": "explicit_seed | topic:plc topic:mcp"
+    },
+    {
+      "repository": "TcOpenGroup/TcOpen",
+      "stars": 352,
+      "forks": 64,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/TcOpenGroup/TcOpen",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "xingshuangs/iot-communication",
+      "stars": 303,
+      "forks": 93,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/xingshuangs/iot-communication",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "libplctag/libplctag.NET",
+      "stars": 302,
+      "forks": 79,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/libplctag/libplctag.NET",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "cmseaton42/node-ethernet-ip",
+      "stars": 296,
+      "forks": 112,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/cmseaton42/node-ethernet-ip",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "Fortiphyd/GRFICSv3",
+      "stars": 279,
+      "forks": 50,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Fortiphyd/GRFICSv3",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "sapphirexai/bufferpad",
+      "stars": 272,
+      "forks": 15,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/sapphirexai/bufferpad",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "konimarti/opc",
+      "stars": 265,
+      "forks": 96,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/konimarti/opc",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "fbarresi/Sharp7",
+      "stars": 259,
+      "forks": 80,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/fbarresi/Sharp7",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "dathlin/RemoteMonitor",
+      "stars": 249,
+      "forks": 153,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/dathlin/RemoteMonitor",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "loneicewolf/Stuxnet-Source",
+      "stars": 240,
+      "forks": 64,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/loneicewolf/Stuxnet-Source",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "roboplc/roboplc",
+      "stars": 232,
+      "forks": 9,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/roboplc/roboplc",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "thomas-v2/S7CommPlusDriver",
+      "stars": 230,
+      "forks": 88,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/thomas-v2/S7CommPlusDriver",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "johannesPettersson80/trust-platform",
+      "stars": 229,
+      "forks": 26,
+      "category": "ADJACENT_PLATFORM_NOT_DIRECT_PEER",
+      "inspection": "README/tree/releases",
+      "source_sha": "60ec892e2e92f125f2896578878a663e8e07c5a4",
+      "url": "https://github.com/johannesPettersson80/trust-platform",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "xeden3/LECPServer",
+      "stars": 220,
+      "forks": 52,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/xeden3/LECPServer",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "Serhioromano/vscode-st",
+      "stars": 206,
+      "forks": 40,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Serhioromano/vscode-st",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "siemens/simatic-s7-webserver-api",
+      "stars": 190,
+      "forks": 33,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/siemens/simatic-s7-webserver-api",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "mathiask88/node-snap7",
+      "stars": 180,
+      "forks": 67,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/mathiask88/node-snap7",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "miguelob/ICS-Hacking",
+      "stars": 176,
+      "forks": 26,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/miguelob/ICS-Hacking",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "fatasia/DeepMonkey-Studio",
+      "stars": 173,
+      "forks": 1,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/fatasia/DeepMonkey-Studio",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "mking2203/CodeGeneratorOpenness",
+      "stars": 172,
+      "forks": 53,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/mking2203/CodeGeneratorOpenness",
+      "queries": "topic:plc topic:mcp"
+    },
+    {
+      "repository": "heilingbrunner/tiaportal-mcp",
+      "stars": 127,
+      "forks": 51,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "98669c5d6b0ec124fedbdd3df131bdf1c3fc8742",
+      "url": "https://github.com/heilingbrunner/tiaportal-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "johannesPettersson80/codesys-mcp-toolkit",
+      "stars": 127,
+      "forks": 38,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "1195a6724017b831b4f2e24d15541dbdc57429b7",
+      "url": "https://github.com/johannesPettersson80/codesys-mcp-toolkit",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "midea-ai/SemaPLC",
+      "stars": 110,
+      "forks": 25,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "fea1b87a112bf947197f501168ee35771fdc6377",
+      "url": "https://github.com/midea-ai/SemaPLC",
+      "queries": "primary_web_directory_seed"
+    },
+    {
+      "repository": "Czarnak/tia-portal-mcp",
+      "stars": 108,
+      "forks": 28,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "10c5de2eb44c0362792cd141370b3f42f92f6ecd",
+      "url": "https://github.com/Czarnak/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "luke-harriman/Codesys-MCP",
+      "stars": 93,
+      "forks": 21,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "9a965c7e16cb49996de8d45596d6e15a27a39450",
+      "url": "https://github.com/luke-harriman/Codesys-MCP",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "Czarnak/totally-integrated-claude",
+      "stars": 77,
+      "forks": 16,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "7b805e1d10b0fdeb794bf4e9ed8ea112f7d92703",
+      "url": "https://github.com/Czarnak/totally-integrated-claude",
+      "queries": "primary_web_directory_seed"
+    },
+    {
+      "repository": "heilingbrunner/vscode-tiaportal-mcp",
+      "stars": 64,
+      "forks": 13,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "408f90db00ce0ef3c052987e45a7b65817ff9ee6",
+      "url": "https://github.com/heilingbrunner/vscode-tiaportal-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "a4webdev/tiacommander-mcp",
+      "stars": 53,
+      "forks": 9,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "3016289f601bf4fae0876eb0747f8fc677444317",
+      "url": "https://github.com/a4webdev/tiacommander-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "JadeHuang/RealPLC-Agent",
+      "stars": 41,
+      "forks": 6,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "106a9056313c29e8306b004d343ee2b844b28032",
+      "url": "https://github.com/JadeHuang/RealPLC-Agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "eponce00/twincat-mcp",
+      "stars": 35,
+      "forks": 8,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "379a10800b5e5bfdf05ae443e75de4ff819ee496",
+      "url": "https://github.com/eponce00/twincat-mcp",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "MIGO-OvO/plc-skill",
+      "stars": 28,
+      "forks": 7,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "82e541946e8f92f688b94d476b1b5fc09f531947",
+      "url": "https://github.com/MIGO-OvO/plc-skill",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "rickgaiser/TiaMcp",
+      "stars": 26,
+      "forks": 7,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "8e9de1ccb7f29347f16b4146f91cdc3f88bfad9f",
+      "url": "https://github.com/rickgaiser/TiaMcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "DaMccRee/tiaportal-mcp",
+      "stars": 21,
+      "forks": 5,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "22ac572ae82c37c532506a1ac5f8ef8c2abb522c",
+      "url": "https://github.com/DaMccRee/tiaportal-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "Arienax/gxworks-agent",
+      "stars": 19,
+      "forks": 4,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "c3a0f0b1acab12964ccb6004841c8de4b26ad1d2",
+      "url": "https://github.com/Arienax/gxworks-agent",
+      "queries": "explicit_seed | gxworks"
+    },
+    {
+      "repository": "zbest1000/mcptoolkit-for-codesys",
+      "stars": 19,
+      "forks": 4,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "0fcadf89395fe312099a32e23bb32c1f2cb7edd8",
+      "url": "https://github.com/zbest1000/mcptoolkit-for-codesys",
+      "queries": "primary_web_directory_seed"
+    },
+    {
+      "repository": "eponce00/tiaopen-mcp",
+      "stars": 15,
+      "forks": 5,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "e2b26de46306669ba87e6b7c246def981b76ca72",
+      "url": "https://github.com/eponce00/tiaopen-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "mrwan84/ThinkPLC-MCP",
+      "stars": 13,
+      "forks": 3,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "fb698663281cac5453b82919e58c2190fe79c0cb",
+      "url": "https://github.com/mrwan84/ThinkPLC-MCP",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "BlackUppsss/Cx-Proggrammer-MCP",
+      "stars": 12,
+      "forks": 2,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "145049acc6c6443d8c04b72b98200b8950f04187",
+      "url": "https://github.com/BlackUppsss/Cx-Proggrammer-MCP",
+      "queries": "explicit_seed"
+    },
+    {
+      "repository": "lanlan0811/tianshu-mcp",
+      "stars": 12,
+      "forks": 3,
+      "category": "ADJACENT_PLATFORM_NOT_DIRECT_PEER",
+      "inspection": "README/tree/releases",
+      "source_sha": "2cc65e6197d2d873ee996a642e778f6b6a90355a",
+      "url": "https://github.com/lanlan0811/tianshu-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "hadefuwa/tia-portal-mcp",
+      "stars": 11,
+      "forks": 10,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "1fc2f1ba0477f8203baf78c1b2a8d1742d94ec3d",
+      "url": "https://github.com/hadefuwa/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "renanlido/tia-harness",
+      "stars": 11,
+      "forks": 0,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "7751b156a86be906913176e8dbc986db8e873b95",
+      "url": "https://github.com/renanlido/tia-harness",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "gangsterke/Tia-Portal-MCP-server",
+      "stars": 10,
+      "forks": 1,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "c75168664d5dde7c2d6e3fc0d572222a9c3aa4f5",
+      "url": "https://github.com/gangsterke/Tia-Portal-MCP-server",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "georgeturneruk/tckit",
+      "stars": 10,
+      "forks": 4,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "e71b434dfa87d933bc3941eb7c7f0bfcc6a40413",
+      "url": "https://github.com/georgeturneruk/tckit",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "rjboer/OMRON-MCP",
+      "stars": 9,
+      "forks": 1,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "840cd3380f9c05229ce4b0f4c87c4ab4dba2704d",
+      "url": "https://github.com/rjboer/OMRON-MCP",
+      "queries": "Omron MCP | PLC AI"
+    },
+    {
+      "repository": "agentthink/tia-portal-mcp",
+      "stars": 8,
+      "forks": 5,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "feb291beed337fd2388eafa5d579b3ede47145aa",
+      "url": "https://github.com/agentthink/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "renanlido/tia-openness",
+      "stars": 8,
+      "forks": 0,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "a99e9281005c8d99a1186a5793838fb89fbccc1e",
+      "url": "https://github.com/renanlido/tia-openness",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "SHU996/eigen-plc-mcp",
+      "stars": 6,
+      "forks": 0,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "4acb2096039885b00a1224e8c3fb80f3bfd3f366",
+      "url": "https://github.com/SHU996/eigen-plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "Wayan123/multi-plc-agent",
+      "stars": 6,
+      "forks": 3,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "eb472a50ccf74adcf1dffb161abe8f9c287d2b91",
+      "url": "https://github.com/Wayan123/multi-plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "caoyixian06/TiaMcpServer",
+      "stars": 6,
+      "forks": 1,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "44cc125bcd0d3f9611bfe4a1a2e6668932b137e5",
+      "url": "https://github.com/caoyixian06/TiaMcpServer",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "coder007rahul/gxworks3-mcp-bridge",
+      "stars": 6,
+      "forks": 2,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "d10998d40dddfff86059067e42128dd65487efd1",
+      "url": "https://github.com/coder007rahul/gxworks3-mcp-bridge",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "paulinholt/TIA-MCP",
+      "stars": 6,
+      "forks": 2,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "f7d1c93cea4f474b62bec2ee678acc63f114fc51",
+      "url": "https://github.com/paulinholt/TIA-MCP",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "ura-ch/PLC_AI_Studio",
+      "stars": 6,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ura-ch/PLC_AI_Studio",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "BoykaHe/plc-agent-notes",
+      "stars": 5,
+      "forks": 0,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "57db3e062f38a02ba042eef3b7849b79f6ac4747",
+      "url": "https://github.com/BoykaHe/plc-agent-notes",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "junjiewang66/-PLC-AI-",
+      "stars": 5,
+      "forks": 5,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/junjiewang66/-PLC-AI-",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "minecraty/TIA-portal-MCP-for-AI-agent",
+      "stars": 5,
+      "forks": 0,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "ed719e02ac6bbc2248c03529615c00c2bae7f2fd",
+      "url": "https://github.com/minecraty/TIA-portal-MCP-for-AI-agent",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "spyshow/TiaMCP-v2",
+      "stars": 5,
+      "forks": 1,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "e3f570cfc2d0ae0b8e7ab6e82f796e383f4a81c4",
+      "url": "https://github.com/spyshow/TiaMCP-v2",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "tekinaDev/codesys-mcp",
+      "stars": 5,
+      "forks": 1,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "f050ba499847c41ef7036e9e00469eb11f1c4f81",
+      "url": "https://github.com/tekinaDev/codesys-mcp",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "MountainClimberJiwen/plc-mcp",
+      "stars": 4,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/MountainClimberJiwen/plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "WagoAlex/wago-plc-mcp-server",
+      "stars": 4,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/WagoAlex/wago-plc-mcp-server",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "Zhangmingjun-Huarui/Codesys-MCP",
+      "stars": 4,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Zhangmingjun-Huarui/Codesys-MCP",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "dodup/TIA-MCP-Server",
+      "stars": 4,
+      "forks": 3,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/dodup/TIA-MCP-Server",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "lingtongxinyv/PLC-AI-Agent",
+      "stars": 4,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/lingtongxinyv/PLC-AI-Agent",
+      "queries": "PLC AI agent | PLC AI"
+    },
+    {
+      "repository": "newcovid/TiaMcp",
+      "stars": 4,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/newcovid/TiaMcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "tia-forge/awesome-plc-ai",
+      "stars": 4,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/tia-forge/awesome-plc-ai",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "3022969246-code/industrial-plc-agent",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/3022969246-code/industrial-plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "Auda29/twincat-mcp-mono",
+      "stars": 3,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Auda29/twincat-mcp-mono",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "Links2008/gxworks2-mcp",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Links2008/gxworks2-mcp",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "NPavii/codesys-mcp-server",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/NPavii/codesys-mcp-server",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "Nodeblue-AI/plc-llm-benchmark",
+      "stars": 3,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Nodeblue-AI/plc-llm-benchmark",
+      "queries": "PLC LLM"
+    },
+    {
+      "repository": "OHOClauger/TiaMcpServerV21",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/OHOClauger/TiaMcpServerV21",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "afprayogi/bengkel-masalah-elektrikal",
+      "stars": 3,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/afprayogi/bengkel-masalah-elektrikal",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "phobicdotno/Codesys-MCP-Master",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/phobicdotno/Codesys-MCP-Master",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "puran-water/tia-portal-mcp",
+      "stars": 3,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/puran-water/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "tia-forge/tialink",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/tia-forge/tialink",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "turnipings/XinJe_PLC_Skill",
+      "stars": 3,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/turnipings/XinJe_PLC_Skill",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "BartK1990/CodesysMcpNet",
+      "stars": 2,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/BartK1990/CodesysMcpNet",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "Joshua1909/PLC-SkillTester",
+      "stars": 2,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Joshua1909/PLC-SkillTester",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "Macsion/tia-portal-mcp-v17",
+      "stars": 2,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Macsion/tia-portal-mcp-v17",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "Naraku00/plc-ai-write-program",
+      "stars": 2,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Naraku00/plc-ai-write-program",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "Osamaiqji89/SmartPLC_AI_Agent",
+      "stars": 2,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Osamaiqji89/SmartPLC_AI_Agent",
+      "queries": "PLC AI agent | PLC AI"
+    },
+    {
+      "repository": "gugu-2/Industry-PLC-LLM",
+      "stars": 2,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/gugu-2/Industry-PLC-LLM",
+      "queries": "PLC LLM"
+    },
+    {
+      "repository": "junchen-general/PLCC-agent",
+      "stars": 2,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/junchen-general/PLCC-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "x2124824695-stack/inoproshop-mcp",
+      "stars": 2,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/x2124824695-stack/inoproshop-mcp",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "1039319331wh-design/TIA_MCP",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/1039319331wh-design/TIA_MCP",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "ALERA0/tia-mcp-v2",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ALERA0/tia-mcp-v2",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "Arienax/dsh-gxworks",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Arienax/dsh-gxworks",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "CuiEnQiao/industrial-plc-skills",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/CuiEnQiao/industrial-plc-skills",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "L261173157/Ai-PLC-coding",
+      "stars": 1,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/L261173157/Ai-PLC-coding",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "MvpCry/PLC-AI",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/MvpCry/PLC-AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "NDKNIMA/PLC_AI",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/NDKNIMA/PLC_AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "PenumbraMemories/tianta-mcp-market",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/PenumbraMemories/tianta-mcp-market",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "Shamekh21/SASS-Smart-Automated-Sorting-System",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Shamekh21/SASS-Smart-Automated-Sorting-System",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "Sparkz400/TIA_MCP",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Sparkz400/TIA_MCP",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "adriahermoso/plc_ai",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/adriahermoso/plc_ai",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "ayusefi/PLC_Mcprotocol_Mysql_comm_Python",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ayusefi/PLC_Mcprotocol_Mysql_comm_Python",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "cadugrillo/tia_mcp_server",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/cadugrillo/tia_mcp_server",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "eLSeR17/plc-ai-agent",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/eLSeR17/plc-ai-agent",
+      "queries": "PLC AI agent | PLC AI"
+    },
+    {
+      "repository": "fanbingqian/tianzheng-mcp",
+      "stars": 1,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/fanbingqian/tianzheng-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "frankNumfor/symbiotic-cell-digital-twin",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/frankNumfor/symbiotic-cell-digital-twin",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "instantgoing/plc-agent",
+      "stars": 1,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/instantgoing/plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "junjiewang66/plc-ai-assistant",
+      "stars": 1,
+      "forks": 1,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/junjiewang66/plc-ai-assistant",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "mehmeteray27zx/quantora-plc-skill",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/mehmeteray27zx/quantora-plc-skill",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "mlwei1/liu-ai-gxworks3",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/mlwei1/liu-ai-gxworks3",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "muris11/PLCForge-AI-STUDIO-V2",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/muris11/PLCForge-AI-STUDIO-V2",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "qubernetic/TwinCat-MCP-Docs",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/qubernetic/TwinCat-MCP-Docs",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "seniorhwan/gxworks2-mcp",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/seniorhwan/gxworks2-mcp",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "uiff/Codesys-MCP-Server",
+      "stars": 1,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/uiff/Codesys-MCP-Server",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "yh01010/dsh-mcp-tia",
+      "stars": 1,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/yh01010/dsh-mcp-tia",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "yifanzhang369/PLCRA-AIoT",
+      "stars": 1,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/yifanzhang369/PLCRA-AIoT",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "0-robinson-1/plc-portfolio",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/0-robinson-1/plc-portfolio",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "147qaz258-ead/plc-ai-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/147qaz258-ead/plc-ai-agent",
+      "queries": "PLC AI agent | PLC AI"
+    },
+    {
+      "repository": "2893468613wxr/PLC-AI-Model",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/2893468613wxr/PLC-AI-Model",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "2phenix/tia-mcp-v16",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/2phenix/tia-mcp-v16",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "ALERA0/tia-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ALERA0/tia-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "ATOM1358/factoryio-gxworks3",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ATOM1358/factoryio-gxworks3",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "AccruedInnovation/codesys-mcp-scriptengine-runner",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/AccruedInnovation/codesys-mcp-scriptengine-runner",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "Alex0-KoTe/PLC_AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Alex0-KoTe/PLC_AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "Bibin-VR/TIA-Portal-MCP",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Bibin-VR/TIA-Portal-MCP",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "Birger90/Siemens-TIA-Portal-MCP",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Birger90/Siemens-TIA-Portal-MCP",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "CH1806/CodesysAgent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/CH1806/CodesysAgent",
+      "queries": "CODESYS agent"
+    },
+    {
+      "repository": "CH1806/CodesysAgentTest",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/CH1806/CodesysAgentTest",
+      "queries": "CODESYS agent"
+    },
+    {
+      "repository": "CortexPrism/cortex-plugin-industrial-iot",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/CortexPrism/cortex-plugin-industrial-iot",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "DHARNAEES/PLC-Agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/DHARNAEES/PLC-Agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "Denisijcu/plc-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Denisijcu/plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "FranciscoOsuna/weryfikacja-kodu-plc-llm",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/FranciscoOsuna/weryfikacja-kodu-plc-llm",
+      "queries": "PLC LLM"
+    },
+    {
+      "repository": "GaGa-Yin/rung-mcp-references",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/GaGa-Yin/rung-mcp-references",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "GabrielSRR/tia-mcp-v20-patch",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/GabrielSRR/tia-mcp-v20-patch",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "Gizcan/Mitsubishi_GXworks3",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Gizcan/Mitsubishi_GXworks3",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "GreatFooliao111/Plagent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/GreatFooliao111/Plagent",
+      "queries": "PLC AI agent"
+    },
+    {
+      "repository": "Hamed2025bnd/plc-AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Hamed2025bnd/plc-AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "Harshithajain7452/PLCVERSE-AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Harshithajain7452/PLCVERSE-AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "HeHirisw/PLC_AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/HeHirisw/PLC_AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "HenryFerOZ-2000/voz-llm-plc-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/HenryFerOZ-2000/voz-llm-plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks2---Sample-Poroject",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks2---Sample-Poroject",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks3---Sample-Poroject-",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/INVEO-company/BoxID-Clocker---Mitsubishi-GxWorks3---Sample-Poroject-",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "JasonHe/TM753-Codesys-MCP",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/JasonHe/TM753-Codesys-MCP",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "JasonJJQ/tiaportal-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/JasonJJQ/tiaportal-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "Jenislee/gxworks3-ci-test1",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Jenislee/gxworks3-ci-test1",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "JonasCai/PLCMaster-Skill",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/JonasCai/PLCMaster-Skill",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "JreeyL/AutoPLC-Agent",
+      "stars": 0,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/JreeyL/AutoPLC-Agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "KeysBills/twincat-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/KeysBills/twincat-mcp",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "KishoreRaam/plc-ai-studio",
+      "stars": 0,
+      "forks": 1,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/KishoreRaam/plc-ai-studio",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "KooJiiKoo/tia-portal-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/KooJiiKoo/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "Marsel204/cv-landing-page",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Marsel204/cv-landing-page",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "NimsaraPeiris/Xinje-PLC-AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/NimsaraPeiris/Xinje-PLC-AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "Nishwanth03/AI-PLC-AGENT",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Nishwanth03/AI-PLC-AGENT",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "OlubunmiAde/plc-mcp-server",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/OlubunmiAde/plc-mcp-server",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "Petlja/PLCT-AI-Ctx",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Petlja/PLCT-AI-Ctx",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "RD191295/Auto-plc-backend",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/RD191295/Auto-plc-backend",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "Radee/PlcAgent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Radee/PlcAgent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "Rasirn/PLC-Agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Rasirn/PLC-Agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "Threewintersandfoursummers/tia-portal-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Threewintersandfoursummers/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "TuanNgoNo1/Digital-Twin-BaiTH2",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/TuanNgoNo1/Digital-Twin-BaiTH2",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "WELCOME-FENG/plc-agent-coder",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/WELCOME-FENG/plc-agent-coder",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "Wayan123/gxworks-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "PLC_AGENT_MCP_OR_SKILL_PRESENTATION_REVIEWED",
+      "inspection": "README/tree/releases",
+      "source_sha": "1c3bce8b32441263b109ba61ae8d0d1b1fdb40d0",
+      "url": "https://github.com/Wayan123/gxworks-agent",
+      "queries": "explicit_seed"
+    },
+    {
+      "repository": "YGSSNB/My_Tool_CodesysMcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/YGSSNB/My_Tool_CodesysMcp",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "Ymir506/codesys-agent-bundle",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Ymir506/codesys-agent-bundle",
+      "queries": "CODESYS agent"
+    },
+    {
+      "repository": "Zhangmingjun-Huarui/Codesys-MCP-Test",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Zhangmingjun-Huarui/Codesys-MCP-Test",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "Zhgong/codesys-mcp-plugin",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/Zhgong/codesys-mcp-plugin",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "ZixiSu/tiancheng-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ZixiSu/tiancheng-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "akkexd/PLC_GXworks",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/akkexd/PLC_GXworks",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "andyc212/plc-aistudio",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/andyc212/plc-aistudio",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "arhunn/s7-plc-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/arhunn/s7-plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "asjnk/plc-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/asjnk/plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "atakangudulluogluhv/elevator-plc-agents",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/atakangudulluogluhv/elevator-plc-agents",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "cepdnaclk/e19-co227-Remote-Controlled-PLC-Training-Kit",
+      "stars": 0,
+      "forks": 4,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/cepdnaclk/e19-co227-Remote-Controlled-PLC-Training-Kit",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "changgeng1009/tianzhengMCP",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/changgeng1009/tianzhengMCP",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "cj1106620946/fuduji_plc_ai",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/cj1106620946/fuduji_plc_ai",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "cmz269/-plc-gxworks2-",
+      "stars": 0,
+      "forks": 1,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/cmz269/-plc-gxworks2-",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "cyheng/tia-portal-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/cyheng/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "drougstar/PLC_AI_Integration",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/drougstar/PLC_AI_Integration",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "ejajmahmud/industrial-plc-telemetry-agent-zig-industrial-plc-agent-v2026-b70",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ejajmahmud/industrial-plc-telemetry-agent-zig-industrial-plc-agent-v2026-b70",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "faceniffN/tia-portal-mcp-v18",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/faceniffN/tia-portal-mcp-v18",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "gugu-2/PLC-LLM-OS",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/gugu-2/PLC-LLM-OS",
+      "queries": "PLC LLM"
+    },
+    {
+      "repository": "hamiltonskie-cpu/tiaportal-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/hamiltonskie-cpu/tiaportal-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "hendrikelektrik/gx-plc-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/hendrikelektrik/gx-plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "hexagontechinc/vPLC_AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/hexagontechinc/vPLC_AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "hugo-palafox/PLC_MCP",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/hugo-palafox/PLC_MCP",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "idomp/twincat-skills",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/idomp/twincat-skills",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "imhuangsir/PLC-AI-Tutor",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/imhuangsir/PLC-AI-Tutor",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "intgyl/tianqi-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/intgyl/tianqi-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "jclavier44/VS-TwincatMCPServer",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/jclavier44/VS-TwincatMCPServer",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "kcylp/laoyin-plc-ai",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/kcylp/laoyin-plc-ai",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "kgpgit/genius-automation-community",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/kgpgit/genius-automation-community",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "long-safe-accont-4567-uvwxyz-9876/plc-agent-cli",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/long-safe-accont-4567-uvwxyz-9876/plc-agent-cli",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "lucasavilanoriega-ux/plc-agentics",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/lucasavilanoriega-ux/plc-agentics",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "lzyricardo/codesys-mcp-inoproshop",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/lzyricardo/codesys-mcp-inoproshop",
+      "queries": "CODESYS MCP"
+    },
+    {
+      "repository": "miigwech-potato/tia-dual-gate",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/miigwech-potato/tia-dual-gate",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "mohammedabid92/plc-ai-generator",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/mohammedabid92/plc-ai-generator",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "my0366/plc-simulator-web",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/my0366/plc-simulator-web",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "nachiket0987/PLC-AgentOS",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/nachiket0987/PLC-AgentOS",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "neeilgupta/PLC_AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/neeilgupta/PLC_AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "nineman-YU/ls-plc-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/nineman-YU/ls-plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "paodanchacon/plc-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/paodanchacon/plc-mcp",
+      "queries": "PLC MCP"
+    },
+    {
+      "repository": "papakuma213/plc_agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/papakuma213/plc_agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "pathakashu/tia-portal-mcp-server",
+      "stars": 0,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/pathakashu/tia-portal-mcp-server",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "paurieravila-ship-it/tia-portal-mcp-server",
+      "stars": 0,
+      "forks": 1,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/paurieravila-ship-it/tia-portal-mcp-server",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "pcyamzguy12138/twincat-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/pcyamzguy12138/twincat-mcp",
+      "queries": "TwinCAT MCP"
+    },
+    {
+      "repository": "pjy4617/plc-skill",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/pjy4617/plc-skill",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "quintonknox380-hub/housearrest-4-AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/quintonknox380-hub/housearrest-4-AI",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "rduffy190/CtrlxPlcSkill",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/rduffy190/CtrlxPlcSkill",
+      "queries": "PLC skill"
+    },
+    {
+      "repository": "risan/omron-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "NON_PLC_HEALTH_DEVICE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/risan/omron-mcp",
+      "queries": "Omron MCP"
+    },
+    {
+      "repository": "rjsxo943-gif/gxworks2-plc-practice",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/rjsxo943-gif/gxworks2-plc-practice",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "sahilxai/PLCForge-AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/sahilxai/PLCForge-AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "sebastianc01/plc-airpt",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/sebastianc01/plc-airpt",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "shw98-jp/gxworks2-io-list-lab",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/shw98-jp/gxworks2-io-list-lab",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "sim910502-hue/plc-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/sim910502-hue/plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "sismo93/OpenPLC_AI_Agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/sismo93/OpenPLC_AI_Agent",
+      "queries": "PLC AI agent"
+    },
+    {
+      "repository": "steikould/plc-agent-foundaton",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/steikould/plc-agent-foundaton",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "straes-venture/PLC-Agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/straes-venture/PLC-Agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "taotao1988/plc-ai-proxy",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/taotao1988/plc-ai-proxy",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "tomaszurbanski/plc-ai-assistant",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/tomaszurbanski/plc-ai-assistant",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "trics107-lab/my-plc-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/trics107-lab/my-plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "ucupryd/PLC-AI",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/ucupryd/PLC-AI",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "ufukefekaya-tr/delta-plc-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "OWN_BASELINE",
+      "inspection": "README/tree/releases",
+      "source_sha": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "wuwonder1005/tia-portal-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/wuwonder1005/tia-portal-mcp",
+      "queries": "TIA Portal MCP"
+    },
+    {
+      "repository": "xiaodouya9693/gxHomework",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/xiaodouya9693/gxHomework",
+      "queries": "gxworks"
+    },
+    {
+      "repository": "xu-zi-ang/tianditu-mcp",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/xu-zi-ang/tianditu-mcp",
+      "queries": "TIA MCP"
+    },
+    {
+      "repository": "yan703741-creator/plc-ai-assistant",
+      "stars": 0,
+      "forks": 0,
+      "category": "ADJACENT_LIBRARY_RUNTIME_OR_OTHER_METADATA_MATCH",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/yan703741-creator/plc-ai-assistant",
+      "queries": "PLC AI"
+    },
+    {
+      "repository": "zrwsmd/plc-agent",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/zrwsmd/plc-agent",
+      "queries": "PLC agent"
+    },
+    {
+      "repository": "zrwsmd/test-plc-agent-commit",
+      "stars": 0,
+      "forks": 0,
+      "category": "METADATA_RELEVANT_CANDIDATE",
+      "inspection": "repository search metadata only",
+      "source_sha": "",
+      "url": "https://github.com/zrwsmd/test-plc-agent-commit",
+      "queries": "PLC agent"
+    }
+  ],
+  "detailed_sources": [
+    {
+      "repo": "pnoker/iot-dc3",
+      "sha": "929761d13279c5db2a8fd2d2ceaf2e497e1eb54c",
+      "stars": 1268,
+      "forks": 236,
+      "description": "IoT DC3 — Connect the Physical World to AI. An open-source Industrial IoT Runtime for Physical AI: 36 protocol drivers, edge-to-cloud data delivery, and an MCP tool gateway so AI agents act on devices in a safe, controllable, traceable loop.",
+      "url": "https://github.com/pnoker/iot-dc3",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "cloud-native",
+        "data-collection",
+        "device-management",
+        "edge-computing",
+        "iiot",
+        "industrial-iot",
+        "iot",
+        "java",
+        "mcp",
+        "modbus",
+        "model-context-protocol",
+        "mqtt",
+        "opc-ua",
+        "physical-ai",
+        "plc",
+        "scada",
+        "spring-ai",
+        "spring-cloud"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        ".github/brand/png/banner.en.png",
+        ".github/brand/png/banner.es.png",
+        ".github/brand/png/banner.ja.png",
+        ".github/brand/png/banner.ko.png",
+        ".github/brand/png/banner.ru.png",
+        ".github/brand/png/banner.vi.png",
+        ".github/brand/png/banner.zh.png",
+        ".github/brand/png/social-preview.png",
+        ".github/brand/svg/banner.en.svg",
+        ".github/brand/svg/banner.es.svg",
+        ".github/brand/svg/banner.ja.svg",
+        ".github/brand/svg/banner.ko.svg",
+        ".github/brand/svg/banner.ru.svg",
+        ".github/brand/svg/banner.template.svg",
+        ".github/brand/svg/banner.vi.svg",
+        ".github/brand/svg/banner.zh.svg",
+        ".github/brand/svg/social-preview.svg",
+        "dc3-web/artifacts/page-screenshots/001-home-dashboard.png",
+        "dc3-web/artifacts/page-screenshots/002-driver-list.png",
+        "dc3-web/artifacts/page-screenshots/003-driver-detail-info.png",
+        "dc3-web/artifacts/page-screenshots/004-driver-detail-devices.png",
+        "dc3-web/artifacts/page-screenshots/005-profile-list.png",
+        "dc3-web/artifacts/page-screenshots/006-profile-detail-info.png",
+        "dc3-web/artifacts/page-screenshots/007-profile-detail-points.png",
+        "dc3-web/artifacts/page-screenshots/008-profile-detail-devices.png",
+        "dc3-web/artifacts/page-screenshots/009-profile-edit-step-1-profile-config.png",
+        "dc3-web/artifacts/page-screenshots/010-profile-edit-step-2-point-config.png",
+        "dc3-web/artifacts/page-screenshots/011-profile-edit-step-3-complete.png",
+        "dc3-web/artifacts/page-screenshots/012-device-list.png",
+        "dc3-web/artifacts/page-screenshots/013-device-detail-info.png",
+        "dc3-web/artifacts/page-screenshots/014-device-detail-profiles.png",
+        "dc3-web/artifacts/page-screenshots/015-device-detail-points.png",
+        "dc3-web/artifacts/page-screenshots/016-device-detail-point-values.png",
+        "dc3-web/artifacts/page-screenshots/017-device-edit-step-1-device-config.png",
+        "dc3-web/artifacts/page-screenshots/018-device-edit-step-2-driver-config.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v2026.10.10",
+          "url": "https://github.com/pnoker/iot-dc3/releases/tag/v2026.10.10",
+          "assets": 0
+        },
+        {
+          "tag": "v2026.10.9",
+          "url": "https://github.com/pnoker/iot-dc3/releases/tag/v2026.10.9",
+          "assets": 0
+        },
+        {
+          "tag": "v2026.9.22",
+          "url": "https://github.com/pnoker/iot-dc3/releases/tag/v2026.9.22",
+          "assets": 0
+        }
+      ]
+    },
+    {
+      "repo": "bulaofen0036-coder/TIA_Portal_Openness_MCP",
+      "sha": "2627ee0731a109049be7fea41d1cbc76e20e3471",
+      "stars": 378,
+      "forks": 99,
+      "description": "Drive Siemens TIA Portal V20/V21 (STEP 7, WinCC Unified) from any MCP client — create projects, generate PLC & HMI, compile & diagnose. Prebuilt runtime, no Openness coding required.",
+      "url": "https://github.com/bulaofen0036-coder/TIA_Portal_Openness_MCP",
+      "topics": [
+        "ai-agent",
+        "claude-code",
+        "cursor",
+        "industrial-automation",
+        "ladder-logic",
+        "llm",
+        "mcp",
+        "model-context-protocol",
+        "openness",
+        "plc",
+        "s7-1200",
+        "s7-1500",
+        "scl",
+        "siemens",
+        "tia-portal",
+        "wincc"
+      ],
+      "default_branch": "master",
+      "readme_path": "README.md",
+      "media_paths": [
+        "docs/assets/architecture.svg"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v2.7.8",
+          "url": "https://github.com/bulaofen0036-coder/TIA_Portal_Openness_MCP/releases/tag/v2.7.8",
+          "assets": 1
+        },
+        {
+          "tag": "v2.7.7",
+          "url": "https://github.com/bulaofen0036-coder/TIA_Portal_Openness_MCP/releases/tag/v2.7.7",
+          "assets": 1
+        },
+        {
+          "tag": "v2.7.6",
+          "url": "https://github.com/bulaofen0036-coder/TIA_Portal_Openness_MCP/releases/tag/v2.7.6",
+          "assets": 1
+        }
+      ]
+    },
+    {
+      "repo": "johannesPettersson80/trust-platform",
+      "sha": "60ec892e2e92f125f2896578878a663e8e07c5a4",
+      "stars": 229,
+      "forks": 26,
+      "description": "truST Platform — IEC 61131‑3 Structured Text tooling suite",
+      "url": "https://github.com/johannesPettersson80/trust-platform",
+      "topics": [
+        "codesys",
+        "dap",
+        "debugger",
+        "ethercat",
+        "iec-61131-3",
+        "industrial-automation",
+        "language-server",
+        "lsp",
+        "plc",
+        "plc-programming",
+        "plcopen",
+        "rust",
+        "structured-text",
+        "twincat",
+        "vscode-extension"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "crates/trust-runtime/src/web/ui/assets/favicon.svg",
+        "crates/trust-runtime/src/web/ui/assets/logo.svg",
+        "docs/demo/assets/favicon.svg",
+        "docs/diagrams/generated/compiled-binding-sources.svg",
+        "docs/diagrams/generated/control-finite-search.svg",
+        "docs/diagrams/generated/control-lesson01-sequence.svg",
+        "docs/diagrams/generated/control-parameter-transactions.svg",
+        "docs/diagrams/generated/control-pid-library.svg",
+        "docs/diagrams/generated/control-studio.svg",
+        "docs/diagrams/generated/control-symbolic-acquisition.svg",
+        "docs/diagrams/generated/debug-breakpoint-after-launch-actual-observed.svg",
+        "docs/diagrams/generated/debug-breakpoint-after-launch-intended.svg",
+        "docs/diagrams/generated/debug-state-machine.svg",
+        "docs/diagrams/generated/examples-project-landing.svg",
+        "docs/diagrams/generated/full-software-map-generated.svg",
+        "docs/diagrams/generated/hir-semantics.svg",
+        "docs/diagrams/generated/hmi-agent-authoring.svg",
+        "docs/diagrams/generated/hmi-editor-live.svg",
+        "docs/diagrams/generated/hmi-runtime-display.svg",
+        "docs/diagrams/generated/hmi-symbol-editor.svg",
+        "docs/diagrams/generated/lsp-request-flow.svg",
+        "docs/diagrams/generated/openot-database-persistence.svg",
+        "docs/diagrams/generated/plant-hmi-runtime-integration.svg",
+        "docs/diagrams/generated/plant-library-authoring.svg",
+        "docs/diagrams/generated/plcopen-interchange-contracts.svg",
+        "docs/diagrams/generated/plcopen-motion-library.svg",
+        "docs/diagrams/generated/release-evidence-flow.svg",
+        "docs/diagrams/generated/runtime-ads-client.svg",
+        "docs/diagrams/generated/runtime-ads-server.svg",
+        "docs/diagrams/generated/runtime-cloud-planes.svg",
+        "docs/diagrams/generated/runtime-native-execution.svg",
+        "docs/diagrams/generated/simulation-plant-system.svg",
+        "docs/diagrams/generated/st-test-source-selection.svg",
+        "docs/diagrams/generated/step-over-sequence.svg",
+        "docs/diagrams/generated/syntax-pipeline.svg"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v0.27.0",
+          "url": "https://github.com/johannesPettersson80/trust-platform/releases/tag/v0.27.0",
+          "assets": 24
+        },
+        {
+          "tag": "v0.26.0",
+          "url": "https://github.com/johannesPettersson80/trust-platform/releases/tag/v0.26.0",
+          "assets": 24
+        },
+        {
+          "tag": "v0.25.1",
+          "url": "https://github.com/johannesPettersson80/trust-platform/releases/tag/v0.25.1",
+          "assets": 24
+        }
+      ]
+    },
+    {
+      "repo": "heilingbrunner/tiaportal-mcp",
+      "sha": "98669c5d6b0ec124fedbdd3df131bdf1c3fc8742",
+      "stars": 127,
+      "forks": 51,
+      "description": "A MCP server for Siemens TIA Portal",
+      "url": "https://github.com/heilingbrunner/tiaportal-mcp",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "docs/claude-tools.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "0.2.0",
+          "url": "https://github.com/heilingbrunner/tiaportal-mcp/releases/tag/0.2.0",
+          "assets": 0
+        }
+      ]
+    },
+    {
+      "repo": "johannesPettersson80/codesys-mcp-toolkit",
+      "sha": "1195a6724017b831b4f2e24d15541dbdc57429b7",
+      "stars": 127,
+      "forks": 38,
+      "description": "Model Context Protocol server for CODESYS automation platform",
+      "url": "https://github.com/johannesPettersson80/codesys-mcp-toolkit",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "Czarnak/tia-portal-mcp",
+      "sha": "10c5de2eb44c0362792cd141370b3f42f92f6ecd",
+      "stars": 108,
+      "forks": 28,
+      "description": "Specialized bridge designed to connect LLMs and AI agents directly to Siemens SIMATIC TIA Portal V21.",
+      "url": "https://github.com/Czarnak/tia-portal-mcp",
+      "topics": [
+        "agent",
+        "agentic-ai",
+        "claude",
+        "claude-code",
+        "codex",
+        "control-systems",
+        "csharp",
+        "engineering",
+        "gemini",
+        "mcp",
+        "mcp-server",
+        "plc",
+        "plc-programming",
+        "siemens",
+        "tia-openness",
+        "tia-portal",
+        "tia-portal-openness",
+        "tia-portal-v21"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "docs/superpowers/acceptance/reports/inputs/2026-10-29-hmi-ui-P19-compile.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v4.2.0",
+          "url": "https://github.com/Czarnak/tia-portal-mcp/releases/tag/v4.2.0",
+          "assets": 2
+        },
+        {
+          "tag": "v4.1.2",
+          "url": "https://github.com/Czarnak/tia-portal-mcp/releases/tag/v4.1.2",
+          "assets": 2
+        },
+        {
+          "tag": "v4.1.1",
+          "url": "https://github.com/Czarnak/tia-portal-mcp/releases/tag/v4.1.1",
+          "assets": 2
+        }
+      ]
+    },
+    {
+      "repo": "luke-harriman/Codesys-MCP",
+      "sha": "9a965c7e16cb49996de8d45596d6e15a27a39450",
+      "stars": 93,
+      "forks": 21,
+      "description": "An MCP server for Codesys that enables AI systems to stand up a live UI where they can edit/push code and view variables live on device. ",
+      "url": "https://github.com/luke-harriman/Codesys-MCP",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "heilingbrunner/vscode-tiaportal-mcp",
+      "sha": "408f90db00ce0ef3c052987e45a7b65817ff9ee6",
+      "stars": 64,
+      "forks": 13,
+      "description": "A Visual Studio Code extension to connect to Siemens TIA Portal and interact with TIA Portal projects directly from VS Code with GitHub Copilot.",
+      "url": "https://github.com/heilingbrunner/vscode-tiaportal-mcp",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "assets/vscode-tiaportal-mcp-logo.png"
+      ],
+      "recent_releases": []
+    },
+    {
+      "repo": "a4webdev/tiacommander-mcp",
+      "sha": "3016289f601bf4fae0876eb0747f8fc677444317",
+      "stars": 53,
+      "forks": 9,
+      "description": "Connects any MCP-compatible AI assistant to Siemens TIA Portal via the Openness API",
+      "url": "https://github.com/a4webdev/tiacommander-mcp",
+      "topics": [
+        "ai-agent",
+        "claude-code",
+        "claude-desktop",
+        "dotnet",
+        "factory-automation",
+        "industrial-automation",
+        "mcp",
+        "mcp-server",
+        "model-context-protocol",
+        "plc",
+        "plc-programming",
+        "s7-1200",
+        "s7-1500",
+        "scl",
+        "siemens",
+        "siemens-mcp-server",
+        "siemens-plc",
+        "simatic",
+        "tia-portal",
+        "tia-portal-openness"
+      ],
+      "default_branch": "master",
+      "readme_path": "README.md",
+      "media_paths": [
+        "registries/icon.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v3.42.0",
+          "url": "https://github.com/a4webdev/tiacommander-mcp/releases/tag/v3.42.0",
+          "assets": 2
+        },
+        {
+          "tag": "v3.15.2",
+          "url": "https://github.com/a4webdev/tiacommander-mcp/releases/tag/v3.15.2",
+          "assets": 2
+        },
+        {
+          "tag": "v2.30.3",
+          "url": "https://github.com/a4webdev/tiacommander-mcp/releases/tag/v2.30.3",
+          "assets": 2
+        }
+      ]
+    },
+    {
+      "repo": "JadeHuang/RealPLC-Agent",
+      "sha": "106a9056313c29e8306b004d343ee2b844b28032",
+      "stars": 41,
+      "forks": 6,
+      "description": "Windows 本地工业软件连接组件，让 RealPLC AI 在 CODESYS 中完成生成、验证、诊断与修复闭环。",
+      "url": "https://github.com/JadeHuang/RealPLC-Agent",
+      "topics": [
+        "ai-agent",
+        "codesys",
+        "iec-61131-3",
+        "industrial-automation",
+        "plc",
+        "realplc",
+        "structured-text",
+        "windows"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "assets/realplc-icon.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v1.1.4",
+          "url": "https://github.com/JadeHuang/RealPLC-Agent/releases/tag/v1.1.4",
+          "assets": 3
+        },
+        {
+          "tag": "v1.1.3",
+          "url": "https://github.com/JadeHuang/RealPLC-Agent/releases/tag/v1.1.3",
+          "assets": 3
+        },
+        {
+          "tag": "v1.1.2",
+          "url": "https://github.com/JadeHuang/RealPLC-Agent/releases/tag/v1.1.2",
+          "assets": 2
+        }
+      ]
+    },
+    {
+      "repo": "eponce00/twincat-mcp",
+      "sha": "379a10800b5e5bfdf05ae443e75de4ff819ee496",
+      "stars": 35,
+      "forks": 8,
+      "description": "MCP server for TwinCAT automation: build, deploy, run TcUnit, and inspect PLC data through ADS from AI clients.",
+      "url": "https://github.com/eponce00/twincat-mcp",
+      "topics": [
+        "ads",
+        "beckhoff",
+        "csharp",
+        "industrial-automation",
+        "mcp",
+        "mcp-server",
+        "plc",
+        "python",
+        "tcunit",
+        "twincat"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "img/banner.png",
+        "img/icon.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v3.0.0",
+          "url": "https://github.com/eponce00/twincat-mcp/releases/tag/v3.0.0",
+          "assets": 0
+        },
+        {
+          "tag": "v2.3.0",
+          "url": "https://github.com/eponce00/twincat-mcp/releases/tag/v2.3.0",
+          "assets": 0
+        },
+        {
+          "tag": "v2.2.0",
+          "url": "https://github.com/eponce00/twincat-mcp/releases/tag/v2.2.0",
+          "assets": 0
+        }
+      ]
+    },
+    {
+      "repo": "MIGO-OvO/plc-skill",
+      "sha": "82e541946e8f92f688b94d476b1b5fc09f531947",
+      "stars": 28,
+      "forks": 7,
+      "description": "A PLC-focused skill repository that streamlines industrial control workflows, troubleshooting, and automation-related tasks.",
+      "url": "https://github.com/MIGO-OvO/plc-skill",
+      "topics": [
+        "plc",
+        "skills"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "rickgaiser/TiaMcp",
+      "sha": "8e9de1ccb7f29347f16b4146f91cdc3f88bfad9f",
+      "stars": 26,
+      "forks": 7,
+      "description": "MCP server for Siemens TIA Portal",
+      "url": "https://github.com/rickgaiser/TiaMcp",
+      "topics": [],
+      "default_branch": "master",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "DaMccRee/tiaportal-mcp",
+      "sha": "22ac572ae82c37c532506a1ac5f8ef8c2abb522c",
+      "stars": 21,
+      "forks": 5,
+      "description": "一款可以通过AI模型操作TIA PORTAL的MCP。<VSCode compatible>在VSCODE插件商店查找。支持到TIA PORTAL V20",
+      "url": "https://github.com/DaMccRee/tiaportal-mcp",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "vscode-extension/resources/icon.png"
+      ],
+      "recent_releases": []
+    },
+    {
+      "repo": "Arienax/gxworks-agent",
+      "sha": "c3a0f0b1acab12964ccb6004841c8de4b26ad1d2",
+      "stars": 19,
+      "forks": 4,
+      "description": "三菱 PLC 编程与工程助手。  MCP server and AI workbench for Mitsubishi PLC programming with GX Works2. Generate Ladder and Structured Text, edit native FBD, and review versioned projects with CPU-aware RAG and diagnostics.",
+      "url": "https://github.com/Arienax/gxworks-agent",
+      "topics": [
+        "ai-agent",
+        "automation",
+        "coding-assistant",
+        "control-systems",
+        "gxworks2",
+        "gxworks3",
+        "iec-61131-3",
+        "industrial-automation",
+        "industry-4-0",
+        "ladder-logic",
+        "llm",
+        "mcp",
+        "mcp-server",
+        "melsec",
+        "mitsubishi-electric",
+        "mitsubishi-plc",
+        "model-context-protocol",
+        "plc",
+        "plc-programming",
+        "structured-text"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "resources/assets/demo.gif",
+        "resources/assets/fbd-control-logic-demo-en.gif",
+        "resources/assets/fbd-control-logic-demo-ja.gif",
+        "resources/assets/fbd-control-logic-demo.gif",
+        "resources/assets/ladder-rag-core-demo-en.gif",
+        "resources/assets/ladder-rag-core-demo-ja.gif",
+        "resources/assets/ladder-rag-core-demo.gif",
+        "resources/assets/web-gui-view-deliver-en.gif",
+        "resources/assets/web-gui-view-deliver-ja.gif",
+        "resources/assets/web-gui-view-deliver.gif"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v0.3.3-20261021",
+          "url": "https://github.com/Arienax/gxworks-agent/releases/tag/v0.3.3-20261021",
+          "assets": 2
+        },
+        {
+          "tag": "v0.3.2-20261019",
+          "url": "https://github.com/Arienax/gxworks-agent/releases/tag/v0.3.2-20261019",
+          "assets": 2
+        },
+        {
+          "tag": "v0.3.1-20261019",
+          "url": "https://github.com/Arienax/gxworks-agent/releases/tag/v0.3.1-20261019",
+          "assets": 2
+        }
+      ]
+    },
+    {
+      "repo": "eponce00/tiaopen-mcp",
+      "sha": "e2b26de46306669ba87e6b7c246def981b76ca72",
+      "stars": 15,
+      "forks": 5,
+      "description": "MCP server — TIA Portal Openness API Copilot tools (create, write, compile PLC blocks)",
+      "url": "https://github.com/eponce00/tiaopen-mcp",
+      "topics": [],
+      "default_branch": "master",
+      "readme_path": "README.md",
+      "media_paths": [
+        "img/banner.svg",
+        "img/tiaopen-banner.png"
+      ],
+      "recent_releases": []
+    },
+    {
+      "repo": "mrwan84/ThinkPLC-MCP",
+      "sha": "fb698663281cac5453b82919e58c2190fe79c0cb",
+      "stars": 13,
+      "forks": 3,
+      "description": null,
+      "url": "https://github.com/mrwan84/ThinkPLC-MCP",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "BlackUppsss/Cx-Proggrammer-MCP",
+      "sha": "145049acc6c6443d8c04b72b98200b8950f04187",
+      "stars": 12,
+      "forks": 2,
+      "description": "\"Model Context Protocol (MCP) server & automation toolkit for programmatic, AST-safe editing and validation of Omron CX-Programmer ladder logic (CXP/CXT).\"",
+      "url": "https://github.com/BlackUppsss/Cx-Proggrammer-MCP",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "lanlan0811/tianshu-mcp",
+      "sha": "2cc65e6197d2d873ee996a642e778f6b6a90355a",
+      "stars": 12,
+      "forks": 3,
+      "description": "天枢harness × AI-Agent 编排 MCP server：调度外部 Agent 干活，用运行时证据做客观验收，不通过自动返修闭环。",
+      "url": "https://github.com/lanlan0811/tianshu-mcp",
+      "topics": [
+        "agent-orchestration",
+        "ai-agent",
+        "codex-desktop",
+        "gui",
+        "kimi-code",
+        "mcp",
+        "mcp-server",
+        "mcp-tools",
+        "npm",
+        "opendesign",
+        "qoder",
+        "rust",
+        "tauri",
+        "tianshu-harness",
+        "tianshu-mcp",
+        "traework-cn-solo",
+        "typescript",
+        "vue3-typescript",
+        "zcode"
+      ],
+      "default_branch": "master",
+      "readme_path": "README.md",
+      "media_paths": [
+        "assets/fig-architecture-en.png",
+        "assets/fig-architecture-zh.png",
+        "assets/fig-module-map-en.png",
+        "assets/fig-module-map-zh.png",
+        "assets/fig-project-map.svg",
+        "assets/fig-state-machine-en.png",
+        "assets/fig-state-machine-zh.png",
+        "assets/fig-tool-surface-en.png",
+        "assets/fig-tool-surface-zh.png",
+        "assets/fig-verify-loop-en.png",
+        "assets/fig-verify-loop-zh.png",
+        "assets/mcp-running.png",
+        "assets/tianshu-mcp-banner.svg",
+        "assets/tianshu-mcp-gui-agent-log.png",
+        "assets/tianshu-mcp-gui-event-stream.png",
+        "assets/tianshu-mcp-gui-overview.png",
+        "assets/tianshu-mcp-icon.svg",
+        "docs/qoder-evidence/custom-model-settings.png",
+        "docs/qoder-evidence/default-model-settings.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v0.9.7",
+          "url": "https://github.com/lanlan0811/tianshu-mcp/releases/tag/v0.9.7",
+          "assets": 1
+        },
+        {
+          "tag": "v0.9.6",
+          "url": "https://github.com/lanlan0811/tianshu-mcp/releases/tag/v0.9.6",
+          "assets": 1
+        },
+        {
+          "tag": "v0.9.5",
+          "url": "https://github.com/lanlan0811/tianshu-mcp/releases/tag/v0.9.5",
+          "assets": 1
+        }
+      ]
+    },
+    {
+      "repo": "hadefuwa/tia-portal-mcp",
+      "sha": "1fc2f1ba0477f8203baf78c1b2a8d1742d94ec3d",
+      "stars": 11,
+      "forks": 10,
+      "description": null,
+      "url": "https://github.com/hadefuwa/tia-portal-mcp",
+      "topics": [],
+      "default_branch": "master",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "renanlido/tia-harness",
+      "sha": "7751b156a86be906913176e8dbc986db8e873b95",
+      "stars": 11,
+      "forks": 0,
+      "description": "TIA Portal V21 automation harness — Claude Code plugin (skills + subagents + the tia MCP). Open client layer.",
+      "url": "https://github.com/renanlido/tia-harness",
+      "topics": [
+        "automation",
+        "claude-code",
+        "iec-61131-3",
+        "industrial-automation",
+        "mcp",
+        "openness",
+        "plc",
+        "s7-1200",
+        "s7-1500",
+        "siemens",
+        "tia-portal"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "gangsterke/Tia-Portal-MCP-server",
+      "sha": "c75168664d5dde7c2d6e3fc0d572222a9c3aa4f5",
+      "stars": 10,
+      "forks": 1,
+      "description": "Tia-Portal MCP server built to be able to export OPC UA nodeset files from a PLC",
+      "url": "https://github.com/gangsterke/Tia-Portal-MCP-server",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "georgeturneruk/tckit",
+      "sha": "e71b434dfa87d933bc3941eb7c7f0bfcc6a40413",
+      "stars": 10,
+      "forks": 4,
+      "description": "TwinCAT MCP",
+      "url": "https://github.com/georgeturneruk/tckit",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "docs/content/assets/logo-full.svg",
+        "docs/content/assets/logo-small.svg"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v0.6.0",
+          "url": "https://github.com/georgeturneruk/tckit/releases/tag/v0.6.0",
+          "assets": 8
+        },
+        {
+          "tag": "v0.5.1",
+          "url": "https://github.com/georgeturneruk/tckit/releases/tag/v0.5.1",
+          "assets": 4
+        },
+        {
+          "tag": "v0.5.0",
+          "url": "https://github.com/georgeturneruk/tckit/releases/tag/v0.5.0",
+          "assets": 4
+        }
+      ]
+    },
+    {
+      "repo": "rjboer/OMRON-MCP",
+      "sha": "840cd3380f9c05229ce4b0f4c87c4ab4dba2704d",
+      "stars": 9,
+      "forks": 1,
+      "description": "OMRON PLC AI integration, Program plc's with AI, ",
+      "url": "https://github.com/rjboer/OMRON-MCP",
+      "topics": [
+        "ai-agent",
+        "ai-tools",
+        "codex-skill",
+        "industrial-ai",
+        "industrial-automation",
+        "mcp",
+        "mcp-server",
+        "mcp-tools",
+        "omron",
+        "omron-plc"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": [
+        {
+          "tag": "continuous",
+          "url": "https://github.com/rjboer/OMRON-MCP/releases/tag/continuous",
+          "assets": 3
+        }
+      ]
+    },
+    {
+      "repo": "agentthink/tia-portal-mcp",
+      "sha": "feb291beed337fd2388eafa5d579b3ede47145aa",
+      "stars": 8,
+      "forks": 5,
+      "description": "把西门子 TIA Portal V21 的 Openness API 封装成 MCP 工具，让 Claude Code / Codex 等 AI 直接读写 TIA 工程",
+      "url": "https://github.com/agentthink/tia-portal-mcp",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "renanlido/tia-openness",
+      "sha": "a99e9281005c8d99a1186a5793838fb89fbccc1e",
+      "stars": 8,
+      "forks": 0,
+      "description": "TIA Openness API for Siemens TIA Portal V21 - product hub: downloads, docs and issue tracker. Drive TIA Portal from a local HTTP/JSON API (and from AI via the tia MCP).",
+      "url": "https://github.com/renanlido/tia-openness",
+      "topics": [
+        "api",
+        "automation",
+        "http-api",
+        "iec-61131-3",
+        "industrial-automation",
+        "mcp",
+        "openness",
+        "plc",
+        "s7-1200",
+        "s7-1500",
+        "siemens",
+        "tia-portal"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": [
+        {
+          "tag": "mcp-v1.11.2",
+          "url": "https://github.com/renanlido/tia-openness/releases/tag/mcp-v1.11.2",
+          "assets": 1
+        },
+        {
+          "tag": "mcp-v1.11.1",
+          "url": "https://github.com/renanlido/tia-openness/releases/tag/mcp-v1.11.1",
+          "assets": 1
+        },
+        {
+          "tag": "app-v1.7.1-beta.4",
+          "url": "https://github.com/renanlido/tia-openness/releases/tag/app-v1.7.1-beta.4",
+          "assets": 3
+        }
+      ]
+    },
+    {
+      "repo": "SHU996/eigen-plc-mcp",
+      "sha": "4acb2096039885b00a1224e8c3fb80f3bfd3f366",
+      "stars": 6,
+      "forks": 0,
+      "description": "开源工业PLC代码生成MCP Server —— 开源版西门子Eigen Engineering Agent。基于MCP协议，为工业自动化场景提供智能PLC代码生成、调试与验证能力。",
+      "url": "https://github.com/SHU996/eigen-plc-mcp",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "Wayan123/multi-plc-agent",
+      "sha": "eb472a50ccf74adcf1dffb161abe8f9c287d2b91",
+      "stars": 6,
+      "forks": 3,
+      "description": "One MCP server for AI-written ladder logic in 9 PLC tools: Mitsubishi GX Works2, Siemens TIA Portal, Omron CX-Programmer and Sysmac Studio, CODESYS, Schneider Machine Expert - Basic, Delta WPLSoft, Outseal Studio and Haiwell Happy",
+      "url": "https://github.com/Wayan123/multi-plc-agent",
+      "topics": [
+        "ai-agent",
+        "codesys",
+        "cx-programmer",
+        "delta",
+        "gx-works2",
+        "haiwell",
+        "iec-61131-3",
+        "industrial-automation",
+        "ladder-logic",
+        "mcp",
+        "mcp-server",
+        "mitsubishi",
+        "model-context-protocol",
+        "omron",
+        "outseal",
+        "plc",
+        "schneider-electric",
+        "siemens",
+        "sysmac-studio",
+        "tia-portal"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "docs/demo/demo-codesys.gif",
+        "docs/demo/demo-cxprogrammer.gif",
+        "docs/demo/demo-gxworks2.gif",
+        "docs/demo/demo-haiwell.gif",
+        "docs/demo/demo-outseal.gif",
+        "docs/demo/demo-tiaportal.gif"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v0.5.0",
+          "url": "https://github.com/Wayan123/multi-plc-agent/releases/tag/v0.5.0",
+          "assets": 0
+        },
+        {
+          "tag": "v0.4.0",
+          "url": "https://github.com/Wayan123/multi-plc-agent/releases/tag/v0.4.0",
+          "assets": 0
+        },
+        {
+          "tag": "v0.3.0",
+          "url": "https://github.com/Wayan123/multi-plc-agent/releases/tag/v0.3.0",
+          "assets": 0
+        }
+      ]
+    },
+    {
+      "repo": "caoyixian06/TiaMcpServer",
+      "sha": "44cc125bcd0d3f9611bfe4a1a2e6668932b137e5",
+      "stars": 6,
+      "forks": 1,
+      "description": "西门子博途 V17 (TIA Portal V17) MCP 服务器 / MCP Server — 作者: 曹义贤",
+      "url": "https://github.com/caoyixian06/TiaMcpServer",
+      "topics": [
+        "hmi",
+        "ladder-logic",
+        "mcp",
+        "mcp-server",
+        "model-context-protocol",
+        "openness",
+        "plc",
+        "siemens",
+        "tia-portal",
+        "tia-portal-v17"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": [
+        {
+          "tag": "v20260903",
+          "url": "https://github.com/caoyixian06/TiaMcpServer/releases/tag/v20260903",
+          "assets": 1
+        }
+      ]
+    },
+    {
+      "repo": "coder007rahul/gxworks3-mcp-bridge",
+      "sha": "d10998d40dddfff86059067e42128dd65487efd1",
+      "stars": 6,
+      "forks": 2,
+      "description": "MCP server that lets AI assistants read, write, and compile Structured Text (ST) in Mitsubishi GX Works3 via Windows UI Automation — with a preview→confirm write-safety layer.",
+      "url": "https://github.com/coder007rahul/gxworks3-mcp-bridge",
+      "topics": [
+        "claude-code",
+        "csharp",
+        "dotnet",
+        "flaui",
+        "gxworks3",
+        "industrial-automation",
+        "mcp",
+        "mitsubishi",
+        "model-context-protocol",
+        "plc",
+        "structured-text",
+        "ui-automation"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "paulinholt/TIA-MCP",
+      "sha": "f7d1c93cea4f474b62bec2ee678acc63f114fc51",
+      "stars": 6,
+      "forks": 2,
+      "description": "MCP server para Siemens TIA Portal via Openness API - automacao de projetos PLC (HW, blocos, compilacao, tags) com LLMs. Fork de heilingbrunner/tiaportal-mcp",
+      "url": "https://github.com/paulinholt/TIA-MCP",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "BoykaHe/plc-agent-notes",
+      "sha": "57db3e062f38a02ba042eef3b7849b79f6ac4747",
+      "stars": 5,
+      "forks": 0,
+      "description": "Bilingual notes on AI agents for PLC engineering, TIA Portal workflows, and programme analysis.",
+      "url": "https://github.com/BoykaHe/plc-agent-notes",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "minecraty/TIA-portal-MCP-for-AI-agent",
+      "sha": "ed719e02ac6bbc2248c03529615c00c2bae7f2fd",
+      "stars": 5,
+      "forks": 0,
+      "description": "使用trae等agent可实现全自动开发",
+      "url": "https://github.com/minecraty/TIA-portal-MCP-for-AI-agent",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "spyshow/TiaMCP-v2",
+      "sha": "e3f570cfc2d0ae0b8e7ab6e82f796e383f4a81c4",
+      "stars": 5,
+      "forks": 1,
+      "description": null,
+      "url": "https://github.com/spyshow/TiaMCP-v2",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "assets/header.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v2.0",
+          "url": "https://github.com/spyshow/TiaMCP-v2/releases/tag/v2.0",
+          "assets": 1
+        }
+      ]
+    },
+    {
+      "repo": "tekinaDev/codesys-mcp",
+      "sha": "f050ba499847c41ef7036e9e00469eb11f1c4f81",
+      "stars": 5,
+      "forks": 1,
+      "description": "Codesys MCP Setup for VS Code",
+      "url": "https://github.com/tekinaDev/codesys-mcp",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": []
+    },
+    {
+      "repo": "Wayan123/gxworks-agent",
+      "sha": "1c3bce8b32441263b109ba61ae8d0d1b1fdb40d0",
+      "stars": 0,
+      "forks": 0,
+      "description": "三菱 PLC 编程与工程助手。  MCP server and AI workbench for Mitsubishi PLC programming with GX Works2. Generate Ladder and Structured Text, edit native FBD, and review versioned projects with CPU-aware RAG and diagnostics.",
+      "url": "https://github.com/Wayan123/gxworks-agent",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "resources/assets/demo.gif",
+        "resources/assets/fbd-control-logic-demo-en.gif",
+        "resources/assets/fbd-control-logic-demo-ja.gif",
+        "resources/assets/fbd-control-logic-demo.gif",
+        "resources/assets/ladder-rag-core-demo-en.gif",
+        "resources/assets/ladder-rag-core-demo-ja.gif",
+        "resources/assets/ladder-rag-core-demo.gif",
+        "resources/assets/web-gui-view-deliver-en.gif",
+        "resources/assets/web-gui-view-deliver-ja.gif",
+        "resources/assets/web-gui-view-deliver.gif"
+      ],
+      "recent_releases": []
+    },
+    {
+      "repo": "ufukefekaya-tr/delta-plc-agent",
+      "sha": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+      "stars": 0,
+      "forks": 0,
+      "description": "AI-powered engineering for Delta PLCs — AX, ISPSoft and WPLSoft workflows through one MCP.",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent",
+      "topics": [
+        "agentic-workflows",
+        "ai-agents",
+        "delta-plc",
+        "industrial-automation",
+        "ispsoft",
+        "ladder-logic",
+        "mcp",
+        "model-context-protocol",
+        "plc",
+        "python",
+        "structured-text",
+        "wplsoft"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [],
+      "recent_releases": [
+        {
+          "tag": "v0.4.0",
+          "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/tag/v0.4.0",
+          "assets": 7
+        },
+        {
+          "tag": "v0.3.1",
+          "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/tag/v0.3.1",
+          "assets": 4
+        }
+      ]
+    },
+    {
+      "repo": "midea-ai/SemaPLC",
+      "sha": "fea1b87a112bf947197f501168ee35771fdc6377",
+      "stars": 110,
+      "forks": 25,
+      "url": "https://github.com/midea-ai/SemaPLC",
+      "description": "SemaPLC is an open-source agentic IDE for generation, verification, and simulation of PLC Programs from natural language.",
+      "topics": [],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "docs/images/demo.gif",
+        "docs/images/sema-series-family.png",
+        "docs/images/semaplc.jpg"
+      ],
+      "recent_releases": []
+    },
+    {
+      "repo": "Czarnak/totally-integrated-claude",
+      "sha": "7b805e1d10b0fdeb794bf4e9ed8ea112f7d92703",
+      "stars": 77,
+      "forks": 16,
+      "url": "https://github.com/Czarnak/totally-integrated-claude",
+      "description": "A Claude Code plugin for Siemens TIA Portal engineering automation.",
+      "topics": [
+        "agent-skills",
+        "antigravity",
+        "antigravity-cli",
+        "claude-code",
+        "claude-code-plugin",
+        "claude-skills",
+        "codex",
+        "codex-cli",
+        "codex-plugin",
+        "gemini",
+        "gemini-cli",
+        "gemini-cli-extension",
+        "gemini-extension",
+        "mcp",
+        "mcp-server",
+        "siemens",
+        "skills",
+        "tia-openness",
+        "tia-portal"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        "img/repo_graphic.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v4.6.1",
+          "url": "https://github.com/Czarnak/totally-integrated-claude/releases/tag/v4.6.1",
+          "assets": 0
+        },
+        {
+          "tag": "v4.6.0",
+          "url": "https://github.com/Czarnak/totally-integrated-claude/releases/tag/v4.6.0",
+          "assets": 0
+        },
+        {
+          "tag": "v4.5.1",
+          "url": "https://github.com/Czarnak/totally-integrated-claude/releases/tag/v4.5.1",
+          "assets": 0
+        }
+      ]
+    },
+    {
+      "repo": "zbest1000/mcptoolkit-for-codesys",
+      "sha": "0fcadf89395fe312099a32e23bb32c1f2cb7edd8",
+      "stars": 19,
+      "forks": 4,
+      "url": "https://github.com/zbest1000/mcptoolkit-for-codesys",
+      "description": "MCP server that lets Claude (or any Model Context Protocol client) drive the CODESYS V3.5 SP22 PLC IDE via its Python ScriptEngine - projects, POUs, build, devices, libraries, and live online control.",
+      "topics": [
+        "ai-agents",
+        "anthropic",
+        "automation",
+        "claude",
+        "codesys",
+        "iec-61131",
+        "industrial-automation",
+        "ironpython",
+        "llm-tools",
+        "mcp",
+        "model-context-protocol",
+        "plc",
+        "scripting"
+      ],
+      "default_branch": "main",
+      "readme_path": "README.md",
+      "media_paths": [
+        ".github/social-preview.png"
+      ],
+      "recent_releases": [
+        {
+          "tag": "v0.2.2",
+          "url": "https://github.com/zbest1000/mcptoolkit-for-codesys/releases/tag/v0.2.2",
+          "assets": 2
+        },
+        {
+          "tag": "v0.2.1",
+          "url": "https://github.com/zbest1000/mcptoolkit-for-codesys/releases/tag/v0.2.1",
+          "assets": 2
+        }
+      ]
+    }
+  ],
+  "directory_presence": {
+    "url": "https://glama.ai/mcp/servers/ufukefekaya-tr/delta-plc-agent",
+    "observed": "Existing public listing and11-tool schema; index can lag current release. No claim of absent directory presence."
+  }
+}

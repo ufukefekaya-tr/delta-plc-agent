@@ -1,0 +1,20 @@
+{
+  "verdict": "ACCEPT_PRESENTATION",
+  "reviewer": "Independent Astra",
+  "reviewed_tree": "d3ec99b3cbdd476c1a59d25edf48956887712e99",
+  "baseline": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+  "open_P0_P1": 0,
+  "native_acceptance": "BLOCKED",
+  "observations": [
+    "Two retained actual JobResult/protocol receipts match public excerpts, source/revision/project identities",
+    "54publicsourcepins,116callindexincluding105pollsand2builds",
+    "All10GIFframesand10MP4scenes reviewed; PARTIAL_BLOCKED andnot-screen-recording visible",
+    "EN/TR, input/reproduction,LAUNCH,Kaizen andboundedresearchconsistent",
+    "Runtime/backends/skill/test/policy unchanged"
+  ],
+  "not_in_review": [
+    "Subsequent hosted CI and GitHub delivery",
+    "Separate campaign revision"
+  ],
+  "post_review_rule": "Delivery metadata only may follow; bind final tree to reviewed tree and regenerate manifest. Content/media changes reopen affected acceptance."
+}

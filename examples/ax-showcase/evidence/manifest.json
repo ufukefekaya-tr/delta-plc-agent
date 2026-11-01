@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "kind": "allowlisted neutral partial AX demo evidence",
+  "source_commit": "9b209e1e559a726bdce12450c48af56b60ed6cc8",
+  "files": {
+    "actual-call-timeline.jsonl": "sha256:89fa93c85a80ceb2035a8cca139768f433412992b94514ae50c2ba121f55d246",
+    "compiler-receipts.json": "sha256:3622f3f48352c0210a713dbef181dc5002e705fc42585869667b9a34921c61f2",
+    "contract.json": "sha256:a7efaaff4c6289584469e20ec8310ee578020e521e1c3b4cd244c90eb232224d",
+    "declaration-fixed.st": "sha256:0846f08af8c0f7f102191edcf0ee533dafdad4371744cbac8a5e9e4868f31739",
+    "declaration.st": "sha256:ee4734011242142fec313da970dc81592c8b47d12cbd0ae2f9c8b44045d29ee5",
+    "implementation-corrected.st": "sha256:3854965e5ecd7bfe0113942b780c774ffc24569628f84a550e5a767ca66498eb",
+    "implementation-fixed.st": "sha256:ac514082969db9fa3734f23b65e54e4f768d0019e351de798f1649ea3b7b8ee1",
+    "implementation-invalid.st": "sha256:7545d940b20e6183a3e9270e3883f65553eb938b7301787b626aea18ea9fb774",
+    "implementation.st": "sha256:ed7ff342903e269a75c9c2e87c9c2612f97d385d41da25598e046d1b58cdd7af",
+    "ladder-planned-not-run.json": "sha256:da9bca7af636d6f7cc0c22e72bbf2d8df08f7b18e28997235cd6f148666d280a",
+    "public-source-pins.json": "sha256:dff5f244a2fb6f5942554f84677ad112e9375898f494d75d367a4a90581a4ec2",
+    "REPRODUCE.md": "sha256:7f01deab3b1507af991a3b389ed326de5bb4b23a731de3a38273aed6cd032bb4",
+    "summary.json": "sha256:a8166b1d459fd00bb4344401187ac196729b37d1329478e687c11071e1642c66",
+    "timeline.json": "sha256:9555b7952c80ba8d5f0cd1b2171cf9939024b981f16c653e805471335e14dae2"
+  },
+  "publication_allowed": [
+    "actual-call-timeline.jsonl",
+    "compiler-receipts.json",
+    "contract.json",
+    "declaration-fixed.st",
+    "declaration.st",
+    "implementation-corrected.st",
+    "implementation-fixed.st",
+    "implementation-invalid.st",
+    "implementation.st",
+    "ladder-planned-not-run.json",
+    "public-source-pins.json",
+    "REPRODUCE.md",
+    "summary.json",
+    "timeline.json",
+    "manifest.json"
+  ],
+  "native_projects_and_raw_logs_publication_allowed": false
+}

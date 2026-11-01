@@ -1,39 +1,38 @@
 # Delta PLC Agent
 
-**AI-powered engineering for Delta PLCs — AX, ISPSoft and WPLSoft workflows through one MCP.**
-One MCP. Model-aware workflows. Traceable results.
+**From a control requirement to an AX engineering run.**
+Let your AI agent plan, create and revise a native AX project, use compiler feedback, and inspect the resulting evidence through MCP and an engineering skill.
 
 [![Software CI](https://github.com/ufukefekaya-tr/delta-plc-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/ufukefekaya-tr/delta-plc-agent/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-38bdf8)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)](docs/QUICKSTART.md)
+[![Release](https://img.shields.io/github/v/release/ufukefekaya-tr/delta-plc-agent)](https://github.com/ufukefekaya-tr/delta-plc-agent/releases)
 [English](README.md) · [Türkçe](README.tr.md)
 
-Bring AI agents into PLC engineering: select the right tools for an exact target, work in isolated project copies, and keep a verifiable record of every operation. Delta PLC Agent connects a vendor-neutral MCP core with AX engineering tools, ISPSoft transformations, DVP monitoring, and reusable agent workflows.
+[![AX engineering: plan, create, revise, build, verify](assets/showcase/ax-run-summary.gif)](docs/showcase/AX_DEMO.md)
 
-**[Run the demo](#try-it) · [Connect your agent](docs/QUICKSTART.md) · [Explore every feature](docs/FEATURES.md)**
+**[See the real AX run](docs/showcase/AX_DEMO.md) · [Start your first task](docs/QUICKSTART.md) · [Add the engineering skill](docs/public/SKILL.md)**
 
-```mermaid
-flowchart LR
-    A[Engineer + AI agent] --> B[Exact model + toolchain]
-    B --> C[Universal PLC MCP]
-    C --> D[AX engineering]
-    C --> E[ISPSoft file tools]
-    C --> F[DVP serial + watch]
-    C --> G[Your adapter]
-    D & E & F & G --> H[Workspace + evidence + recovery]
-```
+### Latest AX demonstration · 1 November 2026
 
-## Why Delta PLC Agent
+A new neutral offline project reached real DIADesigner-AX compiler feedback. After the agent corrected its sample, the compiler reported **0 errors / 0 compiler warnings**. The MCP's final acceptance remained **BLOCKED** by **21 missing-device-definition environment warnings**; artifact freezing was not reached. The [run page](docs/showcase/AX_DEMO.md) shows actual completed steps, the complete sanitized call index and reproduction inputs.
 
-- **One entry point for your agent.** Eleven MCP tools cover target selection, capabilities, workspaces, adapter operations, evidence, and workflows.
-- **Engineering with context.** Bind changes to the exact model, source hash, task, and revision. Resume from durable records after an interruption.
-- **A toolkit that travels.** Install the same source on your workstation or server; configure project roots and vendor tooling on that host.
-- **A team, not just a prompt.** Analyst, architect, programmer, verifier, tenth-man reviewer, and Kaizen curator roles give agents a shared engineering process.
-- **Room to grow.** Register vendor adapters through Python entry points and extend the catalog without changing the core workflow interface.
+This is an **offline IDE run**, not a physical PLC test. One-time host/profile setup is separate from the automatic run. AX uses a hidden vendor runtime and ScriptEngine, without human menu clicks during the recorded attempt. The agent supplies the plan; `workflow.run` executes explicit typed steps.
 
-## Try it
+## What would you like your agent to do?
 
-With Python 3.11+ and Git:
+| Your task | Model / toolchain | Start here |
+|---|---|---|
+| Create/revise an AX project and inspect native compiler results | Exact AX device/profile on a Windows DIADesigner-AX host | [Neutral AX run and evidence](docs/showcase/AX_DEMO.md) |
+| Inspect or patch supported ISP source; work with POU/library packages | Compatible AS/DVP formats through ISPSoft file tools | [File operations](docs/adapters/delta-files.md) |
+| Try IL→MPU→IL without an IDE or PLC | Supported DVP file conversion on a Python host | [No-IDE example](#try-the-no-ide-example) |
+| Read identity/status, observe or use profile-bound M/D operations | `DVP14SS211R`, DVP serial adapter, current target authority | [DVP job runbook](docs/DVP_AGENT_RUNBOOK.md) |
+| Work in WPLSoft and observe with MCP | Model-compatible WPLSoft UI workflow + serial MCP | [WPLSoft/DVP workflow](docs/DVP_AGENT_RUNBOOK.md) |
+
+Model families are not blanket qualification for every device or operation. [Exact catalog](catalog/README.md) · [Feature and qualification map](docs/FEATURES.md).
+
+## Connect MCP + skill
+
+Install in a Python 3.11+ virtual environment from a source checkout:
 
 ```bash
 git clone https://github.com/ufukefekaya-tr/delta-plc-agent.git
@@ -41,56 +40,44 @@ cd delta-plc-agent
 python -m venv .venv
 ```
 
-Activate `.venv` with its activation script for your shell, then:
-
-```bash
-python tools/install.py
-python tools/demo.py
-```
-
-The demo routes a DVP target, creates an isolated workspace, converts a tiny instruction list to MPU and back, and verifies its evidence records. **No IDE or PLC is needed.** Use `python tools/install.py --profile dvp` for the compact DVP/ISPSoft package.
-
-## Engineering paths
-
-| Path | What you can explore |
-|---|---|
-| **Universal MCP** | Exact-model routing, capability discovery, hash-bound imports, persistent workspaces, evidence and W1–W7 workflows |
-| **Delta AX** | Project creation, ST/Ladder tooling, build and job orchestration, source readback, artifact and deployment contracts |
-| **ISPSoft files** | Supported ISP container inspection, existing ST/variable patching, POU/library packages, DVP IL↔MPU and template-based generation |
-| **DVP serial** | ASCII/DirectLink CDC, identity/status reads, profile-bound M/D commands and parameters, observation and reconciliation for `DVP14SS211R` |
-| **WPLSoft agent workflow** | Computer Use recipe for project editing, compilation and requested download, paired with MCP online observation |
-| **Agent engineering** | Six roles, behavior contracts, independent review, checkpoints, goals and reusable Kaizen lessons |
-
-[Detailed feature map and qualifications](docs/FEATURES.md) · [Architecture](docs/UNIVERSAL_RUNTIME.md) · [Roadmap](docs/ROADMAP.md)
-
-## Connect your agent
-
-Start a stdio server with the Python environment where you installed Delta PLC Agent:
+Activate the environment for your shell, then `python tools/install.py`. Start the common server with your installed interpreter:
 
 ```bash
 python -m universal_plc --root ./plc-agent-data serve
 ```
 
-Point your MCP client's command at that environment's Python interpreter and use the arguments above. Give your agent [AGENTS.md](AGENTS.md) and [INDEX.md](INDEX.md) as its engineering entrypoints. [Client configuration and a first prompt](docs/QUICKSTART.md).
+Use that interpreter and those arguments in your MCP client. Add the complete [Delta PLC engineering skill](skills/delta-plc-engineering/SKILL.md) directory to your client's skill location. The MCP remains independently usable. [Client JSON, host prerequisites and first prompts](docs/QUICKSTART.md).
 
-## Optional engineering skill
+**First native AX task:**
 
-Add the [MIT Delta PLC engineering skill](skills/delta-plc-engineering/SKILL.md)
-to give a skills-compatible agent model-aware workflows, operation-contract
-checks and recovery guidance alongside this MCP. The standalone directory carries
-its own references and license. Existing MCP-only clients keep the same tools.
-[Install and verify the skill](docs/public/SKILL.md) ·
-[Phased plan and acceptance](docs/plans/plc-skill/PLAN.md) ·
-[Dynamic goals](goals/plc-skill/portfolio.json)
+> Use the Delta PLC engineering skill and the configured AX adapter. Inspect the exact model, IDE profile and capabilities. Plan a new neutral offline project with no physical I/O. Create it, apply the called ST program, save/reopen/read back, build with the vendor compiler and inspect every diagnostic. Bind results to the current revision. Stop at a failed acceptance gate and report the actual completed steps. Do not connect to a PLC.
 
-## Build with us
+AX native work requires the matching Windows vendor installation and host-local configuration. A Python/server-only installation can use the file workflows; [native preparation is explicit](docs/showcase/AX_DEMO.md#reproduce).
 
-Bring an adapter, a reproducible model qualification, an example, or a documentation improvement. Start with [CONTRIBUTING](CONTRIBUTING.md) and [the public launch workflow](workflows/public-launch.json).
+## Try the no-IDE example
 
-[Workflows](workflows/README.md) · [Goals](goals/README.md) · [Agent-readable index](llms.txt) · [Validation](docs/public/VALIDATION.md) · [Security](SECURITY.md) · [Launch kit](docs/public/LAUNCH.md)
+```bash
+python tools/demo.py
+```
 
-Created and maintained by **[ufukefekaya-tr](https://github.com/ufukefekaya-tr)**. Core and AX backend: [MIT](LICENSE). [Third-party authors and licenses](THIRD_PARTY_NOTICES.md) remain credited. Cite the project with [CITATION.cff](CITATION.cff).
+This small IL↔MPU example selects a DVP target, creates an isolated workspace and verifies file-transform evidence. It needs no vendor IDE or PLC. For a compact installation use `python tools/install.py --profile dvp`. This file demonstration is separate from the native AX run above.
 
-## ISPSoft update — 2026-10-26
+## Engineering you can inspect
 
-[AS v3010 codec, current Windows source layer and qualification limits](docs/adapters/ispsoft-lab.md). The public core retains eleven MCP tools; the separate source layer has its own project profile and acceptance evidence.
+- **Model-aware tools.** Eleven common MCP tools route targets, inspect capabilities and manage workspaces, operations, workflows and evidence.
+- **A continuing engineering record.** Source/revision hashes, durable jobs, save/reopen/readback and explicit recovery/reconciliation paths.
+- **AX tooling.** Project creation, ST/Ladder revisions, build/job orchestration, artifact and deployment contracts; exact operation qualification stays visible.
+- **A reusable method.** Analyst, architect, programmer, verifier, independent reviewer and Kaizen roles; W1–W7 workflows, checkpoints and model-aware skill guidance.
+- **Portable ownership.** Host-local project/tool paths and Python adapter entry points; no customer project or developer machine binding in the package.
+
+[Architecture and tool contracts](docs/UNIVERSAL_RUNTIME.md) · [Skills and dynamic goals](docs/plans/plc-skill/PLAN.md) · [AX lessons](backends/ax/docs/AX_LESSONS.md) · [Roadmap](docs/ROADMAP.md).
+
+## Evidence and contribution
+
+The [new showcase](docs/showcase/AX_DEMO.md) adds a dated run; it does not rewrite the [historical AX0.4 validation](docs/public/AX_0_4_VALIDATION.md) or the [11 October native-chain result](backends/ax/qualification/native-public-chain-2026-10-11.json). Software checks, native IDE results and physical target acceptance are separate.
+
+Bring a neutral example, model qualification, documentation improvement or adapter. [Contributing](CONTRIBUTING.md) · [Issues](https://github.com/ufukefekaya-tr/delta-plc-agent/issues) · [Presentation study](docs/showcase/PRESENTATION_RESEARCH.md) · [Launch kit](docs/public/LAUNCH.md).
+
+Also explore the complementary [Universal Delta HMI Agent](https://github.com/ufukefekaya-tr/universal-delta-hmi-agent), with its own MCP, skill and file-engineering evidence. [Glama directory listing](https://glama.ai/mcp/servers/ufukefekaya-tr/delta-plc-agent).
+
+Created by **[ufukefekaya-tr](https://github.com/ufukefekaya-tr)**. Core, AX backend and PLC skill: [MIT](LICENSE). [Third-party credits](THIRD_PARTY_NOTICES.md) · [Agent index](INDEX.md) · [Security](SECURITY.md).
