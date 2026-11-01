@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "DELIVERED_S0",
+  "date": "2026-11-01",
+  "repository": "https://github.com/ufukefekaya-tr/delta-plc-agent",
+  "pull_request": "https://github.com/ufukefekaya-tr/delta-plc-agent/pull/2",
+  "implementation_commit": "5c275b817232fa0c7c94f7d4a14c8fd759cad871",
+  "release_commit": "5c2c99eab0f6d2d0b3a63142af835fefac73cd70",
+  "release_tree": "349c69cb181e9706ef933cb652bb085cb1407e35",
+  "reviewed_tree": "81a067454742226533085c34c5cc623a2e903573",
+  "release": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/tag/v0.4.0",
+  "versions": {
+    "core": "0.4.0",
+    "AX": "0.4.0",
+    "skill": "1.0.0"
+  },
+  "hosted_ci": {
+    "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/actions/runs/41299542192",
+    "passed": 5,
+    "platforms": [
+      "Ubuntu",
+      "Windows"
+    ],
+    "python": [
+      "3.11",
+      "3.13"
+    ]
+  },
+  "assets": [
+    {
+      "name": "delta-plc-agent-source.zip",
+      "bytes": 871151,
+      "sha256": "0c5cd1a9ff551bd2cec243da5ab4f694d07fa99ac302e5770c033494dec7a47f",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/delta-plc-agent-source.zip"
+    },
+    {
+      "name": "delta-plc-engineering-1.0.0.zip",
+      "bytes": 11235,
+      "sha256": "70e6faefe8b7c8e5c45391019d0feb5d78c30b7255bf6ad5587bf4a3bb0312de",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/delta-plc-engineering-1.0.0.zip"
+    },
+    {
+      "name": "PROVENANCE.json",
+      "bytes": 2325,
+      "sha256": "0eb0c1db260430db9671c8fe946d15f17bacb0d83bbf0e3436f6c2c15ef125a2",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/PROVENANCE.json"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 592,
+      "sha256": "eceaa2db6fb4689dac829b9f163f4e0e9e3e473a861f4fb75793671af3ec1da0",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/SHA256SUMS.txt"
+    },
+    {
+      "name": "universal_plc_agents-0.4.0-py3-none-any.whl",
+      "bytes": 115180,
+      "sha256": "75c94fa8b3e6eb35bd73b8fef622fdde7ca03beb450463221b287385580a111d",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/universal_plc_agents-0.4.0-py3-none-any.whl"
+    },
+    {
+      "name": "universal_plc_agents-0.4.0.tar.gz",
+      "bytes": 671515,
+      "sha256": "f82844285ca2b5ac5c492706dce7f344c75d84274be50c14815ccf9ee9fbd235",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/universal_plc_agents-0.4.0.tar.gz"
+    },
+    {
+      "name": "universal_plc_axmcp-0.4.0-py3-none-any.whl",
+      "bytes": 273310,
+      "sha256": "72ce11e68b270345a29f593a892bc25ab30a25693cc6141aee31a0dd480cba55",
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/releases/download/v0.4.0/universal_plc_axmcp-0.4.0-py3-none-any.whl"
+    }
+  ],
+  "all_uploaded_asset_hashes_verified": true,
+  "historical_assets_replaced": false,
+  "customer_content_added": false,
+  "native_or_live_qualification_added": false,
+  "remaining_slices": {
+    "S1": "Selective generic AS integration remains planned; inventory is complete",
+    "S2": "Native qualification remains blocked by vendor API/license and fresh generic host/model evidence"
+  },
+  "delivery_record_only_followup": "This record closes delivery after publication. It does not change the immutable release tree, execution code, skill content or tests."
+}
