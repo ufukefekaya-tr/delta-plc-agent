@@ -356,6 +356,7 @@ def write_deployment_launcher_config(
     target_enrollment: Path,
     target_enrollment_sha256: str,
     replace: bool = False,
+    transport_profile: str = "lan",
 ) -> Path:
     """Pin the target-side launcher without starting an IDE or contacting a PLC."""
 
@@ -387,6 +388,10 @@ def write_deployment_launcher_config(
             raise ProtocolViolation(f"{field} does not match file bytes")
     if ide_profile != "DIADesigner-AX 1.9":
         raise ProtocolViolation("only the frozen DIADesigner-AX 1.9 profile is supported")
+    if transport_profile not in {"lan", "diacloud"}:
+        raise ProtocolViolation("unsupported transport_profile")
+    if transport_profile == "diacloud" and "WORKFLOW_DEADLINE_CAPABILITY = 1" not in worker.read_text(encoding="utf-8"):
+        raise ProtocolViolation("deployment worker lacks workflow deadline capability")
     if target_adapter_sha256 not in APPROVED_TARGET_ADAPTER_SHA256:
         raise ProtocolViolation(
             "target adapter digest is not approved by this AXMCP release"
@@ -399,7 +404,7 @@ def write_deployment_launcher_config(
     if fingerprint not in allowed_targets:
         raise ProtocolViolation("enrolled target fingerprint is not in the host allowlist")
     config = {
-        "schema_version": "1",
+        "schema_version": "2" if transport_profile == "diacloud" else "1",
         "worker_id": str(uuid.uuid4()),
         "ide_executable": str(executable),
         "ide_executable_sha256": ide_executable_sha256,
@@ -419,11 +424,13 @@ def write_deployment_launcher_config(
         "observation_expression_allowlist": expressions,
         "heartbeat_seconds": 1,
         "lease_timeout_seconds": 10,
-        "max_runtime_seconds": 330,
+        "max_runtime_seconds": 660 if transport_profile == "diacloud" else 330,
         "max_requests": 20,
         "idle_exit_seconds": 5,
         "startup_timeout_seconds": 30,
     }
+    if transport_profile == "diacloud":
+        config["runtime_capabilities"] = ["workflow_deadline_v1", "transfer_retention_v1"]
     path = root / "deployment-launcher-config.json"
     lease = v2 / "state" / "deployment-worker.lease.json"
     if replace and lease.exists():
@@ -464,8 +471,12 @@ class AxDeploymentSupervisor:
 
     def _load_and_verify_config(self) -> dict[str, Any]:
         config = _load_strict(self.config_path, "deployment-launcher-config.json")
-        if set(config) != _CONFIG_KEYS or config["schema_version"] != "1":
+        version = config.get("schema_version")
+        expected = _CONFIG_KEYS | ({"runtime_capabilities"} if version == "2" else set())
+        if set(config) != expected or version not in {"1", "2"}:
             raise ProtocolViolation("deployment launcher config shape or version mismatch")
+        if version == "2" and config["runtime_capabilities"] != ["workflow_deadline_v1", "transfer_retention_v1"]:
+            raise ProtocolViolation("deployment launcher capabilities are invalid")
         try:
             validate_correlation_id(config["worker_id"])
         except ProtocolViolation as exc:
@@ -485,6 +496,8 @@ class AxDeploymentSupervisor:
             validate_digest(expected)
             if sha256_file(file_path) != expected:
                 raise ProtocolViolation(f"{field} bytes changed after launcher configuration")
+        if version == "2" and "WORKFLOW_DEADLINE_CAPABILITY = 1" not in Path(config["worker_script"]).read_text(encoding="utf-8"):
+            raise ProtocolViolation("pinned deployment worker lacks workflow deadline capability")
         if config["target_adapter_sha256"] not in APPROVED_TARGET_ADAPTER_SHA256:
             raise ProtocolViolation("deployment target adapter approval is absent or revoked")
         environment_digest = validate_digest(config["environment_digest"])
@@ -514,11 +527,15 @@ class AxDeploymentSupervisor:
         )
         if heartbeat >= lease_timeout:
             raise ProtocolViolation("heartbeat must be shorter than lease timeout")
-        _bounded_int(config["max_runtime_seconds"], "max_runtime_seconds", 30, 600)
+        _bounded_int(config["max_runtime_seconds"], "max_runtime_seconds", 30, 660 if version == "2" else 600)
         _bounded_int(config["max_requests"], "max_requests", 1, 100)
         _bounded_int(config["idle_exit_seconds"], "idle_exit_seconds", 1, 60)
         _bounded_int(config["startup_timeout_seconds"], "startup_timeout_seconds", 1, 60)
         return config
+
+    @property
+    def supports_workflow_deadline_v1(self) -> bool:
+        return self.config["schema_version"] == "2"
 
     @property
     def lease_path(self) -> Path:

@@ -8,8 +8,25 @@ from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ToolAnnotations
 
 from .constants import PACKAGE_VERSION
+from .operator_evidence import profile, check_evidence
 from .security import ProtocolViolation, validate_digest
 from .service import OfflineService
+
+
+_SERVER_INSTRUCTIONS = (
+    "Offline by default: recorded_replay is simulation; a file bridge is not PLC permission. "
+    "PLC source changes require explicit permission for a named revision; it persists through "
+    "that revision's edit/build/download/RUN/watch/fix loop until done or newly restricted. "
+    "Each artifact/target still needs bounded authority. After transfer intent, timeout or "
+    "uncertainty retains worker/session: no kill, no cleanup, no RUN, no blind retry. job.progress "
+    "reads evidence only. "
+    "Create a hash-locked workspace, build, and freeze only a zero-error/zero-warning result. "
+    "deployment.execute requires deployment.prepare and the current exact 'yükle' authority. "
+    "For DIACloud, reuse the build's absolute workflow_deadline_at for deployment; do not refresh "
+    "the 600-second budget. Confirm download and initialization complete before RUN. A heartbeat "
+    "is not transfer progress; bytes and percent remain unknown without vendor evidence. "
+    "Never invent a target fingerprint or request force, arbitrary online writes, or safety bypass."
+)
 
 _READ_ONLY = ToolAnnotations(
     read_only_hint=True,
@@ -51,12 +68,7 @@ def create_server(service: OfflineService | None = None) -> MCPServer:
             "Default-deny AX MCP facade. Replay stays simulated; file bridges require "
             "validated AXQ-FILE evidence and autonomous deployment remains fingerprint gated."
         ),
-        instructions=(
-            "Create a hash-locked workspace before mutation. Queue ST/LD changes, then build and "
-            "freeze only a zero-error/zero-warning result. deployment.execute is valid only after "
-            "deployment.prepare and the user's current exact 'yükle' command. Never invent a target "
-            "fingerprint, retry UNKNOWN_OUTCOME, request force/online writes, or treat replay as live."
-        ),
+        instructions=_SERVER_INSTRUCTIONS,
         version=PACKAGE_VERSION,
         log_level="WARNING",
     )
@@ -208,6 +220,33 @@ def create_server(service: OfflineService | None = None) -> MCPServer:
             )
 
         @server.tool(
+            name="revision.apply",
+            description="Apply bounded ST and the qualified same-interface single-contact MachineSupervisor LD subset in one AX save/reopen transaction. No general LD editing; build is separate.",
+            annotations=_SCRATCH_WRITE,
+            structured_output=True,
+        )
+        def revision_apply(
+            workspace_id: str,
+            expected_revision: int,
+            idempotency_key: str,
+            st_changes: list[dict[str, Any]],
+            ladder_changes: list[dict[str, Any]],
+        ) -> dict[str, Any]:
+            return _expected_tool_call(
+                host.revision_apply, workspace_id, expected_revision, idempotency_key,
+                st_changes, ladder_changes,
+            )
+
+        @server.tool(
+            name="candidate.snapshot",
+            description="Publish an immutable native save/reopen candidate without build or deployment claims.",
+            annotations=_SCRATCH_WRITE,
+            structured_output=True,
+        )
+        def candidate_snapshot(workspace_id: str, expected_revision: int) -> dict[str, Any]:
+            return _expected_tool_call(host.candidate_snapshot, workspace_id, expected_revision)
+
+        @server.tool(
             name="project.build",
             description="Queue build/rebuild with at most ten bounded compiler attempts.",
             annotations=_SCRATCH_WRITE,
@@ -218,9 +257,12 @@ def create_server(service: OfflineService | None = None) -> MCPServer:
             expected_revision: int,
             mode: Literal["build", "rebuild"] = "rebuild",
             max_attempts: int = 10,
+            transport_profile: Literal["lan", "diacloud"] = "lan",
+            workflow_deadline_at: str | None = None,
         ) -> dict[str, Any]:
             return _expected_tool_call(
-                host.project_build, workspace_id, expected_revision, mode, max_attempts
+                host.project_build, workspace_id, expected_revision, mode, max_attempts,
+                transport_profile, workflow_deadline_at,
             )
 
         @server.tool(
@@ -269,6 +311,8 @@ def create_server(service: OfflineService | None = None) -> MCPServer:
             expires_at: str,
             challenge_nonce: str,
             authorization_phrase: str,
+            transport_profile: Literal["lan", "diacloud"] = "lan",
+            workflow_deadline_at: str | None = None,
         ) -> dict[str, Any]:
             return _expected_tool_call(
                 host.deployment_execute,
@@ -279,6 +323,8 @@ def create_server(service: OfflineService | None = None) -> MCPServer:
                 expires_at,
                 challenge_nonce,
                 authorization_phrase,
+                transport_profile,
+                workflow_deadline_at,
             )
 
         @server.tool(
@@ -353,6 +399,23 @@ def create_server(service: OfflineService | None = None) -> MCPServer:
         )
         def job_cancel(job_id: str) -> dict[str, Any]:
             return _expected_tool_call(host.job_cancel, job_id)
+
+        @server.tool(
+            name="job.progress",
+            description="Read durable stage and deadline evidence without launching a worker.",
+            annotations=_READ_ONLY,
+            structured_output=True,
+        )
+        def job_progress(job_id: str) -> dict[str, Any]:
+            return _expected_tool_call(host.job_progress, job_id)
+
+        @server.tool(name="operator.profile", description="Read the synthetic six-drive field contract; no live dispatch or target connection.", annotations=_READ_ONLY, structured_output=True)
+        def operator_profile(profile_id: str = "example-six-drive-v1") -> dict[str, Any]:
+            return _expected_tool_call(profile, profile_id)
+
+        @server.tool(name="operator.evidence.check", description="Check supplied watch, coefficient ACK or ramp evidence. Never proves a live session or writes a PLC.", annotations=_READ_ONLY, structured_output=True)
+        def operator_evidence_check(profile_id: str, kind: Literal["watch", "coefficient", "ramps"], evidence: dict[str, Any]) -> dict[str, Any]:
+            return _expected_tool_call(check_evidence, profile_id, kind, evidence)
 
     return server
 

@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import Mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backends/ax/src"))
@@ -18,6 +19,39 @@ TARGET = {"vendor": "Delta", "family": "AX", "model": "AX-308", "toolchain": "DI
 
 
 class UniversalAdapterTests(unittest.TestCase):
+    def test_new_operations_dispatch_through_universal_adapter(self):
+        adapter = AxAdapter()
+        host = Mock()
+        adapter._service = Mock(autonomous=host)
+        cases = {
+            "job.progress": ("job_progress", {"job_id": "job-fixture"}),
+            "revision.apply": ("revision_apply", {"workspace_id": "ws", "expected_revision": 0,
+                              "idempotency_key": "unit", "st_changes": []}),
+            "candidate.snapshot": ("candidate_snapshot", {"workspace_id": "ws", "expected_revision": 0}),
+        }
+        for operation, (method, arguments) in cases.items():
+            with self.subTest(operation=operation):
+                getattr(host, method).return_value = {"routed": operation}
+                self.assertEqual(adapter.invoke(operation, arguments), {"routed": operation})
+                getattr(host, method).assert_called_once_with(**arguments)
+
+    def test_evidence_helpers_work_with_real_host_and_no_target_connection(self):
+        from tests.ax.offline_foundation.test_autonomous_host import _activate_root
+        from axmcp_offline.service import OfflineService
+        from tests.ax.offline_foundation.test_operator_evidence import sample
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter = AxAdapter()
+            adapter._service = OfflineService(_activate_root(Path(tmp)))
+            result = adapter.invoke("operator.profile", {})
+            self.assertEqual(result["profile_kind"], "SYNTHETIC_REFERENCE_ONLY")
+            self.assertFalse(result["runtime_dispatch"])
+            result = adapter.invoke("operator.evidence.check", {
+                "profile_id": "example-six-drive-v1", "kind": "watch", "evidence": sample("watch")})
+            self.assertTrue(result["evidence_matches"])
+            self.assertFalse(result["live_ax_verified"])
+            with self.assertRaises(ProtocolViolation):
+                adapter.invoke("job.progress", {"job_id": "missing"})
+
     def test_capabilities_are_lazy_and_preserve_all_operations(self):
         adapter = AxAdapter("does-not-exist.json")
         records = adapter.capabilities()

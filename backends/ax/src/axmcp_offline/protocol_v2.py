@@ -4,7 +4,7 @@ from datetime import timedelta
 from pathlib import Path
 from typing import Any
 
-from .constants import JOB_STATES, PROTOCOL_V2, PUBLIC_OPERATIONS
+from .constants import AXQ_OPERATIONS, JOB_STATES, PROTOCOL_V2
 from .security import (
     ProtocolViolation,
     canonical_json_bytes,
@@ -138,6 +138,17 @@ def _identifier(value: Any, label: str) -> str:
     return text
 
 
+def _object_path(value: Any, label: str) -> list[str]:
+    if not isinstance(value, list) or not 2 <= len(value) <= 16:
+        raise ProtocolViolation(f"{label} must contain application and object path")
+    for part in value[:-1]:
+        text = _non_empty(part, label, 128)
+        if text != text.strip() or any(char not in _IDENTIFIER_CHARS and char != " " for char in text):
+            raise ProtocolViolation(f"{label} contains an invalid vendor node name")
+    _identifier(value[-1], label)
+    return value
+
+
 def _expression(value: Any) -> str:
     text = _non_empty(value, "observation expression", 256)
     parts = text.split(".")
@@ -155,7 +166,7 @@ def _bounded_int(value: Any, label: str, minimum: int, maximum: int) -> int:
 
 
 def validate_public_operation(operation: Any) -> str:
-    if not isinstance(operation, str) or operation not in PUBLIC_OPERATIONS:
+    if not isinstance(operation, str) or operation not in AXQ_OPERATIONS:
         raise ProtocolViolation(f"AXQ-FILE/2 operation is not allowlisted: {operation!r}")
     return operation
 
@@ -260,6 +271,7 @@ def validate_observation_profile(value: Any) -> dict[str, Any]:
     return profile
 
 
+
 def validate_arguments(operation: str, value: Any, scratch_root: Path | None = None) -> dict[str, Any]:
     arguments = _object(value, "arguments")
     if operation in {
@@ -282,7 +294,7 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
         validate_workspace_id(arguments["workspace_id"])
         _bounded_int(arguments["expected_revision"], "expected_revision", 0, 2**31 - 1)
         _identifier(arguments["target"], "target")
-    elif operation in {"workspace.status", "artifact.freeze"}:
+    elif operation in {"workspace.status", "artifact.freeze", "candidate.snapshot"}:
         expected = {"workspace_id"} if operation == "workspace.status" else {
             "workspace_id",
             "expected_revision",
@@ -327,10 +339,52 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
         validate_workspace_id(arguments["workspace_id"])
         _bounded_int(arguments["expected_revision"], "expected_revision", 0, 2**31 - 1)
         validate_ladder_recipe(arguments["recipe"])
+    elif operation == "revision.apply":
+        _exact(arguments, {"workspace_id", "expected_revision", "idempotency_key", "st_changes", "ladder_changes"}, operation)
+        validate_workspace_id(arguments["workspace_id"])
+        _bounded_int(arguments["expected_revision"], "expected_revision", 0, 2**31 - 1)
+        key = _non_empty(arguments["idempotency_key"], "idempotency_key", 128)
+        if any(char not in _IDENTIFIER_CHARS and char not in ".-" for char in key):
+            raise ProtocolViolation("idempotency_key contains invalid characters")
+        st = arguments["st_changes"]
+        ld = arguments["ladder_changes"]
+        if not isinstance(st, list) or not isinstance(ld, list) or not 1 <= len(st) + len(ld) <= 16:
+            raise ProtocolViolation("revision.apply requires 1..16 bounded changes")
+        paths: set[tuple[str, ...]] = set()
+        for change in st:
+            item = _object(change, "ST change")
+            _exact(item, {"object_path", "pou_kind", "return_type", "declaration", "implementation"}, "ST change")
+            path = _object_path(item["object_path"], "ST object_path")
+            validate_arguments("source.upsert.st", {
+                "workspace_id": arguments["workspace_id"],
+                "expected_revision": arguments["expected_revision"],
+                "pou_name": path[-1],
+                "pou_kind": item["pou_kind"],
+                "return_type": item["return_type"],
+                "declaration": item["declaration"],
+                "implementation": item["implementation"],
+            }, scratch_root)
+            identity = tuple(path)
+            if identity in paths:
+                raise ProtocolViolation("duplicate object_path in revision.apply")
+            paths.add(identity)
+        for change in ld:
+            item = _object(change, "Ladder change")
+            _exact(item, {"object_path", "recipe"}, "Ladder change")
+            path = _object_path(item["object_path"], "Ladder object_path")
+            validate_ladder_recipe(item["recipe"])
+            if item["recipe"]["pou"] != path[-1]:
+                raise ProtocolViolation("Ladder recipe POU does not match object_path")
+            identity = tuple(path)
+            if identity in paths:
+                raise ProtocolViolation("duplicate object_path in revision.apply")
+            paths.add(identity)
     elif operation == "project.build":
+        workflow_keys = {"transport_profile", "workflow_deadline_at"}
         _exact(
             arguments,
-            {"workspace_id", "expected_revision", "mode", "max_attempts", "runtime_release_digest"},
+            {"workspace_id", "expected_revision", "mode", "max_attempts", "runtime_release_digest"}
+            | (workflow_keys if "transport_profile" in arguments else set()),
             operation,
         )
         validate_workspace_id(arguments["workspace_id"])
@@ -339,6 +393,10 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
             raise ProtocolViolation("build mode must be build or rebuild")
         _bounded_int(arguments["max_attempts"], "max_attempts", 1, 10)
         validate_digest(arguments["runtime_release_digest"])
+        if "transport_profile" in arguments:
+            if arguments["transport_profile"] not in {"lan", "diacloud"}:
+                raise ProtocolViolation("unsupported transport_profile")
+            parse_utc(arguments["workflow_deadline_at"])
     elif operation == "deployment.prepare":
         _exact(
             arguments,
@@ -349,6 +407,7 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
             validate_digest(arguments[field])
         validate_observation_profile(arguments["observation_profile"])
     elif operation == "deployment.execute":
+        workflow_keys = {"transport_profile", "workflow_deadline_at"}
         _exact(
             arguments,
             {
@@ -359,7 +418,7 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
                 "expires_at",
                 "challenge_nonce",
                 "authorization_phrase",
-            },
+            } | (workflow_keys if "transport_profile" in arguments else set()),
             operation,
         )
         validate_correlation_id(arguments["plan_id"])
@@ -368,6 +427,10 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
             validate_digest(arguments[field])
         parse_utc(arguments["expires_at"])
         _non_empty(arguments["authorization_phrase"], "authorization_phrase", 64)
+        if "transport_profile" in arguments:
+            if arguments["transport_profile"] not in {"lan", "diacloud"}:
+                raise ProtocolViolation("unsupported transport_profile")
+            parse_utc(arguments["workflow_deadline_at"])
     elif operation == "deployment.reconcile":
         _exact(
             arguments,
@@ -400,7 +463,14 @@ def validate_arguments(operation: str, value: Any, scratch_root: Path | None = N
 
 def validate_request_v2(record: Any, scratch_root: Path | None = None) -> dict[str, Any]:
     request = _object(record, "request")
-    _exact(request, _REQUEST_KEYS, "AXQ-FILE/2 request")
+    profile = request.get("transport_profile", "lan")
+    _exact(
+        request,
+        _REQUEST_KEYS | ({"transport_profile"} if profile == "diacloud" else set()),
+        "AXQ-FILE/2 request",
+    )
+    if profile not in {"lan", "diacloud"}:
+        raise ProtocolViolation("unsupported request transport profile")
     if request["protocol"] != PROTOCOL_V2 or request["message_type"] != "request":
         raise ProtocolViolation("unsupported request protocol or message type")
     validate_correlation_id(request["correlation_id"])
@@ -410,7 +480,10 @@ def validate_request_v2(record: Any, scratch_root: Path | None = None) -> dict[s
     deadline = parse_utc(request["deadline_at"])
     if deadline <= created:
         raise ProtocolViolation("deadline must follow created_at")
-    maximum = 330 if operation == "deployment.execute" else 300
+    maximum = (
+        600 if profile == "diacloud" and operation in {"project.build", "deployment.execute"}
+        else 330 if operation == "deployment.execute" else 300
+    )
     if (deadline - created).total_seconds() > maximum:
         raise ProtocolViolation(
             f"{operation} deadline exceeds the {maximum}-second protocol bound"
@@ -452,11 +525,23 @@ def make_request_v2(
     authorization_digest: str | None,
     artifacts: list[dict[str, str]],
     scratch_root: Path | None = None,
+    transport_profile: str = "lan",
+    workflow_deadline_at: str | None = None,
 ) -> dict[str, Any]:
     operation = validate_public_operation(operation)
-    maximum = 330 if operation == "deployment.execute" else 300
+    if transport_profile not in {"lan", "diacloud"}:
+        raise ProtocolViolation("unsupported transport_profile")
+    maximum = (
+        600 if transport_profile == "diacloud" and operation in {"project.build", "deployment.execute"}
+        else 330 if operation == "deployment.execute" else 300
+    )
     _bounded_int(timeout_seconds, "timeout_seconds", 1, maximum)
     created = parse_utc(created_at)
+    deadline = (
+        parse_utc(workflow_deadline_at)
+        if workflow_deadline_at is not None
+        else created + timedelta(seconds=timeout_seconds)
+    )
     request = {
         "protocol": PROTOCOL_V2,
         "message_type": "request",
@@ -464,13 +549,15 @@ def make_request_v2(
         "job_id": job_id,
         "operation": operation,
         "created_at": created_at,
-        "deadline_at": (created + timedelta(seconds=timeout_seconds)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "deadline_at": deadline.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "environment_digest": environment_digest,
         "workspace_digest": workspace_digest,
         "expected_revision": expected_revision,
         "authorization_digest": authorization_digest,
         "artifacts": artifacts,
     }
+    if transport_profile == "diacloud":
+        request["transport_profile"] = transport_profile
     return validate_request_v2(request, scratch_root)
 
 
@@ -538,7 +625,14 @@ def validate_result_chain_v2(
     if result["request_digest"] != sha256_bytes(request_raw):
         raise ProtocolViolation("result request digest mismatch")
     if (
-        parse_utc(result["created_at"]) > parse_utc(request["deadline_at"])
+        parse_utc(result["created_at"])
+        > parse_utc(request["deadline_at"])
+        + (
+            timedelta(seconds=900)
+            if request.get("transport_profile") == "diacloud"
+            and request["operation"] == "deployment.execute"
+            else timedelta(0)
+        )
         and result["status"] not in {"blocked", "unknown_outcome"}
     ):
         raise ProtocolViolation("result is stale")
@@ -549,7 +643,7 @@ def validate_result_chain_v2(
         expected_result_revision = (
             expected_revision + 1
             if result["status"] == "succeeded"
-            and result["operation"] in {"source.upsert.st", "ladder.networks.apply"}
+            and result["operation"] in {"source.upsert.st", "ladder.networks.apply", "revision.apply"}
             else expected_revision
         )
         if result["revision"] != expected_result_revision:

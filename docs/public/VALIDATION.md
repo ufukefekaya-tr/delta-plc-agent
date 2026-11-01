@@ -1,5 +1,7 @@
 # Validation and reproducibility
 
+Latest AX backend: [0.4 public integration results](AX_0_4_VALIDATION.md).
+
 Use CI results for the **exact commit** you install. The workflow runs offline suites and demo on Windows/Linux with Python 3.11/3.13. A Windows packaging job builds both wheels, installs a fresh environment and exercises real stdio MCP, file roundtrip and AX replay.
 
 ```text

@@ -1,14 +1,18 @@
 from __future__ import annotations
 
 import json
+import io
 import os
 import subprocess
 import sys
 import tempfile
 import tomllib
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest import mock
 
+from axmcp_offline import cli as cli_module
 from axmcp_offline.constants import ALLOWED_OPERATIONS
 from axmcp_offline.security import sha256_file
 
@@ -122,6 +126,8 @@ class CliTests(unittest.TestCase):
             launcher = json.loads(
                 (root / "ax-launcher-config.json").read_text(encoding="utf-8")
             )
+            self.assertEqual(launcher["schema_version"], "1")
+            self.assertNotIn("runtime_capabilities", launcher)
             self.assertEqual(sha256_file(Path(launcher["worker_script"])), launcher["worker_script_sha256"])
             self.assertEqual(sha256_file(Path(launcher["ladder_helper"])), launcher["ladder_helper_sha256"])
             self.assertEqual(
@@ -193,6 +199,122 @@ class CliTests(unittest.TestCase):
                     if item["status"] == "fail"
                 ),
             )
+
+    def test_setup_autonomous_diacloud_selects_v2_without_target_contact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            root = base / "private-root"
+            baseline = base / "mini.project"
+            executable = base / "DIADesigner-AX.exe"
+            engine = base / "ScriptEngine3.dll"
+            baseline.write_bytes(b"MINIMAL-AX-PROJECT\n")
+            executable.write_bytes(b"FAKE-IDE-IDENTITY\n")
+            engine.write_bytes(b"FAKE-SCRIPT-ENGINE-IDENTITY\n")
+            result = _run(
+                "setup-autonomous", str(root),
+                "--environment-digest", "sha256:" + ("3" * 64),
+                "--baseline", str(baseline),
+                "--baseline-sha256", sha256_file(baseline),
+                "--ide-executable", str(executable),
+                "--script-engine", str(engine),
+                "--transport-profile", "diacloud",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertFalse(json.loads(result.stdout)["ide_or_target_contacted"])
+            launcher = json.loads((root / "ax-launcher-config.json").read_text(encoding="utf-8"))
+            self.assertEqual(launcher["schema_version"], "2")
+            self.assertEqual(launcher["runtime_capabilities"], ["workflow_deadline_v1"])
+            self.assertEqual(launcher["max_request_seconds"], 600)
+            self.assertEqual(launcher["max_runtime_seconds"], 660)
+            autonomous = json.loads((root / "autonomous-config.json").read_text(encoding="utf-8"))
+            self.assertEqual(autonomous["target_allowlist"], [])
+
+    def test_configure_ax_worker_profile_flag_and_lan_default(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            executable = base / "DIADesigner-AX.exe"
+            engine = base / "ScriptEngine3.dll"
+            worker = base / "worker.py"
+            helper = base / "ladder_import.py"
+            executable.write_bytes(b"FAKE-IDE-IDENTITY\n")
+            engine.write_bytes(b"FAKE-SCRIPT-ENGINE-IDENTITY\n")
+            worker.write_text("WORKFLOW_DEADLINE_CAPABILITY = 1\n", encoding="utf-8")
+            helper.write_text("# fake helper identity\n", encoding="utf-8")
+            for profile, version in (("diacloud", "2"), (None, "1")):
+                root = base / f"private-{version}"
+                initialized = _run("init-autonomous", str(root))
+                self.assertEqual(initialized.returncode, 0, initialized.stderr)
+                args = [
+                    "configure-ax-worker", str(root),
+                    "--ide-executable", str(executable),
+                    "--ide-sha256", sha256_file(executable),
+                    "--script-engine", str(engine),
+                    "--script-engine-sha256", sha256_file(engine),
+                    "--worker-script", str(worker),
+                    "--worker-script-sha256", sha256_file(worker),
+                ]
+                if profile:
+                    args.extend(("--transport-profile", profile))
+                configured = _run(*args)
+                self.assertEqual(configured.returncode, 0, configured.stderr)
+                self.assertFalse(json.loads(configured.stdout)["ide_launched"])
+                launcher = json.loads((root / "ax-launcher-config.json").read_text(encoding="utf-8"))
+                self.assertEqual(launcher["schema_version"], version)
+                self.assertEqual(
+                    launcher.get("runtime_capabilities"),
+                    ["workflow_deadline_v1"] if profile else None,
+                )
+
+    def test_configure_deployment_profile_is_forwarded_without_target_execution(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "private-root"
+            root.mkdir()
+            adapter = root / "fake-adapter.py"
+            enrollment = root / "target-enrollment.json"
+            adapter.write_bytes(b"FAKE-ADAPTER-IDENTITY\n")
+            enrollment.write_bytes(b"FAKE-ENROLLMENT-IDENTITY\n")
+            (root / "ax-launcher-config.json").write_text(
+                json.dumps({
+                    "ide_executable": str(root / "fake-ide.exe"),
+                    "ide_executable_sha256": "sha256:" + ("1" * 64),
+                    "script_engine": str(root / "fake-engine.dll"),
+                    "script_engine_sha256": "sha256:" + ("2" * 64),
+                    "ide_profile": "DIADesigner-AX 1.9",
+                }),
+                encoding="utf-8",
+            )
+            for selected in (None, "diacloud"):
+                args = [
+                    "configure-ax-deployment-worker", str(root),
+                    "--target-adapter", str(adapter),
+                    "--target-adapter-sha256", sha256_file(adapter),
+                    "--target-enrollment", str(enrollment),
+                    "--target-enrollment-sha256", sha256_file(enrollment),
+                ]
+                if selected:
+                    args.extend(("--transport-profile", selected))
+                with mock.patch.object(
+                    cli_module, "write_deployment_launcher_config",
+                    return_value=root / "deployment-launcher-config.json",
+                ) as writer, redirect_stdout(io.StringIO()):
+                    self.assertEqual(cli_module.main(args), 0)
+                self.assertEqual(writer.call_args.kwargs["transport_profile"], selected or "lan")
+            self.assertFalse((root / "deployment-launcher-config.json").exists())
+
+    def test_invalid_transport_profile_is_rejected_before_writes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "must-not-exist"
+            commands = (
+                ["setup-autonomous", str(root), "--environment-digest", "sha256:" + ("1" * 64), "--baseline", "fake.project", "--baseline-sha256", "sha256:" + ("2" * 64), "--ide-executable", "fake.exe", "--script-engine", "fake.dll"],
+                ["configure-ax-worker", str(root), "--ide-executable", "fake.exe", "--ide-sha256", "sha256:" + ("1" * 64), "--script-engine", "fake.dll", "--script-engine-sha256", "sha256:" + ("2" * 64), "--worker-script", "fake.py", "--worker-script-sha256", "sha256:" + ("3" * 64)],
+                ["configure-ax-deployment-worker", str(root), "--target-adapter", "fake.py", "--target-adapter-sha256", "sha256:" + ("1" * 64), "--target-enrollment", "fake.json", "--target-enrollment-sha256", "sha256:" + ("2" * 64)],
+            )
+            for command in commands:
+                with self.subTest(command=command[0]):
+                    rejected = _run(*command, "--transport-profile", "unknown")
+                    self.assertEqual(rejected.returncode, 2)
+                    self.assertIn("invalid choice", rejected.stderr)
+                    self.assertFalse(root.exists())
 
     def test_setup_autonomous_preflight_failure_does_not_create_root(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

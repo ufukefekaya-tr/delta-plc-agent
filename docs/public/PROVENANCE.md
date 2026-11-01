@@ -9,3 +9,9 @@ Some historical document links lead to [public validation](VALIDATION.md) instea
 The thermal regression fixture is a **neutralized fixture derived from internal software tests**. It retains protocol-test command/observation shapes with synthetic identity and hashes. It is not an independently qualified hardware profile or deployment template.
 
 Core and AX carry the owner's [MIT license](../../LICENSE). Codecs retain [original authors and upstream references](../../THIRD_PARTY_NOTICES.md). Vendor names identify interoperability targets; Delta PLC Agent is independent.
+
+The AX 0.4 update imports reviewed reusable changes through a three-way comparison,
+not private Git ancestry. Generic public bindings, project creation and compiler
+categories are retained. The six-drive evidence profile is a synthetic reference;
+private field bindings and historical authority are excluded. See the
+[release record](../../backends/ax/docs/RELEASE_0_4.md).

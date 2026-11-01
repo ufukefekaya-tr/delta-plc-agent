@@ -49,6 +49,16 @@
       "authority": "workspace_revision"
     },
     {
+      "operation": "revision.apply",
+      "classification": "workspace_mutation",
+      "authority": "workspace_revision"
+    },
+    {
+      "operation": "candidate.snapshot",
+      "classification": "read_only",
+      "authority": "saved_workspace_revision"
+    },
+    {
       "operation": "project.build",
       "classification": "workspace_mutation",
       "authority": "workspace_revision"
@@ -97,6 +107,21 @@
       "operation": "job.cancel",
       "classification": "queue_mutation",
       "authority": "job_id_safe_point"
+    },
+    {
+      "operation": "job.progress",
+      "classification": "read_only",
+      "authority": "job_id"
+    },
+    {
+      "operation": "operator.profile",
+      "classification": "read_only",
+      "authority": "synthetic_reference"
+    },
+    {
+      "operation": "operator.evidence.check",
+      "classification": "read_only",
+      "authority": "caller_supplied_evidence"
     }
   ],
   "hard_denied": [
@@ -123,7 +148,7 @@
     "isolated_ax_308_only": true,
     "physical_outputs_energized": false,
     "last_known_good_required": true,
-    "download_authority_phrase": "yükle",
+    "download_authority_phrase": "y\u00c3\u00bckle",
     "authority_ttl_seconds": 600,
     "single_use": true,
     "blind_retry_after_unknown_outcome": false

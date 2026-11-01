@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import sys
+import uuid
 from pathlib import Path
 
 from mcp import Client, StdioServerParameters
@@ -22,6 +23,8 @@ EXPECTED_AUTONOMOUS_OPERATIONS = EXPECTED_OPERATIONS + (
     "workspace.status",
     "source.upsert.st",
     "ladder.networks.apply",
+    "revision.apply",
+    "candidate.snapshot",
     "project.build",
     "artifact.freeze",
     "deployment.prepare",
@@ -32,6 +35,9 @@ EXPECTED_AUTONOMOUS_OPERATIONS = EXPECTED_OPERATIONS + (
     "target.observe.stop",
     "job.status",
     "job.cancel",
+    "job.progress",
+    "operator.profile",
+    "operator.evidence.check",
 )
 
 
@@ -46,7 +52,8 @@ async def _verify(installed_python: str, scratch_root: str | None = None) -> dic
             {
                 "AXMCP_MODE": "autonomous_file_bridge",
                 "AXMCP_SCRATCH_ROOT": scratch_root,
-                "AXMCP_AUTOSTART_WORKER": "1",
+                "AXMCP_AUTOSTART_WORKER": "0",
+                "AXMCP_AUTOSTART_DEPLOYMENT_WORKER": "0",
             }
         )
         expected_operations = EXPECTED_AUTONOMOUS_OPERATIONS
@@ -70,6 +77,9 @@ async def _verify(installed_python: str, scratch_root: str | None = None) -> dic
             "deployment.reconcile",
             "target.observe.read",
             "job.status",
+            "job.progress",
+            "operator.profile",
+            "operator.evidence.check",
         }
         for tool in listed.tools:
             annotations = tool.annotations
@@ -125,7 +135,29 @@ async def _verify(installed_python: str, scratch_root: str | None = None) -> dic
                 raise RuntimeError("installed autonomous workspace.status failed")
             if status.structured_content.get("current_project_digest") != baseline_digest:
                 raise RuntimeError("installed autonomous scratch copy digest drifted")
-            called_name = "workspace.create -> workspace.status"
+            # A canonical, absent job proves the new host-only tool fails closed
+            # without enqueueing work or starting either AX or target workers.
+            progress = await client.call_tool(
+                "job.progress", {"job_id": str(uuid.uuid4())}
+            )
+            if not progress.is_error:
+                raise RuntimeError("installed autonomous job.progress accepted an unknown job")
+            profile = await client.call_tool("operator.profile", {})
+            if profile.is_error or profile.structured_content["runtime_dispatch"] is not False:
+                raise RuntimeError("installed profile elevated to live dispatch")
+            invalid = await client.call_tool("operator.evidence.check", {
+                "profile_id": "example-six-drive-v1", "kind": "watch", "evidence": {}})
+            if not invalid.is_error:
+                raise RuntimeError("installed evidence check accepted missing evidence")
+            for tool, arguments in (
+                ("revision.apply", {"workspace_id": workspace_id, "expected_revision": 0,
+                                    "idempotency_key": "invalid-empty", "st_changes": [], "ladder_changes": []}),
+                ("candidate.snapshot", {"workspace_id": workspace_id, "expected_revision": 0}),
+            ):
+                rejected = await client.call_tool(tool, arguments)
+                if not rejected.is_error:
+                    raise RuntimeError("installed revision path failed open: " + tool)
+            called_name = "workspace.create/status; profile; missing evidence, empty revision, unsaved snapshot, unknown progress rejected"
             evidence_class = "SCRATCH_DIGEST_VERIFIED"
             live_ax_verified = False
         return {

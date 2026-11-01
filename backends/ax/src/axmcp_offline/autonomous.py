@@ -4,6 +4,7 @@ import json
 import os
 import threading
 import uuid
+from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
@@ -14,6 +15,8 @@ if TYPE_CHECKING:
 from .bridge import FileBridgeBackend, initialize_scratch
 from .constants import AUTONOMOUS_MODE
 from .jobs import FileJobQueue
+from .ladder import LadderRecipeError, validate_revision_subset
+from .job_progress import read_job_progress
 from .protocol_v2 import (
     load_archived_result_chain_v2,
     load_v2,
@@ -42,6 +45,7 @@ from .security import (
     validate_artifact_path,
     validate_correlation_id,
     validate_digest,
+    require_single_workspace,
 )
 
 _CONFIG_KEYS = {
@@ -64,7 +68,10 @@ _WORKSPACE_KEYS = {
     "pending_job_id",
     "last_successful_build",
     "frozen_artifacts",
+    "last_native_save",
+    "native_candidates",
 }
+_LEGACY_WORKSPACE_KEYS = _WORKSPACE_KEYS - {"last_native_save", "native_candidates"}
 _PHRASE_DIGEST = "sha256:d254948f417a488968d144e12a6b87dfdeafb5582dbe86fa807dac952341088c"
 _RECONCILIATION_RECORD_KEYS = {
     "schema_version",
@@ -115,6 +122,7 @@ def initialize_autonomous_root(root: Path) -> Path:
         "outputs",
         "evidence",
         "artifacts",
+        "native_candidates",
         "plans",
         "observations",
     ):
@@ -257,6 +265,7 @@ class AutonomousHost:
             "outputs",
             "evidence",
             "artifacts",
+            "native_candidates",
             "plans",
             "observations",
         ):
@@ -271,6 +280,53 @@ class AutonomousHost:
         self.mode = AUTONOMOUS_MODE
         self.supervisor = supervisor
         self.deployment_supervisor = deployment_supervisor
+
+    @contextmanager
+    def _workspace_fence(self, workspace_id: str):
+        """Exclude another host's enqueue while a native candidate is published."""
+        validate_workspace_id(workspace_id)
+        directory = self.v2 / "state" / "workspace-fences"
+        directory.mkdir(parents=True, exist_ok=True)
+        path = directory / f"{workspace_id}.lock"
+        try:
+            with path.open("xb") as handle:
+                handle.write(canonical_json_bytes({"workspace_id": workspace_id, "pid": os.getpid()}))
+                handle.flush()
+                os.fsync(handle.fileno())
+        except FileExistsError as exc:
+            raise ProtocolViolation("workspace publication fence is held or requires reconciliation") from exc
+        try:
+            yield
+        finally:
+            path.unlink()
+
+    def _revision_path_budget(self, workspace_id: str, job_id: str,
+                              correlation_id: str, identity_path: Path) -> None:
+        """Reject legacy Windows MAX_PATH hazards before creating durable intent."""
+        if os.name != "nt":
+            return
+        transaction = self.v2 / "state" / "revision-transactions" / job_id
+        workspace = self.v2 / "workspaces" / workspace_id
+        paths = [
+            identity_path.with_name(identity_path.name + ".partial"),
+            self.v2 / "inputs" / f"{job_id}.arguments.json.partial",
+            self.v2 / "state" / "order" / f"{'0' * 20}_{correlation_id}.order.json.partial",
+            self.v2 / "inbox" / f"{correlation_id}.request.json.partial",
+            self.v2 / "running" / f"{correlation_id}.request.json",
+            self.v2 / "results" / f"{job_id}.result.json.partial",
+            self.v2 / "outputs" / f"{job_id}.output.json.partial",
+            self.v2 / "evidence" / f"{job_id}.window-guard.json.partial",
+            transaction / "project.project.partial",
+            transaction / "intent.json.partial",
+            transaction / "receipt.json.partial",
+            transaction / "before.xml",
+            transaction / "after.xml",
+            transaction / "ladder-15.xml",
+            workspace / "project.project.restore.partial",
+            self.v2 / "native_candidates" / f"{'0' * 64}.project.partial",
+        ]
+        if any(len(str(path.resolve())) >= 240 for path in paths):
+            raise ProtocolViolation("revision scratch path exceeds bounded Windows path budget")
 
     def _require_deployment_supervisor(self) -> Any:
         if self.deployment_supervisor is None:
@@ -832,7 +888,20 @@ class AutonomousHost:
         baseline_path: str,
         baseline_sha256: str,
         environment_digest: str,
+        *,
+        _fenced: bool = False,
     ) -> dict[str, Any]:
+        if not _fenced:
+            # Reserved identity serializes first ownership across host processes.
+            with self._workspace_fence("00000000-0000-4000-8000-000000000000"):
+                return self.workspace_create(
+                    baseline_path, baseline_sha256, environment_digest, _fenced=True
+                )
+        if any((self.v2 / "workspaces").iterdir()):
+            raise ProtocolViolation(
+                "AX root supports one workspace only; continue its workspace_id "
+                "or use a fresh isolated root"
+            )
         arguments = {
             "baseline_path": baseline_path,
             "baseline_sha256": baseline_sha256,
@@ -862,6 +931,8 @@ class AutonomousHost:
             "pending_job_id": None,
             "last_successful_build": None,
             "frozen_artifacts": [],
+            "last_native_save": None,
+            "native_candidates": [],
         }
         atomic_write_exclusive(workspace_dir / "manifest.json", canonical_json_bytes(manifest))
         return self.workspace_status(workspace_id)
@@ -881,8 +952,10 @@ class AutonomousHost:
             manifest = strict_json_loads_v2(manifest_path.read_bytes())
         except (OSError, ProtocolViolation) as exc:
             raise ProtocolViolation("invalid workspace manifest") from exc
-        if set(manifest) != _WORKSPACE_KEYS or manifest["schema_version"] != "1":
+        if set(manifest) not in (_WORKSPACE_KEYS, _LEGACY_WORKSPACE_KEYS) or manifest["schema_version"] != "1":
             raise ProtocolViolation("workspace manifest shape mismatch")
+        manifest.setdefault("last_native_save", None)
+        manifest.setdefault("native_candidates", [])
         if manifest["workspace_id"] != workspace_id:
             raise ProtocolViolation("workspace manifest identity mismatch")
         validate_digest(manifest["baseline_digest"])
@@ -940,9 +1013,22 @@ class AutonomousHost:
         operation: str,
         arguments: dict[str, Any],
         timeout_seconds: int = 300,
+        *,
+        reserved_job_id: str | None = None,
+        reserved_correlation_id: str | None = None,
+        _fenced: bool = False,
     ) -> dict[str, Any]:
         validate_arguments(operation, arguments, self.v2)
         workspace_id = arguments["workspace_id"]
+        require_single_workspace(self.v2, workspace_id)
+        if not _fenced:
+            with self._workspace_fence(workspace_id):
+                return self._queue_workspace_operation(
+                    operation, arguments, timeout_seconds,
+                    reserved_job_id=reserved_job_id,
+                    reserved_correlation_id=reserved_correlation_id,
+                    _fenced=True,
+                )
         manifest = self._load_workspace(workspace_id)
         if manifest["pending_job_id"] is not None:
             raise ProtocolViolation("workspace already has a pending mutation job")
@@ -951,9 +1037,13 @@ class AutonomousHost:
         directory, _ = self._workspace_paths(workspace_id)
         if sha256_file(directory / "project.project") != manifest["project_digest"]:
             raise ProtocolViolation("workspace project changed outside the worker protocol")
-        job_id = str(uuid.uuid4())
-        correlation_id = str(uuid.uuid4())
+        job_id = reserved_job_id or str(uuid.uuid4())
+        correlation_id = reserved_correlation_id or str(uuid.uuid4())
+        validate_correlation_id(job_id)
+        validate_correlation_id(correlation_id)
         descriptor = self._publish_operation_input(job_id, arguments, "input")
+        transport_profile = arguments.get("transport_profile", "lan")
+        workflow_deadline_at = arguments.get("workflow_deadline_at")
         request = make_request_v2(
             correlation_id=correlation_id,
             job_id=job_id,
@@ -966,6 +1056,8 @@ class AutonomousHost:
             authorization_digest=None,
             artifacts=[descriptor],
             scratch_root=self.v2,
+            transport_profile=transport_profile,
+            workflow_deadline_at=workflow_deadline_at,
         )
         queued = self.queue.submit(request)
         manifest["pending_job_id"] = job_id
@@ -982,6 +1074,8 @@ class AutonomousHost:
                 raise ProtocolViolation("AX worker launch failed closed") from exc
         queued["workspace_id"] = workspace_id
         queued["revision"] = manifest["revision"]
+        if workflow_deadline_at is not None:
+            queued["workflow_deadline_at"] = workflow_deadline_at
         return queued
 
     def source_upsert_st(
@@ -1027,13 +1121,180 @@ class AutonomousHost:
             {"workspace_id": workspace_id, "expected_revision": expected_revision, "recipe": recipe},
         )
 
+    def revision_apply(
+        self,
+        workspace_id: str,
+        expected_revision: int,
+        idempotency_key: str,
+        st_changes: list[dict[str, Any]],
+        ladder_changes: list[dict[str, Any]],
+        _fenced: bool = False,
+    ) -> dict[str, Any]:
+        arguments = {
+            "workspace_id": workspace_id,
+            "expected_revision": expected_revision,
+            "idempotency_key": idempotency_key,
+            "st_changes": st_changes,
+            "ladder_changes": ladder_changes,
+        }
+        validate_arguments("revision.apply", arguments, self.v2)
+        for change in ladder_changes:
+            try:
+                validate_revision_subset(change["recipe"])
+            except (LadderRecipeError, KeyError) as exc:
+                raise ProtocolViolation("LD_REVISION_UNSUPPORTED: " + str(exc)) from exc
+        if not _fenced:
+            with self._workspace_fence(workspace_id):
+                return self.revision_apply(
+                    workspace_id, expected_revision, idempotency_key,
+                    st_changes, ladder_changes, _fenced=True,
+                )
+        require_single_workspace(self.v2, workspace_id)
+        directory, _ = self._workspace_paths(workspace_id)
+        key_digest = sha256_bytes(idempotency_key.encode("utf-8"))
+        identity_dir = directory / "idempotency"
+        # The shortened name is only one part of the explicit path preflight.
+        identity_path = identity_dir / f"{key_digest[7:39]}.json"
+        arguments_digest = sha256_bytes(canonical_json_bytes(arguments))
+        if identity_path.exists():
+            identity = strict_json_loads_v2(identity_path.read_bytes())
+            if identity.get("key_digest") != key_digest:
+                raise ProtocolViolation("idempotency key filename collision")
+            if identity.get("arguments_digest") != arguments_digest:
+                raise ProtocolViolation("idempotency key was used for a different revision payload")
+            try:
+                status = self.job_status(identity["job_id"])
+            except ProtocolViolation as exc:
+                raise ProtocolViolation("reserved revision job has no reconcilable queue state") from exc
+            status["idempotent_replay"] = True
+            return status
+        manifest = self._load_workspace(workspace_id)
+        if manifest["pending_job_id"] is not None or manifest["revision"] != expected_revision:
+            raise ProtocolViolation("workspace is not at the requested stable revision")
+        if sha256_file(directory / "project.project") != manifest["project_digest"]:
+            raise ProtocolViolation("workspace project changed outside the worker protocol")
+        if identity_dir.exists():
+            for other in identity_dir.glob("*.json"):
+                reservation = strict_json_loads_v2(other.read_bytes())
+                if reservation.get("record_type") != "RevisionIdempotency":
+                    raise ProtocolViolation("workspace has a corrupt revision reservation")
+                try:
+                    state = self.queue.status(reservation["job_id"])["state"]
+                except ProtocolViolation:
+                    raise ProtocolViolation("workspace has an unreconciled revision reservation")
+                if state in {"queued", "running"}:
+                    raise ProtocolViolation("workspace has an outstanding revision reservation")
+        job_id, correlation_id = str(uuid.uuid4()), str(uuid.uuid4())
+        self._revision_path_budget(workspace_id, job_id, correlation_id, identity_path)
+        identity_dir.mkdir(exist_ok=True)
+        atomic_write_exclusive(identity_path, canonical_json_bytes({
+            "schema_version": "1", "record_type": "RevisionIdempotency",
+            "key_digest": key_digest,
+            "arguments_digest": arguments_digest,
+            "job_id": job_id, "correlation_id": correlation_id,
+            "workspace_id": workspace_id,
+        }))
+        return self._queue_workspace_operation(
+            "revision.apply", arguments,
+            reserved_job_id=job_id, reserved_correlation_id=correlation_id,
+            _fenced=True,
+        )
+
+    def _native_save_receipt(self, manifest: dict[str, Any]) -> dict[str, Any]:
+        receipt = manifest["last_native_save"]
+        if not isinstance(receipt, dict) or receipt.get("record_type") != "RevisionClosedReceipt":
+            raise ProtocolViolation("workspace has no verified native revision receipt")
+        if (receipt.get("workspace_id") != manifest["workspace_id"]
+                or receipt.get("expected_revision") != manifest["revision"] - 1
+                or receipt.get("after_project_digest") != manifest["project_digest"]
+                or receipt.get("environment_digest") != self.environment_digest
+                or receipt.get("closed") is not True
+                or receipt.get("reopen_verified") is not True
+                or receipt.get("save_count") != 1):
+            raise ProtocolViolation("native revision receipt does not bind the current workspace")
+        transaction = self.v2 / "state" / "revision-transactions" / receipt["job_id"]
+        receipt_path = transaction / "receipt.json"
+        if not receipt_path.is_file() or strict_json_loads_v2(receipt_path.read_bytes()) != receipt:
+            raise ProtocolViolation("native revision receipt is missing or changed")
+        generation = transaction / "project.project"
+        if not generation.is_file() or sha256_file(generation) != receipt["after_project_digest"]:
+            raise ProtocolViolation("closed native generation is missing or changed")
+        return receipt
+
+    def candidate_snapshot(self, workspace_id: str, expected_revision: int,
+                           _fenced: bool = False) -> dict[str, Any]:
+        validate_arguments("candidate.snapshot", {
+            "workspace_id": workspace_id, "expected_revision": expected_revision,
+        }, self.v2)
+        if not _fenced:
+            with self._workspace_fence(workspace_id):
+                return self.candidate_snapshot(workspace_id, expected_revision, _fenced=True)
+        require_single_workspace(self.v2, workspace_id)
+        manifest = self._load_workspace(workspace_id)
+        if manifest["pending_job_id"] is not None or manifest["revision"] != expected_revision:
+            raise ProtocolViolation("workspace is not at the requested stable revision")
+        receipt = self._native_save_receipt(manifest)
+        if self.supervisor is not None:
+            guard_health = getattr(self.supervisor, "guard_health", None)
+            if not callable(guard_health):
+                raise ProtocolViolation("AX supervisor cannot verify launch-guard health")
+            guard_health(workspace_id)
+        directory, _ = self._workspace_paths(workspace_id)
+        project = directory / "project.project"
+        digest = sha256_file(project)
+        if digest != receipt["after_project_digest"]:
+            raise ProtocolViolation("workspace does not match closed native generation")
+        candidate_dir = self.v2 / "native_candidates"
+        candidate = candidate_dir / (digest.removeprefix("sha256:") + ".project")
+        if candidate.exists():
+            if sha256_file(candidate) != digest:
+                raise ProtocolViolation("immutable native candidate bytes are corrupt")
+        else:
+            atomic_write_exclusive(candidate, project.read_bytes())
+        if self.supervisor is not None:
+            guard_health(workspace_id)
+            if sha256_file(project) != digest:
+                raise ProtocolViolation("workspace changed while native candidate was published")
+        record = {
+            "schema_version": "1", "record_type": "NativeSavedUncompiledCandidate",
+            "status": "NATIVE_SAVED_UNCOMPILED", "workspace_id": workspace_id,
+            "revision": expected_revision, "project_digest": digest,
+            "environment_digest": self.environment_digest,
+            "revision_job_id": receipt["job_id"],
+            "closed_receipt_digest": sha256_bytes(canonical_json_bytes(receipt)),
+            "path": f"native_candidates/{candidate.name}",
+            "build_digest": None, "deployable": False,
+        }
+        if record not in manifest["native_candidates"]:
+            manifest["native_candidates"].append(record)
+            self._write_workspace(manifest)
+        return record
+
     def project_build(
         self,
         workspace_id: str,
         expected_revision: int,
         mode: str = "rebuild",
         max_attempts: int = 10,
+        transport_profile: str = "lan",
+        workflow_deadline_at: str | None = None,
     ) -> dict[str, Any]:
+        if transport_profile not in {"lan", "diacloud"}:
+            raise ProtocolViolation("unsupported transport_profile")
+        if transport_profile == "diacloud" and workflow_deadline_at is None:
+            workflow_deadline_at = (
+                datetime.now(UTC) + timedelta(seconds=600)
+            ).strftime("%Y-%m-%dT%H:%M:%SZ")
+        if workflow_deadline_at is not None:
+            remaining = (parse_utc(workflow_deadline_at) - datetime.now(UTC)).total_seconds()
+            maximum = 600 if transport_profile == "diacloud" else 300
+            if not 0 < remaining <= maximum:
+                raise ProtocolViolation("workflow deadline is expired or exceeds the profile budget")
+            if transport_profile == "diacloud" and (
+                self.supervisor is None
+                or not getattr(self.supervisor, "supports_workflow_deadline_v1", False)
+            ):
+                raise ProtocolViolation("AX build worker lacks DIACloud deadline capability")
         release_identity = sha256_bytes(
             canonical_json_bytes(
                 {
@@ -1046,15 +1307,21 @@ class AutonomousHost:
                 }
             )
         )
+        arguments = {
+            "workspace_id": workspace_id,
+            "expected_revision": expected_revision,
+            "mode": mode,
+            "max_attempts": max_attempts,
+            "runtime_release_digest": release_identity,
+        }
+        if workflow_deadline_at is not None:
+            arguments.update(
+                {"transport_profile": transport_profile, "workflow_deadline_at": workflow_deadline_at}
+            )
         return self._queue_workspace_operation(
             "project.build",
-            {
-                "workspace_id": workspace_id,
-                "expected_revision": expected_revision,
-                "mode": mode,
-                "max_attempts": max_attempts,
-                "runtime_release_digest": release_identity,
-            },
+            arguments,
+            timeout_seconds=600 if transport_profile == "diacloud" else 300,
         )
 
     def ingest_worker_result(self, result: dict[str, Any]) -> dict[str, Any]:
@@ -1094,13 +1361,29 @@ class AutonomousHost:
                 raise ProtocolViolation("worker result does not match workspace project bytes")
             expected_result_revision = (
                 manifest["revision"] + 1
-                if result["operation"] in {"source.upsert.st", "ladder.networks.apply"}
+                if result["operation"] in {"source.upsert.st", "ladder.networks.apply", "revision.apply"}
                 else manifest["revision"]
             )
             if result["revision"] != expected_result_revision:
                 raise ProtocolViolation("worker result revision violates operation semantics")
             manifest["revision"] = expected_result_revision
             manifest["project_digest"] = result["after_project_digest"]
+            if result["operation"] == "revision.apply":
+                outputs = [artifact for artifact in result["artifacts"] if artifact["role"] == "output"]
+                if len(outputs) != 1:
+                    raise ProtocolViolation("revision result lacks one output payload")
+                output_path = validate_artifact_path(outputs[0]["path"], self.v2)
+                payload = strict_json_loads_v2(output_path.read_bytes())
+                receipt = payload.get("receipt") if isinstance(payload, dict) else None
+                if not isinstance(receipt, dict) or receipt.get("job_id") != result["job_id"]:
+                    raise ProtocolViolation("revision output lacks a bound closed receipt")
+                if (receipt.get("before_project_digest") != result["before_project_digest"]
+                        or receipt.get("after_project_digest") != result["after_project_digest"]
+                        or receipt.get("expected_revision") != arguments["expected_revision"]
+                        or receipt.get("closed") is not True):
+                    raise ProtocolViolation("revision closed receipt/result binding mismatch")
+                manifest["last_native_save"] = receipt
+                self._native_save_receipt(manifest)
             if result["operation"] == "project.build":
                 build_record, build_digest = self._load_build_result(
                     result, workspace_id, arguments["runtime_release_digest"]
@@ -1118,8 +1401,10 @@ class AutonomousHost:
                     }
                 else:
                     manifest["last_successful_build"] = None
-            elif result["operation"] in {"source.upsert.st", "ladder.networks.apply"}:
+            elif result["operation"] in {"source.upsert.st", "ladder.networks.apply", "revision.apply"}:
                 manifest["last_successful_build"] = None
+                if result["operation"] != "revision.apply":
+                    manifest["last_native_save"] = None
         status = self.queue.finish(result)
         self._write_workspace(manifest)
         return status
@@ -1181,9 +1466,24 @@ class AutonomousHost:
             raise ProtocolViolation("successful AXQ result contains a non-passing BuildResult")
         return build, descriptor["sha256"]
 
-    def artifact_freeze(self, workspace_id: str, expected_revision: int) -> dict[str, Any]:
+    def artifact_freeze(self, workspace_id: str, expected_revision: int,
+                        _fenced: bool = False,
+                        _launcher_fenced: bool = False) -> dict[str, Any]:
         arguments = {"workspace_id": workspace_id, "expected_revision": expected_revision}
         validate_arguments("artifact.freeze", arguments, self.v2)
+        if not _fenced:
+            with self._workspace_fence(workspace_id):
+                return self.artifact_freeze(workspace_id, expected_revision, _fenced=True)
+        require_single_workspace(self.v2, workspace_id)
+        if self.supervisor is not None and not _launcher_fenced:
+            launcher_fence = getattr(self.supervisor, "launcher_fence", None)
+            if not callable(launcher_fence):
+                raise ProtocolViolation("AX supervisor cannot exclude replacement launches")
+            with launcher_fence():
+                return self.artifact_freeze(
+                    workspace_id, expected_revision,
+                    _fenced=True, _launcher_fenced=True,
+                )
         manifest = self._load_workspace(workspace_id)
         if manifest["pending_job_id"] is not None or manifest["revision"] != expected_revision:
             raise ProtocolViolation("workspace is not at the requested stable revision")
@@ -1198,10 +1498,35 @@ class AutonomousHost:
         if actual_digest != manifest["project_digest"]:
             raise ProtocolViolation("workspace changed after qualifying build")
         if self.supervisor is not None:
+            request_shutdown = getattr(self.supervisor, "request_shutdown", None)
             wait_for_shutdown = getattr(self.supervisor, "wait_for_idle_shutdown", None)
-            if not callable(wait_for_shutdown):
+            if not callable(request_shutdown) or not callable(wait_for_shutdown):
                 raise ProtocolViolation("AX supervisor cannot verify bounded hidden shutdown")
+            latest_launch = self.supervisor._latest_workspace_launch(workspace_id)
+            request_shutdown(workspace_id)
             wait_for_shutdown(workspace_id)
+            if self.supervisor._live_lease(workspace_id) is not None:
+                raise ProtocolViolation("AX worker lease remained live after shutdown")
+            if self.supervisor._latest_workspace_launch(workspace_id) != latest_launch:
+                raise ProtocolViolation("AX worker launch changed during artifact freeze")
+        # The closed-project bytes and build evidence must still be identical
+        # after the worker/guard exit, while the workspace fence excludes launch.
+        closed_manifest = self._load_workspace(workspace_id)
+        if (closed_manifest["pending_job_id"] is not None
+                or closed_manifest["revision"] != expected_revision
+                or closed_manifest["project_digest"] != actual_digest
+                or closed_manifest["last_successful_build"] != build
+                or sha256_file(project) != actual_digest):
+            raise ProtocolViolation("workspace or build identity changed during AX shutdown")
+        build_result_path = self.v2 / "results" / f"{build['job_id']}.result.json"
+        build_result, _ = load_v2(build_result_path)
+        if build_result.get("job_id") != build["job_id"]:
+            raise ProtocolViolation("qualifying build result identity changed")
+        _build_record, closed_build_digest = self._load_build_result(
+            build_result, workspace_id, build["runtime_release_digest"]
+        )
+        if closed_build_digest != build["build_digest"]:
+            raise ProtocolViolation("qualifying build evidence changed during AX shutdown")
         artifact_path = self.v2 / "artifacts" / f"{actual_digest.removeprefix('sha256:')}.project"
         if artifact_path.exists():
             if sha256_file(artifact_path) != actual_digest:
@@ -1219,9 +1544,9 @@ class AutonomousHost:
             "path": f"artifacts/{artifact_path.name}",
             "status": "READY_FOR_DEPLOY",
         }
-        if record not in manifest["frozen_artifacts"]:
-            manifest["frozen_artifacts"].append(record)
-            self._write_workspace(manifest)
+        if record not in closed_manifest["frozen_artifacts"]:
+            closed_manifest["frozen_artifacts"].append(record)
+            self._write_workspace(closed_manifest)
         return record
 
     def _artifact_path(self, digest: str) -> Path:
@@ -1243,6 +1568,57 @@ class AutonomousHost:
                     validate_digest(record["runtime_release_digest"])
                     return record
         raise ProtocolViolation("artifact is not registered as READY_FOR_DEPLOY")
+
+    def _qualifying_build_workflow(self, plan: dict[str, Any]) -> tuple[str, str | None]:
+        """Read the archived qualifying build, not a caller-supplied new budget."""
+
+        frozen = self._frozen_artifact_record(plan["artifact_digest"])
+        if (
+            frozen["build_digest"] != plan["build_digest"]
+            or frozen["runtime_release_digest"] != plan["runtime_release_digest"]
+        ):
+            raise ProtocolViolation("deployment plan qualifying build identity changed")
+        build_job_id = frozen["build_job_id"]
+        validate_correlation_id(build_job_id)
+        result_path = self.v2 / "results" / f"{build_job_id}.result.json"
+        try:
+            request, result = load_archived_result_chain_v2(result_path, self.v2)
+        except (OSError, ProtocolViolation) as exc:
+            raise ProtocolViolation("qualifying build result chain is missing or corrupt") from exc
+        if (
+            request["job_id"] != build_job_id
+            or request["operation"] != "project.build"
+            or request["environment_digest"] != self.environment_digest
+            or result["status"] != "succeeded"
+            or result["after_project_digest"] != plan["artifact_digest"]
+        ):
+            raise ProtocolViolation("qualifying build result does not match deployment plan")
+        outputs = [item for item in result["artifacts"] if item["role"] == "output"]
+        inputs = [item for item in request["artifacts"] if item["role"] == "input"]
+        if (
+            len(outputs) != 1
+            or outputs[0]["sha256"] != plan["build_digest"]
+            or len(inputs) != 1
+        ):
+            raise ProtocolViolation("qualifying build artifacts do not match deployment plan")
+        arguments = strict_json_loads_v2(
+            validate_artifact_path(inputs[0]["path"], self.v2).read_bytes()
+        )
+        validate_arguments("project.build", arguments, self.v2)
+        if (
+            arguments["workspace_id"] != frozen["workspace_id"]
+            or arguments["expected_revision"] != frozen["revision"]
+            or arguments["runtime_release_digest"] != plan["runtime_release_digest"]
+            or request["workspace_digest"] != plan["artifact_digest"]
+        ):
+            raise ProtocolViolation("qualifying build request identity mismatch")
+        profile = arguments.get("transport_profile", "lan")
+        deadline = arguments.get("workflow_deadline_at")
+        if profile != request.get("transport_profile", "lan") or (
+            deadline is not None and deadline != request["deadline_at"]
+        ):
+            raise ProtocolViolation("qualifying build workflow request binding mismatch")
+        return profile, deadline
 
     def _target_allowed(self, fingerprint: str) -> bool:
         validate_digest(fingerprint)
@@ -1432,7 +1808,23 @@ class AutonomousHost:
         expires_at: str,
         challenge_nonce: str,
         authorization_phrase: str,
+        transport_profile: str = "lan",
+        workflow_deadline_at: str | None = None,
     ) -> dict[str, Any]:
+        if transport_profile not in {"lan", "diacloud"}:
+            raise ProtocolViolation("unsupported transport_profile")
+        if transport_profile == "diacloud" and workflow_deadline_at is None:
+            raise ProtocolViolation("DIACloud deployment requires the build workflow deadline")
+        if workflow_deadline_at is not None:
+            remaining = (parse_utc(workflow_deadline_at) - datetime.now(UTC)).total_seconds()
+            maximum = 600 if transport_profile == "diacloud" else 330
+            if not 0 < remaining <= maximum:
+                raise ProtocolViolation("workflow deadline is expired or exceeds the profile budget")
+            if transport_profile == "diacloud" and (
+                self.deployment_supervisor is None
+                or not getattr(self.deployment_supervisor, "supports_workflow_deadline_v1", False)
+            ):
+                raise ProtocolViolation("AX deployment worker lacks DIACloud deadline capability")
         arguments = {
             "plan_id": plan_id,
             "artifact_digest": artifact_digest,
@@ -1442,6 +1834,10 @@ class AutonomousHost:
             "challenge_nonce": challenge_nonce,
             "authorization_phrase": authorization_phrase,
         }
+        if workflow_deadline_at is not None:
+            arguments.update(
+                {"transport_profile": transport_profile, "workflow_deadline_at": workflow_deadline_at}
+            )
         validate_arguments("deployment.execute", arguments, self.v2)
         plan = self._load_plan(plan_id)
         challenge = self._load_challenge(plan_id)
@@ -1465,6 +1861,11 @@ class AutonomousHost:
             or challenge["expires_at"] != expires_at
         ):
             raise ProtocolViolation("deployment challenge binding mismatch")
+        build_profile, build_deadline = self._qualifying_build_workflow(plan)
+        if (build_profile == "diacloud" or transport_profile == "diacloud") and (
+            transport_profile != build_profile or workflow_deadline_at != build_deadline
+        ):
+            raise ProtocolViolation("deployment workflow differs from qualifying build")
         if not self._target_allowed(target_fingerprint):
             raise ProtocolViolation("deployment target fingerprint is no longer allowlisted")
         if parse_utc(plan["expires_at"]) <= datetime.now(UTC):
@@ -1484,6 +1885,11 @@ class AutonomousHost:
                     raise ProtocolViolation(
                         "consumed deployment authority does not match this retry"
                     )
+            if (
+                prior_authority.get("transport_profile", "lan") != transport_profile
+                or prior_authority.get("workflow_deadline_at") != workflow_deadline_at
+            ):
+                raise ProtocolViolation("consumed deployment workflow deadline changed")
             expected_request = self._deployment_request_for_authority(
                 plan, challenge, prior_authority
             )
@@ -1556,9 +1962,13 @@ class AutonomousHost:
             "expires_at": expires_at,
             "single_use": True,
         }
+        if workflow_deadline_at is not None:
+            authority_binding.update(
+                {"transport_profile": transport_profile, "workflow_deadline_at": workflow_deadline_at}
+            )
         authority_digest = sha256_bytes(canonical_json_bytes(authority_binding))
         marker = {
-            "schema_version": "1",
+            "schema_version": "2" if workflow_deadline_at is not None else "1",
             "record_type": "DeploymentAuthority",
             "status": "consumed",
             "plan_id": plan_id,
@@ -1576,6 +1986,10 @@ class AutonomousHost:
             "consumed_at": issued_at,
             "authority_digest": authority_digest,
         }
+        if workflow_deadline_at is not None:
+            marker.update(
+                {"transport_profile": transport_profile, "workflow_deadline_at": workflow_deadline_at}
+            )
         self._validate_authority(marker, plan)
         # Consume before queueing.  An uncertain local failure stays fail-closed
         # and requires reconciliation; the host never recreates this authority.
@@ -1596,6 +2010,8 @@ class AutonomousHost:
                 "worker_launch": launch,
             }
         )
+        if workflow_deadline_at is not None:
+            queued["workflow_deadline_at"] = workflow_deadline_at
         return queued
 
     def _deployment_request_for_authority(
@@ -1613,7 +2029,7 @@ class AutonomousHost:
             uuid.uuid5(uuid.NAMESPACE_URL, identity + "/correlation")
         )
         execution_input = {
-            "schema_version": "1",
+            "schema_version": authority["schema_version"],
             "record_type": "DeploymentExecuteInput",
             "plan_id": plan["plan_id"],
             "plan_digest": challenge["plan_digest"],
@@ -1629,6 +2045,13 @@ class AutonomousHost:
             ],
             "authority_digest": authority["authority_digest"],
         }
+        if authority["schema_version"] == "2":
+            execution_input.update(
+                {
+                    "transport_profile": authority["transport_profile"],
+                    "workflow_deadline_at": authority["workflow_deadline_at"],
+                }
+            )
         input_descriptor = self._publish_operation_input_idempotent(
             job_id, execution_input, "input"
         )
@@ -1637,7 +2060,7 @@ class AutonomousHost:
             job_id=job_id,
             operation="deployment.execute",
             created_at=authority["issued_at"],
-            timeout_seconds=330,
+            timeout_seconds=600 if authority.get("transport_profile") == "diacloud" else 330,
             environment_digest=self.environment_digest,
             workspace_digest=None,
             expected_revision=None,
@@ -1663,6 +2086,8 @@ class AutonomousHost:
                 },
             ],
             scratch_root=self.v2,
+            transport_profile=authority.get("transport_profile", "lan"),
+            workflow_deadline_at=authority.get("workflow_deadline_at"),
         )
 
     def _unknown_deployment_evidence(
@@ -2102,9 +2527,12 @@ class AutonomousHost:
             "consumed_at",
             "authority_digest",
         }
+        version = authority.get("schema_version")
+        if version == "2":
+            expected |= {"transport_profile", "workflow_deadline_at"}
         if (
             set(authority) != expected
-            or authority["schema_version"] != "1"
+            or version not in {"1", "2"}
             or authority["record_type"] != "DeploymentAuthority"
             or authority["status"] != "consumed"
             or authority["single_use"] is not True
@@ -2129,6 +2557,12 @@ class AutonomousHost:
         expires = parse_utc(authority["expires_at"])
         if not issued < expires or (expires - issued).total_seconds() > 600:
             raise ProtocolViolation("deployment authority time invariant failed")
+        if version == "2":
+            profile = authority["transport_profile"]
+            workflow_deadline = parse_utc(authority["workflow_deadline_at"])
+            maximum = 600 if profile == "diacloud" else 330
+            if profile not in {"lan", "diacloud"} or not issued < workflow_deadline <= issued + timedelta(seconds=maximum):
+                raise ProtocolViolation("deployment authority workflow deadline is invalid")
         binding = {
             "plan_id": authority["plan_id"],
             "artifact_digest": authority["artifact_digest"],
@@ -2143,6 +2577,13 @@ class AutonomousHost:
             "expires_at": authority["expires_at"],
             "single_use": authority["single_use"],
         }
+        if version == "2":
+            binding.update(
+                {
+                    "transport_profile": authority["transport_profile"],
+                    "workflow_deadline_at": authority["workflow_deadline_at"],
+                }
+            )
         if authority["authority_digest"] != sha256_bytes(canonical_json_bytes(binding)):
             raise ProtocolViolation("deployment authority digest invariant failed")
 
@@ -2571,6 +3012,7 @@ class AutonomousHost:
                 "source.upsert.st",
                 "ladder.networks.apply",
                 "project.build",
+                "revision.apply",
             } and self.supervisor is not None:
                 arguments = None
                 for artifact in request_value["artifacts"]:
@@ -2581,11 +3023,15 @@ class AutonomousHost:
                         break
                 if arguments is None:
                     raise ProtocolViolation("workspace job input is missing during recovery")
-                recovery = self.supervisor.recover_workspace_job(
-                    arguments["workspace_id"],
-                    job_id,
-                    request_value["workspace_digest"],
+                recovery_args = (
+                    arguments["workspace_id"], job_id, request_value["workspace_digest"],
                 )
+                if request_value["operation"] == "revision.apply":
+                    recovery = self.supervisor.recover_workspace_job(
+                        *recovery_args, "revision.apply",
+                    )
+                else:
+                    recovery = self.supervisor.recover_workspace_job(*recovery_args)
                 if recovery["status"] in {"unknown_outcome", "blocked"}:
                     if request_raw_before is None:
                         raise ProtocolViolation(
@@ -2712,6 +3158,9 @@ class AutonomousHost:
             "output": None,
         }
 
+    def job_progress(self, job_id: str) -> dict[str, Any]:
+        return read_job_progress(self.queue, job_id)
+
     def job_cancel(self, job_id: str) -> dict[str, Any]:
         before = self.queue.status(job_id)
         self.queue.cancel(job_id)
@@ -2720,6 +3169,7 @@ class AutonomousHost:
             "source.read",
             "source.upsert.st",
             "ladder.networks.apply",
+            "revision.apply",
             "project.build",
         }:
             request_path = self.queue._matching_request(job_id, "archive")

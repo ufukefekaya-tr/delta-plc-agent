@@ -80,6 +80,12 @@ class ApplicationStates:
     stop = "stop"
 
 
+class OperatingStates:
+    program_loaded = 1
+    download = 2
+    run_after_download = 64
+
+
 class VersionUpdateFlags:
     NoUpdates = "NO_UPDATES"
 
@@ -136,12 +142,21 @@ class OnlineApplication:
         self.timeout = None
         self.is_logged_in = False
         self.application_state = "stop"
+        self.operation_state = OperatingStates.program_loaded
         self.disposed = False
 
     def login(self, option, delete_foreign_apps) -> None:
         self.events.append((self.label, "login", option, delete_foreign_apps))
+        if option == ChangeOptions.Never:
+            seconds = self.behavior.get("download_return_after", 0)
+            if seconds:
+                self.behavior["clock"].sleep(seconds)
+            if self.behavior.get("incomplete_initialization"):
+                self.operation_state |= OperatingStates.run_after_download
+            if self.behavior.get("incomplete_download"):
+                self.operation_state |= OperatingStates.download
         if self.label == "candidate" and option == ChangeOptions.Never and self.behavior.get("fail_candidate_download"):
-            raise ConnectionError("connection lost during candidate full download")
+            raise ConnectionError(self.behavior.get("fail_candidate_download_message", "connection lost during candidate full download"))
         if self.label == "candidate" and option == ChangeOptions.Never and self.behavior.get("crash_candidate_download"):
             raise SimulatedWorkerCrash("worker terminated during candidate full download")
         if self.label == "rollback" and option == ChangeOptions.Never and self.behavior.get("fail_rollback_download"):
@@ -250,6 +265,7 @@ class Fixture:
         self.clock = Clock()
         self.events: list[tuple] = []
         self.behavior = behavior or {}
+        self.behavior["clock"] = self.clock
         self.enrollment = {
             "schema_version": "1",
             "record_type": "TargetEnrollment",
@@ -298,6 +314,19 @@ class Fixture:
             side_effect_callback=side_effect_callback,
             now=self.clock.now,
             sleeper=self.clock.sleep,
+            operating_states_api=OperatingStates,
+            workflow_deadline_capability=self.behavior.get("workflow_deadline_capability", False),
+        )
+
+    def restart_worker(self) -> None:
+        """Model a new process after the original transfer owner has gone."""
+        self.worker = self.module.AxDeploymentWorker(
+            str(self.root), ENVIRONMENT, self.enrollment,
+            ["PLC_PRG.FaultCode", "PLC_PRG.RestartRequired"],
+            self.projects, self.online, self.target, ChangeOptions,
+            ApplicationStates, VersionUpdateFlags, CredentialSources,
+            worker_id=self.worker.worker_id, now=self.clock.now,
+            sleeper=self.clock.sleep, operating_states_api=OperatingStates,
         )
 
     def _write_json(self, relative: str, value: dict) -> tuple[Path, bytes]:
@@ -372,6 +401,8 @@ class Fixture:
         plan_created_offset: int = -10,
         valid_for_seconds: int = 600,
         issued_offset: int = 0,
+        transport_profile: str = "lan",
+        workflow_deadline_seconds: int = 600,
     ) -> dict:
         plan_id = str(uuid.uuid4())
         challenge = str(uuid.uuid4())
@@ -419,11 +450,18 @@ class Fixture:
             "expires_at": expires,
             "single_use": True,
         }
+        if transport_profile == "diacloud":
+            binding.update(
+                {
+                    "transport_profile": transport_profile,
+                    "workflow_deadline_at": self.clock.stamp(issued_offset + workflow_deadline_seconds),
+                }
+            )
         authority_digest = self.module._sha256_bytes(self.module._json_bytes(binding))
         authority = dict(binding)
         authority.update(
             {
-                "schema_version": "1",
+                "schema_version": "2" if transport_profile == "diacloud" else "1",
                 "record_type": "DeploymentAuthority",
                 "status": "consumed",
                 "consumed_at": issued,
@@ -434,7 +472,7 @@ class Fixture:
         del authority_path
         job_id = str(uuid.uuid4())
         execution = {
-            "schema_version": "1",
+            "schema_version": "2" if transport_profile == "diacloud" else "1",
             "record_type": "DeploymentExecuteInput",
             "plan_id": plan_id,
             "plan_digest": self.module._sha256_bytes(plan_raw),
@@ -448,16 +486,25 @@ class Fixture:
             "observation_digest": observation_digest,
             "authority_digest": authority_digest,
         }
+        if transport_profile == "diacloud":
+            execution.update(
+                {
+                    "transport_profile": transport_profile,
+                    "workflow_deadline_at": binding["workflow_deadline_at"],
+                }
+            )
         execution_path, execution_raw = self._write_json(f"inputs/{job_id}.deployment.json", execution)
         del execution_path
-        return {
+        request = {
             "protocol": "AXQ-FILE/2",
             "message_type": "request",
             "correlation_id": str(uuid.uuid4()),
             "job_id": job_id,
             "operation": "deployment.execute",
             "created_at": issued,
-            "deadline_at": self.clock.stamp(issued_offset + 330),
+            "deadline_at": self.clock.stamp(
+                issued_offset + (workflow_deadline_seconds if transport_profile == "diacloud" else 330)
+            ),
             "environment_digest": ENVIRONMENT,
             "workspace_digest": None,
             "expected_revision": None,
@@ -469,6 +516,9 @@ class Fixture:
                 self._descriptor("authorization", f"plans/{plan_id}.consumed.json", authority_raw),
             ],
         }
+        if transport_profile == "diacloud":
+            request["transport_profile"] = "diacloud"
+        return request
 
     def observation_request(self, operation: str, payload: dict, *, job_id: str | None = None) -> dict:
         job_id = job_id or str(uuid.uuid4())
@@ -1308,7 +1358,7 @@ class AxDeploymentWorkerContractTests(unittest.TestCase):
             original_journal = fixture.worker._journal
 
             def crash_before_started_event(request, event, details=None):
-                if event == "candidate-full-download-started":
+                if event == "candidate-full-download-api-intent":
                     raise SimulatedWorkerCrash("process died after durable marker")
                 return original_journal(request, event, details)
 
@@ -1326,7 +1376,7 @@ class AxDeploymentWorkerContractTests(unittest.TestCase):
             )
             self.assertFalse(
                 any(
-                    "full-download-started" in path.name
+                    "full-download-api-intent" in path.name
                     for path in journal_paths
                 )
             )
@@ -1361,6 +1411,7 @@ class AxDeploymentWorkerContractTests(unittest.TestCase):
             original_result = fixture.worker.process_request(original_request)
             self.assertEqual(original_result["status"], "unknown_outcome")
             fixture.archive_request(original_request)
+            fixture.restart_worker()
             fixture.target.reconciliation.update(
                 {
                     "runtime_release_digest": fixture.candidate_runtime_release_digest,
@@ -1626,8 +1677,8 @@ class AxDeploymentWorkerContractTests(unittest.TestCase):
 
             self.assertTrue(runtime.process_next())
             self.assertEqual(queue.status(first["job_id"])["state"], "unknown_outcome")
-            with self.assertRaisesRegex(self.module.WorkerError, "unresolved"):
-                runtime.process_next()
+            self.assertTrue(fixture.worker._transfer_held)
+            self.assertFalse(runtime.process_next())
             self.assertEqual(queue.status(second["job_id"])["state"], "queued")
             self.assertIsNone(queue._matching_request(second["job_id"], "running"))
 

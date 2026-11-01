@@ -335,7 +335,8 @@ class AxWorkerSupervisorTests(unittest.TestCase):
             self.assertEqual(len(popen.calls), 1)
             if os.name == "nt":
                 self.assertEqual(len(guarded), 1)
-                self.assertEqual(guarded[0][:2], (4242, 330))
+                self.assertEqual(guarded[0][:2], (4242, 600))
+                self.assertEqual(supervisor.config["idle_exit_seconds"], 60)
                 self.assertEqual(
                     guarded[0][2].name, f"{queued['job_id']}.window-guard.json"
                 )
@@ -374,6 +375,7 @@ class AxWorkerSupervisorTests(unittest.TestCase):
                     "source.read",
                     "source.upsert.st",
                     "ladder.networks.apply",
+                    "revision.apply",
                     "project.build",
                 ],
             )

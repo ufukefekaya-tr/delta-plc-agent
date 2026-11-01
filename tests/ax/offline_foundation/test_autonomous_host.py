@@ -2219,6 +2219,9 @@ class AutonomousHostTests(unittest.TestCase):
                         "deployment.reconcile",
                         "target.observe.read",
                         "job.status",
+                        "job.progress",
+                        "operator.profile",
+                        "operator.evidence.check",
                     }
                     for tool in listed.tools:
                         self.assertFalse(tool.annotations.open_world_hint)
@@ -2263,8 +2266,8 @@ class AutonomousHostTests(unittest.TestCase):
 
         asyncio.run(scenario())
 
-    def test_version_is_0_2_0(self) -> None:
-        self.assertEqual(PACKAGE_VERSION, "0.2.0")
+    def test_version_is_0_4_0(self) -> None:
+        self.assertEqual(PACKAGE_VERSION, "0.4.0")
 
 
 if __name__ == "__main__":

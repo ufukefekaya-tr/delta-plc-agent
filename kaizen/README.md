@@ -24,4 +24,7 @@ Her gerçek davranış veya çalışma protokolü değişikliği ayrı bir `KZ-Y
 
 - [KZ-20261017-002 — Genel indeks ve adaptör durumunu uzlaştırma](KZ-20261017-002-universal-status-sync.md)
 
-- [KZ-20261026-001 — ISPSoft pointer codec and evidence limits](KZ-20261026-001-ispsoft-boundaries.md)
+- [KZ-20261026-002 - Public AX convergence](KZ-20261026-002-ax-public-sync.md)
+
+- [KZ-20261026-001 - ISPSoft pointer codec and evidence limits](KZ-20261026-001-ispsoft-boundaries.md)
+- [KZ-20261101-001 - AX and ISPSoft integration](KZ-20261101-001-ax-ispsoft-integration.md)

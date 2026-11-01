@@ -10,6 +10,7 @@ import hashlib
 import io
 import json
 import re
+import sys
 import xml.etree.ElementTree as ET
 
 
@@ -1305,3 +1306,172 @@ def verify_roundtrip(xml_raw, expected_recipe):
         "network_count": len(normalized["networks"]),
         "recipe_digest": _semantic_digest(normalized),
     }
+
+
+def validate_revision_subset(recipe):
+    """Qualified revision subset; the legacy larger import API is unchanged."""
+    recipe = validate_recipe(recipe)
+    if recipe["pou"] != "MachineSupervisor" or len(recipe["networks"]) != 1:
+        raise LadderImportError("LD_REVISION_UNSUPPORTED: one MachineSupervisor network required")
+    network = recipe["networks"][0]
+    elements = network["elements"]
+    if (len(elements) != 1 or elements[0]["kind"] != "contact"
+            or network["coil"]["mode"] != "normal"):
+        raise LadderImportError("LD_REVISION_UNSUPPORTED: one contact and normal coil required")
+    expected = {elements[0]["variable"]: "input", network["coil"]["variable"]: "output"}
+    if (len(expected) != 2 or len(recipe["variables"]) != 2
+            or any(v["type"] != "BOOL" or expected.get(v["name"]) != v["direction"]
+                   for v in recipe["variables"])):
+        raise LadderImportError("LD_REVISION_UNSUPPORTED: exact two BOOL interface required")
+    return recipe
+
+
+def verify_revision_baseline(xml_raw, recipe):
+    """Only polarity may differ from the requested, already supported graph."""
+    recipe = validate_revision_subset(recipe)
+    errors = []
+    for polarity in ("NO", "NC"):
+        candidate = json.loads(_canonical_json(recipe))
+        candidate["networks"][0]["elements"][0]["polarity"] = polarity
+        try:
+            return verify_roundtrip(xml_raw, candidate)
+        except LadderImportError as exc:
+            errors.append(polarity + ": " + str(exc))
+    raise LadderImportError("LD_REVISION_UNSUPPORTED: existing graph/interface differs; " + "; ".join(errors))
+
+
+def _native_tree(raw):
+    if isinstance(raw, bytes):
+        text = raw.decode("utf-8")
+    elif isinstance(raw, TEXT_TYPES):
+        text = raw
+    else:
+        raise LadderImportError("native revision XML must be text or bytes")
+    text = text[1:] if text and ord(text[0]) == 0xFEFF else text
+    if (not text or len(text.encode("utf-8")) > MAX_XML_BYTES
+            or "<!doctype" in text.lower() or "<!entity" in text.lower()):
+        raise LadderImportError("native revision XML is invalid or oversized")
+    if sys.platform == "cli":
+        # AX's old SimpleXMLTreeBuilder rejects valid non-ASCII UTF-8.
+        # Parse with the vendor runtime's XML reader, retaining characters.
+        from System.Xml import XmlDocument, XmlNodeType
+        doc = XmlDocument()
+        doc.PreserveWhitespace = True
+        doc.XmlResolver = None
+        doc.LoadXml(text)
+        def expanded(node):
+            return ("{%s}%s" % (node.NamespaceURI, node.LocalName)
+                    if node.NamespaceURI else node.LocalName)
+        def convert(node):
+            if node.NamespaceURI:
+                raise LadderImportError("unsupported native XML element namespace")
+            result = ET.Element(expanded(node))
+            for attribute in node.Attributes:
+                if attribute.NamespaceURI == "http://www.w3.org/2000/xmlns/":
+                    raise LadderImportError("unsupported native XML namespace declaration")
+                if attribute.NamespaceURI not in ("", "http://www.w3.org/XML/1998/namespace"):
+                    raise LadderImportError("unsupported native XML attribute namespace")
+                result.set(expanded(attribute), attribute.Value)
+            previous = None
+            for child in node.ChildNodes:
+                if child.NodeType == XmlNodeType.Element:
+                    previous = convert(child)
+                    result.append(previous)
+                elif child.NodeType in (XmlNodeType.Text, XmlNodeType.CDATA,
+                                       XmlNodeType.Whitespace, XmlNodeType.SignificantWhitespace):
+                    if previous is None:
+                        result.text = (result.text or "") + child.Value
+                    else:
+                        previous.tail = (previous.tail or "") + child.Value
+                else:
+                    raise LadderImportError("unsupported native XML node")
+            return result
+        return convert(doc.DocumentElement)
+    return ET.fromstring(text)
+
+
+def _one(node, path):
+    rows = node.findall(path)
+    if len(rows) != 1:
+        raise LadderImportError("native revision requires exactly one " + path)
+    return rows[0]
+
+
+def _native_projection(node):
+    # Formatting is not metadata; text leaves (including interface) remain exact.
+    text = node.text or ""
+    if len(node) and not text.strip():
+        text = ""
+    tail = node.tail or ""
+    if not tail.strip():
+        tail = ""
+    return (node.tag, sorted(node.attrib.items()), text, tail,
+            [_native_projection(child) for child in node])
+
+
+def native_metadata(raw):
+    """Full target metadata except implementation and vendor timestamps."""
+    root = _native_tree(raw)
+    obj = _one(root, ".//Single[@Name='Object']")
+    obj.remove(_one(obj, "./Single[@Name='Implementation']"))
+    for parent in root.iter():
+        for child in list(parent):
+            if child.tag == "Single" and child.get("Name") == "Timestamp":
+                parent.remove(child)
+    return _native_projection(root)
+
+
+def native_identity(raw):
+    root = _native_tree(raw)
+    meta = _one(root, ".//Single[@Name='MetaObject']")
+    return dict((name, _one(meta, "./Single[@Name='%s']" % name).text)
+                for name in ("Name", "Guid", "ParentGuid"))
+
+
+def prepare_native_revision(target_raw, donor_raw, target_name, donor_name, donor_guid):
+    """Use AX-generated implementation; retain all original target metadata."""
+    target, donor = _native_tree(target_raw), _native_tree(donor_raw)
+    target_obj = _one(target, ".//Single[@Name='Object']")
+    donor_obj = _one(donor, ".//Single[@Name='Object']")
+    if target_obj.get("Type") != donor_obj.get("Type"):
+        raise LadderImportError("native revision POU types differ")
+    interface_path = "./Single[@Name='Interface']//Single[@Name='TextBlobForSerialisation']"
+    old_text, new_text = _one(target_obj, interface_path).text, _one(donor_obj, interface_path).text
+    if (not new_text or new_text.splitlines()[0] != "PROGRAM " + donor_name
+            or new_text.replace("PROGRAM " + donor_name, "PROGRAM " + target_name, 1) != old_text):
+        raise LadderImportError("native revision interface mismatch")
+    # This qualified graph has identical ID allocation. Do not mutate allocator
+    # metadata to accommodate a larger, not-yet-qualified graph.
+    if (_native_projection(_one(target_obj, "./Single[@Name='UniqueIdGenerator']"))
+            != _native_projection(_one(donor_obj, "./Single[@Name='UniqueIdGenerator']"))):
+        raise LadderImportError("native revision ID allocator differs")
+    replacement = _one(donor_obj, "./Single[@Name='Implementation']")
+    replacement_raw = ET.tostring(replacement, encoding="utf-8").decode("utf-8")
+    if donor_name in replacement_raw or donor_guid.lower() in replacement_raw.lower():
+        raise LadderImportError("native revision donor reference leak")
+    original = _one(target_obj, "./Single[@Name='Implementation']")
+    index = list(target_obj).index(original)
+    target_obj.remove(original)
+    target_obj.insert(index, replacement)
+    # CR in a text leaf is data (native interface uses CRLF), not indentation.
+    # XML literal CR would normalize to LF when reopened.
+    result = ET.tostring(target, encoding="utf-8").replace(b"\r", b"&#13;")
+    if native_metadata(result.decode("utf-8")) != native_metadata(target_raw):
+        raise LadderImportError("native revision modified protected metadata")
+    return result
+
+
+def validate_native_callbacks(rows, name, guid, parent_path):
+    """The documented import must actually replace exactly the intended object."""
+    counts = {"filter": 0, "conflict": 0, "progress": 0}
+    for row in rows:
+        event = row.get("event")
+        if event not in counts or row.get("valid") is not True:
+            raise LadderImportError("native revision unexpected import callback")
+        counts[event] += 1
+        if row.get("guid") != guid or row.get("name") != name:
+            raise LadderImportError("native revision callback identity mismatch")
+        if event == "filter" and row.get("path") != list(parent_path):
+            raise LadderImportError("native revision callback parent mismatch")
+    if counts["filter"] != 1 or counts["conflict"] != 1 or counts["progress"] < 1:
+        raise LadderImportError("native revision missing or repeated replacement")

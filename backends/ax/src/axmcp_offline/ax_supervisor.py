@@ -4,11 +4,13 @@ import os
 import subprocess
 import sys
 import time
+from contextlib import contextmanager
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable
 
 from .protocol_v2 import validate_workspace_id
+from .window_guard import _pid_alive as _read_only_pid_alive
 from .security import (
     ProtocolViolation,
     atomic_write_exclusive,
@@ -19,6 +21,7 @@ from .security import (
     strict_json_loads_v2,
     utc_now,
     validate_digest,
+    require_single_workspace,
 )
 
 
@@ -54,6 +57,7 @@ _WORKER_OPERATIONS = (
     "source.read",
     "source.upsert.st",
     "ladder.networks.apply",
+    "revision.apply",
     "project.build",
 )
 _MAX_JOB_LAUNCH_ATTEMPTS = 2
@@ -77,6 +81,9 @@ def _bounded_int(value: Any, field: str, minimum: int, maximum: int) -> int:
 def _pid_alive(pid: int) -> bool:
     if isinstance(pid, bool) or not isinstance(pid, int) or pid <= 0:
         return False
+    if os.name == "nt":
+        # os.kill(pid, 0) terminates a Windows process; it is NOT a probe.
+        return _read_only_pid_alive(pid)
     try:
         os.kill(pid, 0)
     except OSError:
@@ -173,6 +180,7 @@ def write_launcher_config(
     ladder_helper: Path | None = None,
     ladder_helper_sha256: str | None = None,
     replace: bool = False,
+    transport_profile: str = "lan",
 ) -> Path:
     """Create the immutable identity/timing config used by the AX launcher.
 
@@ -203,8 +211,12 @@ def write_launcher_config(
             raise ProtocolViolation(f"{field} does not match file bytes")
     if ide_profile != "DIADesigner-AX 1.9":
         raise ProtocolViolation("only the frozen DIADesigner-AX 1.9 profile is supported")
+    if transport_profile not in {"lan", "diacloud"}:
+        raise ProtocolViolation("unsupported transport_profile")
+    if transport_profile == "diacloud" and "WORKFLOW_DEADLINE_CAPABILITY = 1" not in worker.read_text(encoding="utf-8"):
+        raise ProtocolViolation("AX worker lacks workflow deadline capability")
     config = {
-        "schema_version": "1",
+        "schema_version": "2" if transport_profile == "diacloud" else "1",
         "ide_executable": str(executable),
         "ide_executable_sha256": ide_executable_sha256,
         "script_engine": str(engine),
@@ -216,11 +228,13 @@ def write_launcher_config(
         "ladder_helper_sha256": helper_digest,
         "heartbeat_seconds": 1,
         "lease_timeout_seconds": 10,
-        "max_request_seconds": 300,
-        "max_runtime_seconds": 330,
+        "max_request_seconds": 600 if transport_profile == "diacloud" else 300,
+        "max_runtime_seconds": 660 if transport_profile == "diacloud" else 600,
         "max_requests": 20,
-        "idle_exit_seconds": 5,
+        "idle_exit_seconds": 60,
     }
+    if transport_profile == "diacloud":
+        config["runtime_capabilities"] = ["workflow_deadline_v1"]
     path = root / "ax-launcher-config.json"
     if replace:
         atomic_write_replace(path, canonical_json_bytes(config))
@@ -230,6 +244,22 @@ def write_launcher_config(
 
 
 class AxWorkerSupervisor:
+    @contextmanager
+    def launcher_fence(self):
+        """Exclude any workspace launch during a closed-project handoff."""
+        path = self.v2 / "state" / "launcher-fence.lock"
+        try:
+            with path.open("xb") as handle:
+                handle.write(canonical_json_bytes({"pid": os.getpid()}))
+                handle.flush()
+                os.fsync(handle.fileno())
+        except FileExistsError as exc:
+            raise ProtocolViolation("AX launcher fence is held or requires reconciliation") from exc
+        try:
+            yield
+        finally:
+            path.unlink()
+
     """Fail-closed launcher for the bounded DIADesigner AXQ-FILE/2 worker."""
 
     def __init__(
@@ -255,8 +285,12 @@ class AxWorkerSupervisor:
             config = strict_json_loads_v2(path.read_bytes())
         except (OSError, ProtocolViolation) as exc:
             raise ProtocolViolation("invalid ax-launcher-config.json") from exc
-        if set(config) != _LAUNCHER_CONFIG_KEYS or config["schema_version"] != "1":
+        version = config.get("schema_version")
+        expected = _LAUNCHER_CONFIG_KEYS | ({"runtime_capabilities"} if version == "2" else set())
+        if set(config) != expected or version not in {"1", "2"}:
             raise ProtocolViolation("AX launcher config shape or version mismatch")
+        if version == "2" and config["runtime_capabilities"] != ["workflow_deadline_v1"]:
+            raise ProtocolViolation("AX launcher capabilities are invalid")
         executable = _absolute_regular_file(config["ide_executable"], "ide_executable")
         engine = _absolute_regular_file(config["script_engine"], "script_engine")
         worker = _absolute_regular_file(config["worker_script"], "worker_script")
@@ -274,15 +308,21 @@ class AxWorkerSupervisor:
             validate_digest(expected)
             if sha256_file(file_path) != expected:
                 raise ProtocolViolation(f"{field} bytes changed after launcher configuration")
+        if version == "2" and "WORKFLOW_DEADLINE_CAPABILITY = 1" not in worker.read_text(encoding="utf-8"):
+            raise ProtocolViolation("pinned AX worker lacks workflow deadline capability")
         heartbeat = _bounded_int(config["heartbeat_seconds"], "heartbeat_seconds", 1, 30)
         lease = _bounded_int(config["lease_timeout_seconds"], "lease_timeout_seconds", 2, 120)
         if heartbeat >= lease:
             raise ProtocolViolation("heartbeat must be shorter than lease timeout")
-        _bounded_int(config["max_request_seconds"], "max_request_seconds", 30, 300)
-        _bounded_int(config["max_runtime_seconds"], "max_runtime_seconds", 30, 600)
+        _bounded_int(config["max_request_seconds"], "max_request_seconds", 30, 600 if version == "2" else 300)
+        _bounded_int(config["max_runtime_seconds"], "max_runtime_seconds", 30, 660 if version == "2" else 600)
         _bounded_int(config["max_requests"], "max_requests", 1, 100)
         _bounded_int(config["idle_exit_seconds"], "idle_exit_seconds", 1, 60)
         return config
+
+    @property
+    def supports_workflow_deadline_v1(self) -> bool:
+        return self.config["schema_version"] == "2"
 
     def _load_workspace(self, workspace_id: str) -> tuple[dict[str, Any], Path]:
         validate_workspace_id(workspace_id)
@@ -305,7 +345,7 @@ class AxWorkerSupervisor:
         manifest, _project = self._load_workspace(workspace_id)
         config = {
             "protocol": "AXQ-FILE/2",
-            "config_version": "2",
+            "config_version": "3" if self.supports_workflow_deadline_v1 else "2",
             "worker_id": workspace_id,
             "environment_digest": manifest["environment_digest"],
             "workspace_project": f"workspaces/{workspace_id}/project.project",
@@ -322,6 +362,8 @@ class AxWorkerSupervisor:
             "max_requests": self.config["max_requests"],
             "idle_exit_seconds": self.config["idle_exit_seconds"],
         }
+        if self.supports_workflow_deadline_v1:
+            config["runtime_capabilities"] = ["workflow_deadline_v1"]
         path = self.v2 / "worker-config.json"
         raw = canonical_json_bytes(config)
         if path.exists() and path.read_bytes() == raw:
@@ -531,7 +573,8 @@ class AxWorkerSupervisor:
         )
 
     def recover_workspace_job(
-        self, workspace_id: str, job_id: str, expected_project_digest: str
+        self, workspace_id: str, job_id: str, expected_project_digest: str,
+        operation: str | None = None,
     ) -> dict[str, Any]:
         """Recover one inactive project-worker request without replaying changed bytes."""
 
@@ -552,6 +595,17 @@ class AxWorkerSupervisor:
         state = self._job_queue_state(job_id)
         if state == "result":
             return {"status": "result_ready", "job_id": job_id}
+        if operation == "revision.apply":
+            transaction = self.v2 / "state" / "revision-transactions" / job_id
+            if transaction.exists():
+                project = self.v2 / "workspaces" / workspace_id / "project.project"
+                actual_digest = sha256_file(project)
+                return {
+                    "status": "blocked" if actual_digest == expected_project_digest else "unknown_outcome",
+                    "job_id": job_id,
+                    "actual_project_digest": actual_digest,
+                    "diagnostic": "revision generation exists; reconcile exact transaction before retry",
+                }
         if state == "absent":
             raise ProtocolViolation("AX workspace job is absent during recovery")
         if state == "running":
@@ -588,21 +642,86 @@ class AxWorkerSupervisor:
             }
         return self.ensure_running(workspace_id, job_id)
 
-    def wait_for_idle_shutdown(self, workspace_id: str) -> dict[str, Any] | None:
-        """Keep the host alive until the bounded IDE and window guard stop."""
-
-        validate_workspace_id(workspace_id)
-        launches = []
+    def _latest_workspace_launch(self, workspace_id: str) -> dict[str, Any]:
+        launches: list[tuple[str, str, dict[str, Any]]] = []
         for path in (self.v2 / "state" / "launches").glob("*.json"):
             try:
                 record = strict_json_loads_v2(path.read_bytes())
             except (OSError, ProtocolViolation):
                 continue
             if record.get("worker_id") == workspace_id:
-                launches.append((record.get("launched_at", ""), path, record))
+                launches.append((record.get("launched_at", ""), path.name, record))
         if not launches:
-            raise ProtocolViolation("AX launch record is missing before artifact freeze")
-        _started, _path, launch = max(launches, key=lambda item: (item[0], item[1].name))
+            raise ProtocolViolation("AX launch record is missing")
+        return max(launches, key=lambda item: (item[0], item[1]))[2]
+
+    def guard_health(self, workspace_id: str) -> dict[str, Any]:
+        """Read only: a failed or mismatched launch guard cannot attest a candidate."""
+        validate_workspace_id(workspace_id)
+        launch = self._latest_workspace_launch(workspace_id)
+        pid = launch.get("pid")
+        if not isinstance(pid, int) or pid <= 0:
+            raise ProtocolViolation("AX launch PID is invalid")
+        live = self._live_lease(workspace_id)
+        if live is not None and live["pid"] != pid:
+            raise ProtocolViolation("AX live lease does not match latest launch PID")
+        if os.name != "nt":
+            return {"pid": pid, "status": "active" if live else "stopped"}
+        relative = launch.get("window_guard_status")
+        if not isinstance(relative, str) or not relative:
+            raise ProtocolViolation("AX window guard status path is missing")
+        path = (self.v2 / relative).resolve()
+        if path.parent != (self.v2 / "evidence").resolve() or not path.is_file():
+            raise ProtocolViolation("AX window guard evidence is missing or outside evidence root")
+        guard = strict_json_loads_v2(path.read_bytes())
+        if guard.get("record_type") != "AxWindowGuard" or guard.get("pid") != pid:
+            raise ProtocolViolation("AX window guard identity mismatch")
+        if guard.get("status") not in {"starting", "active", "stopped"}:
+            raise ProtocolViolation("AX window guard failed or has invalid status")
+        if live is not None and guard["status"] == "stopped":
+            raise ProtocolViolation("AX guard stopped while its worker lease is live")
+        if guard["status"] in {"starting", "active"}:
+            guard_pid = launch.get("window_guard_pid")
+            if (live is None or not isinstance(guard_pid, int)
+                    or guard_pid <= 0 or not self._process_alive(guard_pid)):
+                raise ProtocolViolation("AX active guard has no live bound guard/worker lease")
+            age = (datetime.now(UTC) - parse_utc(guard["checked_at"])).total_seconds()
+            if age < -5 or age > self.config["lease_timeout_seconds"] + 2:
+                raise ProtocolViolation("AX active guard evidence is stale")
+        return guard
+
+    def request_shutdown(self, workspace_id: str) -> dict[str, Any]:
+        """Ask the exact leased worker to exit; never target a replacement process."""
+        manifest, _ = self._load_workspace(workspace_id)
+        if manifest.get("pending_job_id") is not None:
+            raise ProtocolViolation("AX worker cannot close with a pending workspace job")
+        live = self._live_lease(workspace_id)
+        if live is None:
+            self.guard_health(workspace_id)
+            return {"status": "already_stopped", "workspace_id": workspace_id}
+        guard = self.guard_health(workspace_id)
+        if guard.get("pid") != live["pid"]:
+            raise ProtocolViolation("AX shutdown guard/lease PID mismatch")
+        value = {
+            "protocol": "AXQ-FILE/2", "worker_id": workspace_id,
+            "pid": live["pid"],
+            "process_start_fingerprint": live["process_start_fingerprint"],
+            "requested_at": utc_now(), "reason": "explicit_workspace_close",
+        }
+        path = self.v2 / "control" / "shutdown.request.json"
+        if path.exists():
+            existing = strict_json_loads_v2(path.read_bytes())
+            if (existing.get("worker_id"), existing.get("pid"), existing.get("process_start_fingerprint")) != (workspace_id, live["pid"], live["process_start_fingerprint"]):
+                raise ProtocolViolation("stale AX shutdown request cannot address the new worker")
+            return {"status": "requested", "workspace_id": workspace_id, "pid": live["pid"]}
+        atomic_write_exclusive(path, canonical_json_bytes(value))
+        return {"status": "requested", "workspace_id": workspace_id, "pid": live["pid"]}
+
+    def wait_for_idle_shutdown(self, workspace_id: str) -> dict[str, Any] | None:
+        """Keep the host alive until the bounded IDE and window guard stop."""
+
+        validate_workspace_id(workspace_id)
+        launch = self._latest_workspace_launch(workspace_id)
         pid = launch.get("pid")
         if not isinstance(pid, int) or pid <= 0:
             raise ProtocolViolation("AX launch PID is invalid before artifact freeze")
@@ -632,8 +751,8 @@ class AxWorkerSupervisor:
                     raise ProtocolViolation("AX window-guard failed during IDE execution")
                 if last_guard["status"] == "stopped":
                     # The independent guard uses a native process handle; its
-                    # stopped state is stronger than os.kill(pid, 0), which can
-                    # remain truthy for an unreaped Windows child handle.
+                    # stopped state attests the exact bound process instance,
+                    # rather than merely a numeric PID.
                     return last_guard
             alive = self._process_alive(pid)
             if not alive:
@@ -644,7 +763,8 @@ class AxWorkerSupervisor:
             "AX IDE/window guard did not stop within the bounded artifact-freeze window"
         )
 
-    def ensure_running(self, workspace_id: str, job_id: str) -> dict[str, Any]:
+    def ensure_running(self, workspace_id: str, job_id: str,
+                       _launcher_fenced: bool = False) -> dict[str, Any]:
         """Start one unattended background IDE worker, or adopt the exact live lease.
 
         The method never waits for or fabricates an operation result.  The MCP
@@ -652,11 +772,17 @@ class AxWorkerSupervisor:
         """
 
         validate_workspace_id(job_id)
+        if not _launcher_fenced:
+            with self.launcher_fence():
+                return self.ensure_running(workspace_id, job_id, _launcher_fenced=True)
+        require_single_workspace(self.v2, workspace_id)
         live = self._live_lease(workspace_id)
         if live is not None:
             adopted = self._adopt_live_worker(workspace_id, job_id, live)
             if adopted is not None:
                 return adopted
+        if (self.v2 / "control" / "shutdown.request.json").exists():
+            raise ProtocolViolation("unreconciled AX shutdown request before new launch")
         prior_launches = self._job_launch_records(workspace_id, job_id)
         launch_attempt = len(prior_launches) + 1
         if launch_attempt > _MAX_JOB_LAUNCH_ATTEMPTS:

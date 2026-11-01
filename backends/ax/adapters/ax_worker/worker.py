@@ -17,6 +17,7 @@ import shutil
 import sys
 import time
 import traceback
+import xml.etree.ElementTree as ET
 
 
 try:
@@ -34,11 +35,13 @@ LADDER_IMPORT_ERROR = "helper has not passed its byte-identity gate"
 
 PROTOCOL = "AXQ-FILE/2"
 CONFIG_VERSION = "2"
+WORKFLOW_DEADLINE_CAPABILITY = 1
 UUID_RE = re.compile(
     r"^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
 )
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,127}$")
+NODE_NAME_RE = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_ ]{0,127}$")
 PATH_SEGMENT_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 BUILD_COMPLETE_RE = re.compile(
     r"^Compile complete -- ([0-9]+) errors?, ([0-9]+) warnings?$", re.IGNORECASE
@@ -60,6 +63,7 @@ MUTATION_OPERATIONS = (
     "project.build",
     "source.upsert.st",
     "ladder.networks.apply",
+    "revision.apply",
     "artifact.freeze",
 )
 SUPPORTED_OPERATIONS = READ_OPERATIONS + MUTATION_OPERATIONS
@@ -199,6 +203,7 @@ LEASE_KEYS = set(
 )
 _PROCESS_MARKER = str(os.getpid()) + "|" + str(time.time()) + "|" + str(sys.executable)
 PROCESS_START_FINGERPRINT = "sha256:" + hashlib.sha256(_PROCESS_MARKER.encode("utf-8")).hexdigest()
+
 
 
 class WorkerError(Exception):
@@ -507,10 +512,14 @@ def _process_alive(pid):
 
 
 def _validate_config(value):
-    if set(value) != CONFIG_KEYS:
+    version = value.get("config_version") if isinstance(value, dict) else None
+    expected = CONFIG_KEYS | (set(("runtime_capabilities",)) if version == "3" else set())
+    if set(value) != expected:
         raise WorkerError("worker config fields do not match AXQ-FILE/2")
-    if value["protocol"] != PROTOCOL or value["config_version"] != CONFIG_VERSION:
+    if value["protocol"] != PROTOCOL or version not in (CONFIG_VERSION, "3"):
         raise WorkerError("unsupported worker config protocol/version")
+    if version == "3" and value["runtime_capabilities"] != ["workflow_deadline_v1"]:
+        raise WorkerError("worker capabilities are invalid")
     if not UUID_RE.match(value["worker_id"]):
         raise WorkerError("worker_id must be a canonical lowercase UUID")
     for field in (
@@ -584,6 +593,7 @@ def _validate_operation_artifacts(operation, artifacts):
         "source.read",
         "source.upsert.st",
         "ladder.networks.apply",
+        "revision.apply",
         "project.build",
     )
     if requires_input:
@@ -594,8 +604,14 @@ def _validate_operation_artifacts(operation, artifacts):
 
 
 def _validate_request(value, raw, root, config, now=None):
-    if set(value) != REQUEST_KEYS:
+    profile = value.get("transport_profile", "lan") if isinstance(value, dict) else None
+    expected = REQUEST_KEYS | (set(("transport_profile",)) if profile == "diacloud" else set())
+    if set(value) != expected:
         raise WorkerError("request fields do not match AXQ-FILE/2")
+    if profile not in ("lan", "diacloud"):
+        raise WorkerError("unsupported transport profile")
+    if profile == "diacloud" and config["config_version"] != "3":
+        raise WorkerError("legacy AX worker cannot accept DIACloud deadline")
     if value["protocol"] != PROTOCOL or value["message_type"] != "request":
         raise WorkerError("unsupported request protocol/type")
     if not UUID_RE.match(value["correlation_id"]):
@@ -642,6 +658,7 @@ class AxWorker(object):
         languages_api=None,
         pou_types_api=None,
         conflict_resolve_api=None,
+        native_import_api=None,
     ):
         self.root = os.path.abspath(root)
         self.config, self.config_raw = _load_json(os.path.join(self.root, "worker-config.json"))
@@ -652,7 +669,10 @@ class AxWorker(object):
         self.languages = languages_api
         self.pou_types = pou_types_api
         self.conflict_resolve = conflict_resolve_api
+        self.native_import_api = native_import_api
         self.project = None
+        self._project_path_override = None
+        self._generation_poisoned = False
         self.started = time.time()
         self.last_activity = self.started
         self.processed = 0
@@ -672,6 +692,8 @@ class AxWorker(object):
         )
 
     def _workspace_path(self):
+        if self._project_path_override is not None:
+            return self._project_path_override
         return _contained_path(self.root, self.config["workspace_project"])
 
     def _read_last_sequence(self):
@@ -930,6 +952,355 @@ class AxWorker(object):
             raise WorkerError("source target is ambiguous")
         return textual[0] if textual else None
 
+    def _revision_object(self, path):
+        """Resolve an IEC object by full application/folder path, never by name alone."""
+        project = self._primary_project()
+        nodes = list(project.get_children(False))
+        current = None
+        application_seen = False
+        active_application = getattr(project, "active_application", None)
+        if active_application is None:
+            raise WorkerError("revision project has no active application")
+        active_guid = getattr(active_application, "guid", None)
+        for index, segment in enumerate(path):
+            matches_at_depth = [obj for obj in nodes if _safe_name(obj) == segment]
+            if len(matches_at_depth) != 1:
+                siblings = [(_safe_name(obj), str(getattr(obj, "guid", None))) for obj in nodes[:16]]
+                raise WorkerError("revision object path is absent or ambiguous at depth %d: %s; siblings=%s; active_guid=%s" % (index, segment, repr(siblings), str(active_guid)))
+            current = matches_at_depth[0]
+            if _safe_name(current) == _safe_name(active_application):
+                current_guid = getattr(current, "guid", None)
+                if current is not active_application and (
+                    current_guid is None or active_guid is None
+                    or str(current_guid) != str(active_guid)
+                ):
+                    raise WorkerError("revision path selects a different application")
+                application_seen = True
+            nodes = list(current.get_children(False))
+        if not application_seen or path[-1] == _safe_name(active_application):
+            raise WorkerError("revision path must include active application and POU")
+        # A duplicate textual POU under another folder or application is not
+        # silently selected by its IEC leaf name, even with an exact path.
+        queue = [(obj, 1) for obj in list(project.get_children(False))]
+        textual_matches = 0
+        visited = 0
+        while queue:
+            obj, depth = queue.pop(0)
+            visited += 1
+            if visited > 4096 or depth > 16:
+                raise WorkerError("revision project tree exceeds bounded lookup")
+            if _safe_name(obj) == path[-1] and hasattr(obj, "textual_declaration"):
+                textual_matches += 1
+            queue.extend((child, depth + 1) for child in list(obj.get_children(False)))
+        if textual_matches != 1:
+            raise WorkerError("revision textual POU leaf is absent or duplicated")
+        return current
+
+    def _revision_export(self, path):
+        project = self._primary_project()
+        method = getattr(project, "export_xml", None)
+        if method is None:
+            raise VendorCapabilityError("project.export_xml is required for revision invariants")
+        if os.path.exists(path):
+            raise WorkerError("revision invariant export already exists")
+        _ensure_parent(path)
+        method(objects=list(project.get_children(False)), reporter=None, path=path,
+               recursive=True, export_folder_structure=True, declarations_as_plaintext=True)
+        if not os.path.isfile(path):
+            raise WorkerError("revision invariant export is missing")
+        return _sha256_file(path)
+
+    def _revision_unchanged_xml(self, before_path, after_path, changed_names):
+        """Compare the full native export outside the explicitly changed POUs."""
+        def normalized(path):
+            with open(path, "rb") as stream:
+                raw = stream.read().decode("utf-8-sig")
+            if "<!doctype" in raw.lower() or "<!entity" in raw.lower():
+                raise WorkerError("revision XML must not contain DTD or entity declarations")
+            if sys.platform == "cli":
+                # IronPython's bundled ElementTree rejects this vendor export's
+                # valid Unicode. Use the native XML reader, without sanitizing
+                # source text or weakening the unchanged-configuration check.
+                from System.Xml import XmlDocument
+                document = XmlDocument()
+                document.PreserveWhitespace = True
+                document.XmlResolver = None
+                document.LoadXml(raw)
+                removed = set()
+                counts = {}
+                for node in list(document.SelectNodes("//*")):
+                    tag = str(node.LocalName)
+                    if tag == "fileHeader":
+                        node.RemoveAttribute("creationDateTime")
+                    elif tag == "contentHeader":
+                        node.RemoveAttribute("modificationDateTime")
+                    name = str(node.GetAttribute("name") or node.GetAttribute("Name"))
+                    if tag.lower() in ("pou", "globalvars") and name in changed_names:
+                        counts[name] = counts.get(name, 0) + 1
+                        node.ParentNode.RemoveChild(node)
+                        removed.add(name)
+                if removed != changed_names or any(count != 1 for count in counts.values()):
+                    raise WorkerError("revision invariant XML changed POU is absent or duplicated")
+                return document.OuterXml
+            root = ET.fromstring(raw)
+            for node in root.iter():
+                tag = node.tag.rsplit("}", 1)[-1]
+                if tag == "fileHeader":
+                    node.attrib.pop("creationDateTime", None)
+                elif tag == "contentHeader":
+                    node.attrib.pop("modificationDateTime", None)
+            removed = set()
+            counts = {}
+            for parent in root.iter():
+                for child in list(parent):
+                    tag = child.tag.rsplit("}", 1)[-1].lower()
+                    name = child.attrib.get("name", child.attrib.get("Name"))
+                    if tag in ("pou", "globalvars") and name in changed_names:
+                        counts[name] = counts.get(name, 0) + 1
+                        parent.remove(child)
+                        removed.add(name)
+            if removed != changed_names or any(counts.get(name) != 1 for name in changed_names):
+                raise WorkerError("revision export did not isolate exactly one changed POU/GVL per name")
+            return ET.tostring(root, encoding="utf-8")
+        if normalized(before_path) != normalized(after_path):
+            raise WorkerError("revision changed native configuration or an unselected object")
+
+    def _revision_ladder_prepare(self, change, transaction, index):
+        if sys.platform != "cli" or not self.native_import_api or not all(self.native_import_api):
+            raise VendorCapabilityError("qualified native import API is unavailable")
+        from System import Array, String
+        from System.Xml import XmlDocument
+        filter_type, handler_type, resolve = self.native_import_api
+        recipe = ladder_import.validate_revision_subset(change["recipe"])
+        path = change["object_path"]
+        item = self._revision_object(path)
+        if list(item.get_children(False)):
+            raise WorkerError("LD revision target has child objects")
+        parent = item.parent
+        guid, parent_guid = str(item.guid), str(parent.guid)
+        prefix = os.path.join(transaction, "ld%d" % index)
+        original, donor_path, prepared = prefix + ".export", prefix + "d.export", prefix + "p.export"
+        before_ld = prefix + ".xml"
+        project = self._primary_project()
+        project.export_xml(objects=[item], reporter=None, path=before_ld, recursive=True,
+                           export_folder_structure=False, declarations_as_plaintext=True)
+        with open(before_ld, "rb") as stream:
+            ladder_import.verify_revision_baseline(stream.read().decode("utf-8-sig"), recipe)
+        item.export_native(original, recursive=True)
+        with open(original, "rb") as stream:
+            original_raw = stream.read().decode("utf-8")
+        identity = ladder_import.native_identity(original_raw)
+        if identity != {"Name": path[-1], "Guid": guid, "ParentGuid": parent_guid}:
+            raise WorkerError("LD native metadata identity mismatch")
+        donor_name = "AXMCP_Donor_" + os.path.basename(transaction).replace("-", "")[:12] + "_" + str(index)
+
+        def donors():
+            return [obj for obj in project.get_children(True) if _safe_name(obj) == donor_name]
+        if donors():
+            raise WorkerError("LD donor name already exists")
+        document = XmlDocument()
+        document.XmlResolver = None
+        document.LoadXml(ladder_import.render_plcopenxml(recipe).decode("utf-8"))
+        pou = document.SelectSingleNode("//*[local-name()='pou']")
+        pou.SetAttribute("name", donor_name)
+        declaration = pou.SelectSingleNode(".//*[local-name()='InterfaceAsPlainText']/*")
+        old_prefix = "PROGRAM " + path[-1] + "\n"
+        declaration_text = declaration.InnerText
+        if not declaration_text.startswith(old_prefix):
+            raise WorkerError("LD donor declaration prefix mismatch")
+        declaration.InnerText = "PROGRAM " + donor_name + "\n" + declaration_text[len(old_prefix):]
+        project.active_application.import_xml(
+            dataOrPath=document.OuterXml, conflictResolve=self.conflict_resolve.Replace,
+            import_folder_structure=False)
+        found = donors()
+        if len(found) != 1:
+            raise WorkerError("LD donor creation is absent or ambiguous")
+        donor = found[0]
+        donor_guid = str(donor.guid)
+        donor.export_native(donor_path, recursive=True)
+        with open(donor_path, "rb") as stream:
+            prepared_raw = ladder_import.prepare_native_revision(
+                original_raw, stream.read().decode("utf-8"), path[-1], donor_name, donor_guid)
+        _atomic_publish(prepared, prepared_raw)
+        donor.remove()
+        if donors():
+            raise WorkerError("LD donor removal failed")
+        # Native callback path uses vendor metadata casing (PLC Logic), while
+        # ScriptObject.get_name() uses Plc Logic. Resolve it from native export,
+        # never accept arbitrary case-insensitive paths.
+        callback_parent = list(path[:-1])
+        for n, segment in enumerate(callback_parent):
+            if segment == "Plc Logic":
+                callback_parent[n] = "PLC Logic"
+        callbacks = []
+        def identity_matches(obj):
+            return (obj is not None and _safe_name(obj) == path[-1]
+                    and str(obj.guid) == guid and str(obj.parent.guid) == parent_guid)
+        class Handler(handler_type):
+            def conflict(self, name, existingObject, newguid):
+                valid = identity_matches(existingObject) and str(newguid) == guid
+                callbacks.append({"event": "conflict", "name": _safe_name(existingObject),
+                                  "guid": str(existingObject.guid), "valid": valid})
+                return resolve.replace if valid else resolve.cancel
+            def progress(self, name, pastedObject, exception):
+                callbacks.append({"event": "progress", "name": str(name),
+                                  "guid": str(getattr(pastedObject, "guid", "")),
+                                  "valid": exception is None and identity_matches(pastedObject)})
+            def skipped(self, name):
+                callbacks.append({"event": "skipped", "name": str(name), "valid": False})
+        def exact_filter(name, object_guid, object_type, object_path):
+            row = {"event": "filter", "name": str(name), "guid": str(object_guid),
+                   "path": [str(segment) for segment in object_path],
+                   "valid": str(object_type) == "_3S.CoDeSys.POUObject.POUObject"}
+            row["valid"] = (row["valid"] and row["name"] == path[-1] and row["guid"] == guid
+                            and row["path"] == callback_parent)
+            callbacks.append(row)
+            return row["valid"]
+        result = parent.import_native(Array[String]([prepared]),
+                                      filter=filter_type(exact_filter), handler=Handler())
+        ladder_import.validate_native_callbacks(callbacks, path[-1], guid, callback_parent)
+        if str(result) != "ok":
+            raise WorkerError("LD native import result is not ok")
+        return {"object_path": path, "guid": guid, "parent_guid": parent_guid,
+                "original": original, "recipe": recipe, "donor_name": donor_name,
+                "prefix": prefix, "callbacks": callbacks}
+
+    def _revision_ladder_readback(self, expected):
+        item = self._revision_object(expected["object_path"])
+        if (str(item.guid) != expected["guid"]
+                or str(item.parent.guid) != expected["parent_guid"]
+                or list(item.get_children(False))):
+            raise WorkerError("LD revision identity changed after reopen")
+        project = self._primary_project()
+        if any(_safe_name(obj) == expected["donor_name"] for obj in project.get_children(True)):
+            raise WorkerError("LD donor remained after reopen")
+        native, xml = expected["prefix"] + "r.export", expected["prefix"] + "r.xml"
+        item.export_native(native, recursive=True)
+        with open(expected["original"], "rb") as stream:
+            before = ladder_import.native_metadata(stream.read().decode("utf-8"))
+        with open(native, "rb") as stream:
+            after = ladder_import.native_metadata(stream.read().decode("utf-8"))
+        if before != after:
+            raise WorkerError("LD target metadata changed after reopen")
+        project.export_xml(objects=[item], reporter=None, path=xml, recursive=True,
+                           export_folder_structure=False, declarations_as_plaintext=True)
+        with open(xml, "rb") as stream:
+            semantic = ladder_import.verify_roundtrip(stream.read().decode("utf-8-sig"), expected["recipe"])
+        return {"object_path": expected["object_path"], "guid": expected["guid"],
+                "semantic": semantic, "metadata_preserved": True,
+                "before_native_digest": _sha256_file(expected["original"]),
+                "after_native_digest": _sha256_file(native),
+                "callbacks": expected["callbacks"], "compiler_coverage": "NOT_VERIFIED"}
+
+    def _revision_apply(self, request, arguments):
+        """Apply a whole batch to a disposable native generation and promote once."""
+        for change in arguments["ladder_changes"]:
+            ladder_import.validate_revision_subset(change["recipe"])
+        project_path = self._workspace_path()
+        before_digest = _sha256_file(project_path)
+        if before_digest != request["workspace_digest"]:
+            raise WorkerError("revision baseline digest mismatch")
+        self._open_project()
+        if bool(getattr(self._primary_project(), "dirty", False)):
+            raise WorkerError("revision baseline project is dirty")
+        self._close_project()
+        transaction = os.path.join(self.root, "state", "revision-transactions", request["job_id"])
+        if os.path.exists(transaction):
+            raise WorkerError("revision transaction already exists; reconcile before retry")
+        os.makedirs(transaction)
+        generation = os.path.join(transaction, "project.project")
+        with open(project_path, "rb") as stream:
+            _atomic_publish(generation, stream.read())
+        intent = {
+            "protocol": PROTOCOL, "record_type": "RevisionIntent",
+            "job_id": request["job_id"], "correlation_id": request["correlation_id"],
+            "workspace_id": arguments["workspace_id"], "expected_revision": request["expected_revision"],
+            "before_project_digest": before_digest,
+            "environment_digest": self.config["environment_digest"],
+            "input_digest": _sha256_bytes(_json_bytes(arguments)),
+        }
+        _atomic_publish(os.path.join(transaction, "intent.json"), _json_bytes(intent))
+        previous = self._project_path_override
+        self._project_path_override = generation
+        promoted = False
+        try:
+            self._open_project()
+            before_xml = os.path.join(transaction, "before.xml")
+            after_xml = os.path.join(transaction, "after.xml")
+            self._revision_export(before_xml)
+            expected_st = []
+            for change in arguments["st_changes"]:
+                item = self._revision_object(change["object_path"])
+                if not hasattr(item, "textual_declaration"):
+                    raise WorkerError("revision ST path is not a textual POU")
+                _replace_document(item.textual_declaration, change["declaration"])
+                implementation = getattr(item, "textual_implementation", None)
+                if change["pou_kind"] != "gvl":
+                    _replace_document(implementation, change["implementation"])
+                expected_st.append((change["object_path"], change["declaration"],
+                                    change["implementation"], self._source_payload(item)["source_digest"]))
+            expected_ld = [self._revision_ladder_prepare(change, transaction, index)
+                           for index, change in enumerate(arguments["ladder_changes"])]
+            self._save_project()
+            self._close_project()
+            self._open_project()
+            st_readback = []
+            for path, declaration, implementation, digest in expected_st:
+                item = self._revision_object(path)
+                actual = self._source_payload(item)
+                if actual["source_digest"] != digest:
+                    raise WorkerError("revision ST source changed after save/reopen")
+                def normalized_text(text):
+                    return text.replace("\r\n", "\n").replace("\r", "\n")
+                if (normalized_text(actual["declaration"]) != normalized_text(declaration)
+                        or normalized_text(actual["implementation"]) != normalized_text(implementation)):
+                    raise WorkerError("revision ST readback differs from requested text")
+                st_readback.append({"object_path": path, "source_digest": digest})
+            ladder_receipts = [self._revision_ladder_readback(item) for item in expected_ld]
+            self._revision_export(after_xml)
+            changed_names = set(change["object_path"][-1] for change in arguments["st_changes"] + arguments["ladder_changes"])
+            self._revision_unchanged_xml(before_xml, after_xml, changed_names)
+            self._close_project()
+            after_digest = _sha256_file(generation)
+            receipt = {
+                "protocol": PROTOCOL, "record_type": "RevisionClosedReceipt",
+                "job_id": request["job_id"], "workspace_id": arguments["workspace_id"],
+                "expected_revision": request["expected_revision"],
+                "before_project_digest": before_digest, "after_project_digest": after_digest,
+                "environment_digest": self.config["environment_digest"],
+                "closed": True, "reopen_verified": True, "save_count": 1,
+                "st_count": len(expected_st), "ladder_count": len(ladder_receipts),
+                "st_readback": st_readback, "ladder_readback": ladder_receipts,
+                "before_xml_digest": _sha256_file(before_xml),
+                "after_xml_digest": _sha256_file(after_xml),
+                "generation_path": "state/revision-transactions/" + request["job_id"] + "/project.project",
+                "created_at": _utc_now(),
+            }
+            _atomic_publish(os.path.join(transaction, "receipt.json"), _json_bytes(receipt))
+            self._project_path_override = previous
+            if _sha256_file(project_path) != before_digest:
+                raise WorkerError("workspace changed before revision generation promotion")
+            with open(generation, "rb") as stream:
+                _atomic_replace_bytes(project_path, stream.read())
+            promoted = True
+            if _sha256_file(project_path) != after_digest:
+                raise WorkerError("revision promotion digest mismatch")
+            return {"receipt": receipt, "real_target_contacted": False}
+        finally:
+            if self._project_path_override is not None:
+                try:
+                    if self.project is not None and not bool(getattr(self.project, "dirty", False)):
+                        self._close_project()
+                except Exception:
+                    pass
+            self._project_path_override = previous
+            if not promoted:
+                # A failed generation may still be the IDE's dirty primary.
+                # Retire this worker; a fresh process must reopen the unchanged
+                # workspace, never reuse an in-memory partial batch.
+                self._generation_poisoned = True
+            self.project = None
+
     def _source_payload(self, item):
         declaration = _document_text(getattr(item, "textual_declaration", None))
         implementation = _document_text(getattr(item, "textual_implementation", None))
@@ -1013,6 +1384,7 @@ class AxWorker(object):
                 if not isinstance(payload[key], TEXT_TYPES) or len(payload[key]) > 1024 * 1024:
                     raise WorkerError(key + " must be bounded text")
         elif operation == "project.build":
+            workflow_keys = set(("transport_profile", "workflow_deadline_at")) if "transport_profile" in payload else set()
             if set(payload) != set(
                 (
                     "workspace_id",
@@ -1021,8 +1393,13 @@ class AxWorker(object):
                     "max_attempts",
                     "runtime_release_digest",
                 )
-            ):
+            ) | workflow_keys:
                 raise WorkerError("BuildRequest fields are invalid")
+            if workflow_keys and (
+                payload["transport_profile"] != request.get("transport_profile", "lan")
+                or payload["workflow_deadline_at"] != request["deadline_at"]
+            ):
+                raise WorkerError("BuildRequest workflow deadline binding mismatch")
             if not isinstance(payload["workspace_id"], TEXT_TYPES) or not UUID_RE.match(
                 payload["workspace_id"]
             ):
@@ -1072,6 +1449,56 @@ class AxWorker(object):
                 payload["recipe"] = ladder_import.validate_recipe(payload["recipe"])
             except Exception as exc:
                 raise WorkerError("LadderRecipe validation failed: " + str(exc))
+        elif operation == "revision.apply":
+            if set(payload) != set(("workspace_id", "expected_revision", "idempotency_key", "st_changes", "ladder_changes")):
+                raise WorkerError("RevisionApplyInput fields are invalid")
+            if payload["workspace_id"] != self.config["worker_id"] or not UUID_RE.match(str(payload["workspace_id"])):
+                raise WorkerError("revision workspace identity mismatch")
+            if type(payload["expected_revision"]) is not int or payload["expected_revision"] != request["expected_revision"]:
+                raise WorkerError("revision input revision mismatch")
+            key = payload["idempotency_key"]
+            if not isinstance(key, TEXT_TYPES) or not 1 <= len(key) <= 128 or not re.match(r"^[A-Za-z0-9_.-]+$", key):
+                raise WorkerError("revision idempotency key is invalid")
+            st_changes, ladder_changes = payload["st_changes"], payload["ladder_changes"]
+            if not isinstance(st_changes, list) or not isinstance(ladder_changes, list) or not 1 <= len(st_changes) + len(ladder_changes) <= 16:
+                raise WorkerError("revision changes must contain 1..16 items")
+            paths = set()
+            for change in st_changes + ladder_changes:
+                if not isinstance(change, dict) or "object_path" not in change:
+                    raise WorkerError("revision change lacks object_path")
+                path = change["object_path"]
+                if not isinstance(path, list) or not 2 <= len(path) <= 16 or any(not isinstance(segment, TEXT_TYPES) or segment != segment.strip() or not NODE_NAME_RE.match(segment) for segment in path[:-1]) or not isinstance(path[-1], TEXT_TYPES) or not NAME_RE.match(path[-1]):
+                    raise WorkerError("revision object_path is invalid")
+                identity = tuple(path)
+                if identity in paths:
+                    raise WorkerError("revision contains duplicate object_path")
+                paths.add(identity)
+            for change in st_changes:
+                if set(change) != set(("object_path", "pou_kind", "return_type", "declaration", "implementation")):
+                    raise WorkerError("revision ST change fields are invalid")
+                if change["pou_kind"] not in ("program", "function", "function_block", "gvl"):
+                    raise WorkerError("revision ST POU kind is invalid")
+                if change["pou_kind"] == "function":
+                    if not isinstance(change["return_type"], TEXT_TYPES) or not NAME_RE.match(change["return_type"]):
+                        raise WorkerError("revision function return type is invalid")
+                elif change["return_type"] is not None:
+                    raise WorkerError("revision non-function return type is invalid")
+                for field, limit in (("declaration", 250000), ("implementation", 1000000)):
+                    if not isinstance(change[field], TEXT_TYPES) or len(change[field]) > limit:
+                        raise WorkerError("revision ST text is invalid")
+                if not change["declaration"] or (change["pou_kind"] == "gvl" and change["implementation"]):
+                    raise WorkerError("revision ST declaration/GVL implementation is invalid")
+            for change in ladder_changes:
+                if set(change) != set(("object_path", "recipe")):
+                    raise WorkerError("revision Ladder change fields are invalid")
+                if ladder_import is None:
+                    raise VendorCapabilityError("bounded LadderRecipe helper is unavailable")
+                try:
+                    change["recipe"] = ladder_import.validate_revision_subset(change["recipe"])
+                except Exception as exc:
+                    raise WorkerError("revision LadderRecipe validation failed: " + str(exc))
+                if change["recipe"]["pou"] != change["object_path"][-1]:
+                    raise WorkerError("revision Ladder path/recipe mismatch")
         else:
             raise WorkerError("unexpected operation input payload")
         return payload
@@ -1208,6 +1635,8 @@ class AxWorker(object):
                     )
                 return []
         normalized = []
+        optional_candidates, optional_contexts = [], []
+        self._last_raw_message_evidence = []
         for message, category in objects[:1000]:
             message_text = str(
                 getattr(message, "text", getattr(message, "message", message))
@@ -1248,24 +1677,21 @@ class AxWorker(object):
             )
             if category is not None:
                 normalized[-1]["category"] = category
-        optional_candidates = [
-            item
-            for item in normalized
-            if item["severity"] == "warning"
-            and item["message"].strip().lower()
-            == OPTIONAL_EMPTY_SLOT_BASELINE_WARNING
-        ]
+            self._last_raw_message_evidence.append({
+                "diagnostic": dict(normalized[-1]), "raw_source_present": source is not None,
+                "raw_line": line, "raw_column": column,
+            })
+            if (severity == "warning"
+                    and message_text.strip().lower() == OPTIONAL_EMPTY_SLOT_BASELINE_WARNING):
+                optional_candidates.append(normalized[-1])
+                optional_contexts.append(source is None and line == 0 and column == 0
+                                         and code == "AX.BUILD.MESSAGE")
         exact_optional_slot_baseline = (
             OPTIONAL_EMPTY_SLOT_BASELINE_COUNT is not None
             and self.config["initial_project_sha256"]
             in (OPTIONAL_EMPTY_SLOT_BASELINE_SHA256, OPTIONAL_EMPTY_SLOT_SECOND_BASELINE_SHA256)
             and len(optional_candidates) == OPTIONAL_EMPTY_SLOT_BASELINE_COUNT
-            and all(
-                item["source"] is None
-                and item["line"] is None
-                and item["column"] is None
-                for item in optional_candidates
-            )
+            and all(optional_contexts)
         )
         if exact_optional_slot_baseline:
             for item in optional_candidates:
@@ -1383,6 +1809,40 @@ class AxWorker(object):
             self._project_digest_if_present() != self.config["initial_project_sha256"]
         ):
             raise WorkerError("scratch baseline changed after dependency preflight")
+
+    def _edit_only_revision_ready_for_build(self, request):
+        """Prove a closed AX edit receipt; the following build remains real."""
+        if self.revision < 1 or os.path.isfile(self._preflight_marker_path()):
+            return False
+        revision_path = os.path.join(self.root, "state", "revisions", str(self.revision) + ".json")
+        if not os.path.isfile(revision_path):
+            return False
+        record, _ = _load_json(revision_path)
+        if record.get("operation") != "revision.apply" or record.get("project_digest") != request["workspace_digest"]:
+            return False
+        job_id = record.get("job_id")
+        if not isinstance(job_id, TEXT_TYPES) or not UUID_RE.match(job_id):
+            return False
+        directory = os.path.join(self.root, "state", "revision-transactions", job_id)
+        path = os.path.join(directory, "receipt.json")
+        generation = os.path.join(directory, "project.project")
+        if not os.path.isfile(path) or not os.path.isfile(generation):
+            return False
+        receipt, _ = _load_json(path)
+        if (receipt.get("record_type") != "RevisionClosedReceipt"
+                or receipt.get("job_id") != job_id
+                or receipt.get("workspace_id") != self.config["worker_id"]
+                or receipt.get("environment_digest") != self.config["environment_digest"]
+                or receipt.get("after_project_digest") != request["workspace_digest"]
+                or receipt.get("expected_revision") != self.revision - 1
+                or receipt.get("closed") is not True
+                or receipt.get("reopen_verified") is not True
+                or _sha256_file(generation) != request["workspace_digest"]):
+            return False
+        self._open_project()
+        if bool(getattr(self._primary_project(), "dirty", False)):
+            raise WorkerError("edit-only project is dirty before the actual compiler build")
+        return True
 
     def _dependency_preflight(self, request):
         project = self._primary_project()
@@ -1661,8 +2121,21 @@ class AxWorker(object):
                     "active application has no " + method_name + " capability"
                 )
             self._clear_messages(strict=True)
+            compiler_started = time.time()
             method()
+            compiler_seconds = time.time() - compiler_started
             diagnostics = self._messages(strict=True)
+            # Keep the exact normalized messages even if summary reconciliation
+            # fails and the project snapshot is restored. Never turn a count
+            # mismatch into a warning-free result.
+            _atomic_publish(
+                os.path.join(self.root, "evidence", request["job_id"] + ".compiler-messages.json"),
+                _json_bytes({"job_id": request["job_id"], "kind": kind,
+                             "initial_project_sha256": self.config["initial_project_sha256"],
+                             "compiler_seconds": compiler_seconds,
+                             "raw_messages": self._last_raw_message_evidence,
+                             "diagnostics": diagnostics}),
+            )
             errors, warnings = self._verified_build_counts(diagnostics)
         except Exception as exc:
             try:
@@ -2299,6 +2772,8 @@ class AxWorker(object):
                 raise WorkerError("source target was not found")
             payload = self._source_payload(item)
             payload["real_target_contacted"] = False
+        elif operation == "revision.apply":
+            payload = self._revision_apply(request, input_payload)
         elif operation == "source.upsert.st":
             preflight, preflight_status = self._ensure_dependency_preflight(request)
             if preflight_status == "blocked":
@@ -2355,7 +2830,8 @@ class AxWorker(object):
                 )
                 artifacts.extend(ladder_artifacts)
         elif operation == "project.build":
-            preflight, preflight_status = self._ensure_dependency_preflight(request)
+            edit_only = self._edit_only_revision_ready_for_build(request)
+            preflight, preflight_status = (None, "passed") if edit_only else self._ensure_dependency_preflight(request)
             if preflight_status == "blocked":
                 payload = {
                     "status": "blocked",
@@ -2372,7 +2848,8 @@ class AxWorker(object):
                     )
                 ]
             else:
-                self._require_dependency_preflight()
+                if not edit_only:
+                    self._require_dependency_preflight()
                 payload = self._build(
                     input_payload["mode"],
                     request,
@@ -2475,6 +2952,8 @@ class AxWorker(object):
         return candidates
 
     def process_next(self):
+        if self._generation_poisoned:
+            return False
         self._recover_build_transactions()
         candidates = self._candidate_requests()
         if not candidates:
@@ -2506,6 +2985,7 @@ class AxWorker(object):
             if terminal_status == "succeeded" and request["operation"] in (
                 "source.upsert.st",
                 "ladder.networks.apply",
+                "revision.apply",
             ):
                 self._record_revision(request, after)
             if terminal_status == "succeeded" and request["operation"] == "project.build":
@@ -2527,7 +3007,10 @@ class AxWorker(object):
         except Exception as exc:
             can_emit = (
                 isinstance(request, dict)
-                and set(request) == REQUEST_KEYS
+                and set(request) == REQUEST_KEYS | (
+                    set(("transport_profile",))
+                    if request.get("transport_profile") == "diacloud" else set()
+                )
                 and UUID_RE.match(str(request.get("correlation_id", "")))
                 and UUID_RE.match(str(request.get("job_id", "")))
                 and request.get("operation") in SUPPORTED_OPERATIONS
@@ -2591,11 +3074,18 @@ class AxWorker(object):
         if not os.path.isfile(path):
             return False
         value, _ = _load_json(path)
-        if set(value) != set(("protocol", "worker_id", "requested_at", "reason")):
+        legacy = set(("protocol", "worker_id", "requested_at", "reason"))
+        exact = legacy | set(("pid", "process_start_fingerprint"))
+        if set(value) not in (legacy, exact):
             raise WorkerError("shutdown request fields are invalid")
         if value["protocol"] != PROTOCOL or value["worker_id"] != self.config["worker_id"]:
             raise WorkerError("shutdown request identity mismatch")
-        _timestamp(value["requested_at"])
+        requested_at = _timestamp(value["requested_at"])
+        if set(value) == exact:
+            if value["pid"] != os.getpid() or value["process_start_fingerprint"] != PROCESS_START_FINGERPRINT:
+                raise WorkerError("shutdown request targets a different worker launch")
+        elif value["reason"] == "explicit_workspace_close" or requested_at < int(self.started):
+            raise WorkerError("legacy shutdown request is stale or lacks launch identity")
         target = os.path.join(self.root, "archive", "control", _safe_stamp() + "-shutdown.json")
         _atomic_move(path, target)
         return True
@@ -2621,6 +3111,9 @@ class AxWorker(object):
                     reason = "idle_exit"
                     break
                 processed = self.process_next()
+                if self._generation_poisoned:
+                    reason = "revision_generation_poisoned"
+                    break
                 if time.time() >= next_heartbeat:
                     self.write_heartbeat("running")
                     next_heartbeat = time.time() + self.config["heartbeat_seconds"]
@@ -2654,6 +3147,9 @@ def main():
             languages_api=globals().get("ImplementationLanguages"),
             pou_types_api=globals().get("PouType"),
             conflict_resolve_api=globals().get("ConflictResolve"),
+            native_import_api=(globals().get("NativeImportFilter"),
+                               globals().get("NativeImportHandler"),
+                               globals().get("NativeImportResolve")),
         )
         result = worker.run_loop()
         print(json.dumps(result, sort_keys=True))

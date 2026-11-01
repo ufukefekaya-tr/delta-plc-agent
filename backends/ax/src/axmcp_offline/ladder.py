@@ -42,6 +42,24 @@ class LadderRecipeError(ValueError):
     """A fail-closed LadderRecipe or PLCopenXML conformance error."""
 
 
+def validate_revision_subset(recipe: Any) -> dict[str, Any]:
+    """Same bounded subset as the pinned Python-2 worker helper."""
+    recipe = validate_ladder_recipe(recipe)
+    if recipe["pou"] != "MachineSupervisor" or len(recipe["networks"]) != 1:
+        raise LadderRecipeError("LD_REVISION_UNSUPPORTED: one MachineSupervisor network required")
+    network = recipe["networks"][0]
+    elements = network["elements"]
+    if (len(elements) != 1 or elements[0]["kind"] != "contact"
+            or network["coil"]["mode"] != "normal"):
+        raise LadderRecipeError("LD_REVISION_UNSUPPORTED: one contact and normal coil required")
+    expected = {elements[0]["variable"]: "input", network["coil"]["variable"]: "output"}
+    if (len(expected) != 2 or len(recipe["variables"]) != 2
+            or any(v["type"] != "BOOL" or expected.get(v["name"]) != v["direction"]
+                   for v in recipe["variables"])):
+        raise LadderRecipeError("LD_REVISION_UNSUPPORTED: exact two BOOL interface required")
+    return recipe
+
+
 def _q(name: str) -> str:
     return f"{{{TC6_NAMESPACE}}}{name}"
 
