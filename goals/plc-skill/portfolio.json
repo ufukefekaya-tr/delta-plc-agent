@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "PLC-SKILL-R2",
+  "revision": 2,
+  "status": "RUNNING",
+  "baseline": "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1",
+  "plan": "docs/plans/plc-skill/PLAN.md",
+  "slices": {
+    "S0": "mandatory existing MCP + privacy correction + companion",
+    "S1": "separate reusable AS source integration",
+    "S2": "separate optional native qualification"
+  },
+  "completion": "Every in-scope goal accepted, or explicitly rescoped by human; S0 acceptance is not portfolio completion",
+  "goals": [
+    "goals/plc-skill/S0-G0.json",
+    "goals/plc-skill/S0-G1.json",
+    "goals/plc-skill/S0-G2.json",
+    "goals/plc-skill/S0-G3.json",
+    "goals/plc-skill/S0-G4.json",
+    "goals/plc-skill/S0-G5.json",
+    "goals/plc-skill/S0-G6.json",
+    "goals/plc-skill/S0-G7.json",
+    "goals/plc-skill/S0-G8.json",
+    "goals/plc-skill/S1-G0.json",
+    "goals/plc-skill/S1-G1.json",
+    "goals/plc-skill/S1-G2.json",
+    "goals/plc-skill/S1-G3.json",
+    "goals/plc-skill/S2-G0.json",
+    "goals/plc-skill/S2-G1.json",
+    "goals/plc-skill/S2-G2.json"
+  ],
+  "history": [
+    {
+      "revision": 2,
+      "decision": "Astra ACCEPT after slice separation and mandatory fresh fixture replacement; human authorized implementation"
+    }
+  ]
+}

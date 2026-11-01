@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "S1-G2",
+  "slice": "S1",
+  "revision": 1,
+  "status": "PLANNED",
+  "outcome": null,
+  "title": "Integrate accepted AS operations",
+  "dependencies": [
+    "S1-G1"
+  ],
+  "workflow": "workflows/plc-skill/S1-G2.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "workflows/plc-skill/S1-G2.json": "54dfae34aabe03aadb1c96f5dfeae78b2655f283ef15048c709db3135e2223d5"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T01",
+    "T05",
+    "T06",
+    "T11"
+  ],
+  "evidence": [],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Register explicit operations",
+  "history": [],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "skill_version": "1.0.0",
+  "license": "MIT",
+  "core_package": "universal-plc-agents",
+  "core_version": "0.4.0",
+  "ax_package": "universal-plc-axmcp",
+  "ax_version": "0.4.0",
+  "common_tools": {
+    "environment.probe": {
+      "required_fields": {}
+    },
+    "target.resolve": {
+      "required_fields": {
+        "target": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "capabilities.list": {
+      "required_fields": {
+        "target": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "workspace.create": {
+      "required_fields": {
+        "target": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "workspace.status": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        }
+      }
+    },
+    "workspace.import": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        },
+        "source_path": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "expected_sha256": {
+          "type": "string"
+        }
+      }
+    },
+    "adapter.invoke": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "expected_context_digest": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence.read": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        },
+        "evidence_id": {
+          "type": "string"
+        }
+      }
+    },
+    "workflow.start": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        },
+        "workflow": {
+          "type": "string"
+        }
+      }
+    },
+    "workflow.run": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "steps": {}
+      }
+    },
+    "workflow.status": {
+      "required_fields": {
+        "workspace_id": {
+          "type": "string"
+        },
+        "run_id": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "recipes": {
+    "dvp.il_to_mpu": {
+      "core_versions": [
+        "0.4.0"
+      ],
+      "module_sha256": {
+        "src/universal_plc/mcp_server.py": "2f05b6b0702b1538180380c056387d2fe2267bfb5f37dcb8e175feac20766ce4",
+        "src/universal_plc/service.py": "34f03ae485b3b842b694a94fb400f5d1037fa800d2a2c28950637efb2b05902b",
+        "src/universal_plc/models.py": "c8213fafcf0bfdb4bc811b6ff72ce33c5403830931469ad661eeb80259f5c231",
+        "src/universal_plc/storage.py": "6d1829dd486795b422b71764f3dbed79fc04cedfe22666da1a37439d7903faaf",
+        "src/universal_plc/registry.py": "0f000323e5f5f1609f59f0016707a387d3399038bcfef34d59add24b704becc4",
+        "src/universal_plc/adapters.py": "91432154e48e9c8c26a9724f29bd57aaf69916df01270ae5aa32e10b77bb5823",
+        "src/universal_plc/data/catalog.json": "4424c94578c9421b3a428d1fee43cf47a9ebc576a9789d158e327fe3c3780464",
+        "src/universal_plc/data/workflows.json": "225c42ff469c93fe522bb0e768152d74725c047ec452cb1bc05a88008e1cc34f",
+        "src/universal_plc/delta_files/adapter.py": "550d942d53f6c0402958f7592060757a24bbe236ac019f6329dbe1fc29268380",
+        "src/universal_plc/delta_files/dvp.py": "a4c2b840666f5fb9a53e21df0e36c1e7277673a4ae9e19f9e3cc7a154339959c",
+        "src/universal_plc/delta_files/containers.py": "875bc9323ad3b99d3d68c5106f295006fea0b09a53b3ad103a7a5a6bcc4ee350",
+        "src/universal_plc/delta_files/_vendor/mpu_codec.py": "bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+        "src/universal_plc/delta_files/_vendor/mpu2il.py": "0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+        "src/universal_plc/delta_files/_vendor/il2mpu.py": "ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+        "src/universal_plc/delta_files/_vendor/ispsoft_codec.py": "de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f"
+      },
+      "tools": {
+        "target.resolve": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "capabilities.list": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "workspace.create": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "workspace.import": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "source_path": {
+              "type": "string"
+            },
+            "destination": {
+              "type": "string"
+            },
+            "expected_sha256": {
+              "type": "string"
+            }
+          }
+        },
+        "adapter.invoke": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "operation": {
+              "type": "string"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "expected_context_digest": {
+              "type": "string"
+            }
+          }
+        },
+        "evidence.read": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "evidence_id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "argument_contract": {
+        "input_path": "workspace-relative UTF-8 IL",
+        "output_path": "new workspace-relative MPU",
+        "pou_name": "optional Program0",
+        "encoding": "optional cp1254"
+      },
+      "evidence_kind": "FILE_TRANSFORM",
+      "vendor_compile": false,
+      "live_execution": false
+    },
+    "dvp.mpu_to_il": {
+      "core_versions": [
+        "0.4.0"
+      ],
+      "module_sha256": {
+        "src/universal_plc/mcp_server.py": "2f05b6b0702b1538180380c056387d2fe2267bfb5f37dcb8e175feac20766ce4",
+        "src/universal_plc/service.py": "34f03ae485b3b842b694a94fb400f5d1037fa800d2a2c28950637efb2b05902b",
+        "src/universal_plc/models.py": "c8213fafcf0bfdb4bc811b6ff72ce33c5403830931469ad661eeb80259f5c231",
+        "src/universal_plc/storage.py": "6d1829dd486795b422b71764f3dbed79fc04cedfe22666da1a37439d7903faaf",
+        "src/universal_plc/registry.py": "0f000323e5f5f1609f59f0016707a387d3399038bcfef34d59add24b704becc4",
+        "src/universal_plc/adapters.py": "91432154e48e9c8c26a9724f29bd57aaf69916df01270ae5aa32e10b77bb5823",
+        "src/universal_plc/data/catalog.json": "4424c94578c9421b3a428d1fee43cf47a9ebc576a9789d158e327fe3c3780464",
+        "src/universal_plc/data/workflows.json": "225c42ff469c93fe522bb0e768152d74725c047ec452cb1bc05a88008e1cc34f",
+        "src/universal_plc/delta_files/adapter.py": "550d942d53f6c0402958f7592060757a24bbe236ac019f6329dbe1fc29268380",
+        "src/universal_plc/delta_files/dvp.py": "a4c2b840666f5fb9a53e21df0e36c1e7277673a4ae9e19f9e3cc7a154339959c",
+        "src/universal_plc/delta_files/containers.py": "875bc9323ad3b99d3d68c5106f295006fea0b09a53b3ad103a7a5a6bcc4ee350",
+        "src/universal_plc/delta_files/_vendor/mpu_codec.py": "bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+        "src/universal_plc/delta_files/_vendor/mpu2il.py": "0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+        "src/universal_plc/delta_files/_vendor/il2mpu.py": "ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+        "src/universal_plc/delta_files/_vendor/ispsoft_codec.py": "de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f"
+      },
+      "tools": {
+        "target.resolve": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "capabilities.list": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "workspace.create": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "workspace.import": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "source_path": {
+              "type": "string"
+            },
+            "destination": {
+              "type": "string"
+            },
+            "expected_sha256": {
+              "type": "string"
+            }
+          }
+        },
+        "adapter.invoke": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "operation": {
+              "type": "string"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "expected_context_digest": {
+              "type": "string"
+            }
+          }
+        },
+        "evidence.read": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "evidence_id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "argument_contract": {
+        "input_path": "workspace-relative MPU",
+        "output_path": "new workspace-relative UTF-8 IL",
+        "encoding": "optional cp1254"
+      },
+      "evidence_kind": "FILE_TRANSFORM",
+      "vendor_compile": false,
+      "live_execution": false
+    },
+    "isp.inspect": {
+      "core_versions": [
+        "0.4.0"
+      ],
+      "module_sha256": {
+        "src/universal_plc/mcp_server.py": "2f05b6b0702b1538180380c056387d2fe2267bfb5f37dcb8e175feac20766ce4",
+        "src/universal_plc/service.py": "34f03ae485b3b842b694a94fb400f5d1037fa800d2a2c28950637efb2b05902b",
+        "src/universal_plc/models.py": "c8213fafcf0bfdb4bc811b6ff72ce33c5403830931469ad661eeb80259f5c231",
+        "src/universal_plc/storage.py": "6d1829dd486795b422b71764f3dbed79fc04cedfe22666da1a37439d7903faaf",
+        "src/universal_plc/registry.py": "0f000323e5f5f1609f59f0016707a387d3399038bcfef34d59add24b704becc4",
+        "src/universal_plc/adapters.py": "91432154e48e9c8c26a9724f29bd57aaf69916df01270ae5aa32e10b77bb5823",
+        "src/universal_plc/data/catalog.json": "4424c94578c9421b3a428d1fee43cf47a9ebc576a9789d158e327fe3c3780464",
+        "src/universal_plc/data/workflows.json": "225c42ff469c93fe522bb0e768152d74725c047ec452cb1bc05a88008e1cc34f",
+        "src/universal_plc/delta_files/adapter.py": "550d942d53f6c0402958f7592060757a24bbe236ac019f6329dbe1fc29268380",
+        "src/universal_plc/delta_files/dvp.py": "a4c2b840666f5fb9a53e21df0e36c1e7277673a4ae9e19f9e3cc7a154339959c",
+        "src/universal_plc/delta_files/containers.py": "875bc9323ad3b99d3d68c5106f295006fea0b09a53b3ad103a7a5a6bcc4ee350",
+        "src/universal_plc/delta_files/_vendor/mpu_codec.py": "bfae10342b9d0183ebe0a49a4f5531be475581568582326e11d5024004ca0480",
+        "src/universal_plc/delta_files/_vendor/mpu2il.py": "0331169a95079f98b1607f67ed39e330acee76377d1de3f188a68ce8b54f12bb",
+        "src/universal_plc/delta_files/_vendor/il2mpu.py": "ab42b7a942c9fe1f93851a895f2a38711f02c919d801fdc0d35b5051e2dd0ca3",
+        "src/universal_plc/delta_files/_vendor/ispsoft_codec.py": "de8d23558b69fa0c88ea60ef4ba0f950b66422d110dbc94ad908e1c22c2cf05f"
+      },
+      "tools": {
+        "target.resolve": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "capabilities.list": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "workspace.create": {
+          "required_fields": {
+            "target": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "workspace.import": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "source_path": {
+              "type": "string"
+            },
+            "destination": {
+              "type": "string"
+            },
+            "expected_sha256": {
+              "type": "string"
+            }
+          }
+        },
+        "adapter.invoke": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "operation": {
+              "type": "string"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "expected_context_digest": {
+              "type": "string"
+            }
+          }
+        },
+        "evidence.read": {
+          "required_fields": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "evidence_id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "argument_contract": {
+        "input_path": "workspace-relative ISP"
+      },
+      "evidence_kind": "FILE_TRANSFORM",
+      "vendor_compile": false,
+      "live_execution": false
+    }
+  },
+  "other_operations": "Use actual typed tool schema or the matching versioned adapter contract; no feature is removed by this recipe inventory.",
+  "qualification": "SOFTWARE_ONLY; native/model/live acceptance remains separate",
+  "grants_authority": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT_S0",
+  "reviewer": "Independent Astra",
+  "reviewed_tree": "81a067454742226533085c34c5cc623a2e903573",
+  "open_P0_P1": 0,
+  "focused_repair_rounds": 1,
+  "scope": "S0 source, tests, documentation, goals, workflows, Kaizen, archive identities and disclosed NOT_RUN",
+  "artifact_source_blob_comparison": {
+    "source_zip": 359,
+    "skill": 8,
+    "sdist_source_files": 350,
+    "core_wheel_runtime_resources": 32,
+    "AX_wheel_runtime_resources": 96
+  },
+  "wheel_install": "Fresh task-local environment, exact wheels, no source PYTHONPATH, unrelated Unicode CWD, real stdio PASS",
+  "sdist_install": "Force-reinstall exact sdist into the wheel-test environment, separate Unicode CWD, real stdio PASS; not a second independent fresh environment",
+  "no_native_or_live_acceptance": true,
+  "S1_S2_complete": false,
+  "post_review_rule": "Only delivery metadata may follow this reviewed tree. Verify unchanged implementation/skill/test blobs and regenerate manifests and final artifact hashes. A later final tree is a distinct identity."
+}

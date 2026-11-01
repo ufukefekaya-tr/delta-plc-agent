@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "status": "S0_ACCEPTED_PENDING_DELIVERY",
+  "date": "2026-11-01",
+  "slice": "S0",
+  "versions": {
+    "core": "0.4.0",
+    "AX": "0.4.0",
+    "skill": "1.0.0"
+  },
+  "software_checks": {
+    "full_repository": {
+      "run": 498,
+      "passed": 497,
+      "skipped": 1,
+      "failed": 0,
+      "skip": "Windows symlink privilege"
+    },
+    "dvp_serial": {
+      "run": 153,
+      "passed": 153,
+      "failed": 0
+    },
+    "skill_source_package_targeted": {
+      "run": 14,
+      "passed": 14,
+      "failed": 0
+    },
+    "counts_overlap": true,
+    "fresh_all_backend_wheel_install_stdio": "PASS",
+    "independent_skill_forward_test": "PASS_SOFTWARE_ONLY",
+    "source_override_hiding_old_distribution": "REJECTED",
+    "new_fixture": "Eight-lane digital bench generated from scratch; inherited fixture removed",
+    "focused_repairs": [
+      "Goal dependency closure pins actual runtime sources, complete skill references, tests, workflows and evidence; input/output drift tested",
+      "Skill/source archives read immutable Git blobs; nonexistent tree, changed working files and line endings tested",
+      "Turkish runtime/feature documentation restored from UTF-8 baseline",
+      "Independent skill versus MCP-only neutral roundtrip and HMI-only nonselection recorded"
+    ],
+    "exact_artifact_wheel_stdio": "PASS",
+    "exact_artifact_sdist_stdio": "PASS_AFTER_FORCE_REINSTALL_IN_WHEEL_ENVIRONMENT"
+  },
+  "source_execution_engines": "Unchanged from reviewed baseline except core package version metadata; normalized module hashes are in RUNTIME_BASELINE.json",
+  "not_run": [
+    "New native IDE compilation",
+    "Physical PLC or HMI operations",
+    "New model qualification",
+    "AS generic/native extension acceptance",
+    "Hosted CI for this new candidate"
+  ],
+  "S1_S2_complete": false,
+  "historical_assets_replaced": false,
+  "evidence_scope": "Software tests and independently observed offline stdio; no physical acceptance",
+  "final_review": "docs/public/SKILL_0_4_REVIEW.json"
+}

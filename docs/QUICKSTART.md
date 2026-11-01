@@ -1,5 +1,10 @@
 # Your first Delta PLC Agent workflow
 
+For an optional skills-compatible engineering entrypoint, install the complete
+[Delta PLC skill folder](../skills/delta-plc-engineering/SKILL.md) in your agent's
+supported skill location. It includes its own references and MIT license.
+Configure the MCP separately below; no developer path or private project is required.
+
 ## Install
 
 Use Python 3.11+ in an activated virtual environment. In PowerShell, activate with `.venv\Scripts\Activate.ps1`; on Linux/macOS use `source .venv/bin/activate`. From the repository root run `python tools/install.py` for Universal plus AX, or add `--profile dvp` for Universal/DVP/ISPSoft only. Installation downloads pinned Python dependencies. Vendor IDEs remain host-installed tools.

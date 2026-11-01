@@ -24,7 +24,7 @@ class AttendedTests(unittest.TestCase):
             result = s.parameter()
             self.assertTrue(result['ok'], result)
             self.assertTrue(result['readback_verified'])
-            self.assertEqual(s.state.parameter_mutations, [(2000, 2000)])
+            self.assertEqual(s.state.parameter_mutations, [(2300, 2300)])
 
     def test_missing_false_and_truthy_values_cannot_authorize(self):
         for field in ('attended_machine_test_authorized', 'independent_power_cutoff_available',
@@ -64,7 +64,7 @@ class AttendedTests(unittest.TestCase):
         for mode in ('source', 'lease', 'expired'):
             with self.subTest(mode=mode), tempfile.TemporaryDirectory() as root:
                 s = self.scenario(root)
-                self.assertTrue(s.call('machine.read', device='D100')['ok'])
+                self.assertTrue(s.call('machine.read', device='D256')['ok'])
                 owned = s.state.connections[-1]
                 if mode == 'source':
                     s.source.write_bytes(b'CHANGED')

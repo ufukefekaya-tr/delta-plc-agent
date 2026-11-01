@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-01",
+  "baseline": "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1",
+  "observations": [
+    {
+      "id": "AX",
+      "decision": "ALREADY_PRESENT",
+      "core_python_blobs_equal": 14,
+      "worker_blobs_equal": 3,
+      "action": "Preserve public generic additions; no donor overwrite"
+    },
+    {
+      "id": "DVP",
+      "decision": "ALREADY_PRESENT",
+      "protocol_native_transfer_equal": true,
+      "action": "Keep public attended authorization and synthetic test fixes"
+    },
+    {
+      "id": "AS-CORE",
+      "decision": "ALREADY_PRESENT",
+      "codec_and_common_server_equal": true,
+      "action": "Do not replace current core with older project pins"
+    },
+    {
+      "id": "AS-ENGINEERING",
+      "decision": "GENERALIZE",
+      "source_snapshot": "f558dc0a30b293aee44e35ca6138feb6f5ad7f36",
+      "selected_source_blobs_equal": 55,
+      "native_manifest_source_entries_equal": 33,
+      "action": "S1/S2 selective extraction only; existing project binding excluded"
+    },
+    {
+      "id": "AS-NATIVE",
+      "decision": "UNQUALIFIED",
+      "tool_definitions": 43,
+      "action": "Tool inventory is not an implementation or qualification promise"
+    },
+    {
+      "id": "CUSTOMER-DATA",
+      "decision": "PROJECT_ONLY",
+      "action": "No customer files, derived snapshots, profiles, native projects or runtime records"
+    }
+  ],
+  "evidence_scope": "Read-only source comparison. Donor test-count statements are not newly executed tests. No vendor or physical target contacted."
+}

@@ -13,13 +13,16 @@ def main():
     manifest = json.loads(git("show", ":PUBLIC_SOURCE_MANIFEST.json"))
     paths = set(git("ls-files", "-z").decode().split("\0")) - {"", "PUBLIC_SOURCE_MANIFEST.json"}
     errors = []
+    forbidden_fixture_sha256 = 'ba995db2b982b4e3f8f9c2cc2e673cd121e22528cad4d5e37f2b8149fb36de1f'
     if set(manifest["files"]) != paths:
         errors.append("manifest file set differs from the index")
     for path in sorted(paths):
         data = git("show", ":" + path)
         if hashlib.sha256(data).hexdigest() != manifest["files"].get(path):
             errors.append("digest mismatch: " + path)
-        if path.startswith((".agent-state/", "PLC/", "HMI/")) or path.endswith((".project", ".projectarchive")):
+        if (path.endswith("/thermal-regression.json") or hashlib.sha256(data).hexdigest() == forbidden_fixture_sha256):
+            errors.append("inherited customer-derived fixture: " + path)
+        if path.startswith((".agent-state/", "PLC/", "HMI/", "profiles/")) or path.endswith((".project", ".projectarchive")):
             errors.append("private/native path: " + path)
         if path.endswith((".py", ".json", ".md", ".toml")):
             for marker in (b"C:/Users/casper", b"C:\\Users\\casper", b"GVL_TZ_", b"codex://threads/", b"BEGIN PRIVATE KEY"):

@@ -10,7 +10,7 @@ TargetProfile vendor/family/model gerektirir; firmware, toolchain, ide_version, 
 
 `environment.probe`, `target.resolve`, `capabilities.list`, `workspace.create`, `workspace.status`, `workspace.import`, `adapter.invoke`, `evidence.read`, `workflow.start`, `workflow.run`, `workflow.status`.
 
-`adapter.invoke(workspace_id, operation, arguments, expected_context_digest)` yalnız adaptörün kayıtlı typed operasyonlarını çağırır. AX'in 19 operasyon adı ve eski CLI girişleri AX paketinde korunur. Universal `workspace.create` bir dosya çalışma alanı; AX `workspace.create` hash kilitli native baseline klonudur. İkisi de `project.create` native sıfırdan oluşturma kabulünün yerine geçmez.
+`adapter.invoke(workspace_id, operation, arguments, expected_context_digest)` yalnız adaptörün kayıtlı typed operasyonlarını çağırır. AX paketinde 24 standalone MCP operasyonu ve 5 replay aracı korunur; Universal adaptörü ayrıca `project.create` sunar. Eski CLI girişleri korunur. Universal `workspace.create` bir dosya çalışma alanı; AX `workspace.create` hash kilitli native baseline klonudur. İkisi de `project.create` native sıfırdan oluşturma kabulünün yerine geçmez.
 
 ## Dosya sınırı
 

@@ -1,5 +1,12 @@
 # Delta PLC Agent
 
+**İsteğe bağlı MIT skill paketi:** [Delta PLC mühendislik becerisi](skills/delta-plc-engineering/SKILL.md),
+mevcut MCP'nin yanında model seçimi, doğru araç kullanımı ve kesinti sonrası
+devam akışını öğretir. Paket kendi referanslarını taşır; geliştirici bilgisayarına
+veya müşteri projesine bağlı değildir. MCP skill olmadan da aynı araçları sunar.
+[Kurulum ve kapsam](docs/public/SKILL.md) · [Fazlı uygulama planı](docs/plans/plc-skill/PLAN.md) ·
+[Dinamik goals](goals/plc-skill/portfolio.json).
+
 **PLC mühendisliğini ajanlarla birlikte yürütün.**
 Tek MCP. Modele göre araç seçimi. İzlenebilir sonuçlar.
 

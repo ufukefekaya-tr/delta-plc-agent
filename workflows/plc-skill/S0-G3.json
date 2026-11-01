@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "S0-G3",
+  "kind": "agent_orchestration",
+  "scope": "PLC software only; no customer content or physical target",
+  "steps": [
+    {
+      "id": "S0-G3-W1",
+      "action": "Freeze current source",
+      "precondition": "Previous step evidence valid",
+      "output": "Candidate-bound evidence",
+      "on_failure": "Stop affected goal; record blocker; no blind retry"
+    },
+    {
+      "id": "S0-G3-W2",
+      "action": "Align core/AX/skill identities",
+      "precondition": "Previous step evidence valid",
+      "output": "Candidate-bound evidence",
+      "on_failure": "Stop affected goal; record blocker; no blind retry"
+    },
+    {
+      "id": "S0-G3-W3",
+      "action": "Pin recipe contracts",
+      "precondition": "Previous step evidence valid",
+      "output": "Candidate-bound evidence",
+      "on_failure": "Stop affected goal; record blocker; no blind retry"
+    }
+  ]
+}

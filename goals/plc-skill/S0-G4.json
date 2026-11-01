@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "S0-G4",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "CHANGED",
+  "title": "Implement optional skill",
+  "dependencies": [
+    "S0-G3"
+  ],
+  "workflow": "workflows/plc-skill/S0-G4.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "skills/delta-plc-engineering/LICENSE": "d5cc351a99435261b6efa200f4329ffc1405292dcd5c032fd194d2a82afe6655",
+    "skills/delta-plc-engineering/SKILL.md": "0c4f28b6639ea198d57268b0bc211162497407bac4b58c66f64826ed3c29a155",
+    "skills/delta-plc-engineering/references/ax.md": "3470b1d91c24bfd43ab0e5fc4573a0ca12178068efcfbb4bee205c3f277fae9a",
+    "skills/delta-plc-engineering/references/bootstrap.md": "b4ad633540b63329b3093c4e90524e4a7ce28ccc4a577cbd9a644939fd43b7a6",
+    "skills/delta-plc-engineering/references/compatibility.json": "362b2a76accdc6f3f1f95092fa586229ceac8e14fc50c9d59c5bcc349f8718c6",
+    "skills/delta-plc-engineering/references/dvp-wplsoft.md": "c71d79fcb0fa980557b888dbcb33d0ec5dc9c6b1c3225dc360446eee432b2270",
+    "skills/delta-plc-engineering/references/ispsoft-diadesigner.md": "42b661a4a41e99a308f26ea5c6e2c0b4d18c5fbc64491f82ce3502165507fc46",
+    "skills/delta-plc-engineering/references/recovery.md": "21ce829ae2b5128da2a020b2bd7b3111d3507f77f5c5a0d5b2e40d2b8209c850",
+    "workflows/plc-skill/S0-G4.json": "d6ee6a90ced5942532e95f7e0fbc9c8bb81be6bd3a57ebd24eadb6c8a332b9b5"
+  },
+  "output_hashes": {
+    "skills/delta-plc-engineering/LICENSE": "d5cc351a99435261b6efa200f4329ffc1405292dcd5c032fd194d2a82afe6655",
+    "skills/delta-plc-engineering/SKILL.md": "0c4f28b6639ea198d57268b0bc211162497407bac4b58c66f64826ed3c29a155",
+    "skills/delta-plc-engineering/references/ax.md": "3470b1d91c24bfd43ab0e5fc4573a0ca12178068efcfbb4bee205c3f277fae9a",
+    "skills/delta-plc-engineering/references/bootstrap.md": "b4ad633540b63329b3093c4e90524e4a7ce28ccc4a577cbd9a644939fd43b7a6",
+    "skills/delta-plc-engineering/references/compatibility.json": "362b2a76accdc6f3f1f95092fa586229ceac8e14fc50c9d59c5bcc349f8718c6",
+    "skills/delta-plc-engineering/references/dvp-wplsoft.md": "c71d79fcb0fa980557b888dbcb33d0ec5dc9c6b1c3225dc360446eee432b2270",
+    "skills/delta-plc-engineering/references/ispsoft-diadesigner.md": "42b661a4a41e99a308f26ea5c6e2c0b4d18c5fbc64491f82ce3502165507fc46",
+    "skills/delta-plc-engineering/references/recovery.md": "21ce829ae2b5128da2a020b2bd7b3111d3507f77f5c5a0d5b2e40d2b8209c850"
+  },
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09"
+  ],
+  "evidence": [
+    "docs/public/SKILL_0_4_VALIDATION.json",
+    "docs/plans/plc-skill/BEHAVIOR_REVIEW.json"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Accepted software scope; final source delivery and review remain separate",
+  "history": [
+    {
+      "decision": "Runtime requirements moved into metadata for strict client validator compatibility; workflow unchanged"
+    }
+  ],
+  "hash_algorithm": "sha256-text-lf-v1"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "S1-G0",
+  "kind": "agent_orchestration",
+  "scope": "PLC software only; no customer content or physical target",
+  "steps": [
+    {
+      "id": "S1-G0-W1",
+      "action": "Identify dependencies",
+      "precondition": "Previous step evidence valid",
+      "output": "Candidate-bound evidence",
+      "on_failure": "Stop affected goal; record blocker; no blind retry"
+    },
+    {
+      "id": "S1-G0-W2",
+      "action": "Classify each candidate feature",
+      "precondition": "Previous step evidence valid",
+      "output": "Candidate-bound evidence",
+      "on_failure": "Stop affected goal; record blocker; no blind retry"
+    },
+    {
+      "id": "S1-G0-W3",
+      "action": "Record exclusions and qualification gaps",
+      "precondition": "Previous step evidence valid",
+      "output": "Candidate-bound evidence",
+      "on_failure": "Stop affected goal; record blocker; no blind retry"
+    }
+  ]
+}

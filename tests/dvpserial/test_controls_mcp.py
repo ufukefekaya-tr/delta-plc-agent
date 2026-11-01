@@ -30,9 +30,9 @@ from universal_plc.service import Service
 from universal_plc.mcp_server import create_server
 state=SoftwarePLC()
 if os.environ.get('TEMPERATURE_FIXTURE_LOST_ACK')=='1':
- state.drop_ack.add((100,1))
+ state.drop_ack.add((256,1))
 if os.environ.get('PARAMETER_FIXTURE_LOST_ACK')=='1':
- state.drop_parameter_ack.add((2000,2000))
+ state.drop_parameter_ack.add((2300,2300))
 if os.environ.get('PARAMETER_FIXTURE_READBACK_LOSS')=='1':
  state.fail_parameter_readback=True
 service=Service.from_environment()
@@ -52,7 +52,7 @@ create_server(service).run(transport='stdio')
 
 
 @unittest.skipIf(Client is None, "MCP SDK2.1.1 required; skipped tests are not live evidence")
-class TemperatureStdio(unittest.TestCase):
+class SyntheticBenchStdio(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -88,7 +88,7 @@ class TemperatureStdio(unittest.TestCase):
     async def create(self,client):
         workspace=await self.call(client,"workspace.create",dict(target=TARGET,
             baseline_path=str(self.s.source),expected_sha256=self.s.source_sha256,
-            task_id="temperature-sdk-software-only",revision=REVISION))
+            task_id="digital-bench-sdk-software-only",revision=REVISION))
         root=self.s.root/"mcp-runtime"/"workspaces"/workspace["workspace_id"]
         self.s.proof_data["context"]=dict(workspace_id=workspace["workspace_id"],task_id=workspace["task_id"],
               revision=REVISION,context_digest=workspace["context_digest"],workspace_root=str(root),
@@ -113,9 +113,9 @@ class TemperatureStdio(unittest.TestCase):
     @staticmethod
     def typed(operation,args):
         args=dict(args)
-        if operation in ("temperature.read","temperature.status","temperature.observe","temperature.reconcile"):
+        if operation in ("bench.read","bench.status","bench.observe","bench.reconcile"):
             return "machine."+operation.split(".")[1],args
-        if operation.startswith("temperature."):
+        if operation.startswith("bench."):
             args["command"]=operation
             if "channel" in args:
                 args["selector"]=args.pop("channel")
@@ -133,12 +133,12 @@ class TemperatureStdio(unittest.TestCase):
                 for operation in ("machine.profile","machine.command","machine.parameter.write","machine.read","machine.status","machine.observe","machine.reconcile"):
                     self.assertIn(operation,operations)
                     self.assertFalse(operations[operation]["live_verified"])
-                done,request=await self.step(client,workspace,"temperature.channel.start",channel=1,
+                done,request=await self.step(client,workspace,"bench.lane.start",channel=1,
                                   command_id="sdk-software-only-pulse",_execution_context={"revision":"V5","context_digest":"fake"})
                 self.assertEqual(done["status"],"steps_returned",done)
                 record=done["completed"][0]
                 self.assertTrue(record["result"]["ok"],record)
-                self.assertEqual(self.audit()["mutations"],[[100,1],[100,0]])
+                self.assertEqual(self.audit()["mutations"],[[256,1],[256,0]])
                 evidence=await self.call(client,"evidence.read",dict(workspace_id=workspace["workspace_id"],
                                     evidence_id=record["evidence_id"]))
                 self.assertEqual(evidence["context_digest"],workspace["context_digest"])
@@ -146,12 +146,12 @@ class TemperatureStdio(unittest.TestCase):
                 before=self.audit()
                 self.assertEqual(await self.call(client,"workflow.run",request),done)
                 self.assertEqual(self.audit(),before)
-                repeated=await self.invoke(client,workspace,"temperature.channel.start",channel=1,
+                repeated=await self.invoke(client,workspace,"bench.lane.start",channel=1,
                                           command_id="sdk-software-only-pulse")
                 self.assertFalse(repeated["result"]["ok"],repeated)
                 self.assertEqual(self.audit()["mutations"],before["mutations"])
                 stale=await client.call_tool("adapter.invoke",dict(workspace_id=workspace["workspace_id"],
-                       operation="machine.command",arguments={"command":"temperature.channel.start","selector":2,"command_id":"stale"},
+                       operation="machine.command",arguments={"command":"bench.lane.start","selector":2,"command_id":"stale"},
                        expected_context_digest="0"*64))
                 self.assertTrue(stale.is_error)
                 self.assertEqual(self.audit()["mutations"],before["mutations"])
@@ -166,7 +166,7 @@ class TemperatureStdio(unittest.TestCase):
                 profile=await self.invoke(client,workspace,"machine.profile")
                 self.assertTrue(profile["result"]["ok"],profile)
                 self.assertFalse(profile["result"]["live_revision_verified"],profile)
-                self.assertIn("temperature.contactor.start",profile["result"]["commands"])
+                self.assertIn("bench.bank.start",profile["result"]["commands"])
                 self.assertEqual(self.audit()["frames"],[])
                 self.s.source.write_bytes(b"SOURCE DRIFT AFTER PROFILE ENROLLMENT")
                 rejected=await self.invoke(client,workspace,"machine.profile")
@@ -179,7 +179,7 @@ class TemperatureStdio(unittest.TestCase):
             async with Client(self.params(),read_timeout_seconds=20) as client:
                 workspace=await self.create(client)
                 self.s.config["user_present"]=False;self.save_config()
-                denied=await self.invoke(client,workspace,"temperature.tuning.start",channel=1,
+                denied=await self.invoke(client,workspace,"bench.calibration.start",channel=1,
                         command_id="spoof-no-attendant",_execution_context=self.s.proof_data["context"])
                 self.assertFalse(denied["result"]["ok"],denied)
                 self.assertEqual(self.audit()["mutations"],[])
@@ -200,12 +200,12 @@ class TemperatureStdio(unittest.TestCase):
                 profile=await self.invoke(client,workspace,"machine.profile")
                 self.assertIn("setpoint",profile["result"]["parameters"],profile)
                 done,request=await self.step(client,workspace,"machine.parameter.write",parameter="setpoint",
-                    value=2000,command_id="sdk-named-parameter",_execution_context={"revision":"caller-spoof"})
+                    value=2300,command_id="sdk-named-parameter",_execution_context={"revision":"caller-spoof"})
                 result=done["completed"][0]["result"]
                 self.assertTrue(result["ok"],result)
                 self.assertTrue(result["readback_verified"],result)
                 self.assertFalse(result["ack_verified"],result)
-                self.assertEqual(self.audit()["parameter_mutations"],[[2000,2000]])
+                self.assertEqual(self.audit()["parameter_mutations"],[[2300,2300]])
                 before=self.audit()
                 self.assertEqual(await self.call(client,"workflow.run",request),done)
                 self.assertEqual(self.audit(),before)
@@ -222,10 +222,10 @@ class TemperatureStdio(unittest.TestCase):
             async with Client(self.params(parameter_readback_loss=True),read_timeout_seconds=20) as client:
                 workspace=await self.create(client)
                 failed,_=await self.step(client,workspace,"machine.parameter.write",parameter="setpoint",
-                                        value=2000,command_id="sdk-d-readback-loss")
+                                        value=2300,command_id="sdk-d-readback-loss")
                 result=failed["completed"][0]["result"]
                 self.assertEqual(result["status"],"unknown_outcome",result)
-                blocked=await self.invoke(client,workspace,"machine.command",command="temperature.channel.start",
+                blocked=await self.invoke(client,workspace,"machine.command",command="bench.lane.start",
                                          selector=1,command_id="sdk-m-after-d-unknown")
                 self.assertFalse(blocked["result"]["ok"],blocked)
                 recovered,_=await self.step(client,workspace,"machine.reconcile",workflow="W6",
@@ -233,7 +233,7 @@ class TemperatureStdio(unittest.TestCase):
                 data=recovered["completed"][0]["result"]
                 self.assertTrue(data["ok"],data)
                 self.assertEqual(data["classification"],"candidate",data)
-                self.assertEqual(self.audit()["parameter_mutations"],[[2000,2000]])
+                self.assertEqual(self.audit()["parameter_mutations"],[[2300,2300]])
                 self.assertEqual(self.audit()["mutations"],[])
         asyncio.run(run())
 
@@ -241,16 +241,16 @@ class TemperatureStdio(unittest.TestCase):
         async def run():
             async with Client(self.params(lost_ack=True),read_timeout_seconds=20) as client:
                 workspace=await self.create(client)
-                failed,request=await self.step(client,workspace,"temperature.channel.start",channel=1,
+                failed,request=await self.step(client,workspace,"bench.lane.start",channel=1,
                                                 command_id="sdk-lost-ack")
                 result=failed["completed"][0]["result"]
                 self.assertFalse(result["ok"],result)
                 self.assertEqual(result["status"],"unknown_outcome",result)
                 self.assertFalse(result["retry_allowed"],result)
-                self.assertEqual(self.audit()["mutations"],[[100,1],[100,0]])
+                self.assertEqual(self.audit()["mutations"],[[256,1],[256,0]])
                 before=self.audit()["mutations"]
                 self.assertEqual(await self.call(client,"workflow.run",request),failed)
-                recovered,_=await self.step(client,workspace,"temperature.reconcile",workflow="W6",
+                recovered,_=await self.step(client,workspace,"bench.reconcile",workflow="W6",
                                            journal_path=result["journal_path"])
                 self.assertTrue(recovered["completed"][0]["result"]["ok"],recovered)
                 self.assertEqual(self.audit()["mutations"],before)

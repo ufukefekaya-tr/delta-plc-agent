@@ -73,6 +73,16 @@ python -m universal_plc --root ./plc-agent-data serve
 
 Point your MCP client's command at that environment's Python interpreter and use the arguments above. Give your agent [AGENTS.md](AGENTS.md) and [INDEX.md](INDEX.md) as its engineering entrypoints. [Client configuration and a first prompt](docs/QUICKSTART.md).
 
+## Optional engineering skill
+
+Add the [MIT Delta PLC engineering skill](skills/delta-plc-engineering/SKILL.md)
+to give a skills-compatible agent model-aware workflows, operation-contract
+checks and recovery guidance alongside this MCP. The standalone directory carries
+its own references and license. Existing MCP-only clients keep the same tools.
+[Install and verify the skill](docs/public/SKILL.md) ·
+[Phased plan and acceptance](docs/plans/plc-skill/PLAN.md) ·
+[Dynamic goals](goals/plc-skill/portfolio.json)
+
 ## Build with us
 
 Bring an adapter, a reproducible model qualification, an example, or a documentation improvement. Start with [CONTRIBUTING](CONTRIBUTING.md) and [the public launch workflow](workflows/public-launch.json).

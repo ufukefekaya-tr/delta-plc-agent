@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "reviewer": "Independent Astra forward evaluator",
+  "kind": "SOFTWARE_ONLY",
+  "final_code_review": false,
+  "cases": [
+    {
+      "id": "A",
+      "result": "PASS",
+      "installed_core_version": "0.4.0",
+      "mcp_sdk": "2.1.1",
+      "source_checkout_on_pythonpath": false,
+      "unrelated_unicode_cwd": true,
+      "trace": [
+        "initialize",
+        "tools/list",
+        "target.resolve",
+        "capabilities.list",
+        "workspace.create",
+        "workspace.import",
+        "adapter.invoke:dvp.il_to_mpu",
+        "evidence.read",
+        "adapter.invoke:dvp.mpu_to_il",
+        "evidence.read",
+        "workspace.status"
+      ],
+      "roundtrip_equal": true,
+      "source_unchanged": true,
+      "source_sha256": "ab82d304f8ead06f7a4c67606ca87a5f29b18445cb99e79b2aaef764bdb2575f",
+      "evidence_kind": "FILE_TRANSFORM",
+      "vendor_compile": false,
+      "live_execution": false,
+      "old_0_3_1_recipe_rejected_before_mutation": true
+    },
+    {
+      "id": "B",
+      "result": "PASS_DECISION_REVIEW",
+      "actual_native_calls": false,
+      "decision": "Source packaging and retained stale compiled prefix do not establish a native build; do not invent a private engineering launcher"
+    },
+    {
+      "id": "C",
+      "result": "PASS_DECISION_REVIEW",
+      "actual_target_calls": false,
+      "decision": "Unknown transfer/target: inspect existing host-local records first; no reconnect/replay/RUN/Stop/rollback; observation stop is distinct and can require a target worker"
+    },
+    {
+      "id": "T13-MCP-only",
+      "result": "PASS_SOFTWARE_ONLY",
+      "reviewer": "Independent Astra without skill body or references",
+      "installed_core_version": "0.4.0",
+      "mcp_sdk": "2.1.1",
+      "source_checkout_on_pythonpath": false,
+      "unrelated_unicode_cwd": true,
+      "roundtrip_equal": true,
+      "source_unchanged": true,
+      "source_sha256": "ab82d304f8ead06f7a4c67606ca87a5f29b18445cb99e79b2aaef764bdb2575f",
+      "evidence_kind": "FILE_TRANSFORM",
+      "vendor_compile": false,
+      "live_execution": false,
+      "comparison_to_skill_case_A": "Same input/output IL bytes and evidence class; MPU binary equality not asserted",
+      "trace_sha256": "65c73135fedf198de3e88401f746d1e94ec6740ed78e30ca9157ee264bccabde"
+    },
+    {
+      "id": "T13-HMI-only",
+      "result": "PASS_SELECTION_REVIEW",
+      "reviewer": "Independent Astra, frontmatter only",
+      "request": "DOP-107EV screen Start button and page navigation",
+      "PLC_skill_selected": false,
+      "PLC_or_HMI_tool_calls": false,
+      "invented_PLC_address": false,
+      "next_step": "Discover separate HMI capability"
+    }
+  ],
+  "hardware_contacted": false,
+  "vendor_ide_contacted": false,
+  "customer_content": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source_snapshot": "f558dc0a30b293aee44e35ca6138feb6f5ad7f36",
+  "source_identity_only": true,
+  "features": [
+    {"id":"AS-CODEC", "decision":"ALREADY_PRESENT", "goal":"S0-G1", "reason":"Bounded source-pointer codec and common server already match public source; no older-core overwrite"},
+    {"id":"AS-NAME-PREFLIGHT", "decision":"GENERALIZE", "goal":"S1-G1", "reason":"Separate bounded declaration inventory and source-bound installed-vendor receipt checks; do not claim complete IDE name checking"},
+    {"id":"AS-SOURCE-EXPORT", "decision":"GENERALIZE", "goal":"S1-G1", "reason":"Digest-bound planning/new-only export useful; existing aliases, staged layout and machine binding excluded; new independent profile required"},
+    {"id":"AS-CONTEXT", "decision":"GENERALIZE", "goal":"S1-G1", "reason":"Replace implicit source ancestry with explicit authorized roots without dropping path/worktree isolation"},
+    {"id":"AS-JOURNAL", "decision":"GENERALIZE", "goal":"S1-G2", "reason":"Retain intent/result/failure-stage recovery; import no historical runtime records"},
+    {"id":"AS-BUILD-COMPARE", "decision":"GENERALIZE", "goal":"S1-G2", "reason":"Source/artifact/runtime identities useful; legacy binary equivalence and full retained ABI remain unqualified"},
+    {"id":"AS-HOST-WATCH-WRITE", "decision":"UNQUALIFIED", "goal":"S2-G0", "reason":"New host/target enrollment, independent generic profile and native API review required; project transport/profile is not a default"},
+    {"id":"NORMAL-DD-NATIVE", "decision":"UNQUALIFIED", "goal":"S2-G1", "reason":"43 tool definitions are inventory; exact model/operation/language/SDK/license qualification required before publication"},
+    {"id":"CUSTOMER-PROFILES", "decision":"PROJECT_ONLY", "goal":"S1-G0", "reason":"No native project, symbol/address/recipe catalog, installed-host path, runtime journal or historical authority may be imported"}
+  ],
+  "implementation_claim": "No S1/S2 feature is implemented merely by this inventory",
+  "S0_blocked_by_native_qualification": false
+}

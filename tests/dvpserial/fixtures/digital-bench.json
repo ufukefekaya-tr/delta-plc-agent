@@ -1,0 +1,1098 @@
+{
+  "schema_version": 1,
+  "contract_id": "SYNTHETIC_DIGITAL_BENCH_V1",
+  "revision": "SYNTHETIC_R1",
+  "reference_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "reference_payload_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "qualification": "SOFTWARE_ONLY_FROM_SCRATCH; NEVER A DEPLOYMENT PROFILE",
+  "commands": {
+    "bench.lane.start": {
+      "selector": "lane",
+      "coils": [
+        "M256",
+        "M257",
+        "M258",
+        "M259",
+        "M260",
+        "M261",
+        "M262",
+        "M263"
+      ],
+      "ack_devices": [
+        "M288",
+        "M289",
+        "M290",
+        "M291",
+        "M292",
+        "M293",
+        "M294",
+        "M295"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M451",
+          "M272",
+          "M336"
+        ],
+        [
+          "M451",
+          "M273",
+          "M336"
+        ],
+        [
+          "M451",
+          "M274",
+          "M337"
+        ],
+        [
+          "M451",
+          "M275",
+          "M337"
+        ],
+        [
+          "M451",
+          "M276",
+          "M338"
+        ],
+        [
+          "M451",
+          "M277",
+          "M338"
+        ],
+        [
+          "M451",
+          "M278",
+          "M339"
+        ],
+        [
+          "M451",
+          "M279",
+          "M339"
+        ]
+      ],
+      "release_edge_devices": [
+        "M304",
+        "M305",
+        "M306",
+        "M307",
+        "M308",
+        "M309",
+        "M310",
+        "M311"
+      ],
+      "is_start": true,
+      "effect": "synthetic digital request"
+    },
+    "bench.all_lane.start": {
+      "selector": null,
+      "coils": [
+        "M256",
+        "M257",
+        "M258",
+        "M259",
+        "M260",
+        "M261",
+        "M262",
+        "M263"
+      ],
+      "ack_devices": [
+        "M288",
+        "M289",
+        "M290",
+        "M291",
+        "M292",
+        "M293",
+        "M294",
+        "M295"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M451",
+          "M272",
+          "M336"
+        ],
+        [
+          "M451",
+          "M273",
+          "M336"
+        ],
+        [
+          "M451",
+          "M274",
+          "M337"
+        ],
+        [
+          "M451",
+          "M275",
+          "M337"
+        ],
+        [
+          "M451",
+          "M276",
+          "M338"
+        ],
+        [
+          "M451",
+          "M277",
+          "M338"
+        ],
+        [
+          "M451",
+          "M278",
+          "M339"
+        ],
+        [
+          "M451",
+          "M279",
+          "M339"
+        ]
+      ],
+      "release_edge_devices": [
+        "M304",
+        "M305",
+        "M306",
+        "M307",
+        "M308",
+        "M309",
+        "M310",
+        "M311"
+      ],
+      "is_start": true,
+      "effect": "synthetic digital request"
+    },
+    "bench.lane.stop": {
+      "selector": "lane",
+      "coils": [
+        "M272",
+        "M273",
+        "M274",
+        "M275",
+        "M276",
+        "M277",
+        "M278",
+        "M279"
+      ],
+      "ack_devices": [
+        "M288",
+        "M289",
+        "M290",
+        "M291",
+        "M292",
+        "M293",
+        "M294",
+        "M295"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "release_edge_devices": [],
+      "is_start": false,
+      "effect": "synthetic digital request"
+    },
+    "bench.all_lane.stop": {
+      "selector": null,
+      "coils": [
+        "M272",
+        "M273",
+        "M274",
+        "M275",
+        "M276",
+        "M277",
+        "M278",
+        "M279"
+      ],
+      "ack_devices": [
+        "M288",
+        "M289",
+        "M290",
+        "M291",
+        "M292",
+        "M293",
+        "M294",
+        "M295"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "release_edge_devices": [],
+      "is_start": false,
+      "effect": "synthetic digital request"
+    },
+    "bench.bank.start": {
+      "selector": "bank",
+      "coils": [
+        "M320",
+        "M321",
+        "M322",
+        "M323"
+      ],
+      "ack_devices": [
+        "M352",
+        "M353",
+        "M354",
+        "M355"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M451",
+          "M336"
+        ],
+        [
+          "M451",
+          "M337"
+        ],
+        [
+          "M451",
+          "M338"
+        ],
+        [
+          "M451",
+          "M339"
+        ]
+      ],
+      "release_edge_devices": [
+        "M368",
+        "M369",
+        "M370",
+        "M371"
+      ],
+      "is_start": true,
+      "effect": "synthetic digital request"
+    },
+    "bench.all_bank.start": {
+      "selector": null,
+      "coils": [
+        "M320",
+        "M321",
+        "M322",
+        "M323"
+      ],
+      "ack_devices": [
+        "M352",
+        "M353",
+        "M354",
+        "M355"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M451",
+          "M336"
+        ],
+        [
+          "M451",
+          "M337"
+        ],
+        [
+          "M451",
+          "M338"
+        ],
+        [
+          "M451",
+          "M339"
+        ]
+      ],
+      "release_edge_devices": [
+        "M368",
+        "M369",
+        "M370",
+        "M371"
+      ],
+      "is_start": true,
+      "effect": "synthetic digital request"
+    },
+    "bench.bank.stop": {
+      "selector": "bank",
+      "coils": [
+        "M336",
+        "M337",
+        "M338",
+        "M339"
+      ],
+      "ack_devices": [
+        "M352",
+        "M353",
+        "M354",
+        "M355"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "release_edge_devices": [],
+      "is_start": false,
+      "effect": "synthetic digital request"
+    },
+    "bench.all_bank.stop": {
+      "selector": null,
+      "coils": [
+        "M336",
+        "M337",
+        "M338",
+        "M339"
+      ],
+      "ack_devices": [
+        "M352",
+        "M353",
+        "M354",
+        "M355"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "release_edge_devices": [],
+      "is_start": false,
+      "effect": "synthetic digital request"
+    },
+    "bench.calibration.start": {
+      "selector": "lane",
+      "coils": [
+        "M384",
+        "M385",
+        "M386",
+        "M387",
+        "M388",
+        "M389",
+        "M390",
+        "M391"
+      ],
+      "ack_devices": [
+        "M704",
+        "M705",
+        "M706",
+        "M707",
+        "M708",
+        "M709",
+        "M710",
+        "M711"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M451",
+          "M400",
+          "M336",
+          "M449",
+          "M400"
+        ],
+        [
+          "M451",
+          "M401",
+          "M336",
+          "M449",
+          "M401"
+        ],
+        [
+          "M451",
+          "M402",
+          "M337",
+          "M449",
+          "M402"
+        ],
+        [
+          "M451",
+          "M403",
+          "M337",
+          "M449",
+          "M403"
+        ],
+        [
+          "M451",
+          "M404",
+          "M338",
+          "M449",
+          "M404"
+        ],
+        [
+          "M451",
+          "M405",
+          "M338",
+          "M449",
+          "M405"
+        ],
+        [
+          "M451",
+          "M406",
+          "M339",
+          "M449",
+          "M406"
+        ],
+        [
+          "M451",
+          "M407",
+          "M339",
+          "M449",
+          "M407"
+        ]
+      ],
+      "release_edge_devices": [
+        "M432",
+        "M433",
+        "M434",
+        "M435",
+        "M436",
+        "M437",
+        "M438",
+        "M439"
+      ],
+      "is_start": true,
+      "effect": "synthetic digital request"
+    },
+    "bench.all_calibration.start": {
+      "selector": null,
+      "coils": [
+        "M448"
+      ],
+      "ack_devices": [
+        "M704",
+        "M705",
+        "M706",
+        "M707",
+        "M708",
+        "M709",
+        "M710",
+        "M711"
+      ],
+      "ack_expected": 1,
+      "stop_guards": [
+        [
+          "M451",
+          "M449",
+          "M400",
+          "M401",
+          "M402",
+          "M403",
+          "M404",
+          "M405",
+          "M406",
+          "M407"
+        ]
+      ],
+      "release_edge_devices": [
+        "M450"
+      ],
+      "is_start": true,
+      "effect": "synthetic simultaneous calibration"
+    },
+    "bench.calibration.stop": {
+      "selector": "lane",
+      "coils": [
+        "M400",
+        "M401",
+        "M402",
+        "M403",
+        "M404",
+        "M405",
+        "M406",
+        "M407"
+      ],
+      "ack_devices": [
+        "M704",
+        "M705",
+        "M706",
+        "M707",
+        "M708",
+        "M709",
+        "M710",
+        "M711"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "release_edge_devices": [],
+      "is_start": false,
+      "effect": "synthetic digital request"
+    },
+    "bench.all_calibration.stop": {
+      "selector": null,
+      "coils": [
+        "M449"
+      ],
+      "ack_devices": [
+        "M704",
+        "M705",
+        "M706",
+        "M707",
+        "M708",
+        "M709",
+        "M710",
+        "M711"
+      ],
+      "ack_expected": 0,
+      "stop_guards": [
+        []
+      ],
+      "release_edge_devices": [],
+      "is_start": false,
+      "effect": "synthetic simultaneous calibration"
+    }
+  },
+  "read_devices": [
+    "D2300",
+    "D2310",
+    "D2320",
+    "D2330",
+    "D2340",
+    "D2350",
+    "D2360",
+    "D2370",
+    "D2400",
+    "D256",
+    "D257",
+    "D258",
+    "D259",
+    "D260",
+    "D2600",
+    "D2601",
+    "D2602",
+    "D2603",
+    "D2604",
+    "D2605",
+    "D2606",
+    "D2607",
+    "D261",
+    "D262",
+    "D2620",
+    "D2621",
+    "D2622",
+    "D2623",
+    "D2624",
+    "D2625",
+    "D2626",
+    "D2627",
+    "D263",
+    "D2640",
+    "D2641",
+    "D2642",
+    "D2643",
+    "D2644",
+    "D2645",
+    "D2646",
+    "D2647",
+    "D2800",
+    "D2801",
+    "D2802",
+    "D2803",
+    "D2804",
+    "D2805",
+    "D2806",
+    "D2807",
+    "D2808",
+    "D2809",
+    "D2810",
+    "D2811",
+    "D2812",
+    "D2813",
+    "D2814",
+    "D2815",
+    "D2816",
+    "D2817",
+    "D2818",
+    "D2819",
+    "D2820",
+    "D2821",
+    "D2822",
+    "D2823",
+    "D600",
+    "D601",
+    "D602",
+    "D603",
+    "D604",
+    "D605",
+    "D606",
+    "D607",
+    "D640",
+    "D641",
+    "D642",
+    "D643",
+    "D644",
+    "D645",
+    "D646",
+    "D647",
+    "M1000",
+    "M1002",
+    "M256",
+    "M257",
+    "M258",
+    "M259",
+    "M260",
+    "M261",
+    "M262",
+    "M263",
+    "M272",
+    "M273",
+    "M274",
+    "M275",
+    "M276",
+    "M277",
+    "M278",
+    "M279",
+    "M288",
+    "M289",
+    "M290",
+    "M291",
+    "M292",
+    "M293",
+    "M294",
+    "M295",
+    "M304",
+    "M305",
+    "M306",
+    "M307",
+    "M308",
+    "M309",
+    "M310",
+    "M311",
+    "M320",
+    "M321",
+    "M322",
+    "M323",
+    "M336",
+    "M337",
+    "M338",
+    "M339",
+    "M352",
+    "M353",
+    "M354",
+    "M355",
+    "M368",
+    "M369",
+    "M370",
+    "M371",
+    "M384",
+    "M385",
+    "M386",
+    "M387",
+    "M388",
+    "M389",
+    "M390",
+    "M391",
+    "M400",
+    "M401",
+    "M402",
+    "M403",
+    "M404",
+    "M405",
+    "M406",
+    "M407",
+    "M432",
+    "M433",
+    "M434",
+    "M435",
+    "M436",
+    "M437",
+    "M438",
+    "M439",
+    "M448",
+    "M449",
+    "M450",
+    "M451",
+    "M480",
+    "M481",
+    "M482",
+    "M483",
+    "M484",
+    "M485",
+    "M486",
+    "M487",
+    "M640",
+    "M641",
+    "M642",
+    "M643",
+    "M656",
+    "M657",
+    "M658",
+    "M659",
+    "M704",
+    "M705",
+    "M706",
+    "M707",
+    "M708",
+    "M709",
+    "M710",
+    "M711",
+    "Y0",
+    "Y1",
+    "Y2",
+    "Y20",
+    "Y21",
+    "Y22",
+    "Y23",
+    "Y24",
+    "Y25",
+    "Y26",
+    "Y27",
+    "Y3",
+    "Y30",
+    "Y31",
+    "Y32",
+    "Y33"
+  ],
+  "observations": {
+    "display_sample": {
+      "device": "D256",
+      "count": 8,
+      "scale": 0.1,
+      "signed": true,
+      "unit": "V"
+    },
+    "raw_sample": {
+      "device": "D600",
+      "count": 8,
+      "scale": 0.01,
+      "signed": true,
+      "unit": "V"
+    },
+    "duty": {
+      "device": "D640",
+      "count": 8,
+      "scale": 0.1,
+      "signed": false,
+      "unit": "%"
+    },
+    "lane_request": {
+      "device": "M288",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "lane_permit": {
+      "device": "M480",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "bank_request": {
+      "device": "M352",
+      "count": 4,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "bank_permit": {
+      "device": "M656",
+      "count": 4,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "bank_trip": {
+      "device": "M640",
+      "count": 4,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "bank_output_bits": {
+      "device": "Y0",
+      "count": 4,
+      "scale": 1,
+      "signed": false,
+      "unit": "PLC_OUTPUT_BIT"
+    },
+    "lane_output_bits": {
+      "device": "Y20",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "PLC_OUTPUT_BIT"
+    },
+    "calibration_active": {
+      "device": "M704",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "bool"
+    },
+    "gain_a": {
+      "device": "D2600",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "TEST_RAW"
+    },
+    "gain_b": {
+      "device": "D2620",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "TEST_RAW"
+    },
+    "gain_c": {
+      "device": "D2640",
+      "count": 8,
+      "scale": 1,
+      "signed": false,
+      "unit": "TEST_RAW"
+    },
+    "state_01": {
+      "device": "D2800",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_01",
+      "precondition_value": 5
+    },
+    "elapsed_01": {
+      "device": "D2801",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_01": {
+      "device": "D2802",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_02": {
+      "device": "D2803",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_02",
+      "precondition_value": 5
+    },
+    "elapsed_02": {
+      "device": "D2804",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_02": {
+      "device": "D2805",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_03": {
+      "device": "D2806",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_03",
+      "precondition_value": 5
+    },
+    "elapsed_03": {
+      "device": "D2807",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_03": {
+      "device": "D2808",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_04": {
+      "device": "D2809",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_04",
+      "precondition_value": 5
+    },
+    "elapsed_04": {
+      "device": "D2810",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_04": {
+      "device": "D2811",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_05": {
+      "device": "D2812",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_05",
+      "precondition_value": 5
+    },
+    "elapsed_05": {
+      "device": "D2813",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_05": {
+      "device": "D2814",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_06": {
+      "device": "D2815",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_06",
+      "precondition_value": 5
+    },
+    "elapsed_06": {
+      "device": "D2816",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_06": {
+      "device": "D2817",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_07": {
+      "device": "D2818",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_07",
+      "precondition_value": 5
+    },
+    "elapsed_07": {
+      "device": "D2819",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_07": {
+      "device": "D2820",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    },
+    "state_08": {
+      "device": "D2821",
+      "count": 1,
+      "enum": {
+        "0": "WAITING",
+        "1": "RUNNING",
+        "2": "COMPLETE",
+        "3": "STOPPED",
+        "5": "PRECONDITION_MISSING"
+      },
+      "reason_field": "reason_08",
+      "precondition_value": 5
+    },
+    "elapsed_08": {
+      "device": "D2822",
+      "count": 1,
+      "unit": "ticks"
+    },
+    "reason_08": {
+      "device": "D2823",
+      "count": 1,
+      "enum": {
+        "0": "NONE",
+        "1": "PERMISSION_OR_PROTECTION_LOSS",
+        "6": "TIME_LIMIT",
+        "7": "READ_ERROR",
+        "8": "CANCELLED"
+      }
+    }
+  },
+  "parameters": {}
+}

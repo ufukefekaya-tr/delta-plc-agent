@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "S0-G7",
+  "slice": "S0",
+  "revision": 1,
+  "status": "ACCEPTED",
+  "outcome": "NO_CHANGE",
+  "title": "Independent final acceptance",
+  "dependencies": [
+    "S0-G6"
+  ],
+  "workflow": "workflows/plc-skill/S0-G7.json",
+  "owner": "PLC maintainer",
+  "source_refs": [
+    "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
+  ],
+  "input_hashes": {
+    "docs/public/SKILL_0_4_REVIEW.json": "9f5dd32f048a6e09ee9160425cf3124d698792afc20296b0b49eb77e6c23012f",
+    "workflows/plc-skill/S0-G7.json": "202bcac396982da8121a2ca192f12679aacb047b8790e6ccd57b9fe1fda14ef5"
+  },
+  "output_hashes": {},
+  "read_scope": [
+    "Published PLC source",
+    "Explicitly inventoried generic donor source"
+  ],
+  "write_scope": [
+    "Owned isolated PLC candidate only"
+  ],
+  "risks": [
+    "REGRESSION",
+    "CUSTOMER_DATA",
+    "VERSION_SKEW"
+  ],
+  "acceptance_tests": [
+    "T01",
+    "T12",
+    "T13"
+  ],
+  "evidence": [
+    "docs/public/SKILL_0_4_REVIEW.json"
+  ],
+  "gaps": [],
+  "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
+  "next_step": "Publish exact reviewed source with explicitly bound delivery metadata",
+  "history": [
+    {
+      "decision": "Independent Astra ACCEPT; no remaining P0/P1; reviewed tree 81a067454742226533085c34c5cc623a2e903573"
+    }
+  ],
+  "hash_algorithm": "sha256-text-lf-v1"
+}
