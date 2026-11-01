@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "S0_ACCEPTED_PENDING_DELIVERY",
+  "status": "S0_DELIVERED",
   "date": "2026-11-01",
   "slice": "S0",
   "versions": {
@@ -38,18 +38,22 @@
       "Independent skill versus MCP-only neutral roundtrip and HMI-only nonselection recorded"
     ],
     "exact_artifact_wheel_stdio": "PASS",
-    "exact_artifact_sdist_stdio": "PASS_AFTER_FORCE_REINSTALL_IN_WHEEL_ENVIRONMENT"
+    "exact_artifact_sdist_stdio": "PASS_AFTER_FORCE_REINSTALL_IN_WHEEL_ENVIRONMENT",
+    "hosted_ci": {
+      "passed": 5,
+      "url": "https://github.com/ufukefekaya-tr/delta-plc-agent/actions/runs/41299542192"
+    }
   },
   "source_execution_engines": "Unchanged from reviewed baseline except core package version metadata; normalized module hashes are in RUNTIME_BASELINE.json",
   "not_run": [
     "New native IDE compilation",
     "Physical PLC or HMI operations",
     "New model qualification",
-    "AS generic/native extension acceptance",
-    "Hosted CI for this new candidate"
+    "AS generic/native extension acceptance"
   ],
   "S1_S2_complete": false,
   "historical_assets_replaced": false,
   "evidence_scope": "Software tests and independently observed offline stdio; no physical acceptance",
-  "final_review": "docs/public/SKILL_0_4_REVIEW.json"
+  "final_review": "docs/public/SKILL_0_4_REVIEW.json",
+  "delivery": "docs/public/SKILL_0_4_DELIVERY.json"
 }

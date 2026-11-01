@@ -33,6 +33,14 @@
     {
       "revision": 2,
       "decision": "Astra ACCEPT after slice separation and mandatory fresh fixture replacement; human authorized implementation"
+    },
+    {
+      "decision": "S0 delivered as v0.4.0; no claim that S1/S2 or portfolio are complete"
     }
-  ]
+  ],
+  "slice_status": {
+    "S0": "ACCEPTED",
+    "S1": "PLANNED_AFTER_INVENTORY",
+    "S2": "BLOCKED_PREREQUISITES"
+  }
 }

@@ -16,7 +16,7 @@
   ],
   "input_hashes": {
     "docs/plans/plc-skill/BEHAVIOR_REVIEW.json": "ed300fd7f22c278aa81bafedab0283c7e50685274da41dd8fb32322a5b4e5d41",
-    "docs/public/SKILL_0_4_VALIDATION.json": "8e2dd2cc5f6001be1b6803496563ccc0cc937d9f34ee71bfdc1bf458b1282e01",
+    "docs/public/SKILL_0_4_VALIDATION.json": "8e7db907925bad22241b6a00033beca6aa434e2a3e47d81238120da4f74c3a3e",
     "tests/skills/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/skills/test_runtime_invariants.py": "de557ef4e40263f53b01577d0a69284b5534e23d35a267350503b107820f3b91",
     "tests/skills/test_skill_package.py": "e76d6fc3962606c8adc7f5b40a48bbf408cf7c49be2f80a5d320b98d8ab628e0",
@@ -26,7 +26,7 @@
   },
   "output_hashes": {
     "docs/plans/plc-skill/BEHAVIOR_REVIEW.json": "ed300fd7f22c278aa81bafedab0283c7e50685274da41dd8fb32322a5b4e5d41",
-    "docs/public/SKILL_0_4_VALIDATION.json": "8e2dd2cc5f6001be1b6803496563ccc0cc937d9f34ee71bfdc1bf458b1282e01"
+    "docs/public/SKILL_0_4_VALIDATION.json": "8e7db907925bad22241b6a00033beca6aa434e2a3e47d81238120da4f74c3a3e"
   },
   "read_scope": [
     "Published PLC source",

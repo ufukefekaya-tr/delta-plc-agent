@@ -3,8 +3,8 @@
   "id": "S0-G8",
   "slice": "S0",
   "revision": 1,
-  "status": "RUNNING",
-  "outcome": null,
+  "status": "ACCEPTED",
+  "outcome": "CHANGED",
   "title": "Deliver reviewed source",
   "dependencies": [
     "S0-G7"
@@ -15,6 +15,7 @@
     "0584d9d1f85b8ec7f59cbf7c20c70b9e0fd365c1"
   ],
   "input_hashes": {
+    "docs/public/SKILL_0_4_DELIVERY.json": "67447c1a98a72064be802222d2eada1318c3edffc3a38dc843a7e49f28547b01",
     "workflows/plc-skill/S0-G8.json": "ee324705b13b683c64233bf14f0291e895b0a2b8ff03cfd68f771fab076d85ed"
   },
   "output_hashes": {},
@@ -35,10 +36,16 @@
     "T02",
     "T12"
   ],
-  "evidence": [],
+  "evidence": [
+    "docs/public/SKILL_0_4_DELIVERY.json"
+  ],
   "gaps": [],
   "rollback": "Revert only owned candidate changes; do not overwrite host/customer/device state",
-  "next_step": "Commit, publish PR, verify hosted CI, merge, publish new immutable release and record delivery",
-  "history": [],
+  "next_step": "S0 delivered; S1/S2 remain separately tracked",
+  "history": [
+    {
+      "decision": "PR2 merged after all five CI checks; v0.4.0 published with seven verified asset digests; no old asset replacement"
+    }
+  ],
   "hash_algorithm": "sha256-text-lf-v1"
 }
